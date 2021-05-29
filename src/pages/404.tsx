@@ -1,6 +1,6 @@
-import { Result, Button } from 'antd';
+import { Result } from 'antd';
 
-export default () => {
+const NotFound = () => {
   return (
     <Result
       status="404"
@@ -9,3 +9,4 @@ export default () => {
     />
   );
 };
+export default NotFound;

@@ -1,9 +1,6 @@
 import { Filter } from '@/models/filter';
 import { Card, Checkbox, Divider, Tag, Button } from 'antd';
 
-function onChange(checkedValues) {
-  console.log('checked = ', checkedValues);
-}
 const FilterCard = ({
   categories,
   departments,
@@ -11,6 +8,9 @@ const FilterCard = ({
   categories: Filter[];
   departments: Filter[];
 }) => {
+  const onChange = (checkedValues) => {
+    console.log('checked = ', checkedValues);
+  };
   return (
     <Card title="筛选" extra={<Button>确认</Button>}>
       <h3>课程类别</h3>

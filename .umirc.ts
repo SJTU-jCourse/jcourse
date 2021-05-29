@@ -1,7 +1,7 @@
 import { defineConfig } from 'umi';
 
 export default defineConfig({
-  title: 'jCourse - SJTU选课社区',
+  title: 'SJTU选课社区',
   nodeModulesTransform: {
     type: 'none',
   },

@@ -5,7 +5,7 @@ import { useMediaQuery } from 'react-responsive';
 
 const { Header, Content, Footer } = Layout;
 
-const BasicLayout = (props) => {
+const BasicLayout = (props: { location: { pathname: any }; children: any }) => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 992px)' });
 
   const {
