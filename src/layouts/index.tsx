@@ -1,11 +1,14 @@
-import { Layout, Space } from 'antd';
+import { Layout, Space, Alert, List } from 'antd';
 import { Link } from 'react-router-dom';
 import NavBar from '@/components/navbar';
 import { useMediaQuery } from 'react-responsive';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const { Header, Content, Footer } = Layout;
 
 const BasicLayout = (props: { location: { pathname: any }; children: any }) => {
+  const [notices, setNotices] = useState<string[]>([]);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 992px)' });
 
   const {
@@ -13,6 +16,11 @@ const BasicLayout = (props: { location: { pathname: any }; children: any }) => {
     children,
   } = props;
 
+  useEffect(() => {
+    axios.get('/api/notices').then((resp) => {
+      setNotices(resp.data);
+    });
+  }, []);
   return (
     <Layout>
       <Header
@@ -33,6 +41,21 @@ const BasicLayout = (props: { location: { pathname: any }; children: any }) => {
           paddingInline: 16,
         }}
       >
+        {notices.length > 0 ? (
+          <List
+            dataSource={notices}
+            split={false}
+            itemLayout="vertical"
+            renderItem={(notice) => (
+              <List.Item key={notice}>
+                <Alert message={notice} banner type="info" />
+              </List.Item>
+            )}
+          />
+        ) : (
+          <></>
+        )}
+
         {children}
       </Content>
       <Footer style={{ textAlign: 'center' }}>

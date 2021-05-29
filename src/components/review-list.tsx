@@ -1,4 +1,4 @@
-import { Space, List } from 'antd';
+import { Space, List, Alert } from 'antd';
 import { LikeOutlined, DislikeOutlined } from '@ant-design/icons';
 import { LeftIconText } from '@/components/icon-text';
 import { Review } from '@/models/review';
@@ -31,7 +31,13 @@ const ReviewList = ({ reviews }: { reviews: Review[] }) => {
             />,
           ]}
         >
-          <Space direction="vertical">
+          <Space direction="vertical" style={{ width: '100%' }}>
+            {item.moderator_remark ? (
+              <Alert message={item.moderator_remark} type="warning" showIcon />
+            ) : (
+              <></>
+            )}
+
             {item.course ? (
               <Link to={'/course/' + item.course.id}>
                 {item.course.code} {item.course.name}（{item.course.teacher}）

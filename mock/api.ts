@@ -101,6 +101,7 @@ export default {
         approves: 10,
         disapproves: 5,
         score: 'A+',
+        moderator_remark: '该内容真实性存疑',
       },
     ],
   },
@@ -167,15 +168,16 @@ export default {
         },
         semester: '2020-2021-1',
         rating: 5,
-        comment:
-          '真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳',
+        comment: '真不错',
         created: '2021-5-29',
         approves: 10,
         disapproves: 5,
         score: 99,
+        moderator_remark: '该内容真实性存疑',
       },
     ],
   },
+  'GET /api/notices': ['通知：服务器维护', '通知：服务器维护'],
 
   'POST /api/review': (req, res) => {
     // 添加跨域请求头

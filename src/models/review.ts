@@ -15,4 +15,5 @@ export interface Review {
   approves: number;
   disapproves: number;
   score: number | string;
+  moderator_remark: string | null;
 }
