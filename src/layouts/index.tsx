@@ -41,7 +41,7 @@ const BasicLayout = (props: { location: { pathname: any }; children: any }) => {
           paddingInline: 16,
         }}
       >
-        {notices.length > 0 ? (
+        {notices.length > 0 && (
           <List
             dataSource={notices}
             split={false}
@@ -52,8 +52,6 @@ const BasicLayout = (props: { location: { pathname: any }; children: any }) => {
               </List.Item>
             )}
           />
-        ) : (
-          <></>
         )}
 
         {children}

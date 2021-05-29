@@ -32,31 +32,25 @@ const ReviewList = ({ reviews }: { reviews: Review[] }) => {
           ]}
         >
           <Space direction="vertical" style={{ width: '100%' }}>
-            {item.moderator_remark ? (
+            {item.moderator_remark && (
               <Alert message={item.moderator_remark} type="warning" showIcon />
-            ) : (
-              <></>
             )}
 
-            {item.course ? (
+            {item.course && (
               <Link to={'/course/' + item.course.id}>
                 {item.course.code} {item.course.name}（{item.course.teacher}）
               </Link>
-            ) : (
-              <></>
             )}
 
             <div>
               <strong>推荐指数：</strong>
               {item.rating} <strong> 学期：</strong>
               {item.semester}
-              {item.score ? (
+              {item.score && (
                 <>
                   <strong> 成绩：</strong>
                   {item.score}
                 </>
-              ) : (
-                <></>
               )}
             </div>
             <div>{item.comment}</div>
