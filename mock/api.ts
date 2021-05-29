@@ -5,8 +5,11 @@ export default {
   // GET 可忽略
   'GET /api/filters': {
     categories: [
-      { name: '通选课', count: 11 },
-      { name: '通识课', count: 11 },
+      { name: '通选', count: 11 },
+      { name: '通识', count: 11 },
+      { name: '英语', count: 11 },
+      { name: '两课', count: 11 },
+      { name: '体育', count: 11 },
     ],
     departments: [
       { name: '船舶海洋与建筑工程学院', count: 101 },
@@ -21,7 +24,7 @@ export default {
         id: 1,
         course_info: {
           code: 'MATH1111',
-          category: '专业课',
+          category: '专业',
           department: '数学科学学院',
           name: '高等数学',
           credit: 6.0,
@@ -39,7 +42,7 @@ export default {
         id: 2,
         course_info: {
           code: 'CS2222H',
-          category: '通识课',
+          category: '通识',
           department: '电子信息与电气工程学院',
           name: '程序设计思想与方法（C++）',
           credit: 6.0,
@@ -97,6 +100,7 @@ export default {
         created: '2021-5-29',
         approves: 10,
         disapproves: 5,
+        score: 'A+',
       },
     ],
   },
@@ -115,7 +119,7 @@ export default {
         id: 1,
         course_info: {
           code: 'MATH1111',
-          category: '专业课',
+          category: '专业',
           department: '数学科学学院',
           name: '高等数学',
           credit: 6.0,
@@ -133,7 +137,7 @@ export default {
         id: 2,
         course_info: {
           code: 'CS2222H',
-          category: '通识课',
+          category: '通识',
           department: '电子信息与电气工程学院',
           name: '程序设计思想与方法（C++）',
           credit: 6.0,
@@ -168,6 +172,7 @@ export default {
         created: '2021-5-29',
         approves: 10,
         disapproves: 5,
+        score: 99,
       },
     ],
   },

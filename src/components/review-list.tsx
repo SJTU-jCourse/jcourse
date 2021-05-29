@@ -1,9 +1,9 @@
-import { Rate, Space, List } from 'antd';
+import { Space, List } from 'antd';
 import { LikeOutlined, DislikeOutlined } from '@ant-design/icons';
-import IconText from '@/components/icon-text';
-import { ReviewInCourse } from '@/models/review';
-
-const ReviewList = ({ reviews }: { reviews: ReviewInCourse[] }) => {
+import { LeftIconText } from '@/components/icon-text';
+import { Review } from '@/models/review';
+import { Link } from 'react-router-dom';
+const ReviewList = ({ reviews }: { reviews: Review[] }) => {
   return (
     <List
       itemLayout="vertical"
@@ -19,12 +19,12 @@ const ReviewList = ({ reviews }: { reviews: ReviewInCourse[] }) => {
           key={item.id}
           actions={[
             <div>{item.created}</div>,
-            <IconText
+            <LeftIconText
               icon={LikeOutlined}
               text={item.approves}
               key="list-vertical-like-o"
             />,
-            <IconText
+            <LeftIconText
               icon={DislikeOutlined}
               text={item.disapproves}
               key="list-vertical-dislike-o"
@@ -32,12 +32,28 @@ const ReviewList = ({ reviews }: { reviews: ReviewInCourse[] }) => {
           ]}
         >
           <Space direction="vertical">
-            <div>{item.comment}</div>
-            <Space align="center">
-              <span>{item.semester}学期</span>
+            {item.course ? (
+              <Link to={'/course/' + item.course.id}>
+                {item.course.code} {item.course.name}（{item.course.teacher}）
+              </Link>
+            ) : (
+              <></>
+            )}
 
-              <Rate disabled value={item.rating} />
-            </Space>
+            <div>
+              <strong>推荐指数：</strong>
+              {item.rating} <strong> 学期：</strong>
+              {item.semester}
+              {item.score ? (
+                <>
+                  <strong> 成绩：</strong>
+                  {item.score}
+                </>
+              ) : (
+                <></>
+              )}
+            </div>
+            <div>{item.comment}</div>
           </Space>
         </List.Item>
       )}

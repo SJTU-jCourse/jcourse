@@ -39,6 +39,7 @@ const BasicLayout = (props) => {
         <Space>
           <div>SJTU选课社区 ©2021</div>
           <Link to="/about">常见问题</Link>
+          <Link to="/report">反馈</Link>
         </Space>
       </Footer>
     </Layout>

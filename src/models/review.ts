@@ -5,7 +5,7 @@ export interface CourseInReview {
   teacher: string;
 }
 
-export interface LatestReview {
+export interface Review {
   id: number;
   course: CourseInReview;
   semester: string;
@@ -14,15 +14,5 @@ export interface LatestReview {
   created: string;
   approves: number;
   disapproves: number;
-}
-
-
-export interface ReviewInCourse {
-  id: number;
-  semester: string;
-  rating: number;
-  comment: string;
-  created: string;
-  approves: number;
-  disapproves: number;
+  score: number | string;
 }

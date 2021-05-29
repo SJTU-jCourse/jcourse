@@ -9,7 +9,7 @@ import ReviewList from '@/components/review-list';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const CourseDetial = () => {
+const CourseDetail = () => {
   const { id } = useParams();
 
   const [course, setCourse] = useState({
@@ -25,7 +25,7 @@ const CourseDetial = () => {
     main_teacher: { tid: '', department: '', name: '', title: '' },
     teacher_group: [],
     rating: {
-      avg: null,
+      avg: 0,
       count: 0,
     },
     related_teachers: [],
@@ -53,7 +53,7 @@ const CourseDetial = () => {
 
           <Card
             style={{ marginTop: 16 }}
-            title="点评"
+            title={`点评（${reviews.count}条）`}
             extra={
               <Link
                 to={{
@@ -74,9 +74,7 @@ const CourseDetial = () => {
               </Link>
             }
           >
-            <ReviewList
-              reviews={reviews.reviews}
-            ></ReviewList>
+            <ReviewList reviews={reviews.reviews}></ReviewList>
           </Card>
         </Col>
         <Col xs={24} md={8}>
@@ -87,4 +85,4 @@ const CourseDetial = () => {
   );
 };
 
-export default CourseDetial;
+export default CourseDetail;

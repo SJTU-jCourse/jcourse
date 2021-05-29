@@ -1,4 +1,4 @@
-import { Menu, Col, Row, Button, Input } from 'antd';
+import { Menu, Col, Row, Button, Input, message } from 'antd';
 import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';
 import { history } from 'umi';
@@ -16,6 +16,10 @@ const NavBar = (props: { pathname: string }) => {
   const { pathname } = props;
 
   const onSearch = (value: string) => {
+    if (value.trim() == '') {
+      message.info('请输入');
+      return;
+    }
     history.push({ pathname: '/search', query: { q: value } });
   };
   return (
@@ -24,6 +28,7 @@ const NavBar = (props: { pathname: string }) => {
         marginInline: 'auto',
         paddingInline: 16,
         width: isTabletOrMobile ? '100%' : 992,
+        height: 64,
       }}
     >
       <Col style={{ display: isXs ? 'none' : 'inline-block' }}>
@@ -43,7 +48,11 @@ const NavBar = (props: { pathname: string }) => {
       </Col>
 
       <Col style={{ marginInline: 'auto' }}>
-        <Menu selectedKeys={[pathname]} mode="horizontal" style={{ border: 0 }}>
+        <Menu
+          selectedKeys={[pathname]}
+          mode="horizontal"
+          style={{ border: 0, height: 64 }}
+        >
           {navMenuItems.map((item) => (
             <Menu.Item key={item.key}>
               <Link to={item.linkTo}>{item.text}</Link>

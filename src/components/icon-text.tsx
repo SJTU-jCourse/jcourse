@@ -1,11 +1,27 @@
 import { Space } from 'antd';
-import { createElement } from 'react';
+import { createElement, FC } from 'react';
 
-const IconText = ({ icon, text }) => (
+export const LeftIconText = ({
+  icon,
+  text,
+}: {
+  icon: FC;
+  text: string | number;
+}) => (
   <Space>
     {createElement(icon)}
     {text}
   </Space>
 );
-
-export default IconText;
+export const RightIconText = ({
+  icon,
+  text,
+}: {
+  icon: FC;
+  text: string | number;
+}) => (
+  <Space>
+    {text}
+    {createElement(icon)}
+  </Space>
+);
