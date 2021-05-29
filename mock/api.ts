@@ -106,6 +106,42 @@ export default {
     ],
   },
 
+  'GET /api/course/1/reviews/new': {
+    count: 10,
+    reviews: [
+      {
+        id: 1,
+        semester: '2020-2021-1',
+        rating: 5,
+        comment:
+          '真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳',
+        created: '2021-5-29',
+        approves: 10,
+        disapproves: 5,
+        score: 'A+',
+        moderator_remark: '该内容真实性存疑',
+      },
+    ],
+  },
+
+  'GET /api/course/1/reviews/hot': {
+    count: 10,
+    reviews: [
+      {
+        id: 1,
+        semester: '2020-2021-1',
+        rating: 5,
+        comment:
+          '真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳真不戳',
+        created: '2021-5-29',
+        approves: 10,
+        disapproves: 5,
+        score: 'A+',
+        moderator_remark: '该内容真实性存疑',
+      },
+    ],
+  },
+
   'GET /api/semesters': ['2020-2021-1', '2020-2021-2', '2020-2021-3'],
 
   'GET /api/course-lite': [
@@ -177,7 +213,7 @@ export default {
       },
     ],
   },
-  'GET /api/notices': ['通知：服务器维护', '通知：服务器维护'],
+  'GET /api/notices': ['通知1：服务器维护', '通知2：服务器维护'],
 
   'POST /api/review': (req, res) => {
     // 添加跨域请求头

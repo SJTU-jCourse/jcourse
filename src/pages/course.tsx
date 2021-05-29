@@ -1,6 +1,6 @@
-import { Card, Row, Col, Button } from 'antd';
+import { Card, Row, Col, Button, Space } from 'antd';
 
-import { EditOutlined } from '@ant-design/icons';
+import { EditOutlined, SwapOutlined } from '@ant-design/icons';
 import { Link, useParams } from 'react-router-dom';
 
 import CourseDetailCard from '@/components/course-detail-card';
@@ -10,8 +10,12 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const CourseDetail = () => {
-  const { id } = useParams();
-
+  const Orders = [
+    { label: '最新发布', value: 'new' },
+    { label: '最多赞同', value: 'hot' },
+  ];
+  const { id } = useParams<{ id: string }>();
+  const [order, setOrder] = useState(0);
   const [course, setCourse] = useState({
     id: 0,
     course_info: {
@@ -40,11 +44,15 @@ const CourseDetail = () => {
   }, []);
 
   useEffect(() => {
-    const apiUrl = `/api/course/${id}/reviews`;
+    fetchReview();
+  }, []);
+
+  const fetchReview = () => {
+    const apiUrl = `/api/course/${id}/reviews/${Orders[order].value}`;
     axios.get(apiUrl).then((resp) => {
       setReviews(resp.data);
     });
-  }, []);
+  };
   return (
     <div>
       <Row gutter={[16, 16]}>
@@ -55,23 +63,35 @@ const CourseDetail = () => {
             style={{ marginTop: 16 }}
             title={`点评（${reviews.count}条）`}
             extra={
-              <Link
-                to={{
-                  pathname: '/review',
-                  state: {
-                    course: {
-                      id: course.id,
-                      code: course.course_info.code,
-                      name: course.course_info.name,
-                      teacher: course.main_teacher.name,
-                    },
-                  },
-                }}
-              >
-                <Button type="primary" icon={<EditOutlined />}>
-                  写点评
+              <Space>
+                <Button
+                  icon={<SwapOutlined />}
+                  type="text"
+                  onClick={() => {
+                    setOrder(order == 0 ? 1 : 0);
+                    fetchReview();
+                  }}
+                >
+                  {Orders[order].label}
                 </Button>
-              </Link>
+                <Link
+                  to={{
+                    pathname: '/review',
+                    state: {
+                      course: {
+                        id: course.id,
+                        code: course.course_info.code,
+                        name: course.course_info.name,
+                        teacher: course.main_teacher.name,
+                      },
+                    },
+                  }}
+                >
+                  <Button type="primary" icon={<EditOutlined />}>
+                    写点评
+                  </Button>
+                </Link>
+              </Space>
             }
           >
             <ReviewList reviews={reviews.reviews}></ReviewList>
