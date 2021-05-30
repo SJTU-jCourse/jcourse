@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { history } from 'umi';
 const { TextArea } = Input;
 const Report = () => {
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState<string>('');
   const handleSubmit = () => {
     if (comment == '') {
       message.info('请填写反馈');

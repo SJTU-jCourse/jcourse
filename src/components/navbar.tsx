@@ -9,7 +9,7 @@ const navMenuItems = [
 ];
 
 const NavBar = (props: { pathname: string }) => {
-  const isXs = useMediaQuery({ query: '(max-width: 576px)' });
+  const isXs: boolean = useMediaQuery({ query: '(max-width: 576px)' });
 
   const { pathname } = props;
 

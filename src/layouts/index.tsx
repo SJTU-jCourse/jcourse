@@ -9,7 +9,9 @@ const { Header, Content, Footer } = Layout;
 
 const BasicLayout = (props: { location: { pathname: any }; children: any }) => {
   const [notices, setNotices] = useState<string[]>([]);
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 992px)' });
+  const isTabletOrMobile: boolean = useMediaQuery({
+    query: '(max-width: 992px)',
+  });
 
   const {
     location: { pathname },

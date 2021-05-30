@@ -1,20 +1,21 @@
 import CourseDetailCard from '@/components/course-detail-card';
 import RelatedCard from '@/components/related-card';
 import ReviewList from '@/components/review-list';
+import { CourseDetail } from '@/models/course';
 import { EditOutlined, SwapOutlined } from '@ant-design/icons';
 import { Button, Card, Col, Row, Space } from 'antd';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'umi';
 
-const CourseDetail = () => {
+const CoursePage = () => {
   const Orders = [
     { label: '最新发布', value: 'new' },
     { label: '最多赞同', value: 'hot' },
   ];
   const { id } = useParams<{ id: string }>();
-  const [order, setOrder] = useState(0);
-  const [course, setCourse] = useState({
+  const [order, setOrder] = useState<number>(0);
+  const [course, setCourse] = useState<CourseDetail>({
     id: 0,
     course_info: {
       code: '',
@@ -101,4 +102,4 @@ const CourseDetail = () => {
   );
 };
 
-export default CourseDetail;
+export default CoursePage;

@@ -18,23 +18,22 @@ import { Link, history } from 'umi';
 
 const { TextArea } = Input;
 const { Text, Paragraph } = Typography;
-// Usage of DebounceSelect
 interface SelectValue {
   key?: string;
   label: string;
   value: string | number;
 }
 
-const EditReview = (props: {
+const ReviewPage = (props: {
   location: { state: { course: CourseInReview } };
 }) => {
   const [course, setCourse] = useState<SelectValue>();
-  const [semester, setSemester] = useState('');
-  const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState('');
-  const [score, setScore] = useState('');
+  const [semester, setSemester] = useState<string>('');
+  const [rating, setRating] = useState<number>(0);
+  const [comment, setComment] = useState<string>('');
+  const [score, setScore] = useState<string>('');
 
-  const [semesters, setSemesters] = useState([]);
+  const [semesters, setSemesters] = useState<SelectValue[]>([]);
 
   async function fetchCourses(value: string): Promise<SelectValue[]> {
     console.log('fetching courses', value);
@@ -201,4 +200,4 @@ const EditReview = (props: {
     </PageHeader>
   );
 };
-export default EditReview;
+export default ReviewPage;

@@ -3,7 +3,7 @@ import FilterCard from '@/components/filter-card';
 import { Card, Col, PageHeader, Row } from 'antd';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-const Courses = () => {
+const CoursesPage = () => {
   const [courses, setCourses] = useState({ count: 0, courses: [] });
   const [filters, setFilters] = useState({
     categories: [],
@@ -52,4 +52,4 @@ const Courses = () => {
     </PageHeader>
   );
 };
-export default Courses;
+export default CoursesPage;
