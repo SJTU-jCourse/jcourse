@@ -145,8 +145,8 @@ export default {
   'GET /api/semesters': ['2020-2021-1', '2020-2021-2', '2020-2021-3'],
 
   'GET /api/course-lite': [
-    { code: 'MATH2222', name: '高等数学' },
-    { code: 'CS2222', name: '数据结构' },
+    { id: 1, code: 'MATH2222', name: '高等数学', teacher: '何铭' },
+    { id: 2, code: 'CS2222', name: '数据结构', teacher: '孟魁' },
   ],
 
   'GET /api/search': {

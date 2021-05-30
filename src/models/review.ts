@@ -7,7 +7,7 @@ export interface CourseInReview {
 
 export interface Review {
   id: number;
-  course: CourseInReview | null;
+  course?: CourseInReview;
   semester: string;
   rating: number;
   comment: string;
@@ -15,5 +15,5 @@ export interface Review {
   approves: number;
   disapproves: number;
   score: number | string;
-  moderator_remark: string | null;
+  moderator_remark?: string;
 }
