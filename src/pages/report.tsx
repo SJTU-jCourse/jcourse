@@ -1,11 +1,4 @@
-import {
-  PageHeader,
-  Card,
-  Divider,
-  Input,
-  Button,
-  message,
-} from 'antd';
+import { Button, Card, Divider, Input, PageHeader, message } from 'antd';
 import axios from 'axios';
 import { useState } from 'react';
 import { history } from 'umi';

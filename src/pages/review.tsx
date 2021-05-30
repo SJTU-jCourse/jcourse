@@ -1,22 +1,21 @@
+import { CourseInReview } from '@/models/review';
 import {
-  Select,
-  PageHeader,
+  Button,
   Card,
-  Rate,
   Divider,
   Input,
-  Button,
-  message,
-  Typography,
+  PageHeader,
+  Rate,
+  Select,
   Spin,
+  Typography,
+  message,
 } from 'antd';
 import axios from 'axios';
-
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { history } from 'umi';
-import { CourseInReview } from '@/models/review';
-import { Link } from 'react-router-dom';
 import { debounce } from 'lodash';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { Link, history } from 'umi';
+
 const { TextArea } = Input;
 const { Text, Paragraph } = Typography;
 // Usage of DebounceSelect

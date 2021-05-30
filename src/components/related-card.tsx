@@ -1,6 +1,6 @@
 import { CourseDetail } from '@/models/course';
 import { Card, List, Space } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link } from 'umi';
 const RelatedCard = ({ course }: { course: CourseDetail }) => {
   const { course_info, main_teacher, related_teachers, related_courses } =
     course;

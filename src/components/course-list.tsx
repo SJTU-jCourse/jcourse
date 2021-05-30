@@ -1,7 +1,7 @@
-import { CourseListItem } from '@/models/course';
-import { List, Space, Typography, Tag } from 'antd';
-import { Link } from 'react-router-dom';
 import config from '@/config';
+import { CourseListItem } from '@/models/course';
+import { List, Space, Tag, Typography } from 'antd';
+import { Link } from 'umi';
 const CourseList = ({ courses }: { courses: CourseListItem[] }) => {
   return (
     <List

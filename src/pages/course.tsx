@@ -1,13 +1,11 @@
-import { Card, Row, Col, Button, Space } from 'antd';
-
-import { EditOutlined, SwapOutlined } from '@ant-design/icons';
-import { Link, useParams } from 'react-router-dom';
-
 import CourseDetailCard from '@/components/course-detail-card';
 import RelatedCard from '@/components/related-card';
 import ReviewList from '@/components/review-list';
-import { useEffect, useState } from 'react';
+import { EditOutlined, SwapOutlined } from '@ant-design/icons';
+import { Button, Card, Col, Row, Space } from 'antd';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { Link, useParams } from 'umi';
 
 const CourseDetail = () => {
   const Orders = [

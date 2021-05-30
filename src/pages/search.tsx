@@ -1,7 +1,7 @@
-import { PageHeader, Card, message, Input } from 'antd';
+import CourseList from '@/components/course-list';
+import { Card, Input, PageHeader, message } from 'antd';
 import axios from 'axios';
 import { useState } from 'react';
-import CourseList from '@/components/course-list';
 import { history } from 'umi';
 
 const { Search } = Input;

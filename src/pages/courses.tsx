@@ -1,8 +1,8 @@
-import { PageHeader, Card, Row, Col } from 'antd';
+import CourseList from '@/components/course-list';
+import FilterCard from '@/components/filter-card';
+import { Card, Col, PageHeader, Row } from 'antd';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import FilterCard from '@/components/filter-card';
-import CourseList from '@/components/course-list';
 const Courses = () => {
   const [courses, setCourses] = useState({ count: 0, courses: [] });
   const [filters, setFilters] = useState({

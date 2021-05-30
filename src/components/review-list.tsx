@@ -1,9 +1,9 @@
-import { Space, List, Alert } from 'antd';
-import { LikeOutlined, DislikeOutlined } from '@ant-design/icons';
 import { LeftIconText } from '@/components/icon-text';
-import { Review } from '@/models/review';
-import { Link } from 'react-router-dom';
 import config from '@/config';
+import { Review } from '@/models/review';
+import { DislikeOutlined, LikeOutlined } from '@ant-design/icons';
+import { Alert, List, Space } from 'antd';
+import { Link } from 'umi';
 const ReviewList = ({ reviews }: { reviews: Review[] }) => {
   return (
     <List

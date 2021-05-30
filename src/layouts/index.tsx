@@ -1,9 +1,9 @@
-import { Layout, Space, Alert, List } from 'antd';
-import { Link } from 'react-router-dom';
 import NavBar from '@/components/navbar';
-import { useMediaQuery } from 'react-responsive';
-import { useEffect, useState } from 'react';
+import { Alert, Layout, List, Space } from 'antd';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
+import { Link } from 'umi';
 
 const { Header, Content, Footer } = Layout;
 

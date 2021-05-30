@@ -1,5 +1,5 @@
 import { Card, Divider, Typography } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link } from 'umi';
 const { Title, Paragraph } = Typography;
 const Faq = () => {
   return (

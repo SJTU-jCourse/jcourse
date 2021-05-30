@@ -1,7 +1,7 @@
-import { PageHeader, Card } from 'antd';
+import ReviewList from '@/components/review-list';
+import { Card, PageHeader } from 'antd';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import ReviewList from '@/components/review-list';
 const Latest = () => {
   const [reviews, setReviews] = useState({ count: 0, reviews: [] });
 

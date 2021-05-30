@@ -1,7 +1,7 @@
-import { Menu, Col, Row, Button } from 'antd';
-import { SearchOutlined, EditOutlined } from '@ant-design/icons';
+import { EditOutlined, SearchOutlined } from '@ant-design/icons';
+import { Button, Col, Menu, Row } from 'antd';
 import { useMediaQuery } from 'react-responsive';
-import { Link } from 'react-router-dom';
+import { Link } from 'umi';
 
 const navMenuItems = [
   { key: '/latest', text: '最新', linkTo: '/latest' },

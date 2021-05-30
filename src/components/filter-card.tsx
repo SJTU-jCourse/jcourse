@@ -1,5 +1,5 @@
 import { Filter } from '@/models/filter';
-import { Card, Checkbox, Divider, Tag, Button } from 'antd';
+import { Button, Card, Checkbox, Divider, Tag } from 'antd';
 
 const FilterCard = ({
   categories,

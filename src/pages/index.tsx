@@ -1,7 +1,7 @@
-import { Row, Col, Statistic, Typography, Spin } from 'antd';
+import { Col, Row, Spin, Statistic, Typography } from 'antd';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'umi';
 
 const { Title } = Typography;
 

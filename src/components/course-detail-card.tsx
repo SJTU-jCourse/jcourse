@@ -1,6 +1,6 @@
 import { CourseDetail, Teacher } from '@/models/course';
-import { Descriptions, Card, Typography } from 'antd';
-import { Link } from 'react-router-dom';
+import { Card, Descriptions, Typography } from 'antd';
+import { Link } from 'umi';
 const { Text, Title } = Typography;
 
 const CourseDetailCard = ({ course }: { course: CourseDetail }) => {
