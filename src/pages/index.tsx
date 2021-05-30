@@ -1,6 +1,7 @@
 import { Row, Col, Statistic, Typography, Spin } from 'antd';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const { Title } = Typography;
 
@@ -31,14 +32,18 @@ const Index = () => {
           {indexState.loading ? (
             <Spin />
           ) : (
-            <Statistic title="课程数" value={indexState.statistic.courses} />
+            <Link to="/latest">
+              <Statistic title="点评数" value={indexState.statistic.reviews} />
+            </Link>
           )}
         </Col>
         <Col span={12}>
           {indexState.loading ? (
             <Spin />
           ) : (
-            <Statistic title="点评数" value={indexState.statistic.reviews} />
+            <Link to="/courses">
+              <Statistic title="课程数" value={indexState.statistic.courses} />
+            </Link>
           )}
         </Col>
       </Row>

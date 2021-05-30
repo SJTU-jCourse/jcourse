@@ -213,7 +213,10 @@ export default {
       },
     ],
   },
-  'GET /api/notices': ['通知1：服务器维护', '通知2：服务器维护'],
+  'GET /api/notices': [
+    '通知1：目前显示所有数据均为mock源，无实际后端',
+    '通知2：目前为开发服务器',
+  ],
 
   'POST /api/review': (req, res) => {
     // 添加跨域请求头
