@@ -54,7 +54,7 @@ const CourseDetail = () => {
     });
   };
   return (
-    <Row gutter={[16, 16]}>
+    <Row gutter={[16, 16]} style={{ paddingInline: 16 }}>
       <Col xs={24} md={16}>
         <CourseDetailCard course={course} />
 

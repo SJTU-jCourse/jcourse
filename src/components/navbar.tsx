@@ -9,7 +9,6 @@ const navMenuItems = [
 ];
 
 const NavBar = (props: { pathname: string }) => {
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 992px)' });
   const isXs = useMediaQuery({ query: '(max-width: 576px)' });
 
   const { pathname } = props;
@@ -19,7 +18,7 @@ const NavBar = (props: { pathname: string }) => {
       style={{
         alignContent: 'center',
         marginInline: 'auto',
-        maxWidth: 992,
+        maxWidth: 960,
       }}
     >
       <Col>

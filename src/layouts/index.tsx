@@ -25,7 +25,7 @@ const BasicLayout = (props: { location: { pathname: any }; children: any }) => {
     <Layout style={{ minHeight: '100vh' }}>
       <Header
         style={{
-          padding: 0,
+          padding: '0 16px',
           background: '#FFFFFF',
         }}
       >
@@ -46,7 +46,16 @@ const BasicLayout = (props: { location: { pathname: any }; children: any }) => {
             itemLayout="vertical"
             renderItem={(notice) => (
               <List.Item key={notice}>
-                <Alert message={notice} banner type="info" />
+                <Alert
+                  message={notice}
+                  banner
+                  type="info"
+                  style={{
+                    alignContent: 'center',
+                    marginInline: 16,
+                    maxWidth: 960,
+                  }}
+                />
               </List.Item>
             )}
           />
