@@ -58,10 +58,11 @@ const BasicLayout = (props: { location: { pathname: any }; children: any }) => {
       </Content>
       <Footer style={{ textAlign: 'center' }}>
         <Space>
-          <div>SJTU选课社区 ©2021</div>
-          <Link to="/about">常见问题</Link>
+          <Link to="/about">关于</Link>
+          <Link to="/faq">常见问题</Link>
           <Link to="/report">反馈</Link>
         </Space>
+        <div>SJTU选课社区 ©2021</div>
       </Footer>
     </Layout>
   );

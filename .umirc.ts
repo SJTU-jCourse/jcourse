@@ -19,6 +19,7 @@ export default defineConfig({
         { exact: true, path: '/review', component: '@/pages/review' },
         { exact: true, path: '/search', component: '@/pages/search' },
         { exact: true, path: '/report', component: '@/pages/report' },
+        { exact: true, path: '/faq', component: '@/pages/faq' },
         { component: '@/pages/404' },
       ],
     },

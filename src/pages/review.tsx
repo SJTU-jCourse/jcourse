@@ -192,7 +192,7 @@ const EditReview = (props: {
         <Paragraph>
           <Text type="secondary">
             提交点评表示您同意授权本网站使用点评的内容，并且了解本站其他的
-            <Link to="/about">相关立场</Link>。
+            <Link to="/faq">相关立场</Link>。
           </Text>
         </Paragraph>
         <Button type="primary" onClick={handleSubmit}>
