@@ -1,8 +1,7 @@
-import { Menu, Col, Row, Button, Input, message } from 'antd';
+import { Menu, Col, Row, Button } from 'antd';
+import { SearchOutlined, EditOutlined } from '@ant-design/icons';
 import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';
-import { history } from 'umi';
-const { Search } = Input;
 
 const navMenuItems = [
   { key: '/latest', text: '最新', linkTo: '/latest' },
@@ -15,23 +14,15 @@ const NavBar = (props: { pathname: string }) => {
 
   const { pathname } = props;
 
-  const onSearch = (value: string) => {
-    if (value.trim() == '') {
-      message.info('请输入');
-      return;
-    }
-    history.push({ pathname: '/search', query: { q: value } });
-  };
   return (
     <Row
       style={{
+        alignContent: 'center',
         marginInline: 'auto',
-        paddingInline: 16,
-        width: isTabletOrMobile ? '100%' : 992,
-        height: 64,
+        maxWidth: 992,
       }}
     >
-      <Col style={{ display: isXs ? 'none' : 'inline-block' }}>
+      <Col>
         <Link
           to="/"
           style={{
@@ -47,7 +38,7 @@ const NavBar = (props: { pathname: string }) => {
         </Link>
       </Col>
 
-      <Col style={{ marginInline: 'auto' }}>
+      <Col style={{ marginInline: 'auto' }} flex="auto">
         <Menu
           selectedKeys={[pathname]}
           mode="horizontal"
@@ -62,17 +53,21 @@ const NavBar = (props: { pathname: string }) => {
       </Col>
 
       <Col>
-        <Search
-          style={{ verticalAlign: 'middle' }}
-          placeholder="搜索课程名/课号/教师名"
-          onSearch={onSearch}
-        />
+        <Link to="/search">
+          <Button
+            shape="circle"
+            icon={<SearchOutlined />}
+            style={{ margin: 8 }}
+          />
+        </Link>
       </Col>
       <Col>
         <Link to="/review">
-          <Button style={{ verticalAlign: 'middle' }} type="primary">
-            写点评
-          </Button>
+          {isXs ? (
+            <Button type="primary" shape="circle" icon={<EditOutlined />} />
+          ) : (
+            <Button type="primary">写点评</Button>
+          )}
         </Link>
       </Col>
     </Row>

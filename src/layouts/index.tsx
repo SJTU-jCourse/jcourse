@@ -22,7 +22,7 @@ const BasicLayout = (props: { location: { pathname: any }; children: any }) => {
     });
   }, []);
   return (
-    <Layout>
+    <Layout style={{ minHeight: '100vh' }}>
       <Header
         style={{
           padding: 0,
@@ -36,9 +36,7 @@ const BasicLayout = (props: { location: { pathname: any }; children: any }) => {
         style={{
           marginInline: 'auto',
           alignContent: 'center',
-          paddingTop: 16,
           width: isTabletOrMobile ? '100%' : 992,
-          paddingInline: 16,
         }}
       >
         {notices.length > 0 && (

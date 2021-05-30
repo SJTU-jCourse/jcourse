@@ -1,34 +1,42 @@
-import { PageHeader, Card } from 'antd';
+import { PageHeader, Card, message, Input } from 'antd';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import CourseList from '@/components/course-list';
-const Search = (props) => {
-  const [q, setQ] = useState('');
+import { history } from 'umi';
+
+const { Search } = Input;
+
+const SearchPage = () => {
+  const [keyword, setKeyword] = useState('');
   const [courses, setCourses] = useState({ count: 0, courses: [] });
-  useEffect(() => {
-    if (props.location.query && props.location.query.q) {
-      setQ(props.location.query.q);
+
+  const onSearch = (value: string) => {
+    if (value.trim() == '') {
+      message.info('请输入');
+      return;
     }
-  });
-  useEffect(() => {
-    axios.get(`/api/search?q=${q}`).then((resp) => {
+    axios.get(`/api/search?q=${keyword}`).then((resp) => {
       setCourses({
         count: resp.data.count,
         courses: resp.data.courses,
       });
     });
-  }, [q]);
+  };
+
   return (
-    <PageHeader
-      title={`搜索 “${q}”`}
-      onBack={() => history.back()}
-      subTitle={'共有' + courses.count + '门课'}
-    >
-      <Card>
+    <PageHeader title={'搜索'} onBack={() => history.goBack()}>
+      <Search
+        size="large"
+        placeholder="搜索课程名/课号/教师名"
+        onSearch={onSearch}
+        onChange={(e) => setKeyword(e.target.value)}
+        style={{ marginBottom: 16 }}
+      />
+      <Card title={'共有' + courses.count + '门课'}>
         <CourseList courses={courses.courses} />
       </Card>
     </PageHeader>
   );
 };
 
-export default Search;
+export default SearchPage;

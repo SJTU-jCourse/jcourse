@@ -54,54 +54,52 @@ const CourseDetail = () => {
     });
   };
   return (
-    <div>
-      <Row gutter={[16, 16]}>
-        <Col xs={24} md={16}>
-          <CourseDetailCard course={course} />
+    <Row gutter={[16, 16]}>
+      <Col xs={24} md={16}>
+        <CourseDetailCard course={course} />
 
-          <Card
-            style={{ marginTop: 16 }}
-            title={`点评（${reviews.count}条）`}
-            extra={
-              <Space>
-                <Button
-                  icon={<SwapOutlined />}
-                  type="text"
-                  onClick={() => {
-                    setOrder(order == 0 ? 1 : 0);
-                    fetchReview();
-                  }}
-                >
-                  {Orders[order].label}
-                </Button>
-                <Link
-                  to={{
-                    pathname: '/review',
-                    state: {
-                      course: {
-                        id: course.id,
-                        code: course.course_info.code,
-                        name: course.course_info.name,
-                        teacher: course.main_teacher.name,
-                      },
+        <Card
+          style={{ marginTop: 16 }}
+          title={`点评（${reviews.count}条）`}
+          extra={
+            <Space>
+              <Button
+                icon={<SwapOutlined />}
+                type="text"
+                onClick={() => {
+                  setOrder(order == 0 ? 1 : 0);
+                  fetchReview();
+                }}
+              >
+                {Orders[order].label}
+              </Button>
+              <Link
+                to={{
+                  pathname: '/review',
+                  state: {
+                    course: {
+                      id: course.id,
+                      code: course.course_info.code,
+                      name: course.course_info.name,
+                      teacher: course.main_teacher.name,
                     },
-                  }}
-                >
-                  <Button type="primary" icon={<EditOutlined />}>
-                    写点评
-                  </Button>
-                </Link>
-              </Space>
-            }
-          >
-            <ReviewList reviews={reviews.reviews}></ReviewList>
-          </Card>
-        </Col>
-        <Col xs={24} md={8}>
-          <RelatedCard course={course} />
-        </Col>
-      </Row>
-    </div>
+                  },
+                }}
+              >
+                <Button type="primary" icon={<EditOutlined />}>
+                  写点评
+                </Button>
+              </Link>
+            </Space>
+          }
+        >
+          <ReviewList reviews={reviews.reviews}></ReviewList>
+        </Card>
+      </Col>
+      <Col xs={24} md={8}>
+        <RelatedCard course={course} />
+      </Col>
+    </Row>
   );
 };
 

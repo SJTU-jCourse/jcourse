@@ -3,10 +3,21 @@ import { LikeOutlined, DislikeOutlined } from '@ant-design/icons';
 import { LeftIconText } from '@/components/icon-text';
 import { Review } from '@/models/review';
 import { Link } from 'react-router-dom';
+import config from '@/config';
 const ReviewList = ({ reviews }: { reviews: Review[] }) => {
   return (
     <List
       itemLayout="vertical"
+      pagination={
+        reviews.length > config.PAGE_SIZE
+          ? {
+              onChange: (page) => {
+                console.log(page);
+              },
+              pageSize: config.PAGE_SIZE,
+            }
+          : false
+      }
       dataSource={reviews}
       renderItem={(item) => (
         <List.Item

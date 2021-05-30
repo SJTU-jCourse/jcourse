@@ -1,16 +1,21 @@
 import { CourseListItem } from '@/models/course';
 import { List, Space, Typography, Tag } from 'antd';
 import { Link } from 'react-router-dom';
+import config from '@/config';
 const CourseList = ({ courses }: { courses: CourseListItem[] }) => {
   return (
     <List
       itemLayout="horizontal"
-      pagination={{
-        onChange: (page) => {
-          console.log(page);
-        },
-        pageSize: 10,
-      }}
+      pagination={
+        courses.length > config.PAGE_SIZE
+          ? {
+              onChange: (page) => {
+                console.log(page);
+              },
+              pageSize: config.PAGE_SIZE,
+            }
+          : false
+      }
       dataSource={courses}
       renderItem={(item) => {
         const { course_info, main_teacher, rating } = item;
