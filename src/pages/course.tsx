@@ -1,8 +1,8 @@
 import CourseDetailCard from '@/components/course-detail-card';
 import RelatedCard from '@/components/related-card';
 import ReviewList from '@/components/review-list';
-import { CourseDetail, PaginationApiResult, Review } from '@/models';
-import { EditOutlined, SwapOutlined } from '@ant-design/icons';
+import { CourseDetail, Review } from '@/models';
+import { EditOutlined } from '@ant-design/icons';
 import { Button, Card, Col, Row, Space } from 'antd';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
