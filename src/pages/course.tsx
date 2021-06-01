@@ -41,11 +41,11 @@ const CoursePage = () => {
       setCourse(resp.data);
       setCourseLoading(false);
     });
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     fetchReview();
-  }, []);
+  }, [id]);
 
   const fetchReview = () => {
     const apiUrl = `/api/course/${id}/review/`;
