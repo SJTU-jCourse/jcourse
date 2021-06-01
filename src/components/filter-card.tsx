@@ -6,10 +6,12 @@ const FilterCard = ({
   categories,
   departments,
   onClick,
+  loading,
 }: {
   categories: Filter[];
   departments: Filter[];
   onClick: Function;
+  loading: boolean;
 }) => {
   const [checkedCategories, setCheckedCategories] = useState<number[]>([]);
   const [checkedDepartments, setCheckedDepartments] = useState<number[]>([]);
@@ -22,6 +24,7 @@ const FilterCard = ({
           确认
         </Button>
       }
+      loading={loading}
     >
       <h3>课程类别</h3>
       <Checkbox.Group onChange={(e) => setCheckedCategories(e)}>

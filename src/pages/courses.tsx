@@ -15,6 +15,7 @@ const CoursesPage = () => {
     categories: [],
     departments: [],
   });
+  const [filterLoading, setFilterLoading] = useState<boolean>(true);
 
   useEffect(() => {
     axios.get('/api/course/').then((resp) => {
@@ -23,11 +24,13 @@ const CoursesPage = () => {
   }, []);
 
   useEffect(() => {
+    setFilterLoading(true);
     axios.get('/api/filter/').then((resp) => {
       setFilters({
         categories: resp.data.categories,
         departments: resp.data.departments,
       });
+      setFilterLoading(false);
     });
   }, []);
 
@@ -51,6 +54,7 @@ const CoursesPage = () => {
             categories={filters.categories}
             departments={filters.departments}
             onClick={onFilterButtonClick}
+            loading={filterLoading}
           />
         </Col>
         <Col xs={24} md={16}>

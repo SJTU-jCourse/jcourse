@@ -32,11 +32,14 @@ const CoursePage = () => {
     related_teachers: [],
     related_courses: [],
   });
+  const [courseLoading, setCourseLoading] = useState<boolean>(true);
   const [reviews, setReviews] = useState<Review[]>([]);
   useEffect(() => {
+    setCourseLoading(true);
     const apiUrl: string = `/api/course/${id}/`;
     axios.get(apiUrl).then((resp) => {
       setCourse(resp.data);
+      setCourseLoading(false);
     });
   }, []);
 
@@ -53,7 +56,7 @@ const CoursePage = () => {
   return (
     <Row gutter={[16, 16]} style={{ paddingInline: 16, marginTop: 16 }}>
       <Col xs={24} md={16}>
-        <CourseDetailCard course={course} />
+        <CourseDetailCard course={course} loading={courseLoading} />
 
         <Card
           style={{ marginTop: 16 }}

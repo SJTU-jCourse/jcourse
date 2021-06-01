@@ -1,17 +1,28 @@
-import { CourseDetail, Teacher } from '@/models/course';
-import { Card, Descriptions, Typography } from 'antd';
+import { CourseDetail, Teacher } from '@/models';
+import { Card, Descriptions, Spin, Typography } from 'antd';
 import { Link } from 'umi';
 const { Text, Title } = Typography;
 
-const CourseDetailCard = ({ course }: { course: CourseDetail }) => {
+const CourseDetailCard = ({
+  course,
+  loading,
+}: {
+  course: CourseDetail;
+  loading: boolean;
+}) => {
   return (
     <Card
       title={
-        <Title level={4} style={{ whiteSpace: 'normal' }}>
-          {course.name}（{course.main_teacher.name}）
-        </Title>
+        loading ? (
+          <Spin />
+        ) : (
+          <Title level={4} style={{ whiteSpace: 'normal' }}>
+            {course.name}（{course.main_teacher.name}）
+          </Title>
+        )
       }
       extra={<Link to="/report">信息有误？</Link>}
+      loading={loading}
     >
       <Descriptions column={{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 1, xs: 1 }}>
         <Descriptions.Item label="课号">{course.code}</Descriptions.Item>
