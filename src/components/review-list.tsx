@@ -1,6 +1,6 @@
 import { LeftIconText } from '@/components/icon-text';
 import config from '@/config';
-import { Review } from '@/models/review';
+import { Review } from '@/models';
 import { DislikeOutlined, LikeOutlined } from '@ant-design/icons';
 import { Alert, List, Space } from 'antd';
 import { Link } from 'umi';
@@ -9,7 +9,7 @@ const ReviewList = ({ reviews }: { reviews: Review[] }) => {
     <List
       itemLayout="vertical"
       pagination={
-        reviews.length > config.PAGE_SIZE
+        reviews && reviews.length > config.PAGE_SIZE
           ? {
               onChange: (page) => {
                 console.log(page);

@@ -1,4 +1,4 @@
-import { CourseInReview } from '@/models/review';
+import { CourseInReview, Semester } from '@/models';
 import {
   Button,
   Card,
@@ -28,26 +28,12 @@ const ReviewPage = (props: {
   location: { state: { course: CourseInReview } };
 }) => {
   const [course, setCourse] = useState<SelectValue>();
-  const [semester, setSemester] = useState<string>('');
+  const [semester, setSemester] = useState<number>(0);
   const [rating, setRating] = useState<number>(0);
   const [comment, setComment] = useState<string>('');
   const [score, setScore] = useState<string>('');
 
   const [semesters, setSemesters] = useState<SelectValue[]>([]);
-
-  async function fetchCourses(value: string): Promise<SelectValue[]> {
-    console.log('fetching courses', value);
-
-    return fetch(`/api/course-lite?q=${value}`)
-      .then((response) => response.json())
-      .then((body) => {
-        console.log(body);
-        return body.map((course: CourseInReview) => ({
-          label: `${course.code} ${course.name} ${course.teacher}`,
-          value: course.id,
-        }));
-      });
-  }
 
   const handleSubmit = () => {
     if (!course) {
@@ -64,7 +50,7 @@ const ReviewPage = (props: {
     }
     const review = { comment, rating, semester, id: course.value, score };
     console.log(review);
-    axios.post('/api/review', review).then((resp) => {
+    axios.post('/api/review/', review).then((resp) => {
       console.log(resp.data);
       if (resp.status == 200) {
         message.success('提交成功');
@@ -86,10 +72,12 @@ const ReviewPage = (props: {
   }, []);
 
   useEffect(() => {
-    axios.get('/api/semesters').then((resp) => {
+    axios.get('/api/semester/').then((resp) => {
       let items = resp.data;
-      setSemesters(items.map((item: string) => ({ label: item, value: item })));
-      setSemester(items[0]);
+      setSemesters(
+        items.map((item: Semester) => ({ label: item.name, value: item.id })),
+      );
+      setSemester(items[0].id);
     });
   }, []);
 
@@ -105,19 +93,22 @@ const ReviewPage = (props: {
       setCourses([]);
       setFetching(true);
 
-      fetchCourses(value).then((newOptions) => {
+      axios.get(`/api/course-in-review/?q=${value}`).then((resp) => {
+        const options = resp.data.map((course: CourseInReview) => ({
+          label: `${course.code} ${course.name} ${course.teacher}`,
+          value: course.id,
+        }));
         if (fetchId !== fetchRef.current) {
           // for fetch callback order
           return;
         }
-
-        setCourses(newOptions);
+        setCourses(options);
         setFetching(false);
       });
     };
 
     return debounce(loadOptions, debounceTimeout);
-  }, [fetchCourses, debounceTimeout]);
+  }, [debounceTimeout]);
 
   return (
     <PageHeader title="写点评" onBack={() => history.goBack()}>

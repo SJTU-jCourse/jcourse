@@ -1,5 +1,5 @@
 import config from '@/config';
-import { CourseListItem } from '@/models/course';
+import { CourseListItem } from '@/models';
 import { List, Space, Tag, Typography } from 'antd';
 import { Link } from 'umi';
 const CourseList = ({ courses }: { courses: CourseListItem[] }) => {
@@ -7,7 +7,7 @@ const CourseList = ({ courses }: { courses: CourseListItem[] }) => {
     <List
       itemLayout="horizontal"
       pagination={
-        courses.length > config.PAGE_SIZE
+        courses && courses.length > config.PAGE_SIZE
           ? {
               onChange: (page) => {
                 console.log(page);
@@ -17,30 +17,29 @@ const CourseList = ({ courses }: { courses: CourseListItem[] }) => {
           : false
       }
       dataSource={courses}
-      renderItem={(item) => {
-        const { course_info, main_teacher, rating } = item;
+      renderItem={(course) => {
         return (
           <List.Item
-            key={item.id}
+            key={course.id}
             extra={
               <Typography.Text type="secondary">
-                {rating.count}条点评
+                {course.rating.count}条点评
               </Typography.Text>
             }
           >
             <List.Item.Meta
               title={
                 <Space align="center">
-                  <Link to={'/course/' + item.id}>
-                    {course_info.code + ' '}
-                    {course_info.name}（{main_teacher.name}）
+                  <Link to={'/course/' + course.id}>
+                    {course.code + ' '}
+                    {course.name}（{course.teacher}）
                   </Link>
                 </Space>
               }
               description={
                 <span>
-                  <Tag color="success">{item.course_info.category}</Tag>
-                  {course_info.department} {course_info.credit}学分
+                  <Tag color="success">{course.category}</Tag>
+                  {course.department} {course.credit}学分
                 </span>
               }
             />

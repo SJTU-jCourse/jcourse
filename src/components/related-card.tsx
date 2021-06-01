@@ -1,14 +1,13 @@
-import { CourseDetail } from '@/models/course';
+import { CourseDetail } from '@/models';
 import { Card, List, Space } from 'antd';
 import { Link } from 'umi';
 const RelatedCard = ({ course }: { course: CourseDetail }) => {
-  const { course_info, main_teacher, related_teachers, related_courses } =
-    course;
+  const { main_teacher, related_teachers, related_courses } = course;
 
   return (
     <div>
       {related_teachers.length > 0 ? (
-        <Card title={'其他老师的' + course_info.name}>
+        <Card title={'其他老师的' + course.name}>
           <List
             split={false}
             dataSource={related_teachers}

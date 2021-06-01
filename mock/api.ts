@@ -1,9 +1,9 @@
 export default {
   // 支持值为 Object 和 Array
-  'GET /api/statistic': { courses: 1140, reviews: 5140 },
+  'GET /api/statistic/': { courses: 1140, reviews: 5140 },
 
   // GET 可忽略
-  'GET /api/filters': {
+  'GET /api/filter/': {
     categories: [
       { name: '通选', count: 11 },
       { name: '通识', count: 11 },
@@ -17,57 +17,50 @@ export default {
     ],
   },
 
-  'GET /api/courses': {
+  'GET /api/course/': {
     count: 11,
-    courses: [
+    next: null,
+    previous: null,
+    results: [
       {
         id: 1,
-        course_info: {
-          code: 'MATH1111',
-          category: '专业',
-          department: '数学科学学院',
-          name: '高等数学',
-          credit: 6.0,
-        },
-        main_teacher: {
-          tid: '11111',
-          department: '机械与动力工程',
-          name: '何铭',
-          title: '教授',
-        },
+
+        code: 'MATH1111',
+        category: '专业',
+        department: '数学科学学院',
+        name: '高等数学',
+        credit: 6.0,
+
+        teacher: '何铭',
+
         language: '中文',
         rating: { avg: 5.0, count: 10 },
       },
       {
         id: 2,
-        course_info: {
-          code: 'CS2222H',
-          category: '通识',
-          department: '电子信息与电气工程学院',
-          name: '程序设计思想与方法（C++）',
-          credit: 6.0,
-        },
-        main_teacher: {
-          tid: '11111',
-          department: '机械与动力工程',
-          name: '赵先超',
-          title: '教授',
-        },
+
+        code: 'CS2222H',
+        category: '通识',
+        department: '电子信息与电气工程学院',
+        name: '程序设计思想与方法（C++）',
+        credit: 6.0,
+
+        teacher: '赵先超',
         language: '中文',
         rating: { avg: 5.0, count: 10 },
       },
     ],
   },
 
-  'GET /api/course/1': {
+  'GET /api/course/1/': {
     id: 1,
-    course_info: {
-      code: 'MATH1111',
-      category: '专业课',
-      department: '数学科学学院',
-      name: '高等数学',
-      credit: 6.0,
-    },
+
+    code: 'MATH1111',
+    category: '专业课',
+    department: '数学科学学院',
+    name: '高等数学',
+    credit: 6.0,
+
     main_teacher: {
       tid: '11111',
       department: '机械与动力工程',
@@ -88,9 +81,11 @@ export default {
     related_courses: [{ id: 2, name: '线性代数' }],
   },
 
-  'GET /api/course/1/reviews': {
+  'GET /api/course/1/review/': {
     count: 10,
-    reviews: [
+    next: null,
+    previous: null,
+    results: [
       {
         id: 1,
         semester: '2020-2021-1',
@@ -106,9 +101,11 @@ export default {
     ],
   },
 
-  'GET /api/course/1/reviews/new': {
+  'GET /api/course/1/review/new': {
     count: 10,
-    reviews: [
+    next: null,
+    previous: null,
+    results: [
       {
         id: 1,
         semester: '2020-2021-1',
@@ -124,9 +121,11 @@ export default {
     ],
   },
 
-  'GET /api/course/1/reviews/hot': {
+  'GET /api/course/1/review/hot': {
     count: 10,
-    reviews: [
+    next: null,
+    previous: null,
+    results: [
       {
         id: 1,
         semester: '2020-2021-1',
@@ -142,58 +141,56 @@ export default {
     ],
   },
 
-  'GET /api/semesters': ['2020-2021-1', '2020-2021-2', '2020-2021-3'],
+  'GET /api/semester/': [
+    { id: 1, name: '2020-2021-1' },
+    { id: 2, name: '2020-2021-2' },
+    { id: 2, name: '2020-2021-3' },
+  ],
 
-  'GET /api/course-lite': [
+  'GET /api/course-in-review/': [
     { id: 1, code: 'MATH2222', name: '高等数学', teacher: '何铭' },
     { id: 2, code: 'CS2222', name: '数据结构', teacher: '孟魁' },
   ],
 
-  'GET /api/search': {
+  'GET /api/search/': {
     count: 11,
-    courses: [
+    next: null,
+    previous: null,
+    results: [
       {
         id: 1,
-        course_info: {
-          code: 'MATH1111',
-          category: '专业',
-          department: '数学科学学院',
-          name: '高等数学',
-          credit: 6.0,
-        },
-        main_teacher: {
-          tid: '11111',
-          department: '机械与动力工程',
-          name: '何铭',
-          title: '教授',
-        },
+
+        code: 'MATH1111',
+        category: '专业',
+        department: '数学科学学院',
+        name: '高等数学',
+        credit: 6.0,
+
+        teacher: '何铭',
         language: '中文',
         rating: { avg: 5.0, count: 10 },
       },
       {
         id: 2,
-        course_info: {
-          code: 'CS2222H',
-          category: '通识',
-          department: '电子信息与电气工程学院',
-          name: '程序设计思想与方法（C++）',
-          credit: 6.0,
-        },
-        main_teacher: {
-          tid: '11111',
-          department: '机械与动力工程',
-          name: '赵先超',
-          title: '教授',
-        },
+
+        code: 'CS2222H',
+        category: '通识',
+        department: '电子信息与电气工程学院',
+        name: '程序设计思想与方法（C++）',
+        credit: 6.0,
+
+        teacher: '赵先超',
         language: '中文',
         rating: { avg: 5.0, count: 10 },
       },
     ],
   },
 
-  'GET /api/reviews': {
+  'GET /api/review/': {
     count: 10,
-    reviews: [
+    next: null,
+    previous: null,
+    results: [
       {
         id: 1,
         course: {
@@ -213,17 +210,21 @@ export default {
       },
     ],
   },
-  'GET /api/notices': [
-    '通知1：目前显示所有数据均为mock源，无实际后端',
-    '通知2：目前为开发服务器',
+  'GET /api/notice/': [
+    {
+      title: '通知1',
+      message: '目前显示所有数据均为mock源，无实际后端',
+      created: '1',
+    },
+    { title: '通知2', message: '目前为开发服务器', created: '2' },
   ],
 
-  'POST /api/review': (req, res) => {
+  'POST /api/review/': (req, res) => {
     // 添加跨域请求头
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.end(JSON.stringify({ msg: 'ok' }));
   },
-  'POST /api/report': (req, res) => {
+  'POST /api/report/': (req, res) => {
     // 添加跨域请求头
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.end(JSON.stringify({ msg: 'ok' }));

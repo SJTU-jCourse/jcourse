@@ -1,28 +1,29 @@
 import CourseList from '@/components/course-list';
 import FilterCard from '@/components/filter-card';
+import { CourseListItem, PaginationApiResult } from '@/models';
 import { Card, Col, PageHeader, Row } from 'antd';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 const CoursesPage = () => {
-  const [courses, setCourses] = useState({ count: 0, courses: [] });
+  const [courses, setCourses] = useState<PaginationApiResult<CourseListItem>>({
+    count: 0,
+    next: null,
+    previous: null,
+    results: [],
+  });
   const [filters, setFilters] = useState({
     categories: [],
     departments: [],
   });
 
   useEffect(() => {
-    setCourses({ count: 0, courses: [] });
-    axios.get('/api/courses').then((resp) => {
-      setCourses({
-        count: resp.data.count,
-        courses: resp.data.courses,
-      });
+    axios.get('/api/course/').then((resp) => {
+      setCourses(resp.data);
     });
   }, []);
 
   useEffect(() => {
-    setFilters({ categories: [], departments: [] });
-    axios.get('/api/filters').then((resp) => {
+    axios.get('/api/filter/').then((resp) => {
       setFilters({
         categories: resp.data.categories,
         departments: resp.data.departments,
@@ -45,7 +46,7 @@ const CoursesPage = () => {
         </Col>
         <Col xs={24} md={16}>
           <Card>
-            <CourseList courses={courses.courses} />
+            <CourseList courses={courses.results} />
           </Card>
         </Col>
       </Row>

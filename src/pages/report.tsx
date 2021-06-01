@@ -11,7 +11,7 @@ const Report = () => {
       return;
     }
 
-    axios.post('/api/report', comment).then((resp) => {
+    axios.post('/api/report/', comment).then((resp) => {
       console.log(resp.data);
       if (resp.status == 200) {
         message.success('提交成功');

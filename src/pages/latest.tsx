@@ -1,12 +1,19 @@
 import ReviewList from '@/components/review-list';
+import { PaginationApiResult, Review } from '@/models';
 import { Card, PageHeader } from 'antd';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+
 const Latest = () => {
-  const [reviews, setReviews] = useState({ count: 0, reviews: [] });
+  const [reviews, setReviews] = useState<PaginationApiResult<Review>>({
+    count: 0,
+    next: null,
+    previous: null,
+    results: [],
+  });
 
   useEffect(() => {
-    axios.get('/api/reviews').then((resp) => {
+    axios.get('/api/review/').then((resp) => {
       setReviews(resp.data);
     });
   }, []);
@@ -18,7 +25,7 @@ const Latest = () => {
       subTitle={'共有' + reviews.count + '个点评'}
     >
       <Card>
-        <ReviewList reviews={reviews.reviews} />
+        <ReviewList reviews={reviews.results} />
       </Card>
     </PageHeader>
   );

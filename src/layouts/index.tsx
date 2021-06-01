@@ -1,4 +1,5 @@
 import NavBar from '@/components/navbar';
+import { Notice } from '@/models';
 import { Alert, Layout, List, Space } from 'antd';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -8,7 +9,7 @@ import { Link } from 'umi';
 const { Header, Content, Footer } = Layout;
 
 const BasicLayout = (props: { location: { pathname: any }; children: any }) => {
-  const [notices, setNotices] = useState<string[]>([]);
+  const [notices, setNotices] = useState<Notice[]>([]);
   const isTabletOrMobile: boolean = useMediaQuery({
     query: '(max-width: 992px)',
   });
@@ -19,7 +20,7 @@ const BasicLayout = (props: { location: { pathname: any }; children: any }) => {
   } = props;
 
   useEffect(() => {
-    axios.get('/api/notices').then((resp) => {
+    axios.get('/api/notice/').then((resp) => {
       setNotices(resp.data);
     });
   }, []);
@@ -41,15 +42,15 @@ const BasicLayout = (props: { location: { pathname: any }; children: any }) => {
           width: isTabletOrMobile ? '100%' : 992,
         }}
       >
-        {notices.length > 0 && (
+        {notices && notices.length > 0 && (
           <List
             dataSource={notices}
             split={false}
             itemLayout="vertical"
-            renderItem={(notice) => (
-              <List.Item key={notice}>
+            renderItem={(notice: Notice) => (
+              <List.Item key={notice.title}>
                 <Alert
-                  message={notice}
+                  message={notice.message}
                   banner
                   type="info"
                   style={{

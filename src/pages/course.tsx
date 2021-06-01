@@ -1,7 +1,7 @@
 import CourseDetailCard from '@/components/course-detail-card';
 import RelatedCard from '@/components/related-card';
 import ReviewList from '@/components/review-list';
-import { CourseDetail } from '@/models/course';
+import { CourseDetail, PaginationApiResult, Review } from '@/models';
 import { EditOutlined, SwapOutlined } from '@ant-design/icons';
 import { Button, Card, Col, Row, Space } from 'antd';
 import axios from 'axios';
@@ -17,13 +17,11 @@ const CoursePage = () => {
   const [order, setOrder] = useState<number>(0);
   const [course, setCourse] = useState<CourseDetail>({
     id: 0,
-    course_info: {
-      code: '',
-      category: '',
-      department: '',
-      name: '',
-      credit: 0,
-    },
+    code: '',
+    category: '',
+    department: '',
+    name: '',
+    credit: 0,
     language: '',
     main_teacher: { tid: '', department: '', name: '', title: '' },
     teacher_group: [],
@@ -34,9 +32,14 @@ const CoursePage = () => {
     related_teachers: [],
     related_courses: [],
   });
-  const [reviews, setReviews] = useState({ count: 0, reviews: [] });
+  const [reviews, setReviews] = useState<PaginationApiResult<Review>>({
+    count: 0,
+    next: null,
+    previous: null,
+    results: [],
+  });
   useEffect(() => {
-    const apiUrl: string = `/api/course/${id}`;
+    const apiUrl: string = `/api/course/${id}/`;
     axios.get(apiUrl).then((resp) => {
       setCourse(resp.data);
     });
@@ -47,13 +50,13 @@ const CoursePage = () => {
   }, []);
 
   const fetchReview = () => {
-    const apiUrl = `/api/course/${id}/reviews/${Orders[order].value}`;
+    const apiUrl = `/api/course/${id}/review/${Orders[order].value}/`;
     axios.get(apiUrl).then((resp) => {
       setReviews(resp.data);
     });
   };
   return (
-    <Row gutter={[16, 16]} style={{ paddingInline: 16 }}>
+    <Row gutter={[16, 16]} style={{ paddingInline: 16, marginTop: 16 }}>
       <Col xs={24} md={16}>
         <CourseDetailCard course={course} />
 
@@ -78,8 +81,8 @@ const CoursePage = () => {
                   state: {
                     course: {
                       id: course.id,
-                      code: course.course_info.code,
-                      name: course.course_info.name,
+                      code: course.code,
+                      name: course.name,
                       teacher: course.main_teacher.name,
                     },
                   },
@@ -92,7 +95,7 @@ const CoursePage = () => {
             </Space>
           }
         >
-          <ReviewList reviews={reviews.reviews}></ReviewList>
+          <ReviewList reviews={reviews.results}></ReviewList>
         </Card>
       </Col>
       <Col xs={24} md={8}>

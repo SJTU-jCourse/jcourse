@@ -12,7 +12,7 @@ const Index = () => {
   });
   useEffect(() => {
     setIndexState({ loading: true, statistic: { courses: 0, reviews: 0 } });
-    axios.get('/api/statistic').then((repos) => {
+    axios.get('/api/statistic/').then((repos) => {
       setIndexState({ loading: false, statistic: repos.data });
     });
   }, []);
