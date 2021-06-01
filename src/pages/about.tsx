@@ -3,7 +3,7 @@ import { Link } from 'umi';
 const { Title, Paragraph } = Typography;
 const About = () => {
   return (
-    <Card title="关于">
+    <Card title="关于" style={{ margin: '16px 16px 0px' }}>
       <Title level={3}>联系我们</Title>
       <Paragraph>
         请通过<Link to="/report">这个链接</Link>

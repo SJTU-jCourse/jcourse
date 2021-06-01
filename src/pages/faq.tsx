@@ -3,7 +3,7 @@ import { Link } from 'umi';
 const { Title, Paragraph } = Typography;
 const Faq = () => {
   return (
-    <Card title="常见问题（FAQ）">
+    <Card title="常见问题（FAQ）" style={{ margin: '16px 16px 0px' }}>
       <Title level={4}>使用说明</Title>
       <Title level={4}>我该点评哪些课程？写一些什么？</Title>
       <Paragraph>

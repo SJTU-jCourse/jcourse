@@ -211,12 +211,12 @@ export default {
     ],
   },
   'GET /api/notice/': [
-    {
+    /*{
       title: '通知1',
       message: '目前显示所有数据均为mock源，无实际后端',
       created: '1',
     },
-    { title: '通知2', message: '目前为开发服务器', created: '2' },
+    { title: '通知2', message: '目前为开发服务器', created: '2' },*/
   ],
 
   'POST /api/review/': (req, res) => {
