@@ -31,6 +31,14 @@ const CoursesPage = () => {
     });
   }, []);
 
+  const onFilterButtonClick = (categories: number[], departments: number[]) => {
+    const apiUrl = `/api/course/?category=${categories.join(
+      ',',
+    )}&department=${departments.join(',')}`;
+    axios.get(apiUrl).then((resp) => {
+      setCourses(resp.data);
+    });
+  };
   return (
     <PageHeader
       title="所有课程"
@@ -42,6 +50,7 @@ const CoursesPage = () => {
           <FilterCard
             categories={filters.categories}
             departments={filters.departments}
+            onClick={onFilterButtonClick}
           />
         </Col>
         <Col xs={24} md={16}>

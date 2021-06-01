@@ -9,10 +9,10 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'umi';
 
 const CoursePage = () => {
-  const Orders = [
+  /*const Orders = [
     { label: '最新发布', value: 'new' },
     { label: '最多赞同', value: 'hot' },
-  ];
+  ];*/
   const { id } = useParams<{ id: string }>();
   const [order, setOrder] = useState<number>(0);
   const [course, setCourse] = useState<CourseDetail>({
@@ -32,12 +32,7 @@ const CoursePage = () => {
     related_teachers: [],
     related_courses: [],
   });
-  const [reviews, setReviews] = useState<PaginationApiResult<Review>>({
-    count: 0,
-    next: null,
-    previous: null,
-    results: [],
-  });
+  const [reviews, setReviews] = useState<Review[]>([]);
   useEffect(() => {
     const apiUrl: string = `/api/course/${id}/`;
     axios.get(apiUrl).then((resp) => {
@@ -50,7 +45,7 @@ const CoursePage = () => {
   }, []);
 
   const fetchReview = () => {
-    const apiUrl = `/api/course/${id}/review/${Orders[order].value}/`;
+    const apiUrl = `/api/course/${id}/review/`;
     axios.get(apiUrl).then((resp) => {
       setReviews(resp.data);
     });
@@ -62,10 +57,10 @@ const CoursePage = () => {
 
         <Card
           style={{ marginTop: 16 }}
-          title={`点评（${reviews.count}条）`}
+          title={`点评（${reviews ? reviews.length : 0}条）`}
           extra={
             <Space>
-              <Button
+              {/*<Button
                 icon={<SwapOutlined />}
                 type="text"
                 onClick={() => {
@@ -74,7 +69,7 @@ const CoursePage = () => {
                 }}
               >
                 {Orders[order].label}
-              </Button>
+              </Button>*/}
               <Link
                 to={{
                   pathname: '/review',
@@ -95,7 +90,7 @@ const CoursePage = () => {
             </Space>
           }
         >
-          <ReviewList reviews={reviews.results}></ReviewList>
+          <ReviewList reviews={reviews}></ReviewList>
         </Card>
       </Col>
       <Col xs={24} md={8}>

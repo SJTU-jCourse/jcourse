@@ -6,6 +6,7 @@ export default defineConfig({
     type: 'none',
   },
   routes: [
+    { exact: true, path: '/login', component: '@/pages/login' },
     {
       exact: false,
       path: '/',
@@ -28,10 +29,15 @@ export default defineConfig({
   theme: {
     '@primary-color': '#1DA57A',
   },
+  mock: false,
   proxy: {
     '/api': {
       target: 'http://localhost:8000/',
       changeOrigin: true,
+    },
+    '/oauth': {
+      target: 'http://localhost:8000/',
+      changeOrigin: false,
     },
   },
 });

@@ -39,6 +39,7 @@ export interface CourseDetail {
 }
 
 export interface Filter {
+  id: number;
   name: string;
   count: number;
 }
