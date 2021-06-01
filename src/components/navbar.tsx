@@ -25,8 +25,8 @@ const NavBar = (props: { pathname: string }) => {
         <Link
           to="/"
           style={{
-            fontSize: 20,
-            fontStyle: 'strong',
+            fontWeight: 600,
+            fontSize: 18,
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
