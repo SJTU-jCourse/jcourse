@@ -95,7 +95,7 @@ const ReviewPage = (props: {
 
       axios.get(`/api/course-in-review/?q=${value}`).then((resp) => {
         const options = resp.data.map((course: CourseInReview) => ({
-          label: `${course.code} ${course.name} ${course.teacher}`,
+          label: `${course.code} ${course.name}（${course.teacher}）`,
           value: course.id,
         }));
         if (fetchId !== fetchRef.current) {
