@@ -1,39 +1,54 @@
-import { LeftIconText } from '@/components/icon-text';
-import config from '@/config';
 import { Review } from '@/models';
 import { DislikeOutlined, LikeOutlined } from '@ant-design/icons';
-import { Alert, List, Space } from 'antd';
+import { Alert, Button, List, Space } from 'antd';
+import axios from 'axios';
 import { Link } from 'umi';
-const ReviewList = ({ reviews }: { reviews: Review[] }) => {
+const ReviewList = ({
+  count,
+  reviews,
+  onPageChange,
+}: {
+  count: number;
+  reviews: Review[];
+  onPageChange: Function;
+}) => {
+  const onAction = (review: number, action: number) => {
+    axios.post(`/api/action/${review}/`, { action: action }).then((resp) => {
+      console.log(resp);
+    });
+  };
   return (
     <List
       itemLayout="vertical"
-      pagination={
-        reviews && reviews.length > config.PAGE_SIZE
-          ? {
-              onChange: (page) => {
-                console.log(page);
-              },
-              pageSize: config.PAGE_SIZE,
-            }
-          : false
-      }
+      pagination={{
+        hideOnSinglePage: true,
+        onChange: (page, pageSize) => {
+          onPageChange(page, pageSize);
+        },
+        total: count,
+      }}
       dataSource={reviews}
       renderItem={(item) => (
         <List.Item
           key={item.id}
           actions={[
             <div>{item.created}</div>,
-            <LeftIconText
-              icon={LikeOutlined}
-              text={item.approves}
-              key="list-vertical-like-o"
-            />,
-            <LeftIconText
-              icon={DislikeOutlined}
-              text={item.disapproves}
-              key="list-vertical-dislike-o"
-            />,
+            <Button
+              type="text"
+              onClick={() => {
+                onAction(item.id, 1);
+              }}
+            >
+              <LikeOutlined /> {item.approves}
+            </Button>,
+            <Button
+              type="text"
+              onClick={() => {
+                onAction(item.id, -1);
+              }}
+            >
+              <DislikeOutlined /> {item.disapproves}
+            </Button>,
           ]}
         >
           <Space direction="vertical" style={{ width: '100%' }}>
@@ -58,7 +73,7 @@ const ReviewList = ({ reviews }: { reviews: Review[] }) => {
                 </>
               )}
             </div>
-            <div>{item.comment}</div>
+            <div style={{ whiteSpace: 'pre-wrap' }}>{item.comment}</div>
           </Space>
         </List.Item>
       )}

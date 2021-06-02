@@ -53,6 +53,9 @@ const CoursePage = () => {
       setReviews(resp.data);
     });
   };
+  const onPageChange = (page) => {
+    console.log(page);
+  };
   return (
     <Row gutter={[16, 16]} style={{ paddingInline: 16, marginTop: 16 }}>
       <Col xs={24} md={16}>
@@ -93,7 +96,10 @@ const CoursePage = () => {
             </Space>
           }
         >
-          <ReviewList reviews={reviews}></ReviewList>
+          <ReviewList
+            reviews={reviews}
+            onPageChange={onPageChange}
+          ></ReviewList>
         </Card>
       </Col>
       <Col xs={24} md={8}>

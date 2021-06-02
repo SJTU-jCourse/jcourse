@@ -1,5 +1,6 @@
 import CourseList from '@/components/course-list';
 import FilterCard from '@/components/filter-card';
+import config from '@/config';
 import { CourseListItem, PaginationApiResult } from '@/models';
 import { Card, Col, PageHeader, Row } from 'antd';
 import axios from 'axios';
@@ -34,13 +35,28 @@ const CoursesPage = () => {
     });
   }, []);
 
-  const onFilterButtonClick = (categories: number[], departments: number[]) => {
-    const apiUrl = `/api/course/?category=${categories.join(
-      ',',
-    )}&department=${departments.join(',')}`;
+  const [urlParams, setUrlParams] = useState<string>('');
+  const [courseLoading, setCourseLoading] = useState<boolean>(false);
+
+  const fetchCourses = (params: string, limit: number, offset: number) => {
+    const apiUrl = `/api/course/?${params}&limit=${limit}&offset=${offset}`;
+    setCourseLoading(true);
     axios.get(apiUrl).then((resp) => {
       setCourses(resp.data);
+      setCourseLoading(false);
     });
+  };
+  const onFilterButtonClick = (categories: number[], departments: number[]) => {
+    const params: string = `category=${categories.join(
+      ',',
+    )}&department=${departments.join(',')}`;
+    setUrlParams(params);
+    fetchCourses(params, config.PAGE_SIZE, 0);
+  };
+
+  const onPageChange = (page: number, pageSize: number) => {
+    console.log(page, pageSize);
+    fetchCourses(urlParams, pageSize, (page - 1) * pageSize);
   };
   return (
     <PageHeader title="所有课程" backIcon={false}>
@@ -55,7 +71,12 @@ const CoursesPage = () => {
         </Col>
         <Col xs={24} md={16}>
           <Card title={'共有' + courses.count + '门课'}>
-            <CourseList courses={courses.results} />
+            <CourseList
+              loading={courseLoading}
+              count={courses.count}
+              courses={courses.results}
+              onPageChange={onPageChange}
+            />
           </Card>
         </Col>
       </Row>

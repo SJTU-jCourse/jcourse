@@ -1,32 +1,32 @@
-import config from '@/config';
 import { CourseListItem } from '@/models';
-import { List, Space, Tag, Typography } from 'antd';
+import { List, Space, Tag } from 'antd';
 import { Link } from 'umi';
-const CourseList = ({ courses }: { courses: CourseListItem[] }) => {
+const CourseList = ({
+  count,
+  courses,
+  onPageChange,
+  loading,
+}: {
+  count: number;
+  courses: CourseListItem[];
+  onPageChange: Function;
+  loading: boolean;
+}) => {
   return (
     <List
+      loading={loading}
       itemLayout="horizontal"
-      pagination={
-        courses && courses.length > config.PAGE_SIZE
-          ? {
-              onChange: (page) => {
-                console.log(page);
-              },
-              pageSize: config.PAGE_SIZE,
-            }
-          : false
-      }
+      pagination={{
+        hideOnSinglePage: true,
+        onChange: (page, pageSize) => {
+          onPageChange(page, pageSize);
+        },
+        total: count,
+      }}
       dataSource={courses}
       renderItem={(course) => {
         return (
-          <List.Item
-            key={course.id}
-            extra={
-              <Typography.Text type="secondary">
-                {course.rating.count}条点评
-              </Typography.Text>
-            }
-          >
+          <List.Item key={course.id} extra={course.rating.count + '条点评'}>
             <List.Item.Meta
               title={
                 <Space align="center">

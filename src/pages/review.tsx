@@ -48,11 +48,11 @@ const ReviewPage = (props: {
       message.info('请打分');
       return;
     }
-    const review = { comment, rating, semester, id: course.value, score };
+    const review = { comment, rating, semester, course: course.value, score };
     console.log(review);
-    axios.post('/api/review/', review).then((resp) => {
+    axios.post('/api/write-review/', review).then((resp) => {
       console.log(resp.data);
-      if (resp.status == 200) {
+      if (resp.status == 201) {
         message.success('提交成功');
         history.goBack();
       }

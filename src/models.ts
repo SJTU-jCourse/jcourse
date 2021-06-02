@@ -79,3 +79,10 @@ export interface User {
   id: number;
   username: string;
 }
+
+export interface Action {
+  review: number;
+  action: number;
+  approves: number;
+  disapproves: number;
+}
