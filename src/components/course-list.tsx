@@ -38,8 +38,10 @@ const CourseList = ({
               }
               description={
                 <span>
-                  <Tag color="success">{course.category}</Tag>
-                  {course.department} {course.credit}学分
+                  {course.category && (
+                    <Tag color="success">{course.category}</Tag>
+                  )}
+                  {course.credit}学分 {course.department}
                 </span>
               }
             />

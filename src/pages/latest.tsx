@@ -12,10 +12,13 @@ const Latest = () => {
     previous: null,
     results: [],
   });
+  const [loading, setLoading] = useState<boolean>(false);
 
   const fetchReviews = (limit: number, offset: number) => {
+    setLoading(true);
     axios.get(`/api/review/?limit=${limit}&offset=${offset}`).then((resp) => {
       setReviews(resp.data);
+      setLoading(false);
     });
   };
 
@@ -34,6 +37,7 @@ const Latest = () => {
     >
       <Card>
         <ReviewList
+          loading={loading}
           count={reviews.count}
           reviews={reviews.results}
           onPageChange={onPageChange}

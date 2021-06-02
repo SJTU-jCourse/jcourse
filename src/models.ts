@@ -6,8 +6,8 @@ export interface PaginationApiResult<Type> {
 }
 
 export interface Teacher {
-  tid: string;
-  department: string;
+  tid: string | null;
+  department: string | null;
   name: string;
   title: string;
 }
@@ -15,7 +15,7 @@ export interface Teacher {
 export interface CourseListItem {
   id: number;
   code: string;
-  category: string;
+  category: string | null;
   department: string;
   name: string;
   credit: number;
@@ -26,13 +26,13 @@ export interface CourseListItem {
 export interface CourseDetail {
   id: number;
   code: string;
-  category: string;
-  department: string;
+  category: string | null;
+  department: string | null;
   name: string;
   credit: number;
   main_teacher: Teacher;
   teacher_group: Teacher[];
-  language: string;
+  language: string | null;
   rating: { avg: number | null; count: number };
   related_teachers: { id: number; name: string }[];
   related_courses: { id: number; name: string }[];
@@ -65,14 +65,14 @@ export interface CourseInReview {
 export interface Review {
   id: number;
   course?: CourseInReview;
-  semester: string;
+  semester: string | null;
   rating: number;
   comment: string;
   created: string;
   approves: number;
   disapproves: number;
   score: number | string;
-  moderator_remark?: string;
+  moderator_remark: string | null;
 }
 
 export interface User {

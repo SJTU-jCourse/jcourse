@@ -7,10 +7,12 @@ const ReviewList = ({
   count,
   reviews,
   onPageChange,
+  loading,
 }: {
   count: number;
   reviews: Review[];
   onPageChange: Function;
+  loading: boolean;
 }) => {
   const onAction = (review: number, action: number) => {
     axios.post(`/api/action/${review}/`, { action: action }).then((resp) => {
@@ -19,6 +21,7 @@ const ReviewList = ({
   };
   return (
     <List
+      loading={loading}
       itemLayout="vertical"
       pagination={{
         hideOnSinglePage: true,
