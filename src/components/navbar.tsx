@@ -1,7 +1,15 @@
-import { EditOutlined, SearchOutlined } from '@ant-design/icons';
-import { Button, Col, Menu, Row } from 'antd';
+import { User } from '@/models';
+import {
+  EditOutlined,
+  LogoutOutlined,
+  SearchOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
+import { Button, Col, Dropdown, Menu, Row } from 'antd';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { Link } from 'umi';
+import { Link, useHistory } from 'umi';
 
 const navMenuItems = [
   { key: '/latest', text: '最新', linkTo: '/latest' },
@@ -10,8 +18,35 @@ const navMenuItems = [
 
 const NavBar = (props: { pathname: string }) => {
   const isXs: boolean = useMediaQuery({ query: '(max-width: 576px)' });
-
+  const history = useHistory();
+  const [user, setUser] = useState<User>({ id: 0, username: '' });
   const { pathname } = props;
+  useEffect(() => {
+    axios
+      .get('/api/me/')
+      .then((resp) => {
+        setUser(resp.data);
+      })
+      .catch((err) => {
+        if (err?.response?.status == 401 || err?.response?.status == 403)
+          history.push('/login');
+      });
+  }, [history]);
+  const handleMenuClick = (e) => {
+    if (e.key == 'logout') {
+      window.location.href = '/oauth/logout';
+    }
+  };
+  const menu = (
+    <Menu onClick={handleMenuClick}>
+      <Menu.Item key="username" icon={<UserOutlined />}>
+        {user.username}
+      </Menu.Item>
+      <Menu.Item danger key="logout" icon={<LogoutOutlined />}>
+        登出
+      </Menu.Item>
+    </Menu>
+  );
 
   return (
     <Row
@@ -50,7 +85,15 @@ const NavBar = (props: { pathname: string }) => {
           ))}
         </Menu>
       </Col>
-
+      <Col>
+        <Link to="/review">
+          {isXs ? (
+            <Button type="primary" shape="circle" icon={<EditOutlined />} />
+          ) : (
+            <Button type="primary">写点评</Button>
+          )}
+        </Link>
+      </Col>
       <Col>
         <Link to="/search">
           <Button
@@ -60,14 +103,11 @@ const NavBar = (props: { pathname: string }) => {
           />
         </Link>
       </Col>
+
       <Col>
-        <Link to="/review">
-          {isXs ? (
-            <Button type="primary" shape="circle" icon={<EditOutlined />} />
-          ) : (
-            <Button type="primary">写点评</Button>
-          )}
-        </Link>
+        <Dropdown overlay={menu} placement="bottomCenter">
+          <Button shape="circle" icon={<UserOutlined />}></Button>
+        </Dropdown>
       </Col>
     </Row>
   );

@@ -43,11 +43,7 @@ const CoursesPage = () => {
     });
   };
   return (
-    <PageHeader
-      title="所有课程"
-      backIcon={false}
-      subTitle={'共有' + courses.count + '门课'}
-    >
+    <PageHeader title="所有课程" backIcon={false}>
       <Row gutter={[16, 16]}>
         <Col xs={24} md={8}>
           <FilterCard
@@ -58,7 +54,7 @@ const CoursesPage = () => {
           />
         </Col>
         <Col xs={24} md={16}>
-          <Card>
+          <Card title={'共有' + courses.count + '门课'}>
             <CourseList courses={courses.results} />
           </Card>
         </Col>

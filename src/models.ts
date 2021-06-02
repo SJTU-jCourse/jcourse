@@ -74,3 +74,8 @@ export interface Review {
   score: number | string;
   moderator_remark?: string;
 }
+
+export interface User {
+  id: number;
+  username: string;
+}
