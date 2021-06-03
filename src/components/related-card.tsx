@@ -14,7 +14,7 @@ const RelatedCard = ({ course }: { course: CourseDetail }) => {
             renderItem={(item) => (
               <List.Item>
                 <Space align="center">
-                  <Link to={'/course/' + item.id}>{item.name}</Link>
+                  <Link to={'/course/' + item.id}>{item.tname}</Link>
                   {/*<span>
                     <Text strong>{item.rate}</Text>（{item.count}条点评）
                   </span>*/}

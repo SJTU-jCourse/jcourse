@@ -26,6 +26,7 @@ const Report = () => {
         <TextArea
           showCount
           rows={10}
+          maxLength={817}
           onChange={(e) => setComment(e.target.value)}
         />
         <Divider />
