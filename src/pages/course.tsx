@@ -33,6 +33,7 @@ const CoursePage = () => {
     related_courses: [],
   });
   const [courseLoading, setCourseLoading] = useState<boolean>(true);
+  const [reviewLoading, setReviewLoading] = useState<boolean>(true);
   const [reviews, setReviews] = useState<Review[]>([]);
   useEffect(() => {
     setCourseLoading(true);
@@ -48,13 +49,15 @@ const CoursePage = () => {
   }, [id]);
 
   const fetchReview = () => {
+    setReviewLoading(true);
     const apiUrl = `/api/course/${id}/review/`;
     axios.get(apiUrl).then((resp) => {
       setReviews(resp.data);
+      setReviewLoading(false);
     });
   };
-  const onPageChange = (page) => {
-    console.log(page);
+  const onPageChange = (page: number, pageSize: number) => {
+    console.log(page, pageSize);
   };
   return (
     <Row gutter={[16, 16]} style={{ paddingInline: 16, marginTop: 16 }}>
@@ -97,6 +100,8 @@ const CoursePage = () => {
           }
         >
           <ReviewList
+            loading={reviewLoading}
+            count={reviews.length}
             reviews={reviews}
             onPageChange={onPageChange}
           ></ReviewList>

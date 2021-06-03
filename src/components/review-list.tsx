@@ -14,10 +14,12 @@ const ReviewList = ({
   onPageChange: Function;
   loading: boolean;
 }) => {
-  const onAction = (review: number, action: number) => {
-    axios.post(`/api/action/${review}/`, { action: action }).then((resp) => {
-      console.log(resp);
-    });
+  const onAction = (review_id: number, action: number) => {
+    axios
+      .post(`/api/review/${review_id}/action/`, { action: action })
+      .then((resp) => {
+        console.log(resp);
+      });
   };
   return (
     <List

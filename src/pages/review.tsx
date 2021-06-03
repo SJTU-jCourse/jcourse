@@ -50,7 +50,7 @@ const ReviewPage = (props: {
     }
     const review = { comment, rating, semester, course: course.value, score };
     console.log(review);
-    axios.post('/api/write-review/', review).then((resp) => {
+    axios.post('/api/review/', review).then((resp) => {
       console.log(resp.data);
       if (resp.status == 201) {
         message.success('提交成功');
@@ -148,9 +148,7 @@ const ReviewPage = (props: {
           <TextArea
             showCount
             rows={10}
-            defaultValue={
-              '课程内容：\n\n上课自由度：\n\n考核标准：\n\n讲课质量：\n\n'
-            }
+            defaultValue={'课程内容：\n上课自由度：\n考核标准：\n讲课质量：\n'}
             onChange={(e) => setComment(e.target.value)}
           />
           <Paragraph>
