@@ -62,6 +62,12 @@ export interface CourseInReview {
   teacher: string;
 }
 
+export interface ReviewAction {
+  id: number;
+  action?: number;
+  approves: number;
+  disapproves: number;
+}
 export interface Review {
   id: number;
   course?: CourseInReview;
@@ -69,8 +75,7 @@ export interface Review {
   rating: number;
   comment: string;
   created: string;
-  approves: number;
-  disapproves: number;
+  actions: { approves: number; disapproves: number; action: number };
   score: number | string;
   moderator_remark: string | null;
 }

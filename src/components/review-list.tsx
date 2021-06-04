@@ -1,7 +1,7 @@
+import ReviewActionButton from '@/components/review-action-button';
 import config from '@/config';
 import { Review } from '@/models';
-import { DislikeOutlined, LikeOutlined } from '@ant-design/icons';
-import { Alert, Button, List, Space } from 'antd';
+import { Alert, List, Space } from 'antd';
 import axios from 'axios';
 import { Link } from 'umi';
 const ReviewList = ({
@@ -16,11 +16,7 @@ const ReviewList = ({
   loading: boolean;
 }) => {
   const onAction = (review_id: number, action: number) => {
-    axios
-      .post(`/api/review/${review_id}/action/`, { action: action })
-      .then((resp) => {
-        console.log(resp);
-      });
+    axios.post(`/api/review/${review_id}/action/`, { action: action });
   };
   return (
     <List
@@ -41,22 +37,13 @@ const ReviewList = ({
           key={item.id}
           actions={[
             <div>{item.created}</div>,
-            <Button
-              type="text"
-              onClick={() => {
-                onAction(item.id, 1);
+            <ReviewActionButton
+              onAction={onAction}
+              actionProps={{
+                id: item.id,
+                ...item.actions,
               }}
-            >
-              <LikeOutlined /> {item.approves}
-            </Button>,
-            <Button
-              type="text"
-              onClick={() => {
-                onAction(item.id, -1);
-              }}
-            >
-              <DislikeOutlined /> {item.disapproves}
-            </Button>,
+            />,
           ]}
         >
           <Space direction="vertical" style={{ width: '100%' }}>
