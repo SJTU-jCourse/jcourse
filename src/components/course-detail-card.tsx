@@ -51,9 +51,11 @@ const CourseDetailCard = ({
             })
             .join('，')}
         </Descriptions.Item>
-        <Descriptions.Item label="课程类别">
-          {course.category}
-        </Descriptions.Item>
+        {course.category && (
+          <Descriptions.Item label="课程类别">
+            {course.category}
+          </Descriptions.Item>
+        )}
         <Descriptions.Item label="推荐指数">
           <Text strong>{course.rating.avg?.toFixed(1)}</Text>（
           {course.rating.count}
