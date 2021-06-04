@@ -1,9 +1,9 @@
 import { ReviewAction } from '@/models';
 import {
-  DislikeFilled,
   DislikeOutlined,
-  LikeFilled,
+  DislikeTwoTone,
   LikeOutlined,
+  LikeTwoTone,
 } from '@ant-design/icons';
 import { Button, Space } from 'antd';
 import { useState } from 'react';
@@ -44,7 +44,7 @@ const ReviewActionButton = ({
           onAction(actionProps.id, newAction);
         }}
       >
-        {myAction == 1 ? <LikeFilled /> : <LikeOutlined />} {approves}
+        {myAction == 1 ? <LikeTwoTone /> : <LikeOutlined />} {approves}
       </Button>
       <Button
         type="text"
@@ -69,7 +69,8 @@ const ReviewActionButton = ({
           onAction(actionProps.id, newAction);
         }}
       >
-        {myAction == -1 ? <DislikeFilled /> : <DislikeOutlined />} {disapproves}
+        {myAction == -1 ? <DislikeTwoTone /> : <DislikeOutlined />}{' '}
+        {disapproves}
       </Button>
     </Space>
   );
