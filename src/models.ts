@@ -35,7 +35,7 @@ export interface CourseDetail {
   language: string | null;
   rating: { avg: number | null; count: number };
   related_teachers: { id: number; tname: string }[];
-  related_courses: { id: number; name: string }[];
+  related_courses: { id: number; code: string; name: string }[];
 }
 
 export interface Filter {
