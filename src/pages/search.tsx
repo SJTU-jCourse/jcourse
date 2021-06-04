@@ -1,9 +1,9 @@
 import CourseList from '@/components/course-list';
 import config from '@/config';
-import { CourseListItem, PaginationApiResult } from '@/models';
+import { CourseListItem, Pagination, PaginationApiResult } from '@/models';
 import { Card, Input, PageHeader, message } from 'antd';
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { history } from 'umi';
 
 const { Search } = Input;
@@ -17,8 +17,13 @@ const SearchPage = () => {
     results: [],
   });
   const [courseLoading, setCourseLoading] = useState<boolean>(false);
-
-  const fetchCourses = (limit: number, offset: number) => {
+  const [pagination, setPagination] = useState<Pagination>({
+    page: 1,
+    pageSize: config.PAGE_SIZE,
+  });
+  const fetchCourses = () => {
+    const limit = pagination.pageSize;
+    const offset = (pagination.page - 1) * pagination.pageSize;
     setCourseLoading(true);
     axios
       .get(`/api/search/?q=${keyword}&limit=${limit}&offset=${offset}`)
@@ -27,15 +32,18 @@ const SearchPage = () => {
         setCourseLoading(false);
       });
   };
+
   const onSearch = (value: string) => {
     if (value.trim() == '') {
-      message.info('请输入');
+      message.info('请输入搜索内容');
       return;
     }
-    fetchCourses(config.PAGE_SIZE, 0);
+    setPagination({ page: 1, pageSize: config.PAGE_SIZE });
+    fetchCourses();
   };
   const onPageChange = (page: number, pageSize: number) => {
-    fetchCourses(pageSize, (page - 1) * pageSize);
+    setPagination({ page, pageSize });
+    fetchCourses();
   };
   return (
     <PageHeader title={'搜索'} onBack={() => history.goBack()}>
@@ -48,6 +56,7 @@ const SearchPage = () => {
       />
       <Card title={'共有' + courses.count + '门课'}>
         <CourseList
+          pagination={pagination}
           loading={courseLoading}
           count={courses.count}
           courses={courses.results}

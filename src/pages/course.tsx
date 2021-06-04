@@ -56,9 +56,6 @@ const CoursePage = () => {
       setReviewLoading(false);
     });
   };
-  const onPageChange = (page: number, pageSize: number) => {
-    console.log(page, pageSize);
-  };
   return (
     <Row gutter={[16, 16]} style={{ paddingInline: 16, marginTop: 16 }}>
       <Col xs={24} md={16}>
@@ -103,7 +100,7 @@ const CoursePage = () => {
             loading={reviewLoading}
             count={reviews.length}
             reviews={reviews}
-            onPageChange={onPageChange}
+            pagination={{ page: 1, pageSize: reviews.length }}
           ></ReviewList>
         </Card>
       </Col>

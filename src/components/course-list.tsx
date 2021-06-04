@@ -1,5 +1,5 @@
 import config from '@/config';
-import { CourseListItem } from '@/models';
+import { CourseListItem, Pagination } from '@/models';
 import { List, Space, Tag } from 'antd';
 import { Link } from 'umi';
 const CourseList = ({
@@ -7,24 +7,27 @@ const CourseList = ({
   courses,
   onPageChange,
   loading,
+  pagination,
 }: {
   count: number;
   courses: CourseListItem[];
-  onPageChange: Function;
+  onPageChange?: Function;
   loading: boolean;
+  pagination: Pagination;
 }) => {
   return (
     <List
       loading={loading}
       itemLayout="horizontal"
       pagination={{
-        showSizeChanger: false,
-        pageSize: config.PAGE_SIZE,
         hideOnSinglePage: true,
         onChange: (page, pageSize) => {
-          onPageChange(page, pageSize);
+          onPageChange && onPageChange(page, pageSize);
         },
         total: count,
+        current: pagination.page,
+        defaultCurrent: pagination.page,
+        pageSize: pagination.pageSize,
       }}
       dataSource={courses}
       renderItem={(course) => {

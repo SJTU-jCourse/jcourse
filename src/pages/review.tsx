@@ -50,11 +50,9 @@ const ReviewPage = (props: {
       return;
     }
     const review = { comment, rating, semester, course: course.value, score };
-    console.log(review);
     axios
       .post('/api/review/', review)
       .then((resp) => {
-        console.log(resp.data);
         if (resp.status == 201) {
           message.success('提交成功');
           history.goBack();
@@ -132,7 +130,6 @@ const ReviewPage = (props: {
               onSearch={debounceFetcher}
               notFoundContent={fetching ? <Spin size="small" /> : null}
               onChange={(value) => {
-                console.log(value);
                 setCourse(value);
               }}
               value={course}

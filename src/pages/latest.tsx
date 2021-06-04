@@ -1,6 +1,6 @@
 import ReviewList from '@/components/review-list';
 import config from '@/config';
-import { PaginationApiResult, Review } from '@/models';
+import { Pagination, PaginationApiResult, Review } from '@/models';
 import { Card, PageHeader } from 'antd';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -13,8 +13,14 @@ const Latest = () => {
     results: [],
   });
   const [loading, setLoading] = useState<boolean>(false);
+  const [pagination, setPagination] = useState<Pagination>({
+    page: 1,
+    pageSize: config.PAGE_SIZE,
+  });
 
-  const fetchReviews = (limit: number, offset: number) => {
+  const fetchReviews = () => {
+    const limit = pagination.pageSize;
+    const offset = (pagination.page - 1) * pagination.pageSize;
     setLoading(true);
     axios.get(`/api/review/?limit=${limit}&offset=${offset}`).then((resp) => {
       setReviews(resp.data);
@@ -23,11 +29,11 @@ const Latest = () => {
   };
 
   useEffect(() => {
-    fetchReviews(config.PAGE_SIZE, 0);
-  }, []);
+    fetchReviews();
+  }, [pagination]);
 
   const onPageChange = (page: number, pageSize: number) => {
-    fetchReviews(pageSize, (page - 1) * pageSize);
+    setPagination({ page, pageSize });
   };
   return (
     <PageHeader
@@ -41,6 +47,7 @@ const Latest = () => {
           count={reviews.count}
           reviews={reviews.results}
           onPageChange={onPageChange}
+          pagination={pagination}
         />
       </Card>
     </PageHeader>

@@ -1,6 +1,6 @@
 import ReviewActionButton from '@/components/review-action-button';
 import config from '@/config';
-import { Review } from '@/models';
+import { Pagination, Review } from '@/models';
 import { Alert, List, Space } from 'antd';
 import axios from 'axios';
 import { Link } from 'umi';
@@ -9,11 +9,13 @@ const ReviewList = ({
   reviews,
   onPageChange,
   loading,
+  pagination,
 }: {
   count: number;
   reviews: Review[];
-  onPageChange: Function;
+  onPageChange?: Function;
   loading: boolean;
+  pagination: Pagination;
 }) => {
   const onAction = (review_id: number, action: number) => {
     axios.post(`/api/review/${review_id}/action/`, { action: action });
@@ -23,13 +25,14 @@ const ReviewList = ({
       loading={loading}
       itemLayout="vertical"
       pagination={{
-        showSizeChanger: false,
-        pageSize: config.PAGE_SIZE,
         hideOnSinglePage: true,
         onChange: (page, pageSize) => {
-          onPageChange(page, pageSize);
+          onPageChange && onPageChange(page, pageSize);
         },
         total: count,
+        current: pagination.page,
+        defaultCurrent: pagination.page,
+        pageSize: pagination.pageSize,
       }}
       dataSource={reviews}
       renderItem={(item) => (

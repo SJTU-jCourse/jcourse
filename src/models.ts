@@ -91,3 +91,8 @@ export interface Action {
   approves: number;
   disapproves: number;
 }
+
+export interface Pagination {
+  page: number;
+  pageSize: number;
+}

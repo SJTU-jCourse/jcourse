@@ -12,7 +12,6 @@ const Report = () => {
     }
 
     axios.post('/api/report/', { comment: comment }).then((resp) => {
-      console.log(resp.data);
       if (resp.status == 201) {
         message.success('提交成功');
         history.goBack();

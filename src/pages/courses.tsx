@@ -1,7 +1,7 @@
 import CourseList from '@/components/course-list';
 import FilterCard from '@/components/filter-card';
 import config from '@/config';
-import { CourseListItem, PaginationApiResult } from '@/models';
+import { CourseListItem, Pagination, PaginationApiResult } from '@/models';
 import { Card, Col, PageHeader, Row } from 'antd';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -19,12 +19,6 @@ const CoursesPage = () => {
   const [filterLoading, setFilterLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    axios.get('/api/course/').then((resp) => {
-      setCourses(resp.data);
-    });
-  }, []);
-
-  useEffect(() => {
     setFilterLoading(true);
     axios.get('/api/filter/').then((resp) => {
       setFilters({
@@ -35,10 +29,11 @@ const CoursesPage = () => {
     });
   }, []);
 
-  const [urlParams, setUrlParams] = useState<string>('');
+  const [apiParams, setApiParams] = useState<string>('');
   const [courseLoading, setCourseLoading] = useState<boolean>(false);
-
-  const fetchCourses = (params: string, limit: number, offset: number) => {
+  const fetchCourses = (params: string) => {
+    const limit = pagination.pageSize;
+    const offset = (pagination.page - 1) * pagination.pageSize;
     const apiUrl = `/api/course/?${params}&limit=${limit}&offset=${offset}`;
     setCourseLoading(true);
     axios.get(apiUrl).then((resp) => {
@@ -46,17 +41,25 @@ const CoursesPage = () => {
       setCourseLoading(false);
     });
   };
+
+  const [pagination, setPagination] = useState<Pagination>({
+    page: 1,
+    pageSize: config.PAGE_SIZE,
+  });
+  useEffect(() => {
+    fetchCourses(apiParams);
+  }, [pagination]);
+
   const onFilterButtonClick = (categories: number[], departments: number[]) => {
     const params: string = `category=${categories.join(
       ',',
     )}&department=${departments.join(',')}`;
-    setUrlParams(params);
-    fetchCourses(params, config.PAGE_SIZE, 0);
+    setApiParams(params);
+    setPagination({ page: 0, pageSize: config.PAGE_SIZE });
   };
 
   const onPageChange = (page: number, pageSize: number) => {
-    console.log(page, pageSize);
-    fetchCourses(urlParams, pageSize, (page - 1) * pageSize);
+    setPagination({ page, pageSize });
   };
   return (
     <PageHeader title="所有课程" backIcon={false}>
@@ -72,6 +75,7 @@ const CoursesPage = () => {
         <Col xs={24} md={16}>
           <Card title={'共有' + courses.count + '门课'}>
             <CourseList
+              pagination={pagination}
               loading={courseLoading}
               count={courses.count}
               courses={courses.results}
