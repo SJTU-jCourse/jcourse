@@ -3,7 +3,8 @@ import axios from 'axios';
 import { useState } from 'react';
 import { history } from 'umi';
 const { TextArea } = Input;
-const Report = () => {
+const Report = (props: { location: { state: any } }) => {
+  const { state } = props.location;
   const [comment, setComment] = useState<string>('');
   const handleSubmit = () => {
     if (comment == '') {
@@ -26,6 +27,7 @@ const Report = () => {
           showCount
           rows={10}
           maxLength={817}
+          defaultValue={(state && state.comment) || ''}
           onChange={(e) => setComment(e.target.value)}
         />
         <Divider />

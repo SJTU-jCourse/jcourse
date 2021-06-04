@@ -162,10 +162,13 @@ const ReviewPage = (props: {
               showCount
               rows={10}
               maxLength={817}
+              defaultValue={
+                '课程内容：\n上课自由度：\n考核标准：\n讲课质量：\n'
+              }
               onChange={(e) => setComment(e.target.value)}
             />
             <Text type="secondary">
-              可以在这里畅所欲言！推荐点评课程内容、上课自由度、考核标准、讲课质量等方面。
+              可以在这里畅所欲言！推荐点评的内容在文本框里填充了，可以视情况删除/修改，提供给大家为了方便。
               <br /> 一个理想的点评应当 (1) 富有事实；(2)
               对课程有全面的描述。比如课讲得好，但是考试十分虐，
               二者都说出来更有利于同学们做出全面的选择和判断。

@@ -21,7 +21,18 @@ const CourseDetailCard = ({
           </Title>
         )
       }
-      extra={<Link to="/report">信息有误？</Link>}
+      extra={
+        <Link
+          to={{
+            pathname: '/report',
+            state: {
+              comment: `课程信息有误\n课程：${course.code} ${course.name} ${course.main_teacher.name}\n内部编号：${course.id}\n更改意见：`,
+            },
+          }}
+        >
+          信息有误？
+        </Link>
+      }
       loading={loading}
     >
       <Descriptions column={{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 1, xs: 1 }}>
