@@ -1,13 +1,27 @@
 import { CourseDetail } from '@/models';
-import { Card, List, Space } from 'antd';
+import { Card, List, Space, Spin } from 'antd';
+import { PropsWithChildren } from 'react';
 import { Link } from 'umi';
-const RelatedCard = ({ course }: { course: CourseDetail }) => {
+const RelatedCard = ({
+  course,
+  loading,
+  ...props
+}: PropsWithChildren<{ course: CourseDetail; loading: boolean }>) => {
   const { main_teacher, related_teachers, related_courses } = course;
 
   return (
-    <div>
-      {related_teachers.length > 0 ? (
-        <Card title={'其他老师的' + course.name}>
+    <div {...props}>
+      <Card
+        title={
+          loading ? (
+            <Spin />
+          ) : (
+            <div style={{ whiteSpace: 'normal' }}>其他老师的{course.name}</div>
+          )
+        }
+        loading={loading}
+      >
+        {related_teachers.length > 0 && (
           <List
             split={false}
             dataSource={related_teachers}
@@ -22,16 +36,23 @@ const RelatedCard = ({ course }: { course: CourseDetail }) => {
               </List.Item>
             )}
           />
-        </Card>
-      ) : (
-        <></>
-      )}
+        )}
+      </Card>
 
-      {related_courses.length > 0 ? (
-        <Card
-          title={main_teacher.name + '的其他课'}
-          style={{ marginTop: related_teachers.length > 0 ? 16 : 0 }}
-        >
+      <Card
+        title={
+          loading ? (
+            <Spin />
+          ) : (
+            <div style={{ whiteSpace: 'normal' }}>
+              {main_teacher.name}的其他课
+            </div>
+          )
+        }
+        style={{ marginTop: 16 }}
+        loading={loading}
+      >
+        {related_courses.length > 0 && (
           <List
             split={false}
             dataSource={related_courses}
@@ -48,10 +69,8 @@ const RelatedCard = ({ course }: { course: CourseDetail }) => {
               </List.Item>
             )}
           />
-        </Card>
-      ) : (
-        <></>
-      )}
+        )}
+      </Card>
     </div>
   );
 };

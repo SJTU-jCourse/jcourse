@@ -58,11 +58,16 @@ const CoursePage = () => {
   };
   return (
     <Row gutter={[16, 16]} style={{ paddingInline: 16, marginTop: 16 }}>
-      <Col xs={24} md={16}>
+      <Col xs={24} md={8}>
         <CourseDetailCard course={course} loading={courseLoading} />
-
-        <Card
+        <RelatedCard
           style={{ marginTop: 16 }}
+          course={course}
+          loading={courseLoading}
+        />
+      </Col>
+      <Col xs={24} md={16}>
+        <Card
           title={`点评（${reviews ? reviews.length : 0}条）`}
           extra={
             <Space>
@@ -103,9 +108,6 @@ const CoursePage = () => {
             pagination={{ page: 1, pageSize: reviews.length }}
           ></ReviewList>
         </Card>
-      </Col>
-      <Col xs={24} md={8}>
-        <RelatedCard course={course} />
       </Col>
     </Row>
   );
