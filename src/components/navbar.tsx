@@ -61,11 +61,12 @@ const NavBar = (props: { pathname: string }) => {
           to="/"
           style={{
             fontWeight: 600,
-            fontSize: 18,
+            fontSize: isXs ? 14 : 18,
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
             color: 'black',
+            marginRight: isXs ? 0 : 16,
           }}
         >
           SJTU选课社区
@@ -79,7 +80,7 @@ const NavBar = (props: { pathname: string }) => {
           style={{ border: 0, height: 64 }}
         >
           {navMenuItems.map((item) => (
-            <Menu.Item key={item.key}>
+            <Menu.Item key={item.key} style={{ margin: '0 10px' }}>
               <Link to={item.linkTo}>{item.text}</Link>
             </Menu.Item>
           ))}

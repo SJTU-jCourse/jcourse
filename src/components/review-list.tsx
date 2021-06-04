@@ -1,3 +1,4 @@
+import config from '@/config';
 import { Review } from '@/models';
 import { DislikeOutlined, LikeOutlined } from '@ant-design/icons';
 import { Alert, Button, List, Space } from 'antd';
@@ -26,6 +27,8 @@ const ReviewList = ({
       loading={loading}
       itemLayout="vertical"
       pagination={{
+        showSizeChanger: false,
+        pageSize: config.PAGE_SIZE,
         hideOnSinglePage: true,
         onChange: (page, pageSize) => {
           onPageChange(page, pageSize);
