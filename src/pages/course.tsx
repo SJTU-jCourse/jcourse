@@ -25,6 +25,7 @@ const CoursePage = () => {
     language: '',
     main_teacher: { tid: '', department: '', name: '', title: '' },
     teacher_group: [],
+    moderator_remark: null,
     rating: {
       avg: 0,
       count: 0,
