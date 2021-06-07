@@ -83,7 +83,7 @@ const ReviewPage = (props: {
       setSemesters(
         items.map((item: Semester) => ({ label: item.name, value: item.id })),
       );
-      setSemester(items[0].id);
+      if (items && items.length > 0) setSemester(items[0].id);
     });
   }, []);
 
