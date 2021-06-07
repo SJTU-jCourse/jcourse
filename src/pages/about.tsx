@@ -16,7 +16,7 @@ const About = () => {
         <Title level={3}>我们的态度</Title>
         <Paragraph>
           本课程点评网站为非官方网站，与上海交通大学官方机构没有关联，包括
-          SJTU-Plus 与上述合作运营人。
+          SJTU-Plus 与交大传承。
         </Paragraph>
         <Paragraph>
           秉承着完全信息原则，我们不对网站上的课程点评进行审核、修改，
