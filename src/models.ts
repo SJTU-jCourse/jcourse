@@ -33,6 +33,7 @@ export interface CourseDetail {
   main_teacher: Teacher;
   teacher_group: Teacher[];
   language: string | null;
+  moderator_remark: string | null;
   rating: { avg: number | null; count: number };
   related_teachers: { id: number; tname: string }[];
   related_courses: { id: number; code: string; name: string }[];

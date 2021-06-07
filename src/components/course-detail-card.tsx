@@ -44,6 +44,11 @@ const CourseDetailCard = ({
             {course.category}
           </Descriptions.Item>
         )}
+        {course.moderator_remark && (
+          <Descriptions.Item label="备注">
+            {course.moderator_remark}
+          </Descriptions.Item>
+        )}
         <Descriptions.Item label="推荐指数">
           <Text strong>{course.rating.avg?.toFixed(1)}</Text>（
           {course.rating.count}
