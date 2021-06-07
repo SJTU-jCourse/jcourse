@@ -83,7 +83,6 @@ const ReviewPage = (props: {
       setSemesters(
         items.map((item: Semester) => ({ label: item.name, value: item.id })),
       );
-      if (items && items.length > 0) setSemester(items[0].id);
     });
   }, []);
 
@@ -141,9 +140,8 @@ const ReviewPage = (props: {
             </Text>
           </div>
           <div>
-            学期
+            您上这门课的学期
             <Select
-              value={semester}
               placeholder="选择学期"
               style={{ width: '100%' }}
               onSelect={(key) => setSemester(key)}
