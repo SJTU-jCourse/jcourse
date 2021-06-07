@@ -33,18 +33,22 @@ const SearchPage = () => {
       });
   };
 
+  useEffect(() => {
+    fetchCourses();
+  }, [pagination]);
+
   const onSearch = (value: string) => {
     if (value.trim() == '') {
       message.info('请输入搜索内容');
       return;
     }
     setPagination({ page: 1, pageSize: config.PAGE_SIZE });
-    fetchCourses();
   };
+
   const onPageChange = (page: number, pageSize: number) => {
     setPagination({ page, pageSize });
-    fetchCourses();
   };
+
   return (
     <PageHeader title={'搜索'} onBack={() => history.goBack()}>
       <Search
