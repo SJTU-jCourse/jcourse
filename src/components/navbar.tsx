@@ -39,9 +39,6 @@ const NavBar = (props: { pathname: string }) => {
   };
   const menu = (
     <Menu onClick={handleMenuClick}>
-      <Menu.Item key="username" icon={<UserOutlined />}>
-        {user.username}
-      </Menu.Item>
       <Menu.Item danger key="logout" icon={<LogoutOutlined />}>
         登出
       </Menu.Item>
