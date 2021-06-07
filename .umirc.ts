@@ -12,7 +12,8 @@ export default defineConfig({
       path: '/',
       component: '@/layouts/index',
       routes: [
-        { exact: true, path: '/', component: '@/pages/index' },
+        { exact: true, path: '/', redirect: '/latest' },
+        { exact: true, path: '/statistic', component: '@/pages/index' },
         { exact: true, path: '/about', component: '@/pages/about' },
         { exact: true, path: '/latest', component: '@/pages/latest' },
         { exact: true, path: '/courses', component: '@/pages/courses' },
