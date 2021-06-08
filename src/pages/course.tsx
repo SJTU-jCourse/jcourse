@@ -6,6 +6,7 @@ import { EditOutlined } from '@ant-design/icons';
 import { Button, Card, Col, Row, Space } from 'antd';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { Link, useParams } from 'umi';
 
 const CoursePage = () => {
@@ -13,8 +14,9 @@ const CoursePage = () => {
     { label: '最新发布', value: 'new' },
     { label: '最多赞同', value: 'hot' },
   ];*/
+  const isMd: boolean = useMediaQuery({ query: '(max-width: 768px)' });
   const { id } = useParams<{ id: string }>();
-  const [order, setOrder] = useState<number>(0);
+  //const [order, setOrder] = useState<number>(0);
   const [course, setCourse] = useState<CourseDetail>({
     id: 0,
     code: '',
@@ -61,11 +63,13 @@ const CoursePage = () => {
     <Row gutter={[16, 16]} style={{ paddingInline: 16, marginTop: 16 }}>
       <Col xs={24} md={8}>
         <CourseDetailCard course={course} loading={courseLoading} />
-        <RelatedCard
-          style={{ marginTop: 16 }}
-          course={course}
-          loading={courseLoading}
-        />
+        {!isMd && (
+          <RelatedCard
+            style={{ marginTop: 16 }}
+            course={course}
+            loading={courseLoading}
+          />
+        )}
       </Col>
       <Col xs={24} md={16}>
         <Card
@@ -110,6 +114,11 @@ const CoursePage = () => {
           ></ReviewList>
         </Card>
       </Col>
+      {isMd && (
+        <Col xs={24} md={24}>
+          <RelatedCard course={course} loading={courseLoading} />
+        </Col>
+      )}
     </Row>
   );
 };
