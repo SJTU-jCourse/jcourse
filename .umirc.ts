@@ -1,3 +1,4 @@
+import { trimEnd } from 'lodash';
 import { defineConfig } from 'umi';
 
 export default defineConfig({
@@ -31,6 +32,7 @@ export default defineConfig({
   theme: {
     '@primary-color': '#1DA57A',
   },
+  hash: true,
   mock: false,
   proxy: {
     '/api': {
