@@ -191,7 +191,7 @@ const ReviewPage = (props: {
             成绩
             <Input
               style={{ width: '100%' }}
-              placeholder="分数或等级"
+              placeholder="分数或等级，中期退课填W"
               maxLength={10}
               onChange={(e) => setScore(e.target.value)}
             />
