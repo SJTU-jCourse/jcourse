@@ -29,7 +29,7 @@ export async function searchCourse(
   offset: number,
 ): Promise<PaginationApiResult<CourseListItem>> {
   const resp = await request(
-    `/api/search/?keyword=${keyword}&limit=${limit}&offset=${offset}`,
+    `/api/search/?q=${keyword}&limit=${limit}&offset=${offset}`,
   );
   return resp.data;
 }
