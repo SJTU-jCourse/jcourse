@@ -1,19 +1,21 @@
+import { StatisticInfo } from '@/models';
+import { getStatistic } from '@/services/statistic';
 import { Col, Row, Spin, Statistic, Typography } from 'antd';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'umi';
 
 const { Title } = Typography;
 
 const Index = () => {
-  const [indexState, setIndexState] = useState({
-    loading: true,
-    statistic: { courses: 0, reviews: 0 },
+  const [loading, setLoading] = useState<boolean>(true);
+  const [indexState, setIndexState] = useState<StatisticInfo>({
+    courses: 0,
+    reviews: 0,
   });
   useEffect(() => {
-    setIndexState({ loading: true, statistic: { courses: 0, reviews: 0 } });
-    axios.get('/api/statistic/').then((repos) => {
-      setIndexState({ loading: false, statistic: repos.data });
+    getStatistic().then((statistic) => {
+      setLoading(false);
+      setIndexState(statistic);
     });
   }, []);
 
@@ -29,20 +31,20 @@ const Index = () => {
         align="middle"
       >
         <Col span={12}>
-          {indexState.loading ? (
+          {loading ? (
             <Spin />
           ) : (
             <Link to="/latest">
-              <Statistic title="点评数" value={indexState.statistic.reviews} />
+              <Statistic title="点评数" value={indexState.reviews} />
             </Link>
           )}
         </Col>
         <Col span={12}>
-          {indexState.loading ? (
+          {loading ? (
             <Spin />
           ) : (
             <Link to="/courses">
-              <Statistic title="课程数" value={indexState.statistic.courses} />
+              <Statistic title="课程数" value={indexState.courses} />
             </Link>
           )}
         </Col>

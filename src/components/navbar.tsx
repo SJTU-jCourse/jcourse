@@ -1,4 +1,5 @@
 import { User } from '@/models';
+import { getUser } from '@/services/user';
 import {
   EditOutlined,
   LogoutOutlined,
@@ -6,7 +7,6 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import { Button, Col, Dropdown, Menu, Row } from 'antd';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Link, useHistory } from 'umi';
@@ -22,15 +22,9 @@ const NavBar = (props: { pathname: string }) => {
   const [user, setUser] = useState<User>({ id: 0, username: '' });
   const { pathname } = props;
   useEffect(() => {
-    axios
-      .get('/api/me/')
-      .then((resp) => {
-        setUser(resp.data);
-      })
-      .catch((err) => {
-        if (err?.response?.status == 401 || err?.response?.status == 403)
-          history.push('/login');
-      });
+    getUser().then((user) => {
+      setUser(user);
+    });
   }, [history]);
   const handleMenuClick = (e) => {
     if (e.key == 'logout') {

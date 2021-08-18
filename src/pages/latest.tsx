@@ -1,8 +1,8 @@
 import ReviewList from '@/components/review-list';
 import config from '@/config';
 import { Pagination, PaginationApiResult, Review } from '@/models';
+import { getReviews } from '@/services/review';
 import { Card, PageHeader } from 'antd';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 const Latest = () => {
@@ -22,8 +22,8 @@ const Latest = () => {
     const limit = pagination.pageSize;
     const offset = (pagination.page - 1) * pagination.pageSize;
     setLoading(true);
-    axios.get(`/api/review/?limit=${limit}&offset=${offset}`).then((resp) => {
-      setReviews(resp.data);
+    getReviews(limit, offset).then((reviews) => {
+      setReviews(reviews);
       setLoading(false);
     });
   };

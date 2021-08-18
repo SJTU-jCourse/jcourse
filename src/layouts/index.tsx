@@ -1,7 +1,7 @@
 import NavBar from '@/components/navbar';
 import { Notice } from '@/models';
+import { getNotices } from '@/services/notice';
 import { Alert, Layout, List, Space } from 'antd';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Link } from 'umi';
@@ -20,8 +20,8 @@ const BasicLayout = (props: { location: { pathname: any }; children: any }) => {
   } = props;
 
   useEffect(() => {
-    axios.get('/api/notice/').then((resp) => {
-      setNotices(resp.data);
+    getNotices().then((resp) => {
+      setNotices(resp);
     });
   }, []);
   return (

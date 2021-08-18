@@ -1,4 +1,7 @@
-import { CourseInReview, Semester } from '@/models';
+import { CourseInReview, ReviewDraft, Semester } from '@/models';
+import { getCourseInReview } from '@/services/course';
+import { writeReview } from '@/services/review';
+import { getSemesters } from '@/services/semester';
 import {
   Button,
   Card,
@@ -12,7 +15,6 @@ import {
   Typography,
   message,
 } from 'antd';
-import axios from 'axios';
 import { debounce } from 'lodash';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, history } from 'umi';
@@ -49,9 +51,14 @@ const ReviewPage = (props: {
       message.info('请打分');
       return;
     }
-    const review = { comment, rating, semester, course: course.value, score };
-    axios
-      .post('/api/review/', review)
+    const review: ReviewDraft = {
+      comment,
+      rating,
+      semester,
+      course: course.value,
+      score,
+    };
+    writeReview(review)
       .then((resp) => {
         if (resp.status == 201) {
           message.success('提交成功');
@@ -78,10 +85,12 @@ const ReviewPage = (props: {
   }, []);
 
   useEffect(() => {
-    axios.get('/api/semester/').then((resp) => {
-      let items = resp.data;
+    getSemesters().then((semesters) => {
       setSemesters(
-        items.map((item: Semester) => ({ label: item.name, value: item.id })),
+        semesters.map((item: Semester) => ({
+          label: item.name,
+          value: item.id,
+        })),
       );
     });
   }, []);
@@ -98,8 +107,8 @@ const ReviewPage = (props: {
       setCourses([]);
       setFetching(true);
 
-      axios.get(`/api/course-in-review/?q=${value}`).then((resp) => {
-        const options = resp.data.map((course: CourseInReview) => ({
+      getCourseInReview(value).then((courses) => {
+        const options = courses.map((course: CourseInReview) => ({
           label: `${course.code} ${course.name}（${course.teacher}）`,
           value: course.id,
         }));

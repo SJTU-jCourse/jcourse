@@ -45,6 +45,10 @@ export interface Filter {
   count: number;
 }
 
+export interface Filters {
+  categories: Filter[];
+  departments: Filter[];
+}
 export interface Notice {
   title: string;
   message: string;
@@ -81,6 +85,13 @@ export interface Review {
   moderator_remark: string | null;
 }
 
+export interface ReviewDraft {
+  comment: string;
+  rating: number;
+  semester: number;
+  course: number;
+  score: string;
+}
 export interface User {
   id: number;
   username: string;
@@ -96,4 +107,9 @@ export interface Action {
 export interface Pagination {
   page: number;
   pageSize: number;
+}
+
+export interface StatisticInfo {
+  courses: number;
+  reviews: number;
 }

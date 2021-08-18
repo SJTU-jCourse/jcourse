@@ -1,8 +1,8 @@
 import CourseList from '@/components/course-list';
 import config from '@/config';
 import { CourseListItem, Pagination, PaginationApiResult } from '@/models';
+import { searchCourse } from '@/services/course';
 import { Card, Input, PageHeader, message } from 'antd';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { history } from 'umi';
 
@@ -25,12 +25,10 @@ const SearchPage = () => {
     const limit = pagination.pageSize;
     const offset = (pagination.page - 1) * pagination.pageSize;
     setCourseLoading(true);
-    axios
-      .get(`/api/search/?q=${keyword}&limit=${limit}&offset=${offset}`)
-      .then((resp) => {
-        setCourses(resp.data);
-        setCourseLoading(false);
-      });
+    searchCourse(keyword, limit, offset).then((resp) => {
+      setCourses(resp);
+      setCourseLoading(false);
+    });
   };
 
   useEffect(() => {

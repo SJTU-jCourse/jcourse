@@ -2,9 +2,10 @@ import CourseDetailCard from '@/components/course-detail-card';
 import RelatedCard from '@/components/related-card';
 import ReviewList from '@/components/review-list';
 import { CourseDetail, Review } from '@/models';
+import { getCourseDetail } from '@/services/course';
+import { getReviewsOfCourse } from '@/services/review';
 import { EditOutlined } from '@ant-design/icons';
 import { Button, Card, Col, Row, Space } from 'antd';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Link, useParams } from 'umi';
@@ -40,25 +41,20 @@ const CoursePage = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
   useEffect(() => {
     setCourseLoading(true);
-    const apiUrl: string = `/api/course/${id}/`;
-    axios.get(apiUrl).then((resp) => {
-      setCourse(resp.data);
+    getCourseDetail(id).then((course) => {
+      setCourse(course);
       setCourseLoading(false);
     });
   }, [id]);
 
   useEffect(() => {
-    fetchReview();
-  }, [id]);
-
-  const fetchReview = () => {
     setReviewLoading(true);
-    const apiUrl = `/api/course/${id}/review/`;
-    axios.get(apiUrl).then((resp) => {
-      setReviews(resp.data);
+    getReviewsOfCourse(id).then((reviews) => {
+      setReviews(reviews);
       setReviewLoading(false);
     });
-  };
+  }, [id]);
+
   return (
     <Row gutter={[16, 16]} style={{ paddingInline: 16, marginTop: 16 }}>
       <Col xs={24} md={8}>

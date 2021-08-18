@@ -1,8 +1,7 @@
 import ReviewActionButton from '@/components/review-action-button';
-import config from '@/config';
 import { Pagination, Review } from '@/models';
+import { doReviewAction } from '@/services/review';
 import { Alert, List, Space } from 'antd';
-import axios from 'axios';
 import { Link } from 'umi';
 const ReviewList = ({
   count,
@@ -17,9 +16,6 @@ const ReviewList = ({
   loading: boolean;
   pagination: Pagination;
 }) => {
-  const onAction = (review_id: number, action: number) => {
-    axios.post(`/api/review/${review_id}/action/`, { action: action });
-  };
   return (
     <List
       loading={loading}
@@ -41,7 +37,7 @@ const ReviewList = ({
           actions={[
             <div>{item.created}</div>,
             <ReviewActionButton
-              onAction={onAction}
+              onAction={doReviewAction}
               actionProps={{
                 id: item.id,
                 ...item.actions,

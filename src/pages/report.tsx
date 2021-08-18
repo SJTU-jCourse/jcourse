@@ -1,5 +1,5 @@
+import { writeReport } from '@/services/report';
 import { Button, Card, Divider, Input, PageHeader, message } from 'antd';
-import axios from 'axios';
 import { useState } from 'react';
 import { history } from 'umi';
 const { TextArea } = Input;
@@ -12,7 +12,7 @@ const Report = (props: { location: { state: any } }) => {
       return;
     }
 
-    axios.post('/api/report/', { comment: comment }).then((resp) => {
+    writeReport(comment).then((resp) => {
       if (resp.status == 201) {
         message.success('提交成功');
         history.goBack();

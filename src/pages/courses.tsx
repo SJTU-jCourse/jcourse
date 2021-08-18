@@ -1,9 +1,14 @@
 import CourseList from '@/components/course-list';
 import FilterCard from '@/components/filter-card';
 import config from '@/config';
-import { CourseListItem, Pagination, PaginationApiResult } from '@/models';
+import {
+  CourseListItem,
+  Filters,
+  Pagination,
+  PaginationApiResult,
+} from '@/models';
+import { getCourseList, getFilters } from '@/services/course';
 import { Card, Col, PageHeader, Row } from 'antd';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 const CoursesPage = () => {
   const [courses, setCourses] = useState<PaginationApiResult<CourseListItem>>({
@@ -12,7 +17,7 @@ const CoursesPage = () => {
     previous: null,
     results: [],
   });
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<Filters>({
     categories: [],
     departments: [],
   });
@@ -20,11 +25,8 @@ const CoursesPage = () => {
 
   useEffect(() => {
     setFilterLoading(true);
-    axios.get('/api/filter/').then((resp) => {
-      setFilters({
-        categories: resp.data.categories,
-        departments: resp.data.departments,
-      });
+    getFilters().then((filters) => {
+      setFilters(filters);
       setFilterLoading(false);
     });
   }, []);
@@ -34,10 +36,9 @@ const CoursesPage = () => {
   const fetchCourses = (params: string) => {
     const limit = pagination.pageSize;
     const offset = (pagination.page - 1) * pagination.pageSize;
-    const apiUrl = `/api/course/?${params}&limit=${limit}&offset=${offset}`;
     setCourseLoading(true);
-    axios.get(apiUrl).then((resp) => {
-      setCourses(resp.data);
+    getCourseList(params, limit, offset).then((courses) => {
+      setCourses(courses);
       setCourseLoading(false);
     });
   };

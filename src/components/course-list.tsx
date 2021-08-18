@@ -1,4 +1,3 @@
-import config from '@/config';
 import { CourseListItem, Pagination } from '@/models';
 import { List, Space, Tag } from 'antd';
 import { Link } from 'umi';
