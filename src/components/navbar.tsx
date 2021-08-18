@@ -27,12 +27,17 @@ const NavBar = (props: { pathname: string }) => {
     });
   }, [history]);
   const handleMenuClick = (e) => {
-    if (e.key == 'logout') {
+    if (e.key == 'activity') {
+      history.push('/activity');
+    } else if (e.key == 'logout') {
       window.location.href = '/oauth/logout';
     }
   };
   const menu = (
     <Menu onClick={handleMenuClick}>
+      <Menu.Item key="activity" icon={<UserOutlined />}>
+        我的
+      </Menu.Item>
       <Menu.Item danger key="logout" icon={<LogoutOutlined />}>
         登出
       </Menu.Item>

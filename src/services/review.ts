@@ -8,6 +8,10 @@ export async function getReviews(
   return await request(`/api/review/?limit=${limit}&offset=${offset}`);
 }
 
+export async function getMyReivews(): Promise<Review[]> {
+  return await request('/api/review/mine/');
+}
+
 export async function getReviewsOfCourse(id: string): Promise<Review[]> {
   return await request(`/api/course/${id}/review/`);
 }

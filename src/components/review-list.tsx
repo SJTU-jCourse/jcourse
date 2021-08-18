@@ -14,22 +14,26 @@ const ReviewList = ({
   reviews: Review[];
   onPageChange?: Function;
   loading: boolean;
-  pagination: Pagination;
+  pagination?: Pagination;
 }) => {
   return (
     <List
       loading={loading}
       itemLayout="vertical"
-      pagination={{
-        hideOnSinglePage: true,
-        onChange: (page, pageSize) => {
-          onPageChange && onPageChange(page, pageSize);
-        },
-        total: count,
-        current: pagination.page,
-        defaultCurrent: pagination.page,
-        pageSize: pagination.pageSize,
-      }}
+      pagination={
+        pagination
+          ? {
+              hideOnSinglePage: true,
+              onChange: (page, pageSize) => {
+                onPageChange && onPageChange(page, pageSize);
+              },
+              total: count,
+              current: pagination.page,
+              defaultCurrent: pagination.page,
+              pageSize: pagination.pageSize,
+            }
+          : false
+      }
       dataSource={reviews}
       renderItem={(item) => (
         <List.Item

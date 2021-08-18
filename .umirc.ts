@@ -14,6 +14,7 @@ export default defineConfig({
       routes: [
         { exact: true, path: '/', redirect: '/latest' },
         { exact: true, path: '/statistic', component: '@/pages/index' },
+        { exact: true, path: '/activity', component: '@/pages/activity' },
         { exact: true, path: '/about', component: '@/pages/about' },
         { exact: true, path: '/latest', component: '@/pages/latest' },
         { exact: true, path: '/courses', component: '@/pages/courses' },
