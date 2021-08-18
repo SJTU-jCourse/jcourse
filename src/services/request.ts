@@ -1,5 +1,5 @@
+import axios from 'axios';
 import { history } from 'umi';
-import { extend } from 'umi-request';
 
 const errorHandler = function (error) {
   if (error.response) {
@@ -18,4 +18,10 @@ const errorHandler = function (error) {
   // return {some: 'data'};
 };
 
-export const request = extend({ errorHandler });
+export const request = axios.create({
+  xsrfCookieName: 'csrftoken',
+  xsrfHeaderName: 'X-CSRFToken',
+  withCredentials: true,
+});
+
+request.interceptors.response.use((response) => response, errorHandler);

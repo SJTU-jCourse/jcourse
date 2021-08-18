@@ -8,7 +8,8 @@ import {
 import { request } from '@/services/request';
 
 export async function getFilters(): Promise<Filters> {
-  return await request('/api/filter/');
+  const resp = await request('/api/filter/');
+  return resp.data;
 }
 
 export async function getCourseList(
@@ -16,9 +17,10 @@ export async function getCourseList(
   limit: number,
   offset: number,
 ): Promise<PaginationApiResult<CourseListItem>> {
-  return await request(
+  const resp = await request(
     `/api/course/?${params}&limit=${limit}&offset=${offset}`,
   );
+  return resp.data;
 }
 
 export async function searchCourse(
@@ -26,17 +28,20 @@ export async function searchCourse(
   limit: number,
   offset: number,
 ): Promise<PaginationApiResult<CourseListItem>> {
-  return await request(
+  const resp = await request(
     `/api/search/?keyword=${keyword}&limit=${limit}&offset=${offset}`,
   );
+  return resp.data;
 }
 
 export async function getCourseDetail(id: string): Promise<CourseDetail> {
-  return await request(`/api/course/${id}/`);
+  const resp = await request(`/api/course/${id}/`);
+  return resp.data;
 }
 
 export async function getCourseInReview(
   keyword: string,
 ): Promise<CourseInReview[]> {
-  return await request(`/api/course-in-review/?q=${keyword}`);
+  const resp = await request(`/api/course-in-review/?q=${keyword}`);
+  return resp.data;
 }
