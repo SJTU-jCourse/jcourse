@@ -10,7 +10,11 @@ import {
 import { getCourseList, getFilters } from '@/services/course';
 import { Card, Col, PageHeader, Row } from 'antd';
 import { useEffect, useState } from 'react';
+import { history } from 'umi';
 const CoursesPage = () => {
+  const queryString = require('query-string');
+  const parsed = queryString.parse(location.search);
+
   const [courses, setCourses] = useState<PaginationApiResult<CourseListItem>>({
     count: 0,
     next: null,
@@ -21,7 +25,18 @@ const CoursesPage = () => {
     categories: [],
     departments: [],
   });
+  const [categories, setCategories] = useState<string>(
+    parsed.categories ? parsed.categories : '',
+  );
+  const [departments, setDepartments] = useState<string>(
+    parsed.departments ? parsed.departments : '',
+  );
   const [filterLoading, setFilterLoading] = useState<boolean>(true);
+  const [courseLoading, setCourseLoading] = useState<boolean>(false);
+  const [pagination, setPagination] = useState<Pagination>({
+    page: parsed.page ? parseInt(parsed.page) : 1,
+    pageSize: parsed.size ? parseInt(parsed.size) : config.PAGE_SIZE,
+  });
 
   useEffect(() => {
     setFilterLoading(true);
@@ -31,8 +46,6 @@ const CoursesPage = () => {
     });
   }, []);
 
-  const [apiParams, setApiParams] = useState<string>('');
-  const [courseLoading, setCourseLoading] = useState<boolean>(false);
   const fetchCourses = (params: string) => {
     const limit = pagination.pageSize;
     const offset = (pagination.page - 1) * pagination.pageSize;
@@ -43,24 +56,37 @@ const CoursesPage = () => {
     });
   };
 
-  const [pagination, setPagination] = useState<Pagination>({
-    page: 1,
-    pageSize: config.PAGE_SIZE,
-  });
   useEffect(() => {
-    fetchCourses(apiParams);
-  }, [pagination]);
+    const params: string = `category=${categories}&department=${departments}`;
+    fetchCourses(params);
+  }, [history.location.query]);
 
   const onFilterButtonClick = (categories: number[], departments: number[]) => {
-    const params: string = `category=${categories.join(
-      ',',
-    )}&department=${departments.join(',')}`;
-    setApiParams(params);
-    setPagination({ page: 0, pageSize: config.PAGE_SIZE });
+    setCategories(categories.join(','));
+    setDepartments(departments.join(','));
+    setPagination({ page: 1, pageSize: config.PAGE_SIZE });
+    history.push({
+      pathname: history.location.pathname,
+      query: {
+        categories: categories.join(','),
+        departments: departments.join(','),
+        page: '1',
+        size: config.PAGE_SIZE.toString(),
+      },
+    });
   };
 
   const onPageChange = (page: number, pageSize: number) => {
     setPagination({ page, pageSize });
+    history.push({
+      pathname: history.location.pathname,
+      query: {
+        categories: categories,
+        departments: departments,
+        page: page.toString(),
+        size: pageSize.toString(),
+      },
+    });
   };
   return (
     <PageHeader title="所有课程" backIcon={false}>
@@ -69,6 +95,8 @@ const CoursesPage = () => {
           <FilterCard
             categories={filters.categories}
             departments={filters.departments}
+            selectedCategories={categories}
+            selectedDepartments={departments}
             onClick={onFilterButtonClick}
             loading={filterLoading}
           />

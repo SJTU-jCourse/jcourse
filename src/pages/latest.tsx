@@ -4,8 +4,11 @@ import { Pagination, PaginationApiResult, Review } from '@/models';
 import { getReviews } from '@/services/review';
 import { Card, PageHeader } from 'antd';
 import { useEffect, useState } from 'react';
-
+import { history } from 'umi';
 const Latest = () => {
+  const queryString = require('query-string');
+  const parsed = queryString.parse(location.search);
+
   const [reviews, setReviews] = useState<PaginationApiResult<Review>>({
     count: 0,
     next: null,
@@ -14,8 +17,8 @@ const Latest = () => {
   });
   const [loading, setLoading] = useState<boolean>(false);
   const [pagination, setPagination] = useState<Pagination>({
-    page: 1,
-    pageSize: config.PAGE_SIZE,
+    page: parsed.page ? parseInt(parsed.page) : 1,
+    pageSize: parsed.size ? parseInt(parsed.size) : config.PAGE_SIZE,
   });
 
   const fetchReviews = () => {
@@ -30,11 +33,16 @@ const Latest = () => {
 
   useEffect(() => {
     fetchReviews();
-  }, [pagination]);
+  }, [history.location.query]);
 
   const onPageChange = (page: number, pageSize: number) => {
     setPagination({ page, pageSize });
+    history.push({
+      pathname: history.location.pathname,
+      query: { page: page.toString(), size: pageSize.toString() },
+    });
   };
+
   return (
     <PageHeader
       title="最新点评"
