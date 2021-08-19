@@ -1,12 +1,13 @@
-import { User } from '@/models';
 import { getUser } from '@/services/user';
 import {
   EditOutlined,
   LogoutOutlined,
+  ProfileOutlined,
   SearchOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 import { Button, Col, Dropdown, Menu, Row } from 'antd';
+import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Link, useHistory } from 'umi';
@@ -19,14 +20,15 @@ const navMenuItems = [
 const NavBar = (props: { pathname: string }) => {
   const isXs: boolean = useMediaQuery({ query: '(max-width: 576px)' });
   const history = useHistory();
-  const [user, setUser] = useState<User>({ id: 0, username: '' });
+  const [username, setUsername] = useState<string>('');
   const { pathname } = props;
   useEffect(() => {
     getUser().then((user) => {
-      setUser(user);
+      const account = Cookies.get('account');
+      if (account) setUsername(account);
     });
   }, [history]);
-  const handleMenuClick = (e) => {
+  const handleMenuClick = (e: { key: string }) => {
     if (e.key == 'activity') {
       history.push('/activity');
     } else if (e.key == 'logout') {
@@ -35,9 +37,11 @@ const NavBar = (props: { pathname: string }) => {
   };
   const menu = (
     <Menu onClick={handleMenuClick}>
-      <Menu.Item key="activity" icon={<UserOutlined />}>
-        我的
+      <Menu.Item icon={<UserOutlined />}>{username}</Menu.Item>
+      <Menu.Item key="activity" icon={<ProfileOutlined />}>
+        活动
       </Menu.Item>
+      <Menu.Divider />
       <Menu.Item danger key="logout" icon={<LogoutOutlined />}>
         登出
       </Menu.Item>

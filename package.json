@@ -26,16 +26,18 @@
     }
   },
   "dependencies": {
-    "@ant-design/pro-layout": "^6.24.0",
+    "@ant-design/pro-layout": "^6.24.1",
     "@umijs/preset-react": "1.x",
     "axios": "^0.21.1",
+    "js-cookie": "^3.0.0",
     "query-string": "^7.0.1",
     "react-responsive": "^8.2.0",
     "umi": "^3.5.17"
   },
   "devDependencies": {
+    "@types/js-cookie": "^2.2.7",
     "@types/lodash": "^4.14.172",
-    "@types/react": "^17.0.18",
+    "@types/react": "^17.0.19",
     "@types/react-dom": "^17.0.9",
     "@types/react-responsive": "^8.0.3",
     "@umijs/test": "^3.5.17",
