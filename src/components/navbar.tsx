@@ -7,6 +7,7 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import { Button, Col, Dropdown, Menu, Row } from 'antd';
+import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Link, useHistory } from 'umi';
@@ -23,7 +24,7 @@ const NavBar = (props: { pathname: string }) => {
   const { pathname } = props;
   useEffect(() => {
     getUser().then(() => {
-      const account = localStorage.getItem('account');
+      const account = Cookies.get('account');
       setUsername(account ? account : '');
     });
   }, [history]);

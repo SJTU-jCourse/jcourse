@@ -1,4 +1,3 @@
-import { trimEnd } from 'lodash';
 import { defineConfig } from 'umi';
 
 export default defineConfig({
@@ -34,14 +33,4 @@ export default defineConfig({
   },
   hash: true,
   mock: false,
-  proxy: {
-    '/api': {
-      target: 'http://localhost:8000/',
-      changeOrigin: true,
-    },
-    '/oauth': {
-      target: 'http://localhost:8000/',
-      changeOrigin: false,
-    },
-  },
 });
