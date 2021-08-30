@@ -40,6 +40,7 @@ const CoursePage = () => {
   const [reviewLoading, setReviewLoading] = useState<boolean>(true);
   const [reviews, setReviews] = useState<Review[]>([]);
   useEffect(() => {
+    window.scrollTo(0, 0);
     setCourseLoading(true);
     getCourseDetail(id).then((course) => {
       setCourse(course);
