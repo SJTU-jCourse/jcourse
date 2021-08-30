@@ -76,7 +76,11 @@ const NavBar = (props: { pathname: string }) => {
       </Col>
 
       <Col style={{ marginInline: 'auto' }} flex="auto">
-        <Menu selectedKeys={[pathname]} mode="horizontal">
+        <Menu
+          selectedKeys={[pathname]}
+          style={{ height: 64, border: 0 }}
+          mode="horizontal"
+        >
           {navMenuItems.map((item) => (
             <Menu.Item key={item.key}>
               <Link to={item.linkTo}>{item.text}</Link>
