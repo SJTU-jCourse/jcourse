@@ -1,15 +1,18 @@
-# umi project
+# jCourse：SJTU选课社区
 
-## Getting Started
+## 开始使用
 
-Install dependencies,
+安装依赖
 
 ```bash
 $ yarn
 ```
 
-Start the dev server,
+本地调试
 
 ```bash
 $ yarn start
 ```
+
+## 后端服务
+请见： https://github.com/dujiajun/jcourse_api
