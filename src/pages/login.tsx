@@ -1,5 +1,17 @@
-import { Button, Layout } from 'antd';
+import AboutContent from '@/components/about-card';
+import { Button, Layout, Modal, Space, Typography } from 'antd';
 const { Header, Content } = Layout;
+const { Link } = Typography;
+
+function info() {
+  Modal.info({
+    title: '基本原则',
+    content: <AboutContent />,
+    okText: '确认',
+    icon: null,
+  });
+}
+
 const Login = () => {
   return (
     <Layout style={{ height: '100vh' }}>
@@ -13,16 +25,22 @@ const Login = () => {
       >
         SJTU选课社区
       </Header>
-
-      <Content style={{ width: '100%', height: '100%', textAlign: 'center' }}>
-        <Button
-          size="large"
-          type="primary"
-          style={{ top: '45%' }}
-          href="oauth/jaccount/login/"
-        >
-          使用 jAccount 登录
-        </Button>
+      <Content
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          flexDirection: 'column',
+        }}
+      >
+        <Space direction="vertical" align="center" size="large">
+          <Button size="large" type="primary" href="oauth/jaccount/login/">
+            使用 jAccount 登录
+          </Button>
+          <span>
+            登录即表示您已阅读并同意本站
+            <Link onClick={() => info()}>基本原则</Link>。
+          </span>
+        </Space>
       </Content>
     </Layout>
   );
