@@ -113,4 +113,5 @@ export interface Pagination {
 export interface StatisticInfo {
   courses: number;
   reviews: number;
+  users: number;
 }

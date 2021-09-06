@@ -9,6 +9,7 @@ const { Title } = Typography;
 const Index = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [indexState, setIndexState] = useState<StatisticInfo>({
+    users: 0,
     courses: 0,
     reviews: 0,
   });
@@ -30,7 +31,14 @@ const Index = () => {
         justify="space-between"
         align="middle"
       >
-        <Col span={12}>
+        <Col span={8}>
+          {loading ? (
+            <Spin />
+          ) : (
+            <Statistic title="用户数" value={indexState.users} />
+          )}
+        </Col>
+        <Col span={8}>
           {loading ? (
             <Spin />
           ) : (
@@ -39,7 +47,7 @@ const Index = () => {
             </Link>
           )}
         </Col>
-        <Col span={12}>
+        <Col span={8}>
           {loading ? (
             <Spin />
           ) : (
