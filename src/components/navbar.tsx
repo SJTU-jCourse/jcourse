@@ -4,6 +4,7 @@ import {
   LogoutOutlined,
   ProfileOutlined,
   SearchOutlined,
+  SyncOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 import { Button, Col, Dropdown, Menu, Row } from 'antd';
@@ -31,6 +32,8 @@ const NavBar = (props: { pathname: string }) => {
   const handleMenuClick = (e: { key: string }) => {
     if (e.key == 'activity') {
       history.push('/activity');
+    } else if (e.key == 'sync') {
+      history.push('/sync');
     } else if (e.key == 'logout') {
       window.location.href = '/oauth/logout';
     }
@@ -41,7 +44,10 @@ const NavBar = (props: { pathname: string }) => {
         <Menu.Item icon={<UserOutlined />}>{username}</Menu.Item>
       )}
       <Menu.Item key="activity" icon={<ProfileOutlined />}>
-        活动
+        我的点评
+      </Menu.Item>
+      <Menu.Item key="sync" icon={<SyncOutlined />}>
+        同步课表
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item danger key="logout" icon={<LogoutOutlined />}>
