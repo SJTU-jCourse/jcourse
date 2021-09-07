@@ -55,6 +55,8 @@ const Sync = () => {
       .then((courses) => {
         setCourses(courses);
         setIsModalVisible(false);
+        setCourseLoading(false);
+        setConfirmLoading(false);
       })
       .catch((err) => {
         if (err.response?.status == 401) {
@@ -65,10 +67,6 @@ const Sync = () => {
             },
           );
         }
-      })
-      .finally(() => {
-        setCourseLoading(false);
-        setConfirmLoading(false);
       });
   };
 
