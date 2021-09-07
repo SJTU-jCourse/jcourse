@@ -61,7 +61,7 @@ const ReviewList = ({
             )}
 
             <div>
-              {item.is_mine && <Tag color="success">我的点评</Tag>}
+              {item.is_mine && <Tag color="processing">我的点评</Tag>}
               <strong>推荐指数：</strong>
               {item.rating} <strong> 学期：</strong>
               {item.semester}
