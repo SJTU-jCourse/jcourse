@@ -1,7 +1,8 @@
 import NavBar from '@/components/navbar';
 import { Notice } from '@/models';
 import { getNotices } from '@/services/notice';
-import { Alert, Layout, List, Space } from 'antd';
+import { Alert, ConfigProvider, Layout, List, Space } from 'antd';
+import zhCN from 'antd/lib/locale/zh_CN';
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Link } from 'umi';
@@ -78,4 +79,8 @@ const BasicLayout = (props: { location: { pathname: any }; children: any }) => {
   );
 };
 
-export default BasicLayout;
+export default (props: { location: { pathname: any }; children: any }) => (
+  <ConfigProvider locale={zhCN}>
+    <BasicLayout {...props} />
+  </ConfigProvider>
+);
