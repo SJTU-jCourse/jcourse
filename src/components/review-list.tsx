@@ -1,7 +1,7 @@
 import ReviewActionButton from '@/components/review-action-button';
 import { Pagination, Review } from '@/models';
 import { doReviewAction } from '@/services/review';
-import { Alert, List, Space } from 'antd';
+import { Alert, List, Space, Tag } from 'antd';
 import { Link } from 'umi';
 const ReviewList = ({
   count,
@@ -61,6 +61,7 @@ const ReviewList = ({
             )}
 
             <div>
+              {item.is_mine && <Tag color="success">我的点评</Tag>}
               <strong>推荐指数：</strong>
               {item.rating} <strong> 学期：</strong>
               {item.semester}

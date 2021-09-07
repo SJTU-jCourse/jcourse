@@ -23,6 +23,7 @@ export default defineConfig({
         { exact: true, path: '/search', component: '@/pages/search' },
         { exact: true, path: '/report', component: '@/pages/report' },
         { exact: true, path: '/faq', component: '@/pages/faq' },
+        { exact: true, path: '/sync', component: '@/pages/sync' },
         { component: '@/pages/404' },
       ],
     },

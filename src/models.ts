@@ -21,6 +21,7 @@ export interface CourseListItem {
   credit: number;
   teacher: string;
   rating: { avg: number; count: number };
+  is_reviewed: boolean;
 }
 
 export interface CourseDetail {
@@ -84,6 +85,7 @@ export interface Review {
   actions: { approves: number; disapproves: number; action: number };
   score: number | string;
   moderator_remark: string | null;
+  is_mine: boolean;
 }
 
 export interface ReviewDraft {
@@ -114,4 +116,10 @@ export interface StatisticInfo {
   courses: number;
   reviews: number;
   users: number;
+}
+
+export interface SelectValue {
+  key?: string;
+  label: string;
+  value: number;
 }

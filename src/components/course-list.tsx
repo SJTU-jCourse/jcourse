@@ -12,22 +12,26 @@ const CourseList = ({
   courses: CourseListItem[];
   onPageChange?: Function;
   loading: boolean;
-  pagination: Pagination;
+  pagination?: Pagination;
 }) => {
   return (
     <List
       loading={loading}
       itemLayout="horizontal"
-      pagination={{
-        hideOnSinglePage: true,
-        onChange: (page, pageSize) => {
-          onPageChange && onPageChange(page, pageSize);
-        },
-        total: count,
-        current: pagination.page,
-        defaultCurrent: pagination.page,
-        pageSize: pagination.pageSize,
-      }}
+      pagination={
+        pagination
+          ? {
+              hideOnSinglePage: true,
+              onChange: (page, pageSize) => {
+                onPageChange && onPageChange(page, pageSize);
+              },
+              total: count,
+              current: pagination.page,
+              defaultCurrent: pagination.page,
+              pageSize: pagination.pageSize,
+            }
+          : false
+      }
       dataSource={courses}
       renderItem={(course) => {
         return (
@@ -46,6 +50,7 @@ const CourseList = ({
                   {course.category && (
                     <Tag color="success">{course.category}</Tag>
                   )}
+                  {course.is_reviewed && <Tag color="processing">已点评</Tag>}
                   {course.credit}学分 {course.department}
                 </span>
               }

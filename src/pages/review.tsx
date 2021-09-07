@@ -1,4 +1,4 @@
-import { CourseInReview, ReviewDraft, Semester } from '@/models';
+import { CourseInReview, ReviewDraft, SelectValue, Semester } from '@/models';
 import { getCourseInReview } from '@/services/course';
 import { writeReview } from '@/services/review';
 import { getSemesters } from '@/services/semester';
@@ -21,11 +21,6 @@ import { Link, history } from 'umi';
 
 const { TextArea } = Input;
 const { Text, Paragraph } = Typography;
-interface SelectValue {
-  key?: string;
-  label: string;
-  value: string | number;
-}
 
 const ReviewPage = (props: {
   location: { state: { course: CourseInReview } };
@@ -35,7 +30,6 @@ const ReviewPage = (props: {
   const [rating, setRating] = useState<number>(0);
   const [comment, setComment] = useState<string>('');
   const [score, setScore] = useState<string>('');
-
   const [semesters, setSemesters] = useState<SelectValue[]>([]);
 
   const handleSubmit = () => {
@@ -153,7 +147,7 @@ const ReviewPage = (props: {
             <Select
               placeholder="选择学期"
               style={{ width: '100%' }}
-              onSelect={(key) => setSemester(key)}
+              onSelect={(key) => setSemester(key as number)}
               options={semesters}
             ></Select>
             <Text type="secondary">
