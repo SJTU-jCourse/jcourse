@@ -25,15 +25,25 @@ const { Text, Paragraph } = Typography;
 const ReviewPage = (props: {
   location: { state: { course: CourseInReview } };
 }) => {
-  const [course, setCourse] = useState<SelectValue>();
-  const [semester, setSemester] = useState<number>(0);
+  const [courseSelected, setCourseSelected] = useState<SelectValue>();
+  const [semesterSelected, setSemesterSelected] = useState<number>(0);
   const [rating, setRating] = useState<number>(0);
   const [comment, setComment] = useState<string>('');
   const [score, setScore] = useState<string>('');
-  const [semesters, setSemesters] = useState<SelectValue[]>([]);
+  const [semesterSelectValues, setSemesterSelectValues] = useState<
+    SelectValue[]
+  >([]);
+  const [semesters, setSemesters] = useState<Semester[]>([]);
+  const [enrollSemester, setEnrollSemester] = useState<number>(0);
+  const state_course = props.location.state?.course;
+  const [fetching, setFetching] = useState(false);
+  const [courseSelectValues, setCourseSelectValues] = useState<SelectValue[]>(
+    [],
+  );
+  const [courses, setCourses] = useState<CourseInReview[]>([]);
 
   const handleSubmit = () => {
-    if (!course) {
+    if (!courseSelected) {
       message.info('请选择课程');
       return;
     }
@@ -48,8 +58,8 @@ const ReviewPage = (props: {
     const review: ReviewDraft = {
       comment,
       rating,
-      semester,
-      course: course.value,
+      semester: semesterSelected,
+      course: courseSelected.value,
       score,
     };
     writeReview(review)
@@ -68,30 +78,56 @@ const ReviewPage = (props: {
   };
 
   useEffect(() => {
-    if (props.location.state && props.location.state.course) {
-      const course = props.location.state.course;
+    if (state_course) {
       const option = {
-        label: `${course.code} ${course.name} ${course.teacher}`,
-        value: course.id,
+        label: `${state_course.code} ${state_course.name} ${state_course.teacher}`,
+        value: state_course.id,
       };
-      setCourses([option]);
-      setCourse(option);
+      setCourseSelectValues([option]);
+      setCourseSelected(option);
     }
   }, []);
 
-  useEffect(() => {
-    getSemesters().then((semesters) => {
-      setSemesters(
-        semesters.map((item: Semester) => ({
+  const rebuildSemesterSelectValues = () => {
+    setSemesterSelectValues(
+      semesters.map((item: Semester) => {
+        if (enrollSemester != 0 && item.id == enrollSemester)
+          return {
+            label: item.name + '（学过）',
+            value: item.id,
+          };
+        return {
           label: item.name,
           value: item.id,
-        })),
-      );
+        };
+      }),
+    );
+  };
+
+  useEffect(() => {
+    rebuildSemesterSelectValues();
+  }, [enrollSemester, semesters]);
+
+  useEffect(() => {
+    getSemesters().then((semesters) => {
+      setSemesters(semesters);
+      if (state_course?.semester) {
+        setSemesterSelected(state_course.semester.id);
+        setEnrollSemester(state_course.semester.id);
+      }
     });
   }, []);
 
-  const [fetching, setFetching] = useState(false);
-  const [courses, setCourses] = useState<SelectValue[]>([]);
+  useEffect(() => {
+    const options = courses.map((course: CourseInReview) => ({
+      label: `${course.semester ? '（学过） ' : ''}${course.code} ${
+        course.name
+      } ${course.teacher}`,
+      value: course.id,
+    }));
+    setCourseSelectValues(options);
+  }, [courses]);
+
   const fetchRef = useRef(0);
 
   const debounceTimeout = 800;
@@ -99,25 +135,33 @@ const ReviewPage = (props: {
     const loadOptions = (value: string) => {
       fetchRef.current += 1;
       const fetchId = fetchRef.current;
-      setCourses([]);
+      setCourseSelectValues([]);
       setFetching(true);
 
       getCourseInReview(value).then((courses) => {
-        const options = courses.map((course: CourseInReview) => ({
-          label: `${course.code} ${course.name}（${course.teacher}）`,
-          value: course.id,
-        }));
+        setCourses(courses);
         if (fetchId !== fetchRef.current) {
           // for fetch callback order
           return;
         }
-        setCourses(options);
         setFetching(false);
       });
     };
 
     return debounce(loadOptions, debounceTimeout);
   }, [debounceTimeout]);
+
+  const onCourseSelectChange = (value: SelectValue) => {
+    setCourseSelected(value);
+    for (const course of courses) {
+      if (course.id == value.value && course.semester) {
+        setEnrollSemester(course.semester.id);
+        setSemesterSelected(course.semester.id);
+        return;
+      }
+    }
+    setEnrollSemester(0);
+  };
 
   return (
     <PageHeader title="写点评" onBack={() => history.goBack()}>
@@ -132,11 +176,9 @@ const ReviewPage = (props: {
               filterOption={false}
               onSearch={debounceFetcher}
               notFoundContent={fetching ? <Spin size="small" /> : null}
-              onChange={(value) => {
-                setCourse(value);
-              }}
-              value={course}
-              options={courses}
+              onChange={onCourseSelectChange}
+              value={courseSelected}
+              options={courseSelectValues}
               labelInValue={true}
             />
             <Text type="secondary">
@@ -148,8 +190,9 @@ const ReviewPage = (props: {
             <Select
               placeholder="选择学期"
               style={{ width: '100%' }}
-              onSelect={(key) => setSemester(key as number)}
-              options={semesters}
+              value={semesterSelected != 0 ? semesterSelected : undefined}
+              onSelect={(key) => setSemesterSelected(key as number)}
+              options={semesterSelectValues}
             ></Select>
             <Text type="secondary">
               2020-2021 代表 2020-2021 学年度（2020.9-2021.8）。

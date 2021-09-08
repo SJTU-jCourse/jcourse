@@ -22,6 +22,7 @@ export interface CourseListItem {
   teacher: string;
   rating: { avg: number; count: number };
   is_reviewed: boolean;
+  semester: Semester | null;
 }
 
 export interface CourseDetail {
@@ -39,6 +40,7 @@ export interface CourseDetail {
   rating: { avg: number | null; count: number };
   related_teachers: { id: number; tname: string }[];
   related_courses: { id: number; code: string; name: string }[];
+  semester: Semester | null;
 }
 
 export interface Filter {
@@ -67,6 +69,7 @@ export interface CourseInReview {
   code: string;
   name: string;
   teacher: string;
+  semester: Semester | null;
 }
 
 export interface ReviewAction {

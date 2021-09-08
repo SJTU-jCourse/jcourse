@@ -41,7 +41,9 @@ const NavBar = (props: { pathname: string }) => {
   const menu = (
     <Menu onClick={handleMenuClick}>
       {username != '' && (
-        <Menu.Item icon={<UserOutlined />}>{username}</Menu.Item>
+        <Menu.Item key="account" icon={<UserOutlined />}>
+          {username}
+        </Menu.Item>
       )}
       <Menu.Item key="activity" icon={<ProfileOutlined />}>
         我的点评

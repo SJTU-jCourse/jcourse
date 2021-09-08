@@ -36,6 +36,7 @@ const CoursePage = () => {
     related_teachers: [],
     related_courses: [],
     former_code: '',
+    semester: null,
   });
   const [courseLoading, setCourseLoading] = useState<boolean>(true);
   const [reviewLoading, setReviewLoading] = useState<boolean>(true);
@@ -93,6 +94,7 @@ const CoursePage = () => {
                       code: course.code,
                       name: course.name,
                       teacher: course.main_teacher.name,
+                      semester: course.semester,
                     },
                   },
                 }}

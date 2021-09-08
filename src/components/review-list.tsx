@@ -55,23 +55,32 @@ const ReviewList = ({
             )}
 
             {item.course && (
-              <Link to={'/course/' + item.course.id}>
-                {item.course.code} {item.course.name}（{item.course.teacher}）
-              </Link>
+              <Space wrap>
+                <Link to={'/course/' + item.course.id}>
+                  {item.course.code} {item.course.name}（{item.course.teacher}）
+                </Link>
+                {item.course.semester && <Tag color="default">学过</Tag>}
+              </Space>
             )}
-
-            <div>
+            <Space wrap>
               {item.is_mine && <Tag color="processing">我的点评</Tag>}
-              <strong>推荐指数：</strong>
-              {item.rating} <strong> 学期：</strong>
-              {item.semester}
-              {item.score && (
-                <>
-                  <strong> 成绩：</strong>
-                  {item.score}
-                </>
-              )}
-            </div>
+              <span>
+                <strong>推荐指数：</strong>
+                {item.rating}
+              </span>
+              <span>
+                <strong>学期：</strong>
+                {item.semester}
+              </span>
+              <span>
+                {item.score && (
+                  <>
+                    <strong>成绩：</strong>
+                    {item.score}
+                  </>
+                )}
+              </span>
+            </Space>
             <div style={{ whiteSpace: 'pre-wrap' }}>{item.comment}</div>
           </Space>
         </List.Item>

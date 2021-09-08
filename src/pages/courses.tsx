@@ -109,6 +109,7 @@ const CoursesPage = () => {
               count={courses.count}
               courses={courses.results}
               onPageChange={onPageChange}
+              showEnroll={true}
             />
           </Card>
         </Col>

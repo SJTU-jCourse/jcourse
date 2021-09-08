@@ -54,6 +54,11 @@ const CourseDetailCard = ({
             {course.moderator_remark}
           </Descriptions.Item>
         )}
+        {course.semester && (
+          <Descriptions.Item label="学过学期">
+            {course.semester.name}
+          </Descriptions.Item>
+        )}
         <Descriptions.Item label="推荐指数">
           <Text strong>{course.rating.avg?.toFixed(1)}</Text>（
           {course.rating.count}

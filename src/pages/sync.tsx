@@ -71,7 +71,7 @@ const Sync = () => {
   };
 
   return (
-    <PageHeader title="上过的课" backIcon={false}>
+    <PageHeader title="学过的课" backIcon={false}>
       <Card
         title={'共有' + courses.length + '门课'}
         extra={
@@ -84,6 +84,7 @@ const Sync = () => {
           loading={courseLoading}
           count={courses.length}
           courses={courses}
+          showEnroll={false}
         />
       </Card>
       <Modal
@@ -106,7 +107,10 @@ const Sync = () => {
           1代表秋季学期，2代表春季学期，3代表夏季学期/小学期。
         </p>
         <p>
-          部分课程不在选课社区数据库中，这些课程将被忽略。同步课表时可能需要重新登录jAccount。点击确认即代表您授权本网站通过jAccount接口查询并存储您的选课记录
+          同步课表时可能需要重新登录jAccount。点击确定即代表您授权本网站通过jAccount接口查询并存储您的选课记录。
+        </p>
+        <p>
+          部分课程不在选课社区数据库中，包括培养计划更改后取消的课程或者被替代的同名课程。这些课程将被忽略。
         </p>
       </Modal>
     </PageHeader>

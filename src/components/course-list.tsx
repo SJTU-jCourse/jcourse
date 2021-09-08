@@ -7,12 +7,14 @@ const CourseList = ({
   onPageChange,
   loading,
   pagination,
+  showEnroll,
 }: {
   count: number;
   courses: CourseListItem[];
   onPageChange?: Function;
   loading: boolean;
   pagination?: Pagination;
+  showEnroll?: boolean;
 }) => {
   return (
     <List
@@ -46,13 +48,18 @@ const CourseList = ({
                 </Space>
               }
               description={
-                <span>
+                <Space wrap size={0}>
+                  {showEnroll && course.semester && (
+                    <Tag color="default">学过</Tag>
+                  )}
                   {course.category && (
                     <Tag color="success">{course.category}</Tag>
                   )}
                   {course.is_reviewed && <Tag color="processing">已点评</Tag>}
-                  {course.credit}学分 {course.department}
-                </span>
+                  <div>
+                    {course.credit}学分 {course.department}
+                  </div>
+                </Space>
               }
             />
           </List.Item>
