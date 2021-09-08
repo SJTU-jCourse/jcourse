@@ -14,8 +14,7 @@ const Report = (props: { location: { state: any } }) => {
 
     writeReport(comment).then((resp) => {
       if (resp.status == 201) {
-        message.success('提交成功');
-        history.goBack();
+        message.success('提交成功，即将回到上一页', 1, () => history.goBack());
       }
     });
   };

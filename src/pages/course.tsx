@@ -35,6 +35,7 @@ const CoursePage = () => {
     },
     related_teachers: [],
     related_courses: [],
+    former_code: '',
   });
   const [courseLoading, setCourseLoading] = useState<boolean>(true);
   const [reviewLoading, setReviewLoading] = useState<boolean>(true);
