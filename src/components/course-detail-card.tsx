@@ -1,14 +1,18 @@
 import { CourseDetail, Teacher } from '@/models';
 import { Card, Descriptions, Spin, Typography } from 'antd';
-import { PropsWithChildren } from 'react';
-import { Link } from 'umi';
-const { Text, Title } = Typography;
+import { PropsWithChildren, useState } from 'react';
+
+import ReportModal from './report-modal';
+
+const { Text, Title, Link } = Typography;
 
 const CourseDetailCard = ({
   course,
   loading,
   ...props
 }: PropsWithChildren<{ course: CourseDetail; loading: boolean }>) => {
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+
   return (
     <Card
       {...props}
@@ -65,16 +69,14 @@ const CourseDetailCard = ({
           人评分）
         </Descriptions.Item>
       </Descriptions>
-      <Link
-        to={{
-          pathname: '/report',
-          state: {
-            comment: `课程信息有误\n课程：${course.code} ${course.name} ${course.main_teacher.name}\n内部编号：${course.id}\n更改意见：`,
-          },
-        }}
-      >
-        信息有误？
-      </Link>
+      <Link onClick={() => setIsModalVisible(true)}>信息有误？</Link>
+      <ReportModal
+        visible={isModalVisible}
+        title={'课程信息反馈'}
+        defaultComment={`课程：${course.code} ${course.name} ${course.main_teacher.name}\n内部编号：${course.id}\n更改意见：`}
+        onOk={() => setIsModalVisible(false)}
+        onCancel={() => setIsModalVisible(false)}
+      />
     </Card>
   );
 };

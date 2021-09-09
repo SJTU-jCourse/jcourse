@@ -126,3 +126,10 @@ export interface SelectValue {
   label: string;
   value: number;
 }
+
+export interface Report {
+  id: number;
+  created: string;
+  comment: string;
+  reply: string | null;
+}
