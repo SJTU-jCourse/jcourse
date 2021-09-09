@@ -59,11 +59,9 @@ const ReviewList = ({
                 <Link to={'/course/' + item.course.id}>
                   {item.course.code} {item.course.name}（{item.course.teacher}）
                 </Link>
-                {item.course.semester && <Tag color="default">学过</Tag>}
               </Space>
             )}
             <Space wrap>
-              {item.is_mine && <Tag color="processing">我的点评</Tag>}
               <span>
                 <strong>推荐指数：</strong>
                 {item.rating}
@@ -80,6 +78,7 @@ const ReviewList = ({
                   </>
                 )}
               </span>
+              {item.is_mine && <Tag color="processing">我的点评</Tag>}
             </Space>
             <div style={{ whiteSpace: 'pre-wrap' }}>{item.comment}</div>
           </Space>
