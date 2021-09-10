@@ -3,6 +3,7 @@ import { history } from 'umi';
 
 const errorHandler = function (error: { response: { status: number } }) {
   if (error.response?.status == 403) history.push('/login');
+  if (error.response?.status == 404) history.push('/404');
   throw error;
 };
 
