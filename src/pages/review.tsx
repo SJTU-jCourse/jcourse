@@ -240,7 +240,10 @@ const ReviewPage = (props: {
             <Paragraph>
               <Text type="secondary">
                 提交点评表示您同意授权本网站使用点评的内容，并且了解本站的
-                <Link to="/faq">相关立场</Link>。
+                <Link target="_blank" to="/faq">
+                  相关立场
+                </Link>
+                。
               </Text>
             </Paragraph>
             <Button type="primary" onClick={handleSubmit}>
