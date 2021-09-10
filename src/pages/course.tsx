@@ -5,17 +5,16 @@ import { CourseDetail, Review } from '@/models';
 import { getCourseDetail } from '@/services/course';
 import { getReviewsOfCourse } from '@/services/review';
 import { EditOutlined } from '@ant-design/icons';
-import { Button, Card, Col, Row, Space } from 'antd';
+import { Button, Card, Col, Grid, Row, Space } from 'antd';
 import { useEffect, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import { Link, useParams } from 'umi';
-
+const { useBreakpoint } = Grid;
 const CoursePage = () => {
+  const screens = useBreakpoint();
   /*const Orders = [
     { label: '最新发布', value: 'new' },
     { label: '最多赞同', value: 'hot' },
   ];*/
-  const isMd: boolean = useMediaQuery({ query: '(max-width: 768px)' });
   const { id } = useParams<{ id: string }>();
   //const [order, setOrder] = useState<number>(0);
   const [course, setCourse] = useState<CourseDetail>({
@@ -62,7 +61,7 @@ const CoursePage = () => {
     <Row gutter={[16, 16]} style={{ paddingInline: 16, marginTop: 16 }}>
       <Col xs={24} md={8}>
         <CourseDetailCard course={course} loading={courseLoading} />
-        {!isMd && (
+        {screens.md && (
           <RelatedCard
             style={{ marginTop: 16 }}
             course={course}
@@ -114,7 +113,7 @@ const CoursePage = () => {
           ></ReviewList>
         </Card>
       </Col>
-      {isMd && (
+      {!screens.md && (
         <Col xs={24} md={24}>
           <RelatedCard course={course} loading={courseLoading} />
         </Col>

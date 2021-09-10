@@ -1,19 +1,17 @@
 import NavBar from '@/components/navbar';
 import { Notice } from '@/models';
 import { getNotices } from '@/services/notice';
-import { Alert, ConfigProvider, Layout, List, Space } from 'antd';
+import { Alert, ConfigProvider, Grid, Layout, List, Space } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
 import { useEffect, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import { Link } from 'umi';
 
 const { Header, Content, Footer } = Layout;
+const { useBreakpoint } = Grid;
 
 const BasicLayout = (props: { location: { pathname: any }; children: any }) => {
   const [notices, setNotices] = useState<Notice[]>([]);
-  const isTabletOrMobile: boolean = useMediaQuery({
-    query: '(max-width: 992px)',
-  });
+  const screens = useBreakpoint();
 
   const {
     location: { pathname },
@@ -40,7 +38,7 @@ const BasicLayout = (props: { location: { pathname: any }; children: any }) => {
         style={{
           marginInline: 'auto',
           alignContent: 'center',
-          width: isTabletOrMobile ? '100%' : 992,
+          width: !screens.lg ? '100%' : 992,
         }}
       >
         {notices && notices.length > 0 && (

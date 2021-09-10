@@ -7,19 +7,19 @@ import {
   SyncOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Button, Col, Dropdown, Menu, Row } from 'antd';
+import { Button, Col, Dropdown, Grid, Menu, Row } from 'antd';
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import { Link, useHistory } from 'umi';
 
 const navMenuItems = [
   { key: '/latest', text: '最新', linkTo: '/latest' },
   { key: '/courses', text: '课程库', linkTo: '/courses' },
 ];
+const { useBreakpoint } = Grid;
 
 const NavBar = (props: { pathname: string }) => {
-  const isXs: boolean = useMediaQuery({ query: '(max-width: 576px)' });
+  const screens = useBreakpoint();
   const history = useHistory();
   const [username, setUsername] = useState<string>('');
   const { pathname } = props;
@@ -71,12 +71,12 @@ const NavBar = (props: { pathname: string }) => {
           to="/"
           style={{
             fontWeight: 600,
-            fontSize: isXs ? 14 : 18,
+            fontSize: screens.xs ? 14 : 18,
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
             color: 'black',
-            marginRight: isXs ? 0 : 16,
+            marginRight: screens.xs ? 0 : 16,
           }}
         >
           SJTU选课社区
@@ -98,7 +98,7 @@ const NavBar = (props: { pathname: string }) => {
       </Col>
       <Col>
         <Link to="/review">
-          {isXs ? (
+          {screens.xs ? (
             <Button type="primary" shape="circle" icon={<EditOutlined />} />
           ) : (
             <Button type="primary">写点评</Button>
