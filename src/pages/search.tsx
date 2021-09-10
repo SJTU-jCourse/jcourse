@@ -11,7 +11,6 @@ const { Search } = Input;
 const SearchPage = () => {
   const queryString = require('query-string');
   const parsed = queryString.parse(location.search);
-
   const [keyword, setKeyword] = useState<string>(parsed.q ? parsed.q : '');
   const [courses, setCourses] = useState<PaginationApiResult<CourseListItem>>({
     count: 0,
@@ -43,6 +42,7 @@ const SearchPage = () => {
       message.info('请输入搜索内容');
       return;
     }
+    setPagination({ page: 1, pageSize: config.PAGE_SIZE });
     history.push({
       pathname: history.location.pathname,
       query: { q: keyword },
