@@ -1,4 +1,5 @@
 import AboutContent from '@/components/about-card';
+import config from '@/config';
 import { Button, Layout, Modal, Space, Typography } from 'antd';
 const { Header, Content } = Layout;
 const { Link } = Typography;
@@ -17,7 +18,7 @@ const Login = () => {
     <Layout style={{ height: '100vh' }}>
       <Header
         style={{
-          padding: '0 16px',
+          padding: `0 ${config.LAYOUT_PADDING}px`,
           background: '#FFFFFF',
           fontWeight: 600,
           fontSize: 20,

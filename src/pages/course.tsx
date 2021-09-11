@@ -1,6 +1,7 @@
 import CourseDetailCard from '@/components/course-detail-card';
 import RelatedCard from '@/components/related-card';
 import ReviewList from '@/components/review-list';
+import config from '@/config';
 import { CourseDetail, Review } from '@/models';
 import { getCourseDetail } from '@/services/course';
 import { getReviewsOfCourse } from '@/services/review';
@@ -58,12 +59,18 @@ const CoursePage = () => {
   }, [id]);
 
   return (
-    <Row gutter={[16, 16]} style={{ paddingInline: 16, marginTop: 16 }}>
+    <Row
+      gutter={[config.LAYOUT_PADDING, config.LAYOUT_PADDING]}
+      style={{
+        paddingInline: config.LAYOUT_PADDING,
+        marginTop: config.LAYOUT_PADDING,
+      }}
+    >
       <Col xs={24} md={8}>
         <CourseDetailCard course={course} loading={courseLoading} />
         {screens.md && (
           <RelatedCard
-            style={{ marginTop: 16 }}
+            style={{ marginTop: config.LAYOUT_PADDING }}
             course={course}
             loading={courseLoading}
           />

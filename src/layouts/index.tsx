@@ -1,17 +1,18 @@
 import NavBar from '@/components/navbar';
+import config from '@/config';
 import { Notice } from '@/models';
 import { getNotices } from '@/services/notice';
-import { Alert, ConfigProvider, Grid, Layout, List, Space } from 'antd';
+import { Alert, ConfigProvider, Layout, List, Space } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
-import { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { Link } from 'umi';
 
 const { Header, Content, Footer } = Layout;
-const { useBreakpoint } = Grid;
-
-const BasicLayout = (props: { location: { pathname: any }; children: any }) => {
+const BasicLayout = (props: {
+  location: { pathname: string };
+  children: ReactNode;
+}) => {
   const [notices, setNotices] = useState<Notice[]>([]);
-  const screens = useBreakpoint();
 
   const {
     location: { pathname },
@@ -27,7 +28,7 @@ const BasicLayout = (props: { location: { pathname: any }; children: any }) => {
     <Layout style={{ minHeight: '100vh' }}>
       <Header
         style={{
-          padding: '0 16px',
+          padding: `0 ${config.LAYOUT_PADDING}px`,
           background: '#FFFFFF',
         }}
       >
@@ -38,7 +39,8 @@ const BasicLayout = (props: { location: { pathname: any }; children: any }) => {
         style={{
           marginInline: 'auto',
           alignContent: 'center',
-          width: screens.lg ? 992 : '100%',
+          width: '100%',
+          maxWidth: config.LAYOUT_WIDTH,
         }}
       >
         {notices && notices.length > 0 && (
@@ -54,15 +56,14 @@ const BasicLayout = (props: { location: { pathname: any }; children: any }) => {
                   type="info"
                   style={{
                     alignContent: 'center',
-                    marginInline: 16,
-                    maxWidth: 960,
+                    marginInline: config.LAYOUT_PADDING,
+                    maxWidth: config.LAYOUT_WIDTH - 2 * config.LAYOUT_PADDING,
                   }}
                 />
               </List.Item>
             )}
           />
         )}
-
         {children}
       </Content>
       <Footer style={{ textAlign: 'center' }}>
@@ -77,7 +78,10 @@ const BasicLayout = (props: { location: { pathname: any }; children: any }) => {
   );
 };
 
-export default (props: { location: { pathname: any }; children: any }) => (
+export default (props: {
+  location: { pathname: string };
+  children: ReactNode;
+}) => (
   <ConfigProvider locale={zhCN}>
     <BasicLayout {...props} />
   </ConfigProvider>

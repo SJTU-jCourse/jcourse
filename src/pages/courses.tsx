@@ -91,7 +91,7 @@ const CoursesPage = () => {
   };
   return (
     <PageHeader title="所有课程" backIcon={false}>
-      <Row gutter={[16, 16]}>
+      <Row gutter={[config.LAYOUT_PADDING, config.LAYOUT_PADDING]}>
         <Col xs={24} md={8}>
           <FilterCard
             categories={filters.categories}

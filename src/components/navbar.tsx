@@ -1,3 +1,4 @@
+import config from '@/config';
 import { getUser } from '@/services/user';
 import {
   EditOutlined,
@@ -63,7 +64,7 @@ const NavBar = (props: { pathname: string }) => {
       style={{
         alignContent: 'center',
         marginInline: 'auto',
-        maxWidth: 960,
+        maxWidth: config.LAYOUT_WIDTH - 2 * config.LAYOUT_PADDING,
       }}
     >
       <Col>
@@ -76,7 +77,7 @@ const NavBar = (props: { pathname: string }) => {
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
             color: 'black',
-            marginRight: screens.xs ? 0 : 16,
+            marginRight: screens.xs ? 0 : config.LAYOUT_PADDING,
           }}
         >
           SJTU选课社区

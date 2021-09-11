@@ -65,7 +65,7 @@ const SearchPage = () => {
         placeholder="搜索课程名/课号/教师名"
         onSearch={onSearch}
         onChange={(e) => setKeyword(e.target.value)}
-        style={{ marginBottom: 16 }}
+        style={{ marginBottom: config.LAYOUT_PADDING }}
       />
       <Card title={'共有' + courses.count + '门课'}>
         <CourseList
