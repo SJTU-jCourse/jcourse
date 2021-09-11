@@ -38,7 +38,7 @@ const BasicLayout = (props: { location: { pathname: any }; children: any }) => {
         style={{
           marginInline: 'auto',
           alignContent: 'center',
-          width: !screens.lg ? '100%' : 992,
+          width: screens.lg ? 992 : '100%',
         }}
       >
         {notices && notices.length > 0 && (

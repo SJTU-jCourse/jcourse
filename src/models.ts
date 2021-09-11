@@ -38,8 +38,19 @@ export interface CourseDetail {
   former_code: string | null;
   moderator_remark: string | null;
   rating: { avg: number | null; count: number };
-  related_teachers: { id: number; tname: string }[];
-  related_courses: { id: number; code: string; name: string }[];
+  related_teachers: {
+    id: number;
+    tname: string;
+    avg: number | null;
+    count: number;
+  }[];
+  related_courses: {
+    id: number;
+    code: string;
+    name: string;
+    avg: number | null;
+    count: number;
+  }[];
   semester: Semester | null;
 }
 

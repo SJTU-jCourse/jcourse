@@ -66,7 +66,7 @@ const CourseDetailCard = ({
         <Descriptions.Item label="推荐指数">
           <Text strong>{course.rating.avg?.toFixed(1)}</Text>（
           {course.rating.count}
-          人评分）
+          人评价）
         </Descriptions.Item>
       </Descriptions>
       <Link onClick={() => setIsModalVisible(true)}>信息有误？</Link>

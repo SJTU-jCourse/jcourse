@@ -1,7 +1,8 @@
 import { CourseDetail } from '@/models';
-import { Card, List, Space, Spin } from 'antd';
+import { Card, List, Space, Spin, Typography } from 'antd';
 import { PropsWithChildren } from 'react';
 import { Link } from 'umi';
+const { Text } = Typography;
 const RelatedCard = ({
   course,
   loading,
@@ -27,11 +28,14 @@ const RelatedCard = ({
             dataSource={related_teachers}
             renderItem={(item) => (
               <List.Item>
-                <Space align="center">
+                <Space align="center" wrap>
                   <Link to={'/course/' + item.id}>{item.tname}</Link>
-                  {/*<span>
-                    <Text strong>{item.rate}</Text>（{item.count}条点评）
-                  </span>*/}
+                  {item.avg && (
+                    <span>
+                      <Text strong>{item.avg.toFixed(1)}</Text>
+                      <Text>（{item.count}人）</Text>
+                    </span>
+                  )}
                 </Space>
               </List.Item>
             )}
@@ -58,13 +62,16 @@ const RelatedCard = ({
             dataSource={related_courses}
             renderItem={(item) => (
               <List.Item>
-                <Space align="center">
+                <Space align="center" wrap>
                   <Link to={'/course/' + item.id}>
                     {item.code} {item.name}
                   </Link>
-                  {/*<span>
-                    <Text strong>{item.rate}</Text>（{item.count}条点评）
-                  </span>*/}
+                  {item.avg && (
+                    <span>
+                      <Text strong>{item.avg.toFixed(1)}</Text>
+                      <Text>（{item.count}人）</Text>
+                    </span>
+                  )}
                 </Space>
               </List.Item>
             )}
