@@ -30,9 +30,9 @@ const RelatedCard = ({
               <List.Item>
                 <Space align="center" wrap>
                   <Link to={'/course/' + item.id}>{item.tname}</Link>
-                  {item.avg && (
+                  {item.count > 0 && (
                     <span>
-                      <Text strong>{item.avg.toFixed(1)}</Text>
+                      <Text strong>{item.avg?.toFixed(1)}</Text>
                       <Text>（{item.count}人）</Text>
                     </span>
                   )}
@@ -66,9 +66,9 @@ const RelatedCard = ({
                   <Link to={'/course/' + item.id}>
                     {item.code} {item.name}
                   </Link>
-                  {item.avg && (
+                  {item.count > 0 && (
                     <span>
-                      <Text strong>{item.avg.toFixed(1)}</Text>
+                      <Text strong>{item.avg?.toFixed(1)}</Text>
                       <Text>（{item.count}人）</Text>
                     </span>
                   )}

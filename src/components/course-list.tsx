@@ -1,7 +1,8 @@
 import config from '@/config';
 import { CourseListItem, Pagination } from '@/models';
-import { List, Space, Tag } from 'antd';
+import { List, Space, Tag, Typography } from 'antd';
 import { Link } from 'umi';
+const { Text } = Typography;
 const CourseList = ({
   count,
   courses,
@@ -38,7 +39,19 @@ const CourseList = ({
       dataSource={courses}
       renderItem={(course) => {
         return (
-          <List.Item key={course.id} extra={course.rating.count + '条点评'}>
+          <List.Item
+            key={course.id}
+            extra={
+              course.rating.count > 0 ? (
+                <>
+                  <Text strong>{course.rating.avg.toFixed(1)}</Text>
+                  <Text>（{course.rating.count}人评价）</Text>
+                </>
+              ) : (
+                <Text>暂无点评</Text>
+              )
+            }
+          >
             <List.Item.Meta
               title={
                 <Space align="center">
