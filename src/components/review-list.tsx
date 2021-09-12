@@ -1,4 +1,5 @@
 import ReviewActionButton from '@/components/review-action-button';
+import config from '@/config';
 import { Pagination, Review } from '@/models';
 import { doReviewAction } from '@/services/review';
 import { Alert, List, Space, Tag } from 'antd';
@@ -78,7 +79,9 @@ const ReviewList = ({
                   </>
                 )}
               </span>
-              {item.is_mine && <Tag color="processing">我的点评</Tag>}
+              {item.is_mine && (
+                <Tag color={config.TAG_COLOR_REVIEW}>我的点评</Tag>
+              )}
             </Space>
             <div style={{ whiteSpace: 'pre-wrap' }}>{item.comment}</div>
           </Space>

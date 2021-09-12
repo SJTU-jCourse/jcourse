@@ -1,3 +1,4 @@
+import config from '@/config';
 import { CourseInReview, ReviewDraft, SelectValue, Semester } from '@/models';
 import { getCourseInReview } from '@/services/course';
 import { writeReview } from '@/services/review';
@@ -12,6 +13,7 @@ import {
   Select,
   Space,
   Spin,
+  Tag,
   Typography,
   message,
 } from 'antd';
@@ -25,26 +27,24 @@ const { Text, Paragraph } = Typography;
 const ReviewPage = (props: {
   location: { state: { course: CourseInReview } };
 }) => {
-  const [courseSelected, setCourseSelected] = useState<SelectValue>();
-  const [semesterSelected, setSemesterSelected] = useState<number>(0);
+  const [courseSelected, setCourseSelected] = useState<number>();
+  const [semesterSelected, setSemesterSelected] = useState<number>();
   const [rating, setRating] = useState<number>(0);
   const [comment, setComment] = useState<string>('');
   const [score, setScore] = useState<string>('');
-  const [semesterSelectValues, setSemesterSelectValues] = useState<
-    SelectValue[]
-  >([]);
   const [semesters, setSemesters] = useState<Semester[]>([]);
   const [enrollSemester, setEnrollSemester] = useState<number>(0);
   const state_course = props.location.state?.course;
   const [fetching, setFetching] = useState(false);
-  const [courseSelectValues, setCourseSelectValues] = useState<SelectValue[]>(
-    [],
-  );
   const [courses, setCourses] = useState<CourseInReview[]>([]);
 
   const handleSubmit = () => {
     if (!courseSelected) {
       message.info('请选择课程');
+      return;
+    }
+    if (!semesterSelected) {
+      message.info('请选择学期');
       return;
     }
     if (comment == '') {
@@ -59,7 +59,7 @@ const ReviewPage = (props: {
       comment,
       rating,
       semester: semesterSelected,
-      course: courseSelected.value,
+      course: courseSelected,
       score,
     };
     writeReview(review)
@@ -79,34 +79,10 @@ const ReviewPage = (props: {
 
   useEffect(() => {
     if (state_course) {
-      const option = {
-        label: `${state_course.code} ${state_course.name} ${state_course.teacher}`,
-        value: state_course.id,
-      };
-      setCourseSelectValues([option]);
-      setCourseSelected(option);
+      setCourses([state_course]);
+      setCourseSelected(state_course.id);
     }
   }, []);
-
-  const rebuildSemesterSelectValues = () => {
-    setSemesterSelectValues(
-      semesters.map((item: Semester) => {
-        if (enrollSemester != 0 && item.id == enrollSemester)
-          return {
-            label: item.name + '（学过）',
-            value: item.id,
-          };
-        return {
-          label: item.name,
-          value: item.id,
-        };
-      }),
-    );
-  };
-
-  useEffect(() => {
-    rebuildSemesterSelectValues();
-  }, [enrollSemester, semesters]);
 
   useEffect(() => {
     getSemesters().then((semesters) => {
@@ -118,16 +94,6 @@ const ReviewPage = (props: {
     });
   }, []);
 
-  useEffect(() => {
-    const options = courses.map((course: CourseInReview) => ({
-      label: `${course.semester ? '（学过） ' : ''}${course.code} ${
-        course.name
-      } ${course.teacher}`,
-      value: course.id,
-    }));
-    setCourseSelectValues(options);
-  }, [courses]);
-
   const fetchRef = useRef(0);
 
   const debounceTimeout = 800;
@@ -135,7 +101,6 @@ const ReviewPage = (props: {
     const loadOptions = (value: string) => {
       fetchRef.current += 1;
       const fetchId = fetchRef.current;
-      setCourseSelectValues([]);
       setFetching(true);
 
       getCourseInReview(value).then((courses) => {
@@ -151,10 +116,10 @@ const ReviewPage = (props: {
     return debounce(loadOptions, debounceTimeout);
   }, [debounceTimeout]);
 
-  const onCourseSelectChange = (value: SelectValue) => {
-    setCourseSelected(value);
+  const onCourseSelectChange = (selected_course: number) => {
+    setCourseSelected(selected_course);
     for (const course of courses) {
-      if (course.id == value.value && course.semester) {
+      if (course.id == selected_course && course.semester) {
         setEnrollSemester(course.semester.id);
         setSemesterSelected(course.semester.id);
         return;
@@ -178,9 +143,18 @@ const ReviewPage = (props: {
               notFoundContent={fetching ? <Spin size="small" /> : null}
               onChange={onCourseSelectChange}
               value={courseSelected}
-              options={courseSelectValues}
-              labelInValue={true}
-            />
+            >
+              {courses.map((course) => (
+                <Select.Option key={course.id} value={course.id}>
+                  {course.semester && (
+                    <Tag color={config.TAG_COLOR_ENROLL}>学过</Tag>
+                  )}
+                  <span>
+                    {course.code} {course.name} {course.teacher}
+                  </span>
+                </Select.Option>
+              ))}
+            </Select>
             <Text type="secondary">
               同一门课授课教师较多的时候（公共课、专业基础课等）推荐搜索教师。
             </Text>
@@ -190,10 +164,24 @@ const ReviewPage = (props: {
             <Select
               placeholder="选择学期"
               style={{ width: '100%' }}
-              value={semesterSelected != 0 ? semesterSelected : undefined}
+              value={semesterSelected}
               onSelect={(key) => setSemesterSelected(key as number)}
-              options={semesterSelectValues}
-            ></Select>
+            >
+              {semesters.map((semester) => (
+                <Select.Option
+                  key={semester.id}
+                  value={semester.id}
+                  label={semester.name}
+                >
+                  <div>
+                    {enrollSemester == semester.id && (
+                      <Tag color={config.TAG_COLOR_ENROLL}>学过</Tag>
+                    )}
+                    <span>{semester.name}</span>
+                  </div>
+                </Select.Option>
+              ))}
+            </Select>
             <Text type="secondary">
               2020-2021 代表 2020-2021 学年度（2020.9-2021.8）。
               1代表秋季学期，2代表春季学期，3代表夏季学期/小学期。

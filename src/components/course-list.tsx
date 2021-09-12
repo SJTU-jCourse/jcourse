@@ -1,3 +1,4 @@
+import config from '@/config';
 import { CourseListItem, Pagination } from '@/models';
 import { List, Space, Tag } from 'antd';
 import { Link } from 'umi';
@@ -50,12 +51,16 @@ const CourseList = ({
               description={
                 <Space wrap size={0}>
                   {showEnroll && course.semester && (
-                    <Tag color="default">学过</Tag>
+                    <Tag color={config.TAG_COLOR_ENROLL}>学过</Tag>
                   )}
                   {course.category && (
-                    <Tag color="success">{course.category}</Tag>
+                    <Tag color={config.TAG_COLOR_CATEGORY}>
+                      {course.category}
+                    </Tag>
                   )}
-                  {course.is_reviewed && <Tag color="processing">已点评</Tag>}
+                  {course.is_reviewed && (
+                    <Tag color={config.TAG_COLOR_REVIEW}>已点评</Tag>
+                  )}
                   <div>
                     {course.credit}学分 {course.department}
                   </div>
