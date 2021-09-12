@@ -7,6 +7,7 @@ const FilterCard = ({
   departments,
   selectedCategories,
   selectedDepartments,
+  defaultOnlyHasReviews,
   onClick,
   loading,
 }: {
@@ -14,7 +15,12 @@ const FilterCard = ({
   departments: Filter[];
   selectedCategories?: string;
   selectedDepartments?: string;
-  onClick: Function;
+  defaultOnlyHasReviews?: boolean;
+  onClick: (
+    onlyHasReviews: boolean,
+    checkedCategories: number[],
+    checkedDepartments: number[],
+  ) => void;
   loading: boolean;
 }) => {
   const [checkedCategories, setCheckedCategories] = useState<number[]>(
@@ -27,23 +33,35 @@ const FilterCard = ({
       ? selectedDepartments.split(',').map((item) => parseInt(item))
       : [],
   );
+  const [onlyHasReviews, setOnlyHasReviews] = useState<boolean>(false);
 
   return (
     <Card
       title="筛选"
       extra={
-        <Button onClick={() => onClick(checkedCategories, checkedDepartments)}>
+        <Button
+          onClick={() =>
+            onClick(onlyHasReviews, checkedCategories, checkedDepartments)
+          }
+        >
           确认
         </Button>
       }
       loading={loading}
     >
+      <Checkbox
+        defaultChecked={defaultOnlyHasReviews}
+        onChange={(e) => setOnlyHasReviews(e.target.checked)}
+      >
+        仅显示有点评的课程
+      </Checkbox>
+      <Divider />
       <h3>课程类别</h3>
 
       <Checkbox.Group
         defaultValue={checkedCategories}
         onChange={(e) => {
-          setCheckedCategories(e);
+          setCheckedCategories(e as number[]);
         }}
       >
         {categories.map((item) => (
@@ -58,7 +76,7 @@ const FilterCard = ({
       <Checkbox.Group
         defaultValue={checkedDepartments}
         onChange={(e) => {
-          setCheckedDepartments(e);
+          setCheckedDepartments(e as number[]);
         }}
       >
         {departments.map((item) => (

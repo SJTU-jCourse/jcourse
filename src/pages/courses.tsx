@@ -8,13 +8,13 @@ import {
   PaginationApiResult,
 } from '@/models';
 import { getCourseList, getFilters } from '@/services/course';
-import { Card, Col, PageHeader, Row } from 'antd';
+import { Card, Col, PageHeader, Radio, Row } from 'antd';
 import { useEffect, useState } from 'react';
 import { history } from 'umi';
+
 const CoursesPage = () => {
   const queryString = require('query-string');
   const parsed = queryString.parse(location.search);
-
   const [courses, setCourses] = useState<PaginationApiResult<CourseListItem>>({
     count: 0,
     next: null,
@@ -30,6 +30,9 @@ const CoursesPage = () => {
   );
   const [departments, setDepartments] = useState<string>(
     parsed.departments ? parsed.departments : '',
+  );
+  const [onlyHasReviews, setOnlyHasReviews] = useState<boolean>(
+    'onlyhasreviews' in parsed,
   );
   const [filterLoading, setFilterLoading] = useState<boolean>(true);
   const [courseLoading, setCourseLoading] = useState<boolean>(false);
@@ -58,35 +61,45 @@ const CoursesPage = () => {
   };
 
   useEffect(() => {
-    const params: string = `category=${categories}&department=${departments}`;
+    let params: string = `category=${categories}&department=${departments}`;
+    if (onlyHasReviews) params += '&onlyhasreviews';
     fetchCourses(params);
   }, [history.location.query]);
 
-  const onFilterButtonClick = (categories: number[], departments: number[]) => {
+  const onFilterButtonClick = (
+    onlyHasReviews: boolean,
+    categories: number[],
+    departments: number[],
+  ) => {
+    setOnlyHasReviews(onlyHasReviews);
     setCategories(categories.join(','));
     setDepartments(departments.join(','));
     setPagination({ page: 1, pageSize: config.PAGE_SIZE });
+    let query: any = {
+      categories: categories.join(','),
+      departments: departments.join(','),
+      page: '1',
+      size: config.PAGE_SIZE.toString(),
+    };
+    if (onlyHasReviews) query.onlyhasreviews = null;
     history.push({
       pathname: history.location.pathname,
-      query: {
-        categories: categories.join(','),
-        departments: departments.join(','),
-        page: '1',
-        size: config.PAGE_SIZE.toString(),
-      },
+      query: query,
     });
   };
 
   const onPageChange = (page: number, pageSize: number) => {
     setPagination({ page, pageSize });
+    let query: any = {
+      categories: categories,
+      departments: departments,
+      page: page.toString(),
+      size: pageSize.toString(),
+    };
+    if (onlyHasReviews) query.onlyhasreviews = null;
     history.push({
       pathname: history.location.pathname,
-      query: {
-        categories: categories,
-        departments: departments,
-        page: page.toString(),
-        size: pageSize.toString(),
-      },
+      query,
     });
   };
   return (
@@ -98,6 +111,7 @@ const CoursesPage = () => {
             departments={filters.departments}
             selectedCategories={categories}
             selectedDepartments={departments}
+            defaultOnlyHasReviews={onlyHasReviews}
             onClick={onFilterButtonClick}
             loading={filterLoading}
           />
