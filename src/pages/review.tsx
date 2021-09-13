@@ -140,7 +140,7 @@ const ReviewPage = (props: {
           </Form.Item>
           <Form.Item
             name="semester"
-            label="学期"
+            label="上这门课的学期"
             dependencies={['course']}
             rules={[{ required: true, message: '请选择上这门课的学期' }]}
             help={
