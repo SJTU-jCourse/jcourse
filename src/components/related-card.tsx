@@ -14,11 +14,9 @@ const RelatedCard = ({
     <div {...props}>
       <Card
         title={
-          loading ? (
-            <Spin />
-          ) : (
+          <Spin spinning={loading}>
             <div style={{ whiteSpace: 'normal' }}>其他老师的{course.name}</div>
-          )
+          </Spin>
         }
         loading={loading}
       >
@@ -45,13 +43,11 @@ const RelatedCard = ({
 
       <Card
         title={
-          loading ? (
-            <Spin />
-          ) : (
+          <Spin spinning={loading}>
             <div style={{ whiteSpace: 'normal' }}>
               {main_teacher.name}的其他课
             </div>
-          )
+          </Spin>
         }
         style={{ marginTop: 16 }}
         loading={loading}

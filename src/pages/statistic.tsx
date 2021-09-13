@@ -36,29 +36,23 @@ const Index = () => {
         align="middle"
       >
         <Col span={8}>
-          {loading ? (
-            <Spin />
-          ) : (
+          <Spin spinning={loading}>
             <Statistic title="用户数" value={indexState.users} />
-          )}
+          </Spin>
         </Col>
         <Col span={8}>
-          {loading ? (
-            <Spin />
-          ) : (
+          <Spin spinning={loading}>
             <Link to="/latest">
               <Statistic title="点评数" value={indexState.reviews} />
             </Link>
-          )}
+          </Spin>
         </Col>
         <Col span={8}>
-          {loading ? (
-            <Spin />
-          ) : (
+          <Spin spinning={loading}>
             <Link to="/courses">
               <Statistic title="课程数" value={indexState.courses} />
             </Link>
-          )}
+          </Spin>
         </Col>
       </Row>
     </>

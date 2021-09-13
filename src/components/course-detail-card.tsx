@@ -17,13 +17,11 @@ const CourseDetailCard = ({
     <Card
       {...props}
       title={
-        loading ? (
-          <Spin />
-        ) : (
+        <Spin spinning={loading}>
           <Title level={4} style={{ whiteSpace: 'normal' }}>
             {course.name}（{course.main_teacher.name}）
           </Title>
-        )
+        </Spin>
       }
       loading={loading}
     >
