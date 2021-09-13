@@ -43,12 +43,12 @@ const CourseList = ({
             key={course.id}
             extra={
               course.rating.count > 0 ? (
-                <>
+                <Space size="small" direction="vertical" align="center">
                   <Text strong>{course.rating.avg.toFixed(1)}</Text>
-                  <Text>（{course.rating.count}人评价）</Text>
-                </>
+                  <Text type="secondary">{course.rating.count}人评价</Text>
+                </Space>
               ) : (
-                <Text>暂无点评</Text>
+                <Text type="secondary">暂无点评</Text>
               )
             }
           >
