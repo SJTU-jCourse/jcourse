@@ -3,7 +3,7 @@ import config from '@/config';
 import { CourseListItem, Pagination, PaginationApiResult } from '@/models';
 import { searchCourse } from '@/services/course';
 import { Card, Input, PageHeader, message } from 'antd';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { history } from 'umi';
 
 const { Search } = Input;
@@ -23,6 +23,8 @@ const SearchPage = () => {
     page: parsed.page ? parseInt(parsed.page) : 1,
     pageSize: parsed.size ? parseInt(parsed.size) : config.PAGE_SIZE,
   });
+  const inputRef = useRef<any>(null);
+
   const fetchCourses = () => {
     const limit = pagination.pageSize;
     const offset = (pagination.page - 1) * pagination.pageSize;
@@ -34,6 +36,7 @@ const SearchPage = () => {
   };
 
   useEffect(() => {
+    inputRef.current?.focus({ cursor: 'end' });
     fetchCourses();
   }, [history.location.query]);
 
@@ -64,6 +67,7 @@ const SearchPage = () => {
         defaultValue={keyword}
         placeholder="搜索课程名/课号/教师名"
         onSearch={onSearch}
+        ref={inputRef}
         onChange={(e) => setKeyword(e.target.value)}
         style={{ marginBottom: config.LAYOUT_PADDING }}
       />
