@@ -1,17 +1,16 @@
 import config from '@/config';
-import { CourseInReview, ReviewDraft, SelectValue, Semester } from '@/models';
+import { CourseInReview, ReviewDraft, Semester } from '@/models';
 import { getCourseInReview } from '@/services/course';
 import { writeReview } from '@/services/review';
 import { getSemesters } from '@/services/semester';
 import {
   Button,
   Card,
-  Divider,
+  Form,
   Input,
   PageHeader,
   Rate,
   Select,
-  Space,
   Spin,
   Tag,
   Typography,
@@ -22,46 +21,19 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, history } from 'umi';
 
 const { TextArea } = Input;
-const { Text, Paragraph } = Typography;
+const { Text } = Typography;
 
 const ReviewPage = (props: {
   location: { state: { course: CourseInReview } };
 }) => {
-  const [courseSelected, setCourseSelected] = useState<number>();
-  const [semesterSelected, setSemesterSelected] = useState<number>();
-  const [rating, setRating] = useState<number>(0);
-  const [comment, setComment] = useState<string>('');
-  const [score, setScore] = useState<string>('');
+  const [form] = Form.useForm();
   const [semesters, setSemesters] = useState<Semester[]>([]);
   const [enrollSemester, setEnrollSemester] = useState<number>(0);
   const state_course = props.location.state?.course;
   const [fetching, setFetching] = useState(false);
   const [courses, setCourses] = useState<CourseInReview[]>([]);
 
-  const handleSubmit = () => {
-    if (!courseSelected) {
-      message.info('请选择课程');
-      return;
-    }
-    if (!semesterSelected) {
-      message.info('请选择学期');
-      return;
-    }
-    if (comment == '') {
-      message.info('请填写评论');
-      return;
-    }
-    if (rating == 0) {
-      message.info('请打分');
-      return;
-    }
-    const review: ReviewDraft = {
-      comment,
-      rating,
-      semester: semesterSelected,
-      course: courseSelected,
-      score,
-    };
+  const handleSubmit = (review: ReviewDraft) => {
     writeReview(review)
       .then((resp) => {
         if (resp.status == 201) {
@@ -80,7 +52,7 @@ const ReviewPage = (props: {
   useEffect(() => {
     if (state_course) {
       setCourses([state_course]);
-      setCourseSelected(state_course.id);
+      form.setFieldsValue({ course: state_course.id });
     }
   }, []);
 
@@ -88,7 +60,7 @@ const ReviewPage = (props: {
     getSemesters().then((semesters) => {
       setSemesters(semesters);
       if (state_course?.semester) {
-        setSemesterSelected(state_course.semester.id);
+        form.setFieldsValue({ semester: state_course.semester.id });
         setEnrollSemester(state_course.semester.id);
       }
     });
@@ -117,11 +89,10 @@ const ReviewPage = (props: {
   }, [debounceTimeout]);
 
   const onCourseSelectChange = (selected_course: number) => {
-    setCourseSelected(selected_course);
     for (const course of courses) {
       if (course.id == selected_course && course.semester) {
         setEnrollSemester(course.semester.id);
-        setSemesterSelected(course.semester.id);
+        form.setFieldsValue({ semester: course.semester.id });
         return;
       }
     }
@@ -131,18 +102,29 @@ const ReviewPage = (props: {
   return (
     <PageHeader title="写点评" onBack={() => history.goBack()}>
       <Card>
-        <Space direction="vertical" size={8}>
-          <div>
-            课程
+        <Form
+          form={form}
+          layout="vertical"
+          requiredMark="optional"
+          onFinish={handleSubmit}
+        >
+          <Form.Item
+            name="course"
+            label="课程"
+            rules={[{ required: true, message: '请选择需要点评的课程' }]}
+            help={
+              <Text type="secondary">
+                同一门课授课教师较多的时候（公共课、专业基础课等）推荐搜索教师。
+              </Text>
+            }
+          >
             <Select
               showSearch
               placeholder="搜索课程/课号/教师姓名/教师姓名拼音"
-              style={{ width: '100%' }}
               filterOption={false}
               onSearch={debounceFetcher}
               notFoundContent={fetching ? <Spin size="small" /> : null}
               onChange={onCourseSelectChange}
-              value={courseSelected}
             >
               {courses.map((course) => (
                 <Select.Option key={course.id} value={course.id}>
@@ -155,18 +137,20 @@ const ReviewPage = (props: {
                 </Select.Option>
               ))}
             </Select>
-            <Text type="secondary">
-              同一门课授课教师较多的时候（公共课、专业基础课等）推荐搜索教师。
-            </Text>
-          </div>
-          <div>
-            您上这门课的学期
-            <Select
-              placeholder="选择学期"
-              style={{ width: '100%' }}
-              value={semesterSelected}
-              onSelect={(key) => setSemesterSelected(key as number)}
-            >
+          </Form.Item>
+          <Form.Item
+            name="semester"
+            label="学期"
+            dependencies={['course']}
+            rules={[{ required: true, message: '请选择上这门课的学期' }]}
+            help={
+              <Text type="secondary">
+                2020-2021 代表 2020-2021 学年度（2020.9-2021.8）。
+                1代表秋季学期，2代表春季学期，3代表夏季学期/小学期。
+              </Text>
+            }
+          >
+            <Select placeholder="选择学期">
               {semesters.map((semester) => (
                 <Select.Option
                   key={semester.id}
@@ -182,50 +166,45 @@ const ReviewPage = (props: {
                 </Select.Option>
               ))}
             </Select>
-            <Text type="secondary">
-              2020-2021 代表 2020-2021 学年度（2020.9-2021.8）。
-              1代表秋季学期，2代表春季学期，3代表夏季学期/小学期。
-            </Text>
-          </div>
-
-          <Divider></Divider>
-          <div>
-            详细点评内容
-            <TextArea
-              showCount
-              rows={10}
-              maxLength={817}
-              defaultValue={
-                '课程内容：\n上课自由度：\n考核标准：\n讲课质量：\n'
-              }
-              onChange={(e) => setComment(e.target.value)}
-            />
-            <Text type="secondary">
-              可以在这里畅所欲言！推荐点评的内容在文本框里填充了，可以视情况删除/修改，提供给大家为了方便。
-              <br />{' '}
-              一个理想的点评应当：（1）富有事实；（2）对课程有全面的描述。比如课讲得好但是考核很严格，或者作业奇葩但给分很高。
-              二者都说出来更有利于同学们做出全面的选择和判断。
-              学弟学妹（和学长学姐）感谢你们。
-            </Text>
-          </div>
-          <div>
-            <div>推荐指数</div>
-            <Rate value={rating} onChange={(e) => setRating(e)} />
-          </div>
-          <Divider></Divider>
-          <div>
-            成绩
-            <Input
-              style={{ width: '100%' }}
-              placeholder="分数或等级，中期退课填W"
-              maxLength={10}
-              onChange={(e) => setScore(e.target.value)}
-            />
-            <Text type="secondary">可选</Text>
-          </div>
-          <Divider></Divider>
-          <div>
-            <Paragraph>
+          </Form.Item>
+          <Form.Item
+            name="comment"
+            label="详细点评"
+            rules={[
+              {
+                required: true,
+                validator: (_, value: string) =>
+                  value.trim() != '' &&
+                  value != '课程内容：\n上课自由度：\n考核标准：\n讲课质量：\n'
+                    ? Promise.resolve()
+                    : Promise.reject(new Error('请输入详细点评')),
+              },
+            ]}
+            initialValue={'课程内容：\n上课自由度：\n考核标准：\n讲课质量：\n'}
+            help={
+              <Text type="secondary">
+                可以在这里畅所欲言！推荐点评的内容在文本框里填充了，可以视情况删除/修改，提供给大家为了方便。
+                <br />
+                一个理想的点评应当：富有事实且对课程有全面的描述。比如课讲得好但是考核很严格，或者作业奇葩但给分很高。
+                二者都说出来更有利于同学们做出全面的选择和判断。
+                学弟学妹（和学长学姐）感谢你们。
+              </Text>
+            }
+          >
+            <TextArea autoSize={{ minRows: 8 }} maxLength={817} />
+          </Form.Item>
+          <Form.Item
+            name="rating"
+            label="推荐指数"
+            rules={[{ required: true, message: '请选择推荐指数' }]}
+          >
+            <Rate />
+          </Form.Item>
+          <Form.Item name="score" label="成绩" rules={[{ required: false }]}>
+            <Input placeholder="分数或等级，中期退课填W" maxLength={10} />
+          </Form.Item>
+          <Form.Item
+            help={
               <Text type="secondary">
                 提交点评表示您同意授权本网站使用点评的内容，并且了解本站的
                 <Link target="_blank" to="/faq">
@@ -233,12 +212,13 @@ const ReviewPage = (props: {
                 </Link>
                 。
               </Text>
-            </Paragraph>
-            <Button type="primary" onClick={handleSubmit}>
+            }
+          >
+            <Button type="primary" htmlType="submit">
               提交
             </Button>
-          </div>
-        </Space>
+          </Form.Item>
+        </Form>
       </Card>
     </PageHeader>
   );
