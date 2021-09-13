@@ -2,7 +2,6 @@ import { Card, Divider, PageHeader, Typography } from 'antd';
 import { Link, history } from 'umi';
 const { Title, Paragraph } = Typography;
 const Faq = () => {
-  window.scrollTo(0, 0);
   return (
     <PageHeader title="常见问题" onBack={() => history.goBack()}>
       <Card>

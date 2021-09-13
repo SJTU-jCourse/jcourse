@@ -5,9 +5,20 @@ import { getNotices } from '@/services/notice';
 import { Alert, ConfigProvider, Layout, List, Space } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
 import { ReactNode, useEffect, useState } from 'react';
-import { Link } from 'umi';
+import { Link, useLocation } from 'umi';
 
 const { Header, Content, Footer } = Layout;
+
+function ScrollToTop() {
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
+  return null;
+}
+
 const BasicLayout = (props: {
   location: { pathname: string };
   children: ReactNode;
@@ -65,6 +76,7 @@ const BasicLayout = (props: {
           />
         )}
         {children}
+        <ScrollToTop />
       </Content>
       <Footer style={{ textAlign: 'center' }}>
         <Space>

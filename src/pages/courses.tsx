@@ -56,7 +56,6 @@ const CoursesPage = () => {
     getCourseList(params, limit, offset).then((courses) => {
       setCourses(courses);
       setCourseLoading(false);
-      window.scrollTo(0, 0);
     });
   };
 

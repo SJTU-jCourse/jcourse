@@ -28,7 +28,6 @@ const Latest = () => {
     getReviews(limit, offset).then((reviews) => {
       setReviews(reviews);
       setLoading(false);
-      window.scrollTo(0, 0);
     });
   };
 
