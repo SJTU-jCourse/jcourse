@@ -35,7 +35,7 @@ const CoursePage = () => {
     },
     related_teachers: [],
     related_courses: [],
-    former_code: '',
+    former_codes: [],
     semester: null,
   });
   const [courseLoading, setCourseLoading] = useState<boolean>(true);

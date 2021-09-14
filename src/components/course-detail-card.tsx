@@ -27,9 +27,9 @@ const CourseDetailCard = ({
     >
       <Descriptions column={1}>
         <Descriptions.Item label="课号">{course.code}</Descriptions.Item>
-        {course.former_code && (
+        {course.former_codes.length > 0 && (
           <Descriptions.Item label="曾用课号">
-            {course.former_code}
+            {course.former_codes.join('，')}
           </Descriptions.Item>
         )}
         <Descriptions.Item label="课程学分">{course.credit}</Descriptions.Item>
