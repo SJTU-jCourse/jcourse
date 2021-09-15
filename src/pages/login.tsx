@@ -18,7 +18,7 @@ const Login = () => {
     <Layout style={{ height: '100vh' }}>
       <Header
         style={{
-          padding: `0 ${config.LAYOUT_PADDING}px`,
+          padding: `0 ${config.LAYOUT_MARGIN}px`,
           background: '#FFFFFF',
           fontWeight: 600,
           fontSize: 20,

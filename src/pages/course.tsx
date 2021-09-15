@@ -6,10 +6,23 @@ import { CourseDetail, Review } from '@/models';
 import { getCourseDetail } from '@/services/course';
 import { getReviewsOfCourse } from '@/services/review';
 import { EditOutlined } from '@ant-design/icons';
-import { Button, Card, Col, Grid, Row, Space } from 'antd';
+import {
+  Button,
+  Card,
+  Col,
+  Grid,
+  PageHeader,
+  Row,
+  Space,
+  Spin,
+  Typography,
+} from 'antd';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'umi';
 const { useBreakpoint } = Grid;
+
+const { Title } = Typography;
+
 const CoursePage = () => {
   const screens = useBreakpoint();
   /*const Orders = [
@@ -58,29 +71,33 @@ const CoursePage = () => {
   }, [id]);
 
   return (
-    <Row
-      gutter={[config.LAYOUT_PADDING, config.LAYOUT_PADDING]}
-      style={{
-        paddingInline: config.LAYOUT_PADDING,
-        marginTop: config.LAYOUT_PADDING,
-      }}
+    <PageHeader
+      title={
+        <Spin spinning={courseLoading}>
+          <span style={{ whiteSpace: 'normal' }}>
+            {course.name}（{course.main_teacher.name}）
+          </span>
+        </Spin>
+      }
+      backIcon={false}
     >
-      <Col xs={24} md={8}>
-        <CourseDetailCard course={course} loading={courseLoading} />
-        {screens.md && (
-          <RelatedCard
-            style={{ marginTop: config.LAYOUT_PADDING }}
-            course={course}
-            loading={courseLoading}
-          />
-        )}
-      </Col>
-      <Col xs={24} md={16}>
-        <Card
-          title={`点评（${reviews ? reviews.length : 0}条）`}
-          extra={
-            <Space>
-              {/*<Button
+      <Row gutter={[config.LAYOUT_MARGIN, config.LAYOUT_MARGIN]}>
+        <Col xs={24} md={8}>
+          <Row gutter={[config.LAYOUT_MARGIN, config.LAYOUT_MARGIN]}>
+            <Col xs={24} md={24}>
+              <CourseDetailCard course={course} loading={courseLoading} />
+            </Col>
+            {screens.md && (
+              <RelatedCard course={course} loading={courseLoading} />
+            )}
+          </Row>
+        </Col>
+        <Col xs={24} md={16}>
+          <Card
+            title={`点评（${reviews ? reviews.length : 0}条）`}
+            extra={
+              <Space>
+                {/*<Button
                 icon={<SwapOutlined />}
                 type="text"
                 onClick={() => {
@@ -90,41 +107,38 @@ const CoursePage = () => {
               >
                 {Orders[order].label}
               </Button>*/}
-              <Link
-                to={{
-                  pathname: '/review',
-                  state: {
-                    course: {
-                      id: course.id,
-                      code: course.code,
-                      name: course.name,
-                      teacher: course.main_teacher.name,
-                      semester: course.semester,
+                <Link
+                  to={{
+                    pathname: '/review',
+                    state: {
+                      course: {
+                        id: course.id,
+                        code: course.code,
+                        name: course.name,
+                        teacher: course.main_teacher.name,
+                        semester: course.semester,
+                      },
                     },
-                  },
-                }}
-              >
-                <Button type="primary" icon={<EditOutlined />}>
-                  写点评
-                </Button>
-              </Link>
-            </Space>
-          }
-        >
-          <ReviewList
-            loading={reviewLoading}
-            count={reviews.length}
-            reviews={reviews}
-            pagination={{ page: 1, pageSize: reviews.length }}
-          ></ReviewList>
-        </Card>
-      </Col>
-      {!screens.md && (
-        <Col xs={24} md={24}>
-          <RelatedCard course={course} loading={courseLoading} />
+                  }}
+                >
+                  <Button type="primary" icon={<EditOutlined />}>
+                    写点评
+                  </Button>
+                </Link>
+              </Space>
+            }
+          >
+            <ReviewList
+              loading={reviewLoading}
+              count={reviews.length}
+              reviews={reviews}
+              pagination={{ page: 1, pageSize: reviews.length }}
+            ></ReviewList>
+          </Card>
         </Col>
-      )}
-    </Row>
+        {!screens.md && <RelatedCard course={course} loading={courseLoading} />}
+      </Row>
+    </PageHeader>
   );
 };
 

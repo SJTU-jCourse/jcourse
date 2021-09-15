@@ -24,13 +24,13 @@ const Index = () => {
   return (
     <>
       <Title
-        style={{ marginTop: config.LAYOUT_PADDING * 2, textAlign: 'center' }}
+        style={{ marginTop: config.LAYOUT_MARGIN * 2, textAlign: 'center' }}
         level={2}
       >
         分享一点选课的经验
       </Title>
       <Row
-        style={{ textAlign: 'center', marginBlock: config.LAYOUT_PADDING * 4 }}
+        style={{ textAlign: 'center', marginBlock: config.LAYOUT_MARGIN * 4 }}
         gutter={16}
         justify="space-between"
         align="middle"

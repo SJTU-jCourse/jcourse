@@ -69,7 +69,7 @@ const SearchPage = () => {
         onSearch={onSearch}
         ref={inputRef}
         onChange={(e) => setKeyword(e.target.value)}
-        style={{ marginBottom: config.LAYOUT_PADDING }}
+        style={{ marginBottom: config.LAYOUT_MARGIN }}
       />
       <Card title={'共有' + courses.count + '门课'}>
         <CourseList

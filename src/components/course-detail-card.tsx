@@ -1,30 +1,19 @@
 import { CourseDetail, Teacher } from '@/models';
-import { Card, Descriptions, Spin, Typography } from 'antd';
+import { Card, Descriptions, Typography } from 'antd';
 import { PropsWithChildren, useState } from 'react';
 
 import ReportModal from './report-modal';
 
-const { Text, Title, Link } = Typography;
+const { Text, Link } = Typography;
 
 const CourseDetailCard = ({
   course,
   loading,
-  ...props
 }: PropsWithChildren<{ course: CourseDetail; loading: boolean }>) => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   return (
-    <Card
-      {...props}
-      title={
-        <Spin spinning={loading}>
-          <Title level={4} style={{ whiteSpace: 'normal' }}>
-            {course.name}（{course.main_teacher.name}）
-          </Title>
-        </Spin>
-      }
-      loading={loading}
-    >
+    <Card title="课程信息" loading={loading}>
       <Descriptions column={1}>
         <Descriptions.Item label="课号">{course.code}</Descriptions.Item>
         {course.former_codes.length > 0 && (

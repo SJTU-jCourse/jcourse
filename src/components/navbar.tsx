@@ -64,7 +64,7 @@ const NavBar = (props: { pathname: string }) => {
       style={{
         alignContent: 'center',
         marginInline: 'auto',
-        maxWidth: config.LAYOUT_WIDTH - 2 * config.LAYOUT_PADDING,
+        maxWidth: config.LAYOUT_WIDTH - 2 * config.LAYOUT_MARGIN,
       }}
     >
       <Col>
@@ -77,7 +77,7 @@ const NavBar = (props: { pathname: string }) => {
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
             color: 'black',
-            marginRight: screens.xs ? 0 : config.LAYOUT_PADDING,
+            marginRight: screens.xs ? 0 : config.LAYOUT_MARGIN,
           }}
         >
           SJTU选课社区

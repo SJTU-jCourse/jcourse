@@ -39,7 +39,7 @@ const BasicLayout = (props: {
     <Layout style={{ minHeight: '100vh' }}>
       <Header
         style={{
-          padding: `0 ${config.LAYOUT_PADDING}px`,
+          paddingInline: config.LAYOUT_MARGIN,
           background: '#FFFFFF',
         }}
       >
@@ -60,15 +60,18 @@ const BasicLayout = (props: {
             split={false}
             itemLayout="vertical"
             renderItem={(notice: Notice) => (
-              <List.Item key={notice.title}>
+              <List.Item
+                key={notice.title}
+                style={{ padding: 0, marginTop: config.LAYOUT_MARGIN }}
+              >
                 <Alert
                   message={notice.message}
                   banner
                   type="info"
                   style={{
                     alignContent: 'center',
-                    marginInline: config.LAYOUT_PADDING,
-                    maxWidth: config.LAYOUT_WIDTH - 2 * config.LAYOUT_PADDING,
+                    marginInline: config.LAYOUT_MARGIN,
+                    maxWidth: config.LAYOUT_WIDTH - 2 * config.LAYOUT_MARGIN,
                   }}
                 />
               </List.Item>
