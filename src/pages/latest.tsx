@@ -37,7 +37,7 @@ const Latest = () => {
 
   const onPageChange = (page: number, pageSize: number) => {
     setPagination({ page, pageSize });
-    history.push({
+    history.replace({
       pathname: history.location.pathname,
       query: { page: page.toString(), size: pageSize.toString() },
     });

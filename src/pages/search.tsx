@@ -46,7 +46,7 @@ const SearchPage = () => {
       return;
     }
     setPagination({ page: 1, pageSize: config.PAGE_SIZE });
-    history.push({
+    history.replace({
       pathname: history.location.pathname,
       query: { q: keyword },
     });
@@ -54,7 +54,7 @@ const SearchPage = () => {
 
   const onPageChange = (page: number, pageSize: number) => {
     setPagination({ page, pageSize });
-    history.push({
+    history.replace({
       pathname: history.location.pathname,
       query: { q: keyword, page: page.toString(), size: pageSize.toString() },
     });
