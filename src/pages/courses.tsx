@@ -12,6 +12,11 @@ import { Card, Col, PageHeader, Radio, Row } from 'antd';
 import { useEffect, useState } from 'react';
 import { history } from 'umi';
 
+enum OrderBy {
+  Avg = 'avg',
+  Count = 'count',
+}
+
 const CoursesPage = () => {
   const queryString = require('query-string');
   const parsed = queryString.parse(location.search);
@@ -31,8 +36,8 @@ const CoursesPage = () => {
   const [departments, setDepartments] = useState<string>(
     parsed.departments ? parsed.departments : '',
   );
-  const [onlyHasReviews, setOnlyHasReviews] = useState<boolean>(
-    'onlyhasreviews' in parsed,
+  const [onlyHasReviews, setOnlyHasReviews] = useState<OrderBy | null>(
+    parsed.onlyhasreviews,
   );
   const [filterLoading, setFilterLoading] = useState<boolean>(true);
   const [courseLoading, setCourseLoading] = useState<boolean>(false);
@@ -61,7 +66,7 @@ const CoursesPage = () => {
 
   useEffect(() => {
     let params: string = `category=${categories}&department=${departments}`;
-    if (onlyHasReviews) params += '&onlyhasreviews';
+    if (onlyHasReviews) params += `&onlyhasreviews=${onlyHasReviews}`;
     fetchCourses(params);
   }, [history.location.query]);
 
@@ -70,7 +75,7 @@ const CoursesPage = () => {
     categories: number[],
     departments: number[],
   ) => {
-    setOnlyHasReviews(onlyHasReviews);
+    setOnlyHasReviews(onlyHasReviews ? OrderBy.Avg : null);
     setCategories(categories.join(','));
     setDepartments(departments.join(','));
     setPagination({ page: 1, pageSize: config.PAGE_SIZE });
@@ -80,8 +85,8 @@ const CoursesPage = () => {
       page: '1',
       size: config.PAGE_SIZE.toString(),
     };
-    if (onlyHasReviews) query.onlyhasreviews = null;
-    history.push({
+    if (onlyHasReviews) query.onlyhasreviews = OrderBy.Avg;
+    history.replace({
       pathname: history.location.pathname,
       query: query,
     });
@@ -95,8 +100,24 @@ const CoursesPage = () => {
       page: page.toString(),
       size: pageSize.toString(),
     };
-    if (onlyHasReviews) query.onlyhasreviews = null;
-    history.push({
+    if (onlyHasReviews) query.onlyhasreviews = onlyHasReviews;
+    history.replace({
+      pathname: history.location.pathname,
+      query,
+    });
+  };
+
+  const onOrderByClick = (e: any) => {
+    setOnlyHasReviews(e.target.value);
+    setPagination({ page: 1, pageSize: config.PAGE_SIZE });
+    let query: any = {
+      categories: categories,
+      departments: departments,
+      page: '1',
+      size: config.PAGE_SIZE.toString(),
+      onlyhasreviews: e.target.value,
+    };
+    history.replace({
       pathname: history.location.pathname,
       query,
     });
@@ -110,13 +131,27 @@ const CoursesPage = () => {
             departments={filters.departments}
             selectedCategories={categories}
             selectedDepartments={departments}
-            defaultOnlyHasReviews={onlyHasReviews}
+            defaultOnlyHasReviews={onlyHasReviews != null}
             onClick={onFilterButtonClick}
             loading={filterLoading}
           />
         </Col>
         <Col xs={24} md={16}>
-          <Card title={'共有' + courses.count + '门课'}>
+          <Card
+            title={'共有' + courses.count + '门课'}
+            extra={
+              onlyHasReviews && (
+                <Radio.Group
+                  value={onlyHasReviews}
+                  onChange={onOrderByClick}
+                  style={{ padding: 0 }}
+                >
+                  <Radio.Button value={OrderBy.Avg}>最高均分</Radio.Button>
+                  <Radio.Button value={OrderBy.Count}>最多点评</Radio.Button>
+                </Radio.Group>
+              )
+            }
+          >
             <CourseList
               pagination={pagination}
               loading={courseLoading}
