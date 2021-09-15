@@ -24,10 +24,12 @@ const NavBar = (props: { pathname: string }) => {
   const history = useHistory();
   const [username, setUsername] = useState<string>('');
   const { pathname } = props;
+  const [isStaff, setIsStaff] = useState<boolean>(false);
   useEffect(() => {
-    getUser().then(() => {
+    getUser().then((profile) => {
       const account = Cookies.get('account');
       setUsername(account ? account : '');
+      setIsStaff(profile.is_staff);
     });
   }, [history]);
   const handleMenuClick = (e: { key: string }) => {
@@ -37,6 +39,8 @@ const NavBar = (props: { pathname: string }) => {
       history.push('/sync');
     } else if (e.key == 'logout') {
       window.location.href = '/oauth/logout';
+    } else if (e.key == 'account' && isStaff) {
+      window.location.href = '/admin';
     }
   };
   const menu = (

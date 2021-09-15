@@ -112,6 +112,7 @@ export interface ReviewDraft {
 export interface User {
   id: number;
   username: string;
+  is_staff: boolean;
 }
 
 export interface Action {
