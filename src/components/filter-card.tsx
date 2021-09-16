@@ -1,5 +1,7 @@
+import './filter-card.css';
+
 import { Filter } from '@/models';
-import { Button, Card, Checkbox, Divider, Tag } from 'antd';
+import { Button, Card, Checkbox, Collapse, Grid, Tag } from 'antd';
 import { useState } from 'react';
 
 const FilterCard = ({
@@ -34,7 +36,7 @@ const FilterCard = ({
       : [],
   );
   const [onlyHasReviews, setOnlyHasReviews] = useState<boolean>(false);
-
+  const screens = Grid.useBreakpoint();
   return (
     <Card
       title="筛选"
@@ -48,44 +50,53 @@ const FilterCard = ({
         </Button>
       }
       loading={loading}
+      className="filter-card"
     >
-      <Checkbox
-        defaultChecked={defaultOnlyHasReviews}
-        onChange={(e) => setOnlyHasReviews(e.target.checked)}
+      <Collapse
+        defaultActiveKey={
+          screens.md ? ['reviews', 'categories', 'departments'] : ['reviews']
+        }
+        ghost
       >
-        仅显示有点评的课程
-      </Checkbox>
-      <Divider />
-      <h3>课程类别</h3>
-
-      <Checkbox.Group
-        defaultValue={checkedCategories}
-        onChange={(e) => {
-          setCheckedCategories(e as number[]);
-        }}
-      >
-        {categories.map((item) => (
-          <div key={item.id}>
-            <Checkbox value={item.id}>{item.name}</Checkbox>
-            <Tag>{item.count}</Tag>
-          </div>
-        ))}
-      </Checkbox.Group>
-      <Divider></Divider>
-      <h3>开课单位</h3>
-      <Checkbox.Group
-        defaultValue={checkedDepartments}
-        onChange={(e) => {
-          setCheckedDepartments(e as number[]);
-        }}
-      >
-        {departments.map((item) => (
-          <div key={item.id}>
-            <Checkbox value={item.id}>{item.name}</Checkbox>
-            <Tag>{item.count}</Tag>
-          </div>
-        ))}
-      </Checkbox.Group>
+        <Collapse.Panel header="点评" key="reviews">
+          <Checkbox
+            defaultChecked={defaultOnlyHasReviews}
+            onChange={(e) => setOnlyHasReviews(e.target.checked)}
+          >
+            仅显示有点评的课程
+          </Checkbox>
+        </Collapse.Panel>
+        <Collapse.Panel header="课程类别" key="categories">
+          <Checkbox.Group
+            defaultValue={checkedCategories}
+            onChange={(e) => {
+              setCheckedCategories(e as number[]);
+            }}
+          >
+            {categories.map((item) => (
+              <div key={item.id}>
+                <Checkbox value={item.id}>{item.name}</Checkbox>
+                <Tag>{item.count}</Tag>
+              </div>
+            ))}
+          </Checkbox.Group>
+        </Collapse.Panel>
+        <Collapse.Panel header="开课单位" key="departments">
+          <Checkbox.Group
+            defaultValue={checkedDepartments}
+            onChange={(e) => {
+              setCheckedDepartments(e as number[]);
+            }}
+          >
+            {departments.map((item) => (
+              <div key={item.id}>
+                <Checkbox value={item.id}>{item.name}</Checkbox>
+                <Tag>{item.count}</Tag>
+              </div>
+            ))}
+          </Checkbox.Group>
+        </Collapse.Panel>
+      </Collapse>
     </Card>
   );
 };
