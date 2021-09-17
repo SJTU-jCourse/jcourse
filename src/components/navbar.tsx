@@ -73,14 +73,10 @@ const NavBar = (props: { pathname: string }) => {
     >
       <Col>
         <Link
+          className="title"
           to="/"
           style={{
-            fontWeight: 600,
             fontSize: screens.xs ? 14 : 18,
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-            color: 'black',
             marginRight: screens.xs ? 0 : config.LAYOUT_MARGIN,
           }}
         >

@@ -6,7 +6,6 @@ import { Alert, ConfigProvider, Layout, List, Space } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
 import { ReactNode, useEffect, useState } from 'react';
 import { Link, useLocation } from 'umi';
-
 const { Header, Content, Footer } = Layout;
 
 function ScrollToTop() {
@@ -40,7 +39,6 @@ const BasicLayout = (props: {
       <Header
         style={{
           paddingInline: config.LAYOUT_MARGIN,
-          background: '#FFFFFF',
         }}
       >
         <NavBar pathname={pathname} />
