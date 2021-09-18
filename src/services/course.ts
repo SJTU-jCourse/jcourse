@@ -3,6 +3,7 @@ import {
   CourseInReview,
   CourseListItem,
   Filters,
+  Pagination,
   PaginationApiResult,
 } from '@/models';
 import { request } from '@/services/request';
@@ -14,22 +15,20 @@ export async function getFilters(): Promise<Filters> {
 
 export async function getCourseList(
   params: string,
-  limit: number,
-  offset: number,
+  pagination: Pagination,
 ): Promise<PaginationApiResult<CourseListItem>> {
   const resp = await request(
-    `/api/course/?${params}&limit=${limit}&offset=${offset}`,
+    `/api/course/?${params}&page=${pagination.page}&offset=${pagination.pageSize}`,
   );
   return resp.data;
 }
 
 export async function searchCourse(
   keyword: string,
-  limit: number,
-  offset: number,
+  pagination: Pagination,
 ): Promise<PaginationApiResult<CourseListItem>> {
   const resp = await request(
-    `/api/search/?q=${keyword}&limit=${limit}&offset=${offset}`,
+    `/api/search/?q=${keyword}&page=${pagination.page}&size=${pagination.pageSize}`,
   );
   return resp.data;
 }

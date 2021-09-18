@@ -22,10 +22,8 @@ const LatestPage = () => {
   };
 
   const fetchReviews = () => {
-    const limit = pagination.pageSize;
-    const offset = (pagination.page - 1) * pagination.pageSize;
     setLoading(true);
-    getReviews(limit, offset).then((reviews) => {
+    getReviews(pagination).then((reviews) => {
       setReviews(reviews);
       setLoading(false);
     });

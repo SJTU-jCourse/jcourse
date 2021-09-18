@@ -49,10 +49,8 @@ const CoursesPage = () => {
   }, []);
 
   const fetchCourses = (params: string) => {
-    const limit = pagination.pageSize;
-    const offset = (pagination.page - 1) * pagination.pageSize;
     setCourseLoading(true);
-    getCourseList(params, limit, offset).then((courses) => {
+    getCourseList(params, pagination).then((courses) => {
       setCourses(courses);
       setCourseLoading(false);
     });

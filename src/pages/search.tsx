@@ -26,10 +26,8 @@ const SearchPage = () => {
   const inputRef = useRef<any>(null);
 
   const fetchCourses = () => {
-    const limit = pagination.pageSize;
-    const offset = (pagination.page - 1) * pagination.pageSize;
     setCourseLoading(true);
-    searchCourse(keyword, limit, offset).then((resp) => {
+    searchCourse(keyword, pagination).then((resp) => {
       setCourses(resp);
       setCourseLoading(false);
     });

@@ -1,11 +1,12 @@
-import { PaginationApiResult, Review, ReviewDraft } from '@/models';
+import { Pagination, PaginationApiResult, Review, ReviewDraft } from '@/models';
 import { request } from '@/services/request';
 
 export async function getReviews(
-  limit: number,
-  offset: number,
+  pagination: Pagination,
 ): Promise<PaginationApiResult<Review>> {
-  const resp = await request(`/api/review/?limit=${limit}&offset=${offset}`);
+  const resp = await request(
+    `/api/review/?page=${pagination.page}&size=${pagination.pageSize}`,
+  );
   return resp.data;
 }
 
