@@ -7,7 +7,7 @@ import { Link } from 'umi';
 
 const { Title } = Typography;
 
-const Index = () => {
+const StatisticPage = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [indexState, setIndexState] = useState<StatisticInfo>({
     users: 0,
@@ -59,4 +59,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default StatisticPage;

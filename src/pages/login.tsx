@@ -13,7 +13,7 @@ function info() {
   });
 }
 
-const Login = () => {
+const LoginPage = () => {
   return (
     <Layout style={{ height: '100vh' }}>
       <Header
@@ -46,4 +46,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

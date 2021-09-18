@@ -10,7 +10,7 @@ interface SelectItem {
   value: string;
 }
 
-const Sync = () => {
+const SyncPage = () => {
   const [courses, setCourses] = useState<CourseListItem[]>([]);
   const [courseLoading, setCourseLoading] = useState<boolean>(false);
   const [semesterLoading, setSemesterLoading] = useState<boolean>(true);
@@ -117,4 +117,4 @@ const Sync = () => {
   );
 };
 
-export default Sync;
+export default SyncPage;

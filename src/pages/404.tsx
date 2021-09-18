@@ -1,7 +1,7 @@
 import { Result } from 'antd';
 import { Link } from 'umi';
 
-const NotFound = () => {
+const NotFoundPage = () => {
   return (
     <Result
       status="404"
@@ -16,4 +16,4 @@ const NotFound = () => {
     />
   );
 };
-export default NotFound;
+export default NotFoundPage;

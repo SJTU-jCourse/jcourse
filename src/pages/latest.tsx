@@ -5,7 +5,7 @@ import { getReviews } from '@/services/review';
 import { Card, PageHeader } from 'antd';
 import { useEffect, useState } from 'react';
 import { history } from 'umi';
-const Latest = () => {
+const LatestPage = () => {
   const queryString = require('query-string');
   const parsed = queryString.parse(location.search);
 
@@ -62,4 +62,4 @@ const Latest = () => {
   );
 };
 
-export default Latest;
+export default LatestPage;

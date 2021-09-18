@@ -1,7 +1,7 @@
 import { Card, Divider, PageHeader, Typography } from 'antd';
 import { Link, history } from 'umi';
 const { Title, Paragraph } = Typography;
-const Faq = () => {
+const FaqPage = () => {
   return (
     <PageHeader title="常见问题" onBack={() => history.goBack()}>
       <Card>
@@ -152,4 +152,4 @@ const Faq = () => {
     </PageHeader>
   );
 };
-export default Faq;
+export default FaqPage;

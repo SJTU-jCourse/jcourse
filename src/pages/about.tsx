@@ -1,7 +1,7 @@
 import AboutContent from '@/components/about-card';
 import { Card, PageHeader } from 'antd';
 import { history } from 'umi';
-const About = () => {
+const AboutPage = () => {
   return (
     <PageHeader title="关于" onBack={() => history.goBack()}>
       <Card>
@@ -10,4 +10,4 @@ const About = () => {
     </PageHeader>
   );
 };
-export default About;
+export default AboutPage;

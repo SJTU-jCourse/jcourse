@@ -4,7 +4,7 @@ import { getMyReivews } from '@/services/review';
 import { Card, PageHeader } from 'antd';
 import { useEffect, useState } from 'react';
 
-const Activity = () => {
+const ActivityPage = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -35,4 +35,4 @@ const Activity = () => {
   );
 };
 
-export default Activity;
+export default ActivityPage;

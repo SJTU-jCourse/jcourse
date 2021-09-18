@@ -6,22 +6,10 @@ import { CourseDetail, Review } from '@/models';
 import { getCourseDetail } from '@/services/course';
 import { getReviewsOfCourse } from '@/services/review';
 import { EditOutlined } from '@ant-design/icons';
-import {
-  Button,
-  Card,
-  Col,
-  Grid,
-  PageHeader,
-  Row,
-  Space,
-  Spin,
-  Typography,
-} from 'antd';
+import { Button, Card, Col, Grid, PageHeader, Row, Space, Spin } from 'antd';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'umi';
 const { useBreakpoint } = Grid;
-
-const { Title } = Typography;
 
 const CoursePage = () => {
   const screens = useBreakpoint();
