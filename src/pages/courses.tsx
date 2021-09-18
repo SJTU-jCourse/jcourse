@@ -30,21 +30,15 @@ const CoursesPage = () => {
     categories: [],
     departments: [],
   });
-  const [categories, setCategories] = useState<string>(
-    parsed.categories ? parsed.categories : '',
-  );
-  const [departments, setDepartments] = useState<string>(
-    parsed.departments ? parsed.departments : '',
-  );
-  const [onlyHasReviews, setOnlyHasReviews] = useState<OrderBy | null>(
-    parsed.onlyhasreviews,
-  );
+  const categories: string = parsed.categories ? parsed.categories : '';
+  const departments: string = parsed.departments ? parsed.departments : '';
+  const onlyHasReviews: OrderBy | undefined = parsed.onlyhasreviews;
   const [filterLoading, setFilterLoading] = useState<boolean>(true);
   const [courseLoading, setCourseLoading] = useState<boolean>(false);
-  const [pagination, setPagination] = useState<Pagination>({
+  const pagination: Pagination = {
     page: parsed.page ? parseInt(parsed.page) : 1,
     pageSize: parsed.size ? parseInt(parsed.size) : config.PAGE_SIZE,
-  });
+  };
 
   useEffect(() => {
     setFilterLoading(true);
@@ -75,10 +69,6 @@ const CoursesPage = () => {
     categories: number[],
     departments: number[],
   ) => {
-    setOnlyHasReviews(onlyHasReviews ? OrderBy.Avg : null);
-    setCategories(categories.join(','));
-    setDepartments(departments.join(','));
-    setPagination({ page: 1, pageSize: config.PAGE_SIZE });
     let query: any = {
       categories: categories.join(','),
       departments: departments.join(','),
@@ -86,14 +76,13 @@ const CoursesPage = () => {
       size: config.PAGE_SIZE.toString(),
     };
     if (onlyHasReviews) query.onlyhasreviews = OrderBy.Avg;
-    history.replace({
+    history.push({
       pathname: history.location.pathname,
       query: query,
     });
   };
 
   const onPageChange = (page: number, pageSize: number) => {
-    setPagination({ page, pageSize });
     let query: any = {
       categories: categories,
       departments: departments,
@@ -101,15 +90,13 @@ const CoursesPage = () => {
       size: pageSize.toString(),
     };
     if (onlyHasReviews) query.onlyhasreviews = onlyHasReviews;
-    history.replace({
+    history.push({
       pathname: history.location.pathname,
       query,
     });
   };
 
   const onOrderByClick = (e: any) => {
-    setOnlyHasReviews(e.target.value);
-    setPagination({ page: 1, pageSize: config.PAGE_SIZE });
     let query: any = {
       categories: categories,
       departments: departments,
@@ -117,7 +104,7 @@ const CoursesPage = () => {
       size: config.PAGE_SIZE.toString(),
       onlyhasreviews: e.target.value,
     };
-    history.replace({
+    history.push({
       pathname: history.location.pathname,
       query,
     });
@@ -131,7 +118,7 @@ const CoursesPage = () => {
             departments={filters.departments}
             selectedCategories={categories}
             selectedDepartments={departments}
-            defaultOnlyHasReviews={onlyHasReviews != null}
+            defaultOnlyHasReviews={onlyHasReviews != undefined}
             onClick={onFilterButtonClick}
             loading={filterLoading}
           />

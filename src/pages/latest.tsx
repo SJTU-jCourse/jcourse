@@ -16,10 +16,10 @@ const LatestPage = () => {
     results: [],
   });
   const [loading, setLoading] = useState<boolean>(false);
-  const [pagination, setPagination] = useState<Pagination>({
+  const pagination: Pagination = {
     page: parsed.page ? parseInt(parsed.page) : 1,
     pageSize: parsed.size ? parseInt(parsed.size) : config.PAGE_SIZE,
-  });
+  };
 
   const fetchReviews = () => {
     const limit = pagination.pageSize;
@@ -36,8 +36,7 @@ const LatestPage = () => {
   }, [history.location.query]);
 
   const onPageChange = (page: number, pageSize: number) => {
-    setPagination({ page, pageSize });
-    history.replace({
+    history.push({
       pathname: history.location.pathname,
       query: { page: page.toString(), size: pageSize.toString() },
     });

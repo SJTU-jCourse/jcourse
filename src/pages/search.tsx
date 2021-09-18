@@ -19,10 +19,10 @@ const SearchPage = () => {
     results: [],
   });
   const [courseLoading, setCourseLoading] = useState<boolean>(false);
-  const [pagination, setPagination] = useState<Pagination>({
+  const pagination: Pagination = {
     page: parsed.page ? parseInt(parsed.page) : 1,
     pageSize: parsed.size ? parseInt(parsed.size) : config.PAGE_SIZE,
-  });
+  };
   const inputRef = useRef<any>(null);
 
   const fetchCourses = () => {
@@ -45,16 +45,14 @@ const SearchPage = () => {
       message.info('请输入搜索内容');
       return;
     }
-    setPagination({ page: 1, pageSize: config.PAGE_SIZE });
-    history.replace({
+    history.push({
       pathname: history.location.pathname,
       query: { q: keyword },
     });
   };
 
   const onPageChange = (page: number, pageSize: number) => {
-    setPagination({ page, pageSize });
-    history.replace({
+    history.push({
       pathname: history.location.pathname,
       query: { q: keyword, page: page.toString(), size: pageSize.toString() },
     });
