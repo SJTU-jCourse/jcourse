@@ -38,9 +38,9 @@ const NavBar = (props: { pathname: string }) => {
     } else if (e.key == 'sync') {
       history.push('/sync');
     } else if (e.key == 'logout') {
-      window.location.href = '/oauth/logout';
+      window.location.href = '/oauth/logout/';
     } else if (e.key == 'account' && isStaff) {
-      window.location.href = '/admin';
+      window.location.href = '/admin/';
     }
   };
   const menu = (
