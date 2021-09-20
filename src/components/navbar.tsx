@@ -77,7 +77,6 @@ const NavBar = (props: { pathname: string }) => {
           to="/"
           style={{
             fontSize: screens.xs ? 14 : 18,
-            marginRight: screens.xs ? 0 : config.LAYOUT_MARGIN,
           }}
         >
           SJTU选课社区

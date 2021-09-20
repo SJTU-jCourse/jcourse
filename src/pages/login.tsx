@@ -17,13 +17,12 @@ const LoginPage = () => {
   return (
     <Layout style={{ height: '100vh' }}>
       <Header
-        className="title"
         style={{
           padding: `0 ${config.LAYOUT_MARGIN}px`,
           fontSize: 20,
         }}
       >
-        SJTU选课社区
+        <div className="title">SJTU选课社区</div>
       </Header>
       <Content
         style={{

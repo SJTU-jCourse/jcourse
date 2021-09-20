@@ -34,7 +34,6 @@ export default defineConfig({
   },
   hash: true,
   mock: false,
-
   headScripts: [
     {
       content: `var _hmt = _hmt || [];

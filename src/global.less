@@ -6,6 +6,7 @@
 .ant-layout-header {
   background: white;
 }
+
 .ant-menu {
   background: transparent;
 }
@@ -16,4 +17,20 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   color: black;
+}
+
+@media (max-width: 576px) {
+  .title {
+    margin-right: 8px;
+  }
+
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item {
+    padding: 0 10px;
+  }
+
+  .ant-menu-horizontal > .ant-menu-item::after,
+  .ant-menu-horizontal > .ant-menu-submenu::after {
+    left: 10px;
+    right: 10px;
+  }
 }
