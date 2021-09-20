@@ -26,6 +26,7 @@ const SearchPage = () => {
   const inputRef = useRef<any>(null);
 
   const fetchCourses = () => {
+    if (keyword == '') return;
     setCourseLoading(true);
     searchCourse(keyword, pagination).then((resp) => {
       setCourses(resp);
