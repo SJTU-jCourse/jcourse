@@ -173,11 +173,13 @@ const ReviewPage = (props: {
             rules={[
               {
                 required: true,
-                validator: (_, value: string) =>
-                  value.trim() != '' &&
-                  value != '课程内容：\n上课自由度：\n考核标准：\n讲课质量：\n'
+                validator: (_, value: string) => {
+                  const trimed = value.trim();
+                  return trimed != '' &&
+                    trimed != '课程内容：\n上课自由度：\n考核标准：\n讲课质量：'
                     ? Promise.resolve()
-                    : Promise.reject(new Error('请输入详细点评')),
+                    : Promise.reject();
+                },
               },
             ]}
             initialValue={'课程内容：\n上课自由度：\n考核标准：\n讲课质量：\n'}
@@ -196,7 +198,17 @@ const ReviewPage = (props: {
           <Form.Item
             name="rating"
             label="推荐指数"
-            rules={[{ required: true, message: '请选择推荐指数' }]}
+            rules={[
+              {
+                required: true,
+                message: '请选择推荐指数',
+                validator: (_, value) => {
+                  return value >= 1 && value <= 5
+                    ? Promise.resolve()
+                    : Promise.reject();
+                },
+              },
+            ]}
           >
             <Rate />
           </Form.Item>

@@ -62,7 +62,7 @@ const SearchPage = () => {
       <Search
         size="large"
         defaultValue={keyword}
-        placeholder="搜索课程名/课号/教师名"
+        placeholder="搜索课程名/课号/教师姓名/教师姓名拼音"
         onSearch={onSearch}
         ref={inputRef}
         onChange={(e) => setKeyword(e.target.value)}
