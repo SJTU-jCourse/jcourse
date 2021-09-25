@@ -15,7 +15,6 @@ export default () => {
   }, []);
 
   const logout = useCallback(() => {
-    setUser(null);
     window.location.href = '/oauth/logout/';
   }, []);
 
