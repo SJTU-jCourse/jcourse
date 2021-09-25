@@ -1,5 +1,4 @@
 import config from '@/config';
-import { getUser } from '@/services/user';
 import {
   EditOutlined,
   LogoutOutlined,
@@ -9,9 +8,8 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import { Button, Col, Dropdown, Grid, Menu, Row } from 'antd';
-import Cookies from 'js-cookie';
-import { useEffect, useState } from 'react';
-import { Link, useHistory } from 'umi';
+import { useEffect } from 'react';
+import { Link, useHistory, useModel } from 'umi';
 
 const navMenuItems = [
   { key: '/latest', text: '最新', linkTo: '/latest' },
@@ -22,32 +20,27 @@ const { useBreakpoint } = Grid;
 const NavBar = (props: { pathname: string }) => {
   const screens = useBreakpoint();
   const history = useHistory();
-  const [username, setUsername] = useState<string>('');
   const { pathname } = props;
-  const [isStaff, setIsStaff] = useState<boolean>(false);
+  const { user, getProfile, logout, toAdmin } = useModel('useAuthModel');
   useEffect(() => {
-    getUser().then((profile) => {
-      const account = Cookies.get('account');
-      setUsername(account ? account : '');
-      setIsStaff(profile.is_staff);
-    });
-  }, [history]);
+    getProfile();
+  }, []);
   const handleMenuClick = (e: { key: string }) => {
     if (e.key == 'activity') {
       history.push('/activity');
     } else if (e.key == 'sync') {
       history.push('/sync');
     } else if (e.key == 'logout') {
-      window.location.href = '/oauth/logout/';
-    } else if (e.key == 'account' && isStaff) {
-      window.location.href = '/admin/';
+      logout();
+    } else if (e.key == 'account' && user?.is_staff) {
+      toAdmin();
     }
   };
   const menu = (
     <Menu onClick={handleMenuClick}>
-      {username != '' && (
+      {user && user.account != '' && (
         <Menu.Item key="account" icon={<UserOutlined />}>
-          {username}
+          {user.account}
         </Menu.Item>
       )}
       <Menu.Item key="activity" icon={<ProfileOutlined />}>
