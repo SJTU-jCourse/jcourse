@@ -34,21 +34,7 @@ export default defineConfig({
   },
   hash: true,
   mock: false,
-  headScripts: [
-    {
-      content: `var _hmt = _hmt || [];
-  (function () {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?bffe2d130d940fce5a0876ee2dc36b92";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-  })();
-  _hmt.push(['_requirePlugin', 'UrlChangeTracker', {
-      shouldTrackUrlChange: function (newPath, oldPath) {
-          return newPath && oldPath;
-      }
-  }
-  ]);`,
-    },
-  ],
+  analytics: {
+    baidu: 'bffe2d130d940fce5a0876ee2dc36b92',
+  },
 });

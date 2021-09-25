@@ -26,7 +26,7 @@
     }
   },
   "dependencies": {
-    "@ant-design/pro-layout": "^6.25.7",
+    "@ant-design/pro-layout": "^6.26.0",
     "@umijs/preset-react": "1.x",
     "axios": "^0.21.4",
     "js-cookie": "^3.0.1",
@@ -35,8 +35,8 @@
   },
   "devDependencies": {
     "@types/js-cookie": "^2.2.7",
-    "@types/lodash": "^4.14.173",
-    "@types/react": "^17.0.22",
+    "@types/lodash": "^4.14.174",
+    "@types/react": "^17.0.24",
     "@types/react-dom": "^17.0.9",
     "@umijs/test": "^3.5.19",
     "import-sort-style-module": "^6.0.0",
