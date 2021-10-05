@@ -28,19 +28,19 @@
   "dependencies": {
     "@ant-design/pro-layout": "^6.26.0",
     "@umijs/preset-react": "1.x",
-    "axios": "^0.21.4",
+    "axios": "^0.22.0",
     "js-cookie": "^3.0.1",
     "query-string": "^7.0.1",
-    "umi": "^3.5.19"
+    "umi": "^3.5.20"
   },
   "devDependencies": {
-    "@types/js-cookie": "^2.2.7",
-    "@types/lodash": "^4.14.174",
-    "@types/react": "^17.0.24",
+    "@types/js-cookie": "^3.0.0",
+    "@types/lodash": "^4.14.175",
+    "@types/react": "^17.0.27",
     "@types/react-dom": "^17.0.9",
-    "@umijs/test": "^3.5.19",
+    "@umijs/test": "^3.5.20",
     "import-sort-style-module": "^6.0.0",
-    "lint-staged": "^11.1.2",
+    "lint-staged": "^11.2.0",
     "prettier": "^2.4.1",
     "prettier-plugin-import-sort": "^0.0.7",
     "react": "17.x",
