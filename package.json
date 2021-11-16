@@ -26,21 +26,21 @@
     }
   },
   "dependencies": {
-    "@ant-design/pro-layout": "^6.26.6",
+    "@ant-design/pro-layout": "^6.29.1",
     "@umijs/preset-react": "1.x",
-    "axios": "^0.23.0",
+    "axios": "^0.24.0",
     "js-cookie": "^3.0.1",
     "query-string": "^7.0.1",
     "umi": "^3.5.20"
   },
   "devDependencies": {
-    "@types/js-cookie": "^3.0.0",
-    "@types/lodash": "^4.14.176",
-    "@types/react": "^17.0.31",
-    "@types/react-dom": "^17.0.10",
+    "@types/js-cookie": "^3.0.1",
+    "@types/lodash": "^4.14.177",
+    "@types/react": "^17.0.35",
+    "@types/react-dom": "^17.0.11",
     "@umijs/test": "^3.5.20",
     "import-sort-style-module": "^6.0.0",
-    "lint-staged": "^11.2.3",
+    "lint-staged": "^12.0.2",
     "prettier": "^2.4.1",
     "prettier-plugin-import-sort": "^0.0.7",
     "react": "17.x",

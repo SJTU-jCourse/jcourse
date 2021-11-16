@@ -49,6 +49,10 @@ const SyncPage = () => {
   };
 
   const handleOk = () => {
+    if (semester == '') {
+      message.error('请选择需要同步的学期！');
+      return;
+    }
     setConfirmLoading(true);
     setCourseLoading(true);
     syncLessons(semester)
