@@ -76,6 +76,10 @@ const ReviewPage = () => {
       });
     } else if (review_id) {
       getReview(review_id).then((review: Review) => {
+        if (review.is_mine == false) {
+          message.error('只能修改自己的点评！', 1, () => history.goBack());
+          return;
+        }
         const course: CourseInReview = review.course!;
         setCourses([course]);
         setEnrollSemester(course.semester?.id ? course.semester.id : 0);
