@@ -104,7 +104,7 @@ const CoursePage = () => {
                   }
                 >
                   <Button type="primary" icon={<EditOutlined />}>
-                    写点评
+                    {course.is_reviewed ? '修改点评' : '新点评'}
                   </Button>
                 </Link>
               </Space>
