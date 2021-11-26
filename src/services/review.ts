@@ -10,6 +10,11 @@ export async function getReviews(
   return resp.data;
 }
 
+export async function getReview(review_id: string): Promise<Review> {
+  const resp = await request(`/api/review/${review_id}/`);
+  return resp.data;
+}
+
 export async function getMyReivews(): Promise<Review[]> {
   const resp = await request('/api/review/mine/');
   return resp.data;
@@ -22,6 +27,14 @@ export async function getReviewsOfCourse(id: string): Promise<Review[]> {
 
 export async function writeReview(review: ReviewDraft) {
   const resp = await request('/api/review/', { method: 'post', data: review });
+  return resp;
+}
+
+export async function modifyReview(review_id: string, draft: ReviewDraft) {
+  const resp = await request(`/api/review/${review_id}/`, {
+    method: 'put',
+    data: draft,
+  });
   return resp;
 }
 

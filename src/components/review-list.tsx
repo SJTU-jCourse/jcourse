@@ -69,7 +69,7 @@ const ReviewList = ({
               </span>
               <span>
                 <strong>学期：</strong>
-                {item.semester}
+                {item.semester?.name}
               </span>
               <span>
                 {item.score && (
@@ -79,11 +79,9 @@ const ReviewList = ({
                   </>
                 )}
               </span>
-              {item.is_mine && (
-                <Tag color={config.TAG_COLOR_REVIEW}>我的点评</Tag>
-              )}
             </Space>
             <div style={{ whiteSpace: 'pre-wrap' }}>{item.comment}</div>
+            {item.is_mine && <Link to={`/review/${item.id}/`}>修改点评</Link>}
           </Space>
         </List.Item>
       )}

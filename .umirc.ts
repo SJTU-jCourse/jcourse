@@ -19,7 +19,16 @@ export default defineConfig({
         { exact: true, path: '/latest', component: '@/pages/latest' },
         { exact: true, path: '/courses', component: '@/pages/courses' },
         { exact: true, path: '/course/:id', component: '@/pages/course' },
-        { exact: true, path: '/review', component: '@/pages/review' },
+        {
+          exact: true,
+          path: '/course/:course_id/review',
+          component: '@/pages/review',
+        },
+        {
+          exact: true,
+          path: '/review/:review_id?',
+          component: '@/pages/review',
+        },
         { exact: true, path: '/search', component: '@/pages/search' },
         { exact: true, path: '/report', component: '@/pages/report' },
         { exact: true, path: '/faq', component: '@/pages/faq' },

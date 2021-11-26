@@ -21,7 +21,7 @@ export interface CourseListItem {
   credit: number;
   teacher: string;
   rating: { avg: number; count: number };
-  is_reviewed: boolean;
+  is_reviewed: number | null;
   semester: Semester | null;
 }
 
@@ -52,6 +52,7 @@ export interface CourseDetail {
     count: number;
   }[];
   semester: Semester | null;
+  is_reviewed: number | null;
 }
 
 export interface Filter {
@@ -92,7 +93,7 @@ export interface ReviewAction {
 export interface Review {
   id: number;
   course?: CourseInReview;
-  semester: string | null;
+  semester: Semester | null;
   rating: number;
   comment: string;
   created: string;

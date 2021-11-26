@@ -38,9 +38,16 @@ export async function getCourseDetail(id: string): Promise<CourseDetail> {
   return resp.data;
 }
 
-export async function getCourseInReview(
+export async function searchCourseInReview(
   keyword: string,
 ): Promise<CourseInReview[]> {
   const resp = await request(`/api/course-in-review/?q=${keyword}`);
+  return resp.data;
+}
+
+export async function getCourseInReview(
+  course_id: string,
+): Promise<CourseInReview> {
+  const resp = await request(`/api/course-in-review/${course_id}/`);
   return resp.data;
 }

@@ -1,7 +1,7 @@
 import config from '@/config';
-import { CourseInReview, ReviewDraft, Semester } from '@/models';
-import { getCourseInReview } from '@/services/course';
-import { writeReview } from '@/services/review';
+import { CourseInReview, Review, ReviewDraft, Semester } from '@/models';
+import { getCourseInReview, searchCourseInReview } from '@/services/course';
+import { getReview, modifyReview, writeReview } from '@/services/review';
 import { getSemesters } from '@/services/semester';
 import {
   Button,
@@ -18,51 +18,81 @@ import {
 } from 'antd';
 import { debounce } from 'lodash';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Link, history } from 'umi';
+import { Link, history, useParams } from 'umi';
 
 const { TextArea } = Input;
 const { Text } = Typography;
 
-const ReviewPage = (props: {
-  location: { state: { course: CourseInReview } };
-}) => {
+const ReviewPage = () => {
+  const { course_id, review_id } =
+    useParams<{ course_id?: string; review_id?: string }>();
   const [form] = Form.useForm();
   const [semesters, setSemesters] = useState<Semester[]>([]);
   const [enrollSemester, setEnrollSemester] = useState<number>(0);
-  const state_course = props.location.state?.course;
   const [fetching, setFetching] = useState(false);
   const [courses, setCourses] = useState<CourseInReview[]>([]);
 
   const handleSubmit = (review: ReviewDraft) => {
-    writeReview(review)
-      .then((resp) => {
-        if (resp.status == 201) {
-          message.success('提交成功，即将回到上一页', 1, () =>
-            history.goBack(),
-          );
-        }
-      })
-      .catch((error) => {
-        if (error.response.status == 400 && error.response.data) {
-          message.error(error.response.data.error);
-        }
-      });
+    if (review_id) {
+      modifyReview(review_id, review)
+        .then((resp) => {
+          if (resp.status == 200) {
+            message.success('修改成功，即将回到上一页', 1, () =>
+              history.goBack(),
+            );
+          }
+        })
+        .catch((error) => {
+          if (error.response.status == 400 && error.response.data) {
+            message.error(error.response.data.error);
+          }
+        });
+    } else {
+      writeReview(review)
+        .then((resp) => {
+          if (resp.status == 201) {
+            message.success('提交成功，即将回到上一页', 1, () =>
+              history.goBack(),
+            );
+          }
+        })
+        .catch((error) => {
+          if (error.response.status == 400 && error.response.data) {
+            message.error(error.response.data.error);
+          }
+        });
+    }
   };
 
   useEffect(() => {
-    if (state_course) {
-      setCourses([state_course]);
-      form.setFieldsValue({ course: state_course.id });
+    if (course_id) {
+      getCourseInReview(course_id).then((course: CourseInReview) => {
+        setCourses([course]);
+        form.setFieldsValue({
+          course: parseInt(course_id),
+          semester: course.semester?.id,
+        });
+        setEnrollSemester(course.semester ? course.semester.id : 0);
+      });
+    } else if (review_id) {
+      getReview(review_id).then((review: Review) => {
+        const course: CourseInReview = review.course!;
+        setCourses([course]);
+        setEnrollSemester(course.semester?.id ? course.semester.id : 0);
+        form.setFieldsValue({
+          course: course.id,
+          semester: review.semester?.id,
+          comment: review.comment,
+          rating: review.rating,
+          score: review.score,
+        });
+      });
     }
   }, []);
 
   useEffect(() => {
     getSemesters().then((semesters) => {
       setSemesters(semesters);
-      if (state_course?.semester) {
-        form.setFieldsValue({ semester: state_course.semester.id });
-        setEnrollSemester(state_course.semester.id);
-      }
     });
   }, []);
 
@@ -75,7 +105,7 @@ const ReviewPage = (props: {
       const fetchId = fetchRef.current;
       setFetching(true);
 
-      getCourseInReview(value).then((courses) => {
+      searchCourseInReview(value).then((courses) => {
         setCourses(courses);
         if (fetchId !== fetchRef.current) {
           // for fetch callback order

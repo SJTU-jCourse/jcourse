@@ -38,6 +38,7 @@ const CoursePage = () => {
     related_courses: [],
     former_codes: [],
     semester: null,
+    is_reviewed: null,
   });
   const [courseLoading, setCourseLoading] = useState<boolean>(true);
   const [reviewLoading, setReviewLoading] = useState<boolean>(true);
@@ -96,18 +97,11 @@ const CoursePage = () => {
                 {Orders[order].label}
               </Button>*/}
                 <Link
-                  to={{
-                    pathname: '/review',
-                    state: {
-                      course: {
-                        id: course.id,
-                        code: course.code,
-                        name: course.name,
-                        teacher: course.main_teacher.name,
-                        semester: course.semester,
-                      },
-                    },
-                  }}
+                  to={
+                    course.is_reviewed
+                      ? `/review/${course.is_reviewed}`
+                      : `/course/${course.id}/review`
+                  }
                 >
                   <Button type="primary" icon={<EditOutlined />}>
                     写点评
