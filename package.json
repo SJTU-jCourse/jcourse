@@ -26,8 +26,9 @@
     }
   },
   "dependencies": {
-    "@ant-design/pro-layout": "^6.31.2",
+    "@ant-design/pro-layout": "^6.31.3",
     "@umijs/preset-react": "1.x",
+    "antd": "^4.17.2",
     "axios": "^0.24.0",
     "js-cookie": "^3.0.1",
     "query-string": "^7.0.1",
@@ -40,8 +41,9 @@
     "@types/react-dom": "^17.0.11",
     "@umijs/test": "^3.5.20",
     "import-sort-style-module": "^6.0.0",
+    "jest": "^27.4.3",
     "lint-staged": "^12.1.2",
-    "prettier": "^2.5.0",
+    "prettier": "^2.5.1",
     "prettier-plugin-import-sort": "^0.0.7",
     "react": "17.x",
     "react-dom": "17.x",

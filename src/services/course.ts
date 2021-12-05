@@ -18,7 +18,7 @@ export async function getCourseList(
   pagination: Pagination,
 ): Promise<PaginationApiResult<CourseListItem>> {
   const resp = await request(
-    `/api/course/?${params}&page=${pagination.page}&offset=${pagination.pageSize}`,
+    `/api/course/?${params}&page=${pagination.page}&size=${pagination.pageSize}`,
   );
   return resp.data;
 }
