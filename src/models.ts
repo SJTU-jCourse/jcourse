@@ -34,7 +34,6 @@ export interface CourseDetail {
   credit: number;
   main_teacher: Teacher;
   teacher_group: Teacher[];
-  language: string | null;
   former_codes: string[];
   moderator_remark: string | null;
   rating: { avg: number | null; count: number };

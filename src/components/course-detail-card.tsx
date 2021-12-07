@@ -25,16 +25,15 @@ const CourseDetailCard = ({
         <Descriptions.Item label="开课单位">
           {course.department}
         </Descriptions.Item>
-        <Descriptions.Item label="授课语言">
-          {course.language}
-        </Descriptions.Item>
-        <Descriptions.Item label="合上教师">
-          {course.teacher_group
-            .map((item: Teacher) => {
-              return item.name;
-            })
-            .join('，')}
-        </Descriptions.Item>
+        {course.teacher_group.length > 1 && (
+          <Descriptions.Item label="合上教师">
+            {course.teacher_group
+              .map((item: Teacher) => {
+                return item.name;
+              })
+              .join('，')}
+          </Descriptions.Item>
+        )}
         {course.category && (
           <Descriptions.Item label="课程类别">
             {course.category}
