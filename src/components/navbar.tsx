@@ -1,5 +1,8 @@
 import config from '@/config';
+import { UserPoint } from '@/models';
+import { getUserPoint } from '@/services/user';
 import {
+  DollarOutlined,
   EditOutlined,
   LogoutOutlined,
   ProfileOutlined,
@@ -7,7 +10,16 @@ import {
   SyncOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Button, Col, Dropdown, Grid, Menu, Row } from 'antd';
+import {
+  Button,
+  Col,
+  Descriptions,
+  Dropdown,
+  Grid,
+  Menu,
+  Modal,
+  Row,
+} from 'antd';
 import { useEffect } from 'react';
 import { Link, useHistory, useModel } from 'umi';
 
@@ -34,6 +46,45 @@ const NavBar = (props: { pathname: string }) => {
       logout();
     } else if (e.key == 'account' && user?.is_staff) {
       toAdmin();
+    } else if (e.key == 'point') {
+      getUserPoint().then((points: UserPoint) => {
+        Modal.info({
+          content: (
+            <>
+              <Descriptions title="社区积分" bordered column={1} size="small">
+                <Descriptions.Item label="点评数">
+                  {points?.reviews}
+                </Descriptions.Item>
+                <Descriptions.Item label="获赞数">
+                  {points?.approves}
+                </Descriptions.Item>
+                <Descriptions.Item label="首评数">
+                  {points?.first_reviews}
+                </Descriptions.Item>
+                <Descriptions.Item label="首评获赞">
+                  {points?.first_reviews_approves}
+                </Descriptions.Item>
+                <Descriptions.Item
+                  label="总积分"
+                  style={{ fontWeight: 'bold' }}
+                >
+                  {points?.points}
+                </Descriptions.Item>
+              </Descriptions>
+              <div>
+                总积分 = 点评数 + 获赞数。其中课程的首次点评为双倍积分。
+              </div>
+              <div>
+                您可以前往
+                <a href="https://share.dyweb.sjtu.cn/" target="_blank">
+                  传承·交大
+                </a>
+                将选课社区积分兑换为传承积分。
+              </div>
+            </>
+          ),
+        });
+      });
     }
   };
   const menu = (
@@ -43,6 +94,9 @@ const NavBar = (props: { pathname: string }) => {
           {user.account}
         </Menu.Item>
       )}
+      <Menu.Item key="point" icon={<DollarOutlined />}>
+        社区积分
+      </Menu.Item>
       <Menu.Item key="activity" icon={<ProfileOutlined />}>
         我的点评
       </Menu.Item>

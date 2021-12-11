@@ -116,6 +116,13 @@ export interface User {
   account?: string;
 }
 
+export interface UserPoint {
+  points: number;
+  reviews: number;
+  first_reviews: number;
+  approves: number;
+  first_reviews_approves: number;
+}
 export interface Action {
   review: number;
   action: number;
