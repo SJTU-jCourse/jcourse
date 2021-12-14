@@ -8,7 +8,7 @@ import { getReviewsOfCourse } from '@/services/review';
 import { EditOutlined } from '@ant-design/icons';
 import { Button, Card, Col, Grid, PageHeader, Row, Space, Spin } from 'antd';
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'umi';
+import { Helmet, Link, useParams } from 'umi';
 const { useBreakpoint } = Grid;
 
 const CoursePage = () => {
@@ -26,8 +26,7 @@ const CoursePage = () => {
     department: '',
     name: '',
     credit: 0,
-    language: '',
-    main_teacher: { tid: '', department: '', name: '', title: '' },
+    main_teacher: { tid: '', name: '' },
     teacher_group: [],
     moderator_remark: null,
     rating: {

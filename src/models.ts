@@ -7,9 +7,7 @@ export interface PaginationApiResult<Type> {
 
 export interface Teacher {
   tid: string | null;
-  department: string | null;
   name: string;
-  title: string;
 }
 
 export interface CourseListItem {
