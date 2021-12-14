@@ -4,7 +4,7 @@ import { CourseListItem, Pagination, PaginationApiResult } from '@/models';
 import { searchCourse } from '@/services/course';
 import { Card, Input, PageHeader, message } from 'antd';
 import { useEffect, useRef, useState } from 'react';
-import { history } from 'umi';
+import { Helmet, history } from 'umi';
 
 const { Search } = Input;
 
@@ -59,6 +59,11 @@ const SearchPage = () => {
 
   return (
     <PageHeader title={'搜索'} onBack={() => history.goBack()}>
+      <Helmet>
+        <title>
+          {'搜索 ' + (parsed.q ? parsed.q : ' ') + ' - SJTU选课社区'}
+        </title>
+      </Helmet>
       <Search
         size="large"
         defaultValue={keyword}

@@ -69,6 +69,16 @@ const CoursePage = () => {
       }
       backIcon={false}
     >
+      <Helmet>
+        <title>
+          {courseLoading
+            ? '加载中'
+            : course.name +
+              '（' +
+              course.main_teacher.name +
+              '） - SJTU选课社区'}
+        </title>
+      </Helmet>
       <Row gutter={[config.LAYOUT_MARGIN, config.LAYOUT_MARGIN]}>
         <Col xs={24} md={8}>
           <Row gutter={[config.LAYOUT_MARGIN, config.LAYOUT_MARGIN]}>
