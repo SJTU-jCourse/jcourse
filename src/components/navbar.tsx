@@ -114,7 +114,8 @@ const NavBar = (props: { pathname: string }) => {
     <Row
       style={{
         alignContent: 'center',
-        marginInline: 'auto',
+        marginLeft: 'auto',
+        marginRight: 'auto',
         maxWidth: config.LAYOUT_WIDTH - 2 * config.LAYOUT_MARGIN,
       }}
     >
@@ -130,7 +131,7 @@ const NavBar = (props: { pathname: string }) => {
         </Link>
       </Col>
 
-      <Col style={{ marginInline: 'auto' }} flex="auto">
+      <Col style={{ marginLeft: 'auto', marginRight: 'auto' }} flex="auto">
         <Menu
           selectedKeys={[pathname]}
           style={{ height: 64, border: 0 }}

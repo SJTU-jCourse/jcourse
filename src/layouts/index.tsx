@@ -46,7 +46,8 @@ const BasicLayout = (props: {
 
       <Content
         style={{
-          marginInline: 'auto',
+          marginLeft: 'auto',
+          marginRight: 'auto',
           alignContent: 'center',
           width: '100%',
           maxWidth: config.LAYOUT_WIDTH,
@@ -68,7 +69,8 @@ const BasicLayout = (props: {
                   type="info"
                   style={{
                     alignContent: 'center',
-                    marginInline: config.LAYOUT_MARGIN,
+                    marginLeft: config.LAYOUT_MARGIN,
+                    marginRight: config.LAYOUT_MARGIN,
                     maxWidth: config.LAYOUT_WIDTH - 2 * config.LAYOUT_MARGIN,
                   }}
                 />
