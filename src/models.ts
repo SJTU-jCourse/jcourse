@@ -20,7 +20,7 @@ export interface CourseListItem {
   teacher: string;
   rating: { avg: number; count: number };
   is_reviewed: number | null;
-  semester: Semester | null;
+  semester: number | null;
 }
 
 export interface CourseDetail {
@@ -48,7 +48,7 @@ export interface CourseDetail {
     avg: number | null;
     count: number;
   }[];
-  semester: Semester | null;
+  semester: number | null;
   is_reviewed: number | null;
 }
 
@@ -78,7 +78,7 @@ export interface CourseInReview {
   code: string;
   name: string;
   teacher: string;
-  semester: Semester | null;
+  semester: number | null;
 }
 
 export interface ReviewAction {
@@ -90,7 +90,7 @@ export interface ReviewAction {
 export interface Review {
   id: number;
   course?: CourseInReview;
-  semester: Semester | null;
+  semester: number | null;
   rating: number;
   comment: string;
   created: string;

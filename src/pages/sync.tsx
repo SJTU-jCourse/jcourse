@@ -1,21 +1,15 @@
 import CourseList from '@/components/course-list';
-import { CourseListItem, Semester } from '@/models';
-import { getSemesters } from '@/services/semester';
+import { CourseListItem } from '@/models';
 import { getLessons, loginSync, syncLessons } from '@/services/sync';
 import { Button, Card, Modal, PageHeader, Select, message } from 'antd';
 import { useEffect, useState } from 'react';
-
-interface SelectItem {
-  label: string;
-  value: string;
-}
+import { useModel } from 'umi';
 
 const SyncPage = () => {
   const [courses, setCourses] = useState<CourseListItem[]>([]);
   const [courseLoading, setCourseLoading] = useState<boolean>(false);
-  const [semesterLoading, setSemesterLoading] = useState<boolean>(true);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-  const [semesters, setSemesters] = useState<SelectItem[]>([]);
+  const { initialState } = useModel('@@initialState');
   const [semester, setSemester] = useState<string>('');
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
   const fetchCourses = () => {
@@ -30,21 +24,7 @@ const SyncPage = () => {
     fetchCourses();
   }, []);
 
-  const fetchSemester = () => {
-    getSemesters().then((semesters) => {
-      setSemesters(
-        semesters.map((item: Semester) => {
-          return { label: item.name, value: item.name };
-        }),
-      );
-      setSemesterLoading(false);
-    });
-  };
-
   const handleClick = () => {
-    if (semesterLoading) {
-      fetchSemester();
-    }
     setIsModalVisible(true);
   };
 
@@ -103,8 +83,17 @@ const SyncPage = () => {
           placeholder="学期"
           style={{ width: '100%' }}
           onSelect={(key) => setSemester(key as string)}
-          options={semesters}
-        ></Select>
+        >
+          {initialState!.semesters.map((semester) => (
+            <Select.Option
+              key={semester.name}
+              value={semester.name}
+              label={semester.name}
+            >
+              {semester.name}
+            </Select.Option>
+          ))}
+        </Select>
         <p>
           2020-2021 代表 2020-2021 学年度（2020.9-2021.8）。
           <br />

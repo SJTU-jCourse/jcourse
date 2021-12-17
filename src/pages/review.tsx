@@ -1,8 +1,7 @@
 import config from '@/config';
-import { CourseInReview, Review, ReviewDraft, Semester } from '@/models';
+import { CourseInReview, Review, ReviewDraft } from '@/models';
 import { getCourseInReview, searchCourseInReview } from '@/services/course';
 import { getReview, modifyReview, writeReview } from '@/services/review';
-import { getSemesters } from '@/services/semester';
 import {
   Button,
   Card,
@@ -18,7 +17,7 @@ import {
 } from 'antd';
 import { debounce } from 'lodash';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Link, history, useParams } from 'umi';
+import { Link, history, useModel, useParams } from 'umi';
 
 const { TextArea } = Input;
 const { Text } = Typography;
@@ -27,7 +26,7 @@ const ReviewPage = () => {
   const { course_id, review_id } =
     useParams<{ course_id?: string; review_id?: string }>();
   const [form] = Form.useForm();
-  const [semesters, setSemesters] = useState<Semester[]>([]);
+  const { initialState } = useModel('@@initialState');
   const [enrollSemester, setEnrollSemester] = useState<number>(0);
   const [fetching, setFetching] = useState(false);
   const [courses, setCourses] = useState<CourseInReview[]>([]);
@@ -70,9 +69,9 @@ const ReviewPage = () => {
         setCourses([course]);
         form.setFieldsValue({
           course: parseInt(course_id),
-          semester: course.semester?.id,
+          semester: course.semester,
         });
-        setEnrollSemester(course.semester ? course.semester.id : 0);
+        setEnrollSemester(course.semester ? course.semester : 0);
       });
     } else if (review_id) {
       getReview(review_id).then((review: Review) => {
@@ -82,22 +81,16 @@ const ReviewPage = () => {
         }
         const course: CourseInReview = review.course!;
         setCourses([course]);
-        setEnrollSemester(course.semester?.id ? course.semester.id : 0);
+        setEnrollSemester(course.semester ? course.semester : 0);
         form.setFieldsValue({
           course: course.id,
-          semester: review.semester?.id,
+          semester: review.semester,
           comment: review.comment,
           rating: review.rating,
           score: review.score,
         });
       });
     }
-  }, []);
-
-  useEffect(() => {
-    getSemesters().then((semesters) => {
-      setSemesters(semesters);
-    });
   }, []);
 
   const fetchRef = useRef(0);
@@ -125,8 +118,8 @@ const ReviewPage = () => {
   const onCourseSelectChange = (selected_course: number) => {
     for (const course of courses) {
       if (course.id == selected_course && course.semester) {
-        setEnrollSemester(course.semester.id);
-        form.setFieldsValue({ semester: course.semester.id });
+        setEnrollSemester(course.semester);
+        form.setFieldsValue({ semester: course.semester });
         return;
       }
     }
@@ -185,7 +178,7 @@ const ReviewPage = () => {
             }
           >
             <Select placeholder="选择学期">
-              {semesters.map((semester) => (
+              {initialState!.semesters.map((semester) => (
                 <Select.Option
                   key={semester.id}
                   value={semester.id}

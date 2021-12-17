@@ -1,9 +1,8 @@
 import ReviewActionButton from '@/components/review-action-button';
-import config from '@/config';
 import { Pagination, Review } from '@/models';
 import { doReviewAction } from '@/services/review';
-import { Alert, List, Space, Tag } from 'antd';
-import { Link } from 'umi';
+import { Alert, List, Space } from 'antd';
+import { Link, useModel } from 'umi';
 const ReviewList = ({
   count,
   reviews,
@@ -17,6 +16,7 @@ const ReviewList = ({
   loading: boolean;
   pagination?: Pagination;
 }) => {
+  const { initialState } = useModel('@@initialState');
   return (
     <List
       loading={loading}
@@ -67,18 +67,18 @@ const ReviewList = ({
                 <strong>推荐指数：</strong>
                 {item.rating}
               </span>
-              <span>
-                <strong>学期：</strong>
-                {item.semester?.name}
-              </span>
-              <span>
-                {item.score && (
-                  <>
-                    <strong>成绩：</strong>
-                    {item.score}
-                  </>
-                )}
-              </span>
+              {item.semester && (
+                <span>
+                  <strong>学期：</strong>
+                  {initialState?.semesterMap.get(item.semester)}
+                </span>
+              )}
+              {item.score && (
+                <span>
+                  <strong>成绩：</strong>
+                  {item.score}
+                </span>
+              )}
             </Space>
             <div style={{ whiteSpace: 'pre-wrap' }}>{item.comment}</div>
             {item.is_mine && <Link to={`/review/${item.id}/`}>修改点评</Link>}

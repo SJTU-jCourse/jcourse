@@ -1,6 +1,7 @@
 import { CourseDetail, Teacher } from '@/models';
 import { Card, Descriptions, Typography } from 'antd';
 import { PropsWithChildren, useState } from 'react';
+import { useModel } from 'umi';
 
 import ReportModal from './report-modal';
 
@@ -11,7 +12,7 @@ const CourseDetailCard = ({
   loading,
 }: PropsWithChildren<{ course: CourseDetail; loading: boolean }>) => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-
+  const { initialState } = useModel('@@initialState');
   return (
     <Card title="课程信息" loading={loading}>
       <Descriptions column={1}>
@@ -46,7 +47,7 @@ const CourseDetailCard = ({
         )}
         {course.semester && (
           <Descriptions.Item label="学过学期">
-            {course.semester.name}
+            {initialState?.semesterMap.get(course.semester)}
           </Descriptions.Item>
         )}
         {course.rating.count > 0 && (
