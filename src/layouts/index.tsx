@@ -1,4 +1,5 @@
 import NavBar from '@/components/navbar';
+import NoticeList from '@/components/notice-list';
 import config from '@/config';
 import { Notice } from '@/models';
 import { getNotices } from '@/services/notice';
@@ -53,31 +54,7 @@ const BasicLayout = (props: {
           maxWidth: config.LAYOUT_WIDTH,
         }}
       >
-        {notices && notices.length > 0 && (
-          <List
-            dataSource={notices}
-            split={false}
-            itemLayout="vertical"
-            renderItem={(notice: Notice) => (
-              <List.Item
-                key={notice.title}
-                style={{ padding: 0, marginTop: config.LAYOUT_MARGIN }}
-              >
-                <Alert
-                  message={notice.message}
-                  banner
-                  type="info"
-                  style={{
-                    alignContent: 'center',
-                    marginLeft: config.LAYOUT_MARGIN,
-                    marginRight: config.LAYOUT_MARGIN,
-                    maxWidth: config.LAYOUT_WIDTH - 2 * config.LAYOUT_MARGIN,
-                  }}
-                />
-              </List.Item>
-            )}
-          />
-        )}
+        {notices && notices.length > 0 && <NoticeList notices={notices} />}
         {children}
         <ScrollToTop />
       </Content>
