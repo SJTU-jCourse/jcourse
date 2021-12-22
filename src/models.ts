@@ -120,6 +120,7 @@ export interface UserPoint {
   first_reviews: number;
   approves: number;
   first_reviews_approves: number;
+  addition: number;
 }
 export interface Action {
   review: number;

@@ -55,11 +55,16 @@ const NavBar = (props: { pathname: string }) => {
             <Descriptions.Item label="首评获赞">
               {points?.first_reviews_approves}
             </Descriptions.Item>
+            <Descriptions.Item label="额外积分">
+              {points?.addition}
+            </Descriptions.Item>
             <Descriptions.Item label="总积分" style={{ fontWeight: 'bold' }}>
               {points?.points}
             </Descriptions.Item>
           </Descriptions>
-          <div>总积分 = 点评数 + 获赞数。其中课程的首次点评为双倍积分。</div>
+          <div>
+            总积分 = 点评数 + 获赞数 + 额外积分。其中课程的首次点评为双倍积分。
+          </div>
           <div>
             您可以前往
             <a href="https://share.dyweb.sjtu.cn/" target="_blank">
