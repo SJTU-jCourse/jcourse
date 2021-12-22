@@ -37,6 +37,41 @@ const NavBar = (props: { pathname: string }) => {
   useEffect(() => {
     getProfile();
   }, []);
+
+  const showPointModal = (points: UserPoint) => {
+    Modal.info({
+      content: (
+        <>
+          <Descriptions title="社区积分" bordered column={1} size="small">
+            <Descriptions.Item label="点评数">
+              {points?.reviews}
+            </Descriptions.Item>
+            <Descriptions.Item label="获赞数">
+              {points?.approves}
+            </Descriptions.Item>
+            <Descriptions.Item label="首评数">
+              {points?.first_reviews}
+            </Descriptions.Item>
+            <Descriptions.Item label="首评获赞">
+              {points?.first_reviews_approves}
+            </Descriptions.Item>
+            <Descriptions.Item label="总积分" style={{ fontWeight: 'bold' }}>
+              {points?.points}
+            </Descriptions.Item>
+          </Descriptions>
+          <div>总积分 = 点评数 + 获赞数。其中课程的首次点评为双倍积分。</div>
+          <div>
+            您可以前往
+            <a href="https://share.dyweb.sjtu.cn/" target="_blank">
+              传承·交大
+            </a>
+            将选课社区积分兑换为传承积分。
+          </div>
+        </>
+      ),
+    });
+  };
+
   const handleMenuClick = (e: { key: string }) => {
     if (e.key == 'activity') {
       history.push('/activity');
@@ -48,42 +83,7 @@ const NavBar = (props: { pathname: string }) => {
       toAdmin();
     } else if (e.key == 'point') {
       getUserPoint().then((points: UserPoint) => {
-        Modal.info({
-          content: (
-            <>
-              <Descriptions title="社区积分" bordered column={1} size="small">
-                <Descriptions.Item label="点评数">
-                  {points?.reviews}
-                </Descriptions.Item>
-                <Descriptions.Item label="获赞数">
-                  {points?.approves}
-                </Descriptions.Item>
-                <Descriptions.Item label="首评数">
-                  {points?.first_reviews}
-                </Descriptions.Item>
-                <Descriptions.Item label="首评获赞">
-                  {points?.first_reviews_approves}
-                </Descriptions.Item>
-                <Descriptions.Item
-                  label="总积分"
-                  style={{ fontWeight: 'bold' }}
-                >
-                  {points?.points}
-                </Descriptions.Item>
-              </Descriptions>
-              <div>
-                总积分 = 点评数 + 获赞数。其中课程的首次点评为双倍积分。
-              </div>
-              <div>
-                您可以前往
-                <a href="https://share.dyweb.sjtu.cn/" target="_blank">
-                  传承·交大
-                </a>
-                将选课社区积分兑换为传承积分。
-              </div>
-            </>
-          ),
-        });
+        showPointModal(points);
       });
     }
   };
