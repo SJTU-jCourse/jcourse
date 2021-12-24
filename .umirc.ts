@@ -107,4 +107,9 @@ export default defineConfig({
   analytics: {
     baidu: 'bffe2d130d940fce5a0876ee2dc36b92',
   },
+  metas: [
+    { name: 'author', content: 'SJTUers' },
+    { name: 'keywords', content: 'SJTU, 上海交通大学, 选课, 评课' },
+    { name: 'description', content: 'SJTU选课社区，本科课程体验评价' },
+  ],
 });

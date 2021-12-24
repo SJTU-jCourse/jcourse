@@ -29,7 +29,6 @@
     "@ant-design/pro-layout": "^6.31.7",
     "@umijs/preset-react": "2.x",
     "antd": "^4.17.4",
-    "autolinker": "^3.14.3",
     "axios": "^0.24.0",
     "js-cookie": "^3.0.1",
     "query-string": "^7.0.1",
