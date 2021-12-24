@@ -80,7 +80,9 @@ const ReviewList = ({
                 </span>
               )}
             </Space>
-            <div style={{ whiteSpace: 'pre-wrap' }}>{item.comment}</div>
+            <div style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+              {item.comment}
+            </div>
             {item.is_mine && <Link to={`/review/${item.id}/`}>修改点评</Link>}
           </Space>
         </List.Item>
