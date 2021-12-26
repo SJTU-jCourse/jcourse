@@ -106,7 +106,8 @@ const FaqPage = () => {
         <Divider></Divider>
         <Title level={4}>如何联系你们？</Title>
         <Paragraph>
-          请通过<Link to="/report">反馈</Link>
+          请通过<Link to="/report">反馈</Link>或者邮件
+          <a href="mailto:course@sjtu.plus">course@sjtu.plus</a>
           向社区提出意见和建议。
         </Paragraph>
         <Title level={4}>我是课程老师……</Title>
