@@ -26,13 +26,13 @@
     }
   },
   "dependencies": {
-    "@ant-design/pro-layout": "^6.32.1",
+    "@ant-design/pro-layout": "^6.32.2",
     "@umijs/preset-react": "2.x",
     "antd": "^4.18.2",
     "axios": "^0.24.0",
     "js-cookie": "^3.0.1",
     "query-string": "^7.0.1",
-    "react-markdown": "^7.1.1",
+    "react-markdown": "^7.1.2",
     "remark-gfm": "^3.0.1",
     "umi": "^3.5.20"
   },
@@ -43,8 +43,8 @@
     "@types/react-dom": "^17.0.11",
     "@umijs/test": "^3.5.20",
     "import-sort-style-module": "^6.0.0",
-    "jest": "^27.4.5",
-    "lint-staged": "^12.1.4",
+    "jest": "^27.4.6",
+    "lint-staged": "^12.1.5",
     "prettier": "^2.5.1",
     "prettier-plugin-import-sort": "^0.0.7",
     "react": "17.x",

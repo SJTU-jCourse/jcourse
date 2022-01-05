@@ -94,6 +94,12 @@ export default defineConfig({
           component: '@/pages/sync',
           title: '同步课表 - SJTU选课社区',
         },
+        {
+          exact: true,
+          path: '/point',
+          component: '@/pages/point',
+          title: '社区积分 - SJTU选课社区',
+        },
         { component: '@/pages/404', title: '404 - SJTU选课社区' },
       ],
     },

@@ -114,6 +114,11 @@ export interface User {
   account?: string;
 }
 
+export interface UserPointDetailItem {
+  value: number;
+  description: string | null;
+  time: string;
+}
 export interface UserPoint {
   points: number;
   reviews: number;
@@ -121,6 +126,7 @@ export interface UserPoint {
   approves: number;
   first_reviews_approves: number;
   addition: number;
+  details: UserPointDetailItem[];
 }
 export interface Action {
   review: number;
