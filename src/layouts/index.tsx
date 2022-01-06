@@ -64,7 +64,7 @@ const BasicLayout = (props: {
           <Link to="/faq">常见问题</Link>
           <Link to="/report">反馈</Link>
         </Space>
-        <div>SJTU选课社区 ©2021</div>
+        <div>©2022 SJTU选课社区</div>
       </Footer>
     </Layout>
   );
