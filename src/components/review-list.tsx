@@ -1,7 +1,7 @@
 import ReviewActionButton from '@/components/review-action-button';
 import { Pagination, Review } from '@/models';
 import { doReviewAction } from '@/services/review';
-import { Alert, List, Space } from 'antd';
+import { Alert, List, Space, Tooltip } from 'antd';
 import { Link, useModel } from 'umi';
 const ReviewList = ({
   count,
@@ -40,7 +40,11 @@ const ReviewList = ({
         <List.Item
           key={item.id}
           actions={[
-            <div>{item.created}</div>,
+            <Tooltip
+              title={item.modified ? '编辑于' + item.modified : undefined}
+            >
+              <div>{item.created}</div>
+            </Tooltip>,
             <ReviewActionButton
               onAction={doReviewAction}
               actionProps={{

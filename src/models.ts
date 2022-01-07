@@ -94,6 +94,7 @@ export interface Review {
   rating: number;
   comment: string;
   created: string;
+  modified: string | null;
   actions: { approves: number; disapproves: number; action: number };
   score: number | string;
   moderator_remark: string | null;
