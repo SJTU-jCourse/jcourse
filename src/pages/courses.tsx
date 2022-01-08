@@ -10,7 +10,7 @@ import {
 import { getCourseList, getFilters } from '@/services/course';
 import useUrlState from '@ahooksjs/use-url-state';
 import { useRequest } from 'ahooks';
-import { Card, Col, PageHeader, Radio, Row, Skeleton } from 'antd';
+import { Card, Col, PageHeader, Radio, Row, Spin } from 'antd';
 
 enum OrderBy {
   Avg = 'avg',
@@ -102,17 +102,14 @@ const CoursesPage = () => {
               )
             }
           >
-            <Skeleton loading={courseLoading}>
-              {courses && (
-                <CourseList
-                  pagination={pagination}
-                  count={courses.count}
-                  courses={courses.results}
-                  onPageChange={onPageChange}
-                  showEnroll={true}
-                />
-              )}
-            </Skeleton>
+            <CourseList
+              loading={courseLoading}
+              pagination={pagination}
+              count={courses?.count}
+              courses={courses?.results}
+              onPageChange={onPageChange}
+              showEnroll={true}
+            />
           </Card>
         </Col>
       </Row>

@@ -2,15 +2,7 @@ import CourseList from '@/components/course-list';
 import { CourseListItem } from '@/models';
 import { getLessons, loginSync, syncLessons } from '@/services/sync';
 import { useRequest } from 'ahooks';
-import {
-  Button,
-  Card,
-  Modal,
-  PageHeader,
-  Select,
-  Skeleton,
-  message,
-} from 'antd';
+import { Button, Card, Modal, PageHeader, Select, message } from 'antd';
 import { useState } from 'react';
 import { useModel } from 'umi';
 
@@ -65,15 +57,12 @@ const SyncPage = () => {
           </Button>
         }
       >
-        <Skeleton loading={courseLoading}>
-          {courses && (
-            <CourseList
-              count={courses.length}
-              courses={courses}
-              showEnroll={false}
-            />
-          )}
-        </Skeleton>
+        <CourseList
+          loading={courseLoading}
+          count={courses?.length}
+          courses={courses}
+          showEnroll={false}
+        />
       </Card>
       <Modal
         title="同步说明"
@@ -86,7 +75,7 @@ const SyncPage = () => {
         <Select
           placeholder="学期"
           style={{ width: '100%' }}
-          onSelect={(key) => setSemester(key as string)}
+          onSelect={(key: string) => setSemester(key)}
         >
           {initialState!.semesters.map((semester) => (
             <Select.Option

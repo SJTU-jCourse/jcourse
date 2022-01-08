@@ -4,20 +4,23 @@ import { List, Space, Tag, Typography } from 'antd';
 import { Link } from 'umi';
 const { Text } = Typography;
 const CourseList = ({
+  loading,
   count,
   courses,
   onPageChange,
   pagination,
   showEnroll,
 }: {
-  count: number;
-  courses: CourseListItem[];
+  loading: boolean;
+  count: number | undefined;
+  courses: CourseListItem[] | undefined;
   onPageChange?: Function;
   pagination?: Pagination;
   showEnroll?: boolean;
 }) => {
   return (
     <List
+      loading={loading}
       itemLayout="horizontal"
       pagination={
         pagination

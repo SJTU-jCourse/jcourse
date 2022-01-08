@@ -2,7 +2,7 @@ import ReviewList from '@/components/review-list';
 import { Review } from '@/models';
 import { getMyReivews } from '@/services/review';
 import { useRequest } from 'ahooks';
-import { Card, PageHeader, Skeleton } from 'antd';
+import { Card, PageHeader } from 'antd';
 
 const ActivityPage = () => {
   const { data: reviews, loading } = useRequest<Review[], []>(getMyReivews);
@@ -14,9 +14,11 @@ const ActivityPage = () => {
       subTitle={`共有${reviews ? reviews.length : 0}条点评`}
     >
       <Card>
-        <Skeleton loading={loading}>
-          {reviews && <ReviewList count={reviews.length} reviews={reviews} />}
-        </Skeleton>
+        <ReviewList
+          loading={loading}
+          count={reviews?.length}
+          reviews={reviews}
+        />
       </Card>
     </PageHeader>
   );

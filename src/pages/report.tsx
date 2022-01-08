@@ -3,7 +3,7 @@ import ReportModal from '@/components/report-modal';
 import { Report } from '@/models';
 import { getReports } from '@/services/report';
 import { useRequest } from 'ahooks';
-import { Button, Card, PageHeader, Skeleton } from 'antd';
+import { Button, Card, PageHeader } from 'antd';
 import { useState } from 'react';
 import { history } from 'umi';
 
@@ -22,11 +22,11 @@ const ReportPage = () => {
           </Button>
         }
       >
-        <Skeleton loading={loading}>
-          {reports && (
-            <ReportList count={reports.length} reports={reports}></ReportList>
-          )}
-        </Skeleton>
+        <ReportList
+          loading={loading}
+          count={reports?.length}
+          reports={reports}
+        ></ReportList>
       </Card>
       <ReportModal
         visible={isModalVisible}

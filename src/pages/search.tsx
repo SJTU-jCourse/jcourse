@@ -4,7 +4,7 @@ import { CourseListItem, Pagination, PaginationApiResult } from '@/models';
 import { searchCourse } from '@/services/course';
 import useUrlState from '@ahooksjs/use-url-state';
 import { useRequest } from 'ahooks';
-import { Card, Input, PageHeader, Skeleton, Spin, message } from 'antd';
+import { Card, Input, PageHeader, message } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import { Helmet, history } from 'umi';
 
@@ -70,17 +70,14 @@ const SearchPage = () => {
         style={{ marginBottom: config.LAYOUT_MARGIN }}
       />
       <Card title={`共有${courses ? courses.count : 0}门课`}>
-        <Skeleton loading={courseLoading}>
-          {courses && (
-            <CourseList
-              pagination={pagination}
-              count={courses.count}
-              courses={courses.results}
-              onPageChange={onPageChange}
-              showEnroll={true}
-            />
-          )}
-        </Skeleton>
+        <CourseList
+          loading={courseLoading}
+          pagination={pagination}
+          count={courses?.count}
+          courses={courses?.results}
+          onPageChange={onPageChange}
+          showEnroll={true}
+        />
       </Card>
     </PageHeader>
   );

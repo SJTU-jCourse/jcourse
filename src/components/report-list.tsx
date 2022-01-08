@@ -2,18 +2,21 @@ import { Pagination, Report } from '@/models';
 import { Alert, List } from 'antd';
 
 const ReportList = ({
+  loading,
   count,
   reports,
   onPageChange,
   pagination,
 }: {
-  count: number;
-  reports: Report[];
+  loading: boolean;
+  count: number | undefined;
+  reports: Report[] | undefined;
   onPageChange?: Function;
   pagination?: Pagination;
 }) => {
   return (
     <List
+      loading={loading}
       itemLayout="vertical"
       pagination={
         pagination

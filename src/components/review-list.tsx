@@ -1,22 +1,25 @@
 import ReviewActionButton from '@/components/review-action-button';
-import { Pagination, Review } from '@/models';
+import { Pagination, PaginationApiResult, Review } from '@/models';
 import { doReviewAction } from '@/services/review';
 import { Alert, List, Space, Tooltip } from 'antd';
 import { Link, useModel } from 'umi';
 const ReviewList = ({
+  loading,
   count,
   reviews,
   onPageChange,
   pagination,
 }: {
-  count: number;
-  reviews: Review[];
+  loading: boolean;
+  count: number | undefined;
+  reviews: Review[] | undefined;
   onPageChange?: Function;
   pagination?: Pagination;
 }) => {
   const { initialState } = useModel('@@initialState');
   return (
     <List
+      loading={loading}
       itemLayout="vertical"
       pagination={
         pagination

@@ -7,17 +7,7 @@ import { getCourseDetail } from '@/services/course';
 import { getReviewsOfCourse } from '@/services/review';
 import { EditOutlined } from '@ant-design/icons';
 import { useRequest } from 'ahooks';
-import {
-  Button,
-  Card,
-  Col,
-  Grid,
-  PageHeader,
-  Row,
-  Skeleton,
-  Space,
-  Spin,
-} from 'antd';
+import { Button, Card, Col, Grid, PageHeader, Row, Space, Spin } from 'antd';
 import { Helmet, Link, useParams } from 'umi';
 const { useBreakpoint } = Grid;
 
@@ -87,14 +77,11 @@ const CoursePage = () => {
               </Space>
             }
           >
-            <Skeleton loading={reviewLoading}>
-              {reviews && (
-                <ReviewList
-                  count={reviews.length}
-                  reviews={reviews}
-                ></ReviewList>
-              )}
-            </Skeleton>
+            <ReviewList
+              loading={reviewLoading}
+              count={reviews?.length}
+              reviews={reviews}
+            ></ReviewList>
           </Card>
         </Col>
         {!screens.md && <RelatedCard course={course} loading={courseLoading} />}

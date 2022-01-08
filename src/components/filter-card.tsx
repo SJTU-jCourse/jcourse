@@ -1,7 +1,7 @@
 import './filter-card.css';
 
 import { Filter, Filters } from '@/models';
-import { Button, Card, Checkbox, Collapse, Grid, Skeleton, Tag } from 'antd';
+import { Button, Card, Checkbox, Collapse, Grid, Tag } from 'antd';
 import { useState } from 'react';
 
 const FilterCard = ({
@@ -48,58 +48,55 @@ const FilterCard = ({
         </Button>
       }
       className={filters && 'filter-card'}
+      loading={loading}
     >
-      <Skeleton loading={loading}>
-        {filters && (
-          <Collapse
-            defaultActiveKey={
-              screens.md
-                ? ['reviews', 'categories', 'departments']
-                : ['reviews']
-            }
-            ghost
-          >
-            <Collapse.Panel header="点评" key="reviews">
-              <Checkbox
-                defaultChecked={defaultOnlyHasReviews}
-                onChange={(e) => setOnlyHasReviews(e.target.checked)}
-              >
-                仅显示有点评的课程
-              </Checkbox>
-            </Collapse.Panel>
-            <Collapse.Panel header="课程类别" key="categories">
-              <Checkbox.Group
-                defaultValue={checkedCategories}
-                onChange={(e) => {
-                  setCheckedCategories(e as number[]);
-                }}
-              >
-                {filters.categories.map((item: Filter) => (
-                  <div key={item.id}>
-                    <Checkbox value={item.id}>{item.name}</Checkbox>
-                    <Tag>{item.count}</Tag>
-                  </div>
-                ))}
-              </Checkbox.Group>
-            </Collapse.Panel>
-            <Collapse.Panel header="开课单位" key="departments">
-              <Checkbox.Group
-                defaultValue={checkedDepartments}
-                onChange={(e) => {
-                  setCheckedDepartments(e as number[]);
-                }}
-              >
-                {filters.departments.map((item: Filter) => (
-                  <div key={item.id}>
-                    <Checkbox value={item.id}>{item.name}</Checkbox>
-                    <Tag>{item.count}</Tag>
-                  </div>
-                ))}
-              </Checkbox.Group>
-            </Collapse.Panel>
-          </Collapse>
-        )}
-      </Skeleton>
+      {filters && (
+        <Collapse
+          defaultActiveKey={
+            screens.md ? ['reviews', 'categories', 'departments'] : ['reviews']
+          }
+          ghost
+        >
+          <Collapse.Panel header="点评" key="reviews">
+            <Checkbox
+              defaultChecked={defaultOnlyHasReviews}
+              onChange={(e) => setOnlyHasReviews(e.target.checked)}
+            >
+              仅显示有点评的课程
+            </Checkbox>
+          </Collapse.Panel>
+          <Collapse.Panel header="课程类别" key="categories">
+            <Checkbox.Group
+              defaultValue={checkedCategories}
+              onChange={(e) => {
+                setCheckedCategories(e as number[]);
+              }}
+            >
+              {filters.categories.map((item: Filter) => (
+                <div key={item.id}>
+                  <Checkbox value={item.id}>{item.name}</Checkbox>
+                  <Tag>{item.count}</Tag>
+                </div>
+              ))}
+            </Checkbox.Group>
+          </Collapse.Panel>
+          <Collapse.Panel header="开课单位" key="departments">
+            <Checkbox.Group
+              defaultValue={checkedDepartments}
+              onChange={(e) => {
+                setCheckedDepartments(e as number[]);
+              }}
+            >
+              {filters.departments.map((item: Filter) => (
+                <div key={item.id}>
+                  <Checkbox value={item.id}>{item.name}</Checkbox>
+                  <Tag>{item.count}</Tag>
+                </div>
+              ))}
+            </Checkbox.Group>
+          </Collapse.Panel>
+        </Collapse>
+      )}
     </Card>
   );
 };

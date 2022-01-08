@@ -4,7 +4,7 @@ import { Pagination, PaginationApiResult, Review } from '@/models';
 import { getReviews } from '@/services/review';
 import useUrlState from '@ahooksjs/use-url-state';
 import { useRequest } from 'ahooks';
-import { Card, PageHeader, Skeleton } from 'antd';
+import { Card, PageHeader } from 'antd';
 const LatestPage = () => {
   const [urlState, setUrlState] = useUrlState({
     page: 1,
@@ -31,16 +31,13 @@ const LatestPage = () => {
       subTitle={`共有${reviews ? reviews.count : 0}个点评`}
     >
       <Card>
-        <Skeleton loading={loading}>
-          {reviews && (
-            <ReviewList
-              count={reviews.count}
-              reviews={reviews.results}
-              onPageChange={onPageChange}
-              pagination={pagination}
-            />
-          )}
-        </Skeleton>
+        <ReviewList
+          loading={loading}
+          count={reviews?.count}
+          reviews={reviews?.results}
+          onPageChange={onPageChange}
+          pagination={pagination}
+        />
       </Card>
     </PageHeader>
   );
