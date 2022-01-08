@@ -7,19 +7,16 @@ const ReviewList = ({
   count,
   reviews,
   onPageChange,
-  loading,
   pagination,
 }: {
   count: number;
   reviews: Review[];
   onPageChange?: Function;
-  loading: boolean;
   pagination?: Pagination;
 }) => {
   const { initialState } = useModel('@@initialState');
   return (
     <List
-      loading={loading}
       itemLayout="vertical"
       pagination={
         pagination

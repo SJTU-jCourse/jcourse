@@ -7,20 +7,17 @@ const CourseList = ({
   count,
   courses,
   onPageChange,
-  loading,
   pagination,
   showEnroll,
 }: {
   count: number;
   courses: CourseListItem[];
   onPageChange?: Function;
-  loading: boolean;
   pagination?: Pagination;
   showEnroll?: boolean;
 }) => {
   return (
     <List
-      loading={loading}
       itemLayout="horizontal"
       pagination={
         pagination

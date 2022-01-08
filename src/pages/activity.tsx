@@ -1,35 +1,22 @@
 import ReviewList from '@/components/review-list';
 import { Review } from '@/models';
 import { getMyReivews } from '@/services/review';
-import { Card, PageHeader } from 'antd';
-import { useEffect, useState } from 'react';
+import { useRequest } from 'ahooks';
+import { Card, PageHeader, Skeleton } from 'antd';
 
 const ActivityPage = () => {
-  const [reviews, setReviews] = useState<Review[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const fetchReviews = () => {
-    setLoading(true);
-    getMyReivews().then((reviews) => {
-      setReviews(reviews);
-      setLoading(false);
-    });
-  };
-
-  useEffect(() => fetchReviews(), []);
+  const { data: reviews, loading } = useRequest<Review[], []>(getMyReivews);
 
   return (
     <PageHeader
       title="我的点评"
       backIcon={false}
-      subTitle={'共有' + reviews.length + '个点评'}
+      subTitle={`共有${reviews ? reviews.length : 0}条点评`}
     >
       <Card>
-        <ReviewList
-          loading={loading}
-          count={reviews.length}
-          reviews={reviews}
-        />
+        <Skeleton loading={loading}>
+          {reviews && <ReviewList count={reviews.length} reviews={reviews} />}
+        </Skeleton>
       </Card>
     </PageHeader>
   );
