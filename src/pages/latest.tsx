@@ -2,13 +2,18 @@ import ReviewList from '@/components/review-list';
 import config from '@/config';
 import { Pagination, PaginationApiResult, Review } from '@/models';
 import { getReviews } from '@/services/review';
+import useUrlState from '@ahooksjs/use-url-state';
 import { Card, PageHeader } from 'antd';
 import { useEffect, useState } from 'react';
-import { history } from 'umi';
 const LatestPage = () => {
-  const queryString = require('query-string');
-  const parsed = queryString.parse(location.search);
-
+  const [urlState, setUrlState] = useUrlState({
+    page: 1,
+    size: config.PAGE_SIZE,
+  });
+  const pagination: Pagination = {
+    page: parseInt(urlState.page),
+    pageSize: parseInt(urlState.size),
+  };
   const [reviews, setReviews] = useState<PaginationApiResult<Review>>({
     count: 0,
     next: null,
@@ -16,10 +21,6 @@ const LatestPage = () => {
     results: [],
   });
   const [loading, setLoading] = useState<boolean>(false);
-  const pagination: Pagination = {
-    page: parsed.page ? parseInt(parsed.page) : 1,
-    pageSize: parsed.size ? parseInt(parsed.size) : config.PAGE_SIZE,
-  };
 
   const fetchReviews = () => {
     setLoading(true);
@@ -31,13 +32,10 @@ const LatestPage = () => {
 
   useEffect(() => {
     fetchReviews();
-  }, [history.location.query]);
+  }, [urlState]);
 
   const onPageChange = (page: number, pageSize: number) => {
-    history.push({
-      pathname: history.location.pathname,
-      query: { page: page.toString(), size: pageSize.toString() },
-    });
+    setUrlState({ page: page, size: pageSize });
   };
 
   return (
