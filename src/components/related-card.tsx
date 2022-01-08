@@ -15,13 +15,11 @@ export const RelatedTeacher = ({
   return (
     <Card
       title={
-        <Spin spinning={loading}>
-          <div style={{ whiteSpace: 'normal' }}>其他老师的{course.name}</div>
-        </Spin>
+        <div style={{ whiteSpace: 'normal' }}>其他老师的{course.name}</div>
       }
-      loading={loading}
     >
       <List
+        loading={loading}
         split={false}
         dataSource={related_teachers}
         renderItem={(item) => (
@@ -53,15 +51,11 @@ export const RelatedCourse = ({
   return (
     <Card
       title={
-        <Spin spinning={loading}>
-          <div style={{ whiteSpace: 'normal' }}>
-            {main_teacher.name}的其他课
-          </div>
-        </Spin>
+        <div style={{ whiteSpace: 'normal' }}>{main_teacher.name}的其他课</div>
       }
-      loading={loading}
     >
       <List
+        loading={loading}
         split={false}
         dataSource={related_courses}
         renderItem={(item) => (
@@ -88,9 +82,10 @@ const RelatedCard = ({
   course,
   loading,
 }: PropsWithChildren<{
-  course: CourseDetail;
+  course: CourseDetail | undefined;
   loading: boolean;
 }>) => {
+  if (!course) return <></>;
   return (
     <>
       {course.related_teachers.length > 0 && (

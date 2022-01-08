@@ -1,25 +1,16 @@
 import config from '@/config';
 import { StatisticInfo } from '@/models';
 import { getStatistic } from '@/services/statistic';
+import { useRequest } from 'ahooks';
 import { Col, Row, Spin, Statistic, Typography } from 'antd';
-import { useEffect, useState } from 'react';
 import { Link } from 'umi';
 
 const { Title } = Typography;
 
 const StatisticPage = () => {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [indexState, setIndexState] = useState<StatisticInfo>({
-    users: 0,
-    courses: 0,
-    reviews: 0,
-  });
-  useEffect(() => {
-    getStatistic().then((statistic) => {
-      setLoading(false);
-      setIndexState(statistic);
-    });
-  }, []);
+  const { data: indexState, loading } = useRequest<StatisticInfo, []>(
+    getStatistic,
+  );
 
   return (
     <>
@@ -37,20 +28,26 @@ const StatisticPage = () => {
       >
         <Col span={8}>
           <Spin spinning={loading}>
-            <Statistic title="用户数" value={indexState.users} />
+            {indexState && (
+              <Statistic title="用户数" value={indexState.users} />
+            )}
           </Spin>
         </Col>
         <Col span={8}>
           <Spin spinning={loading}>
             <Link to="/latest">
-              <Statistic title="点评数" value={indexState.reviews} />
+              {indexState && (
+                <Statistic title="点评数" value={indexState.reviews} />
+              )}
             </Link>
           </Spin>
         </Col>
         <Col span={8}>
           <Spin spinning={loading}>
             <Link to="/courses">
-              <Statistic title="课程数" value={indexState.courses} />
+              {indexState && (
+                <Statistic title="课程数" value={indexState.courses} />
+              )}
             </Link>
           </Spin>
         </Col>

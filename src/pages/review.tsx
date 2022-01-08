@@ -2,6 +2,7 @@ import config from '@/config';
 import { CourseInReview, Review, ReviewDraft } from '@/models';
 import { getCourseInReview, searchCourseInReview } from '@/services/course';
 import { getReview, modifyReview, writeReview } from '@/services/review';
+import { useDebounceFn } from 'ahooks';
 import {
   Button,
   Card,
@@ -15,8 +16,7 @@ import {
   Typography,
   message,
 } from 'antd';
-import { debounce } from 'lodash';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, history, useModel, useParams } from 'umi';
 
 const { TextArea } = Input;
@@ -93,27 +93,18 @@ const ReviewPage = () => {
     }
   }, []);
 
-  const fetchRef = useRef(0);
-
-  const debounceTimeout = 800;
-  const debounceFetcher = useMemo(() => {
-    const loadOptions = (value: string) => {
-      fetchRef.current += 1;
-      const fetchId = fetchRef.current;
+  const { run: debounceFetcher } = useDebounceFn(
+    (value: string) => {
       setFetching(true);
-
       searchCourseInReview(value).then((courses) => {
         setCourses(courses);
-        if (fetchId !== fetchRef.current) {
-          // for fetch callback order
-          return;
-        }
         setFetching(false);
       });
-    };
-
-    return debounce(loadOptions, debounceTimeout);
-  }, [debounceTimeout]);
+    },
+    {
+      wait: 800,
+    },
+  );
 
   const onCourseSelectChange = (selected_course: number) => {
     for (const course of courses) {

@@ -1,28 +1,30 @@
 import CourseList from '@/components/course-list';
 import { CourseListItem } from '@/models';
 import { getLessons, loginSync, syncLessons } from '@/services/sync';
-import { Button, Card, Modal, PageHeader, Select, message } from 'antd';
-import { useEffect, useState } from 'react';
+import { useRequest } from 'ahooks';
+import {
+  Button,
+  Card,
+  Modal,
+  PageHeader,
+  Select,
+  Skeleton,
+  message,
+} from 'antd';
+import { useState } from 'react';
 import { useModel } from 'umi';
 
 const SyncPage = () => {
-  const [courses, setCourses] = useState<CourseListItem[]>([]);
-  const [courseLoading, setCourseLoading] = useState<boolean>(false);
+  const {
+    data: courses,
+    loading: courseLoading,
+    run,
+  } = useRequest<CourseListItem[], []>(getLessons);
+
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const { initialState } = useModel('@@initialState');
   const [semester, setSemester] = useState<string>('');
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
-  const fetchCourses = () => {
-    setCourseLoading(true);
-    getLessons().then((courses) => {
-      setCourses(courses);
-      setCourseLoading(false);
-    });
-  };
-
-  useEffect(() => {
-    fetchCourses();
-  }, []);
 
   const handleClick = () => {
     setIsModalVisible(true);
@@ -34,12 +36,11 @@ const SyncPage = () => {
       return;
     }
     setConfirmLoading(true);
-    setCourseLoading(true);
+
     syncLessons(semester)
-      .then((courses) => {
-        setCourses(courses);
+      .then(() => {
+        run();
         setIsModalVisible(false);
-        setCourseLoading(false);
         setConfirmLoading(false);
       })
       .catch((err) => {
@@ -57,19 +58,22 @@ const SyncPage = () => {
   return (
     <PageHeader title="学过的课" backIcon={false}>
       <Card
-        title={'共有' + courses.length + '门课'}
+        title={`共有${courses ? courses.length : 0}门课`}
         extra={
           <Button type="primary" onClick={() => handleClick()}>
             同步
           </Button>
         }
       >
-        <CourseList
-          loading={courseLoading}
-          count={courses.length}
-          courses={courses}
-          showEnroll={false}
-        />
+        <Skeleton loading={courseLoading}>
+          {courses && (
+            <CourseList
+              count={courses.length}
+              courses={courses}
+              showEnroll={false}
+            />
+          )}
+        </Skeleton>
       </Card>
       <Modal
         title="同步说明"

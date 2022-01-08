@@ -9,8 +9,8 @@ import {
 } from '@/models';
 import { getCourseList, getFilters } from '@/services/course';
 import useUrlState from '@ahooksjs/use-url-state';
-import { Card, Col, PageHeader, Radio, Row } from 'antd';
-import { useEffect, useState } from 'react';
+import { useRequest } from 'ahooks';
+import { Card, Col, PageHeader, Radio, Row, Skeleton } from 'antd';
 
 enum OrderBy {
   Avg = 'avg',
@@ -25,48 +25,28 @@ const CoursesPage = () => {
     departments: null,
     onlyhasreviews: null,
   });
-
-  const [courses, setCourses] = useState<PaginationApiResult<CourseListItem>>({
-    count: 0,
-    next: null,
-    previous: null,
-    results: [],
-  });
-  const [filters, setFilters] = useState<Filters>({
-    categories: [],
-    departments: [],
-  });
-  const [filterLoading, setFilterLoading] = useState<boolean>(true);
-  const [courseLoading, setCourseLoading] = useState<boolean>(false);
   const pagination: Pagination = {
     page: parseInt(urlState.page),
     pageSize: parseInt(urlState.size),
   };
+  const { data: courses, loading: courseLoading } = useRequest<
+    PaginationApiResult<CourseListItem>,
+    []
+  >(
+    () => {
+      let params: string = '';
+      if (urlState.categories) params += `&category=${urlState.categories}`;
+      if (urlState.departments) params += `&department=${urlState.departments}`;
+      if (urlState.onlyhasreviews)
+        params += `&onlyhasreviews=${urlState.onlyhasreviews}`;
+      return getCourseList(params, pagination);
+    },
+    { refreshDeps: [urlState] },
+  );
 
-  useEffect(() => {
-    setFilterLoading(true);
-    getFilters().then((filters) => {
-      setFilters(filters);
-      setFilterLoading(false);
-    });
-  }, []);
-
-  const fetchCourses = (params: string) => {
-    setCourseLoading(true);
-    getCourseList(params, pagination).then((courses) => {
-      setCourses(courses);
-      setCourseLoading(false);
-    });
-  };
-
-  useEffect(() => {
-    let params: string = '';
-    if (urlState.categories) params += `&category=${urlState.categories}`;
-    if (urlState.departments) params += `&department=${urlState.departments}`;
-    if (urlState.onlyhasreviews)
-      params += `&onlyhasreviews=${urlState.onlyhasreviews}`;
-    fetchCourses(params);
-  }, [urlState]);
+  const { data: filters, loading: filterLoading } = useRequest<Filters, []>(
+    getFilters,
+  );
 
   const onFilterButtonClick = (
     onlyHasReviews: boolean,
@@ -98,8 +78,7 @@ const CoursesPage = () => {
       <Row gutter={[config.LAYOUT_MARGIN, config.LAYOUT_MARGIN]}>
         <Col xs={24} md={8}>
           <FilterCard
-            categories={filters.categories}
-            departments={filters.departments}
+            filters={filters}
             selectedCategories={urlState.categories}
             selectedDepartments={urlState.departments}
             defaultOnlyHasReviews={urlState.onlyhasreviews != undefined}
@@ -109,7 +88,7 @@ const CoursesPage = () => {
         </Col>
         <Col xs={24} md={16}>
           <Card
-            title={'共有' + courses.count + '门课'}
+            title={`共有${courses ? courses.count : 0}门课`}
             extra={
               urlState.onlyhasreviews && (
                 <Radio.Group
@@ -123,14 +102,17 @@ const CoursesPage = () => {
               )
             }
           >
-            <CourseList
-              pagination={pagination}
-              loading={courseLoading}
-              count={courses.count}
-              courses={courses.results}
-              onPageChange={onPageChange}
-              showEnroll={true}
-            />
+            <Skeleton loading={courseLoading}>
+              {courses && (
+                <CourseList
+                  pagination={pagination}
+                  count={courses.count}
+                  courses={courses.results}
+                  onPageChange={onPageChange}
+                  showEnroll={true}
+                />
+              )}
+            </Skeleton>
           </Card>
         </Col>
       </Row>
