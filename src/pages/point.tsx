@@ -1,25 +1,19 @@
 import { UserPoint } from '@/models';
 import { getUserPoint } from '@/services/user';
-import { Card, Descriptions, PageHeader, Table, Typography } from 'antd';
-import { useEffect, useState } from 'react';
+import { useRequest } from 'ahooks';
+import {
+  Card,
+  Descriptions,
+  PageHeader,
+  Skeleton,
+  Table,
+  Typography,
+} from 'antd';
 
 const { Title, Paragraph } = Typography;
 
 const PointPage = () => {
-  const [points, setPoints] = useState<UserPoint>({
-    reviews: 0,
-    first_reviews: 0,
-    approves: 0,
-    first_reviews_approves: 0,
-    points: 0,
-    addition: 0,
-    details: [],
-  });
-  useEffect(() => {
-    getUserPoint().then((points: UserPoint) => {
-      setPoints(points);
-    });
-  }, []);
+  const { data: points, loading } = useRequest<UserPoint, []>(getUserPoint);
 
   const columns = [
     {
@@ -39,26 +33,34 @@ const PointPage = () => {
       <Card>
         <Typography>
           <Title level={5}>概览</Title>
-          <Descriptions bordered>
-            <Descriptions.Item label="点评数">
-              {points.reviews}
-            </Descriptions.Item>
-            <Descriptions.Item label="获赞数">
-              {points.approves}
-            </Descriptions.Item>
-            <Descriptions.Item label="首评数">
-              {points.first_reviews}
-            </Descriptions.Item>
-            <Descriptions.Item label="首评获赞">
-              {points.first_reviews_approves}
-            </Descriptions.Item>
-            <Descriptions.Item label="额外积分">
-              {points.addition}
-            </Descriptions.Item>
-            <Descriptions.Item label="总积分" style={{ fontWeight: 'bold' }}>
-              {points.points}
-            </Descriptions.Item>
-          </Descriptions>
+          <Skeleton loading={loading}>
+            {points && (
+              <Descriptions bordered>
+                <Descriptions.Item label="点评数">
+                  {points.reviews}
+                </Descriptions.Item>
+                <Descriptions.Item label="获赞数">
+                  {points.approves}
+                </Descriptions.Item>
+                <Descriptions.Item label="首评数">
+                  {points.first_reviews}
+                </Descriptions.Item>
+                <Descriptions.Item label="首评获赞">
+                  {points.first_reviews_approves}
+                </Descriptions.Item>
+                <Descriptions.Item label="额外积分">
+                  {points.addition}
+                </Descriptions.Item>
+                <Descriptions.Item
+                  label="总积分"
+                  style={{ fontWeight: 'bold' }}
+                >
+                  {points.points}
+                </Descriptions.Item>
+              </Descriptions>
+            )}
+          </Skeleton>
+
           <Title level={5}>说明</Title>
           <Paragraph>
             总积分 = 点评数 + 获赞数 + 额外积分。其中课程的首次点评为双倍积分。
@@ -71,12 +73,16 @@ const PointPage = () => {
             将选课社区积分兑换为传承积分。
           </Paragraph>
           <Title level={5}>额外积分详情</Title>
-          <Table
-            tableLayout="fixed"
-            dataSource={points.details}
-            columns={columns}
-            pagination={false}
-          ></Table>
+          <Skeleton loading={loading}>
+            {points && (
+              <Table
+                tableLayout="fixed"
+                dataSource={points.details}
+                columns={columns}
+                pagination={false}
+              ></Table>
+            )}
+          </Skeleton>
         </Typography>
       </Card>
     </PageHeader>

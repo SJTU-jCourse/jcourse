@@ -5,18 +5,15 @@ const ReportList = ({
   count,
   reports,
   onPageChange,
-  loading,
   pagination,
 }: {
   count: number;
   reports: Report[];
   onPageChange?: Function;
-  loading: boolean;
   pagination?: Pagination;
 }) => {
   return (
     <List
-      loading={loading}
       itemLayout="vertical"
       pagination={
         pagination
