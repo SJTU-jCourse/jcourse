@@ -1,9 +1,11 @@
 import CourseList from '@/components/course-list';
+import config from '@/config';
 import { CourseListItem } from '@/models';
-import { getLessons, loginSync, syncLessons } from '@/services/sync';
+import { authSync, getLessons, loginSync, syncLessons } from '@/services/sync';
+import useUrlState from '@ahooksjs/use-url-state';
 import { useRequest } from 'ahooks';
 import { Button, Card, Modal, PageHeader, Select, message } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useModel } from 'umi';
 
 const SyncPage = () => {
@@ -12,11 +14,25 @@ const SyncPage = () => {
     loading: courseLoading,
     run,
   } = useRequest<CourseListItem[], []>(getLessons);
-
+  const [urlState, setUrlState] = useUrlState({ code: null });
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const { initialState } = useModel('@@initialState');
   const [semester, setSemester] = useState<string>('');
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (urlState.code) {
+      authSync(urlState.code)
+        .then(() => {
+          message.info('已刷新 jAccount 登录状态，请继续同步！');
+          setUrlState({ code: undefined });
+        })
+        .catch(() => {
+          message.error('参数错误！');
+          setUrlState({ code: undefined });
+        });
+    }
+  }, [urlState]);
 
   const handleClick = () => {
     setIsModalVisible(true);

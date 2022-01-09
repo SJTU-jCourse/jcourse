@@ -1,6 +1,10 @@
 import AboutContent from '@/components/about-card';
 import config from '@/config';
-import { Button, Layout, Modal, Space, Typography } from 'antd';
+import { auth } from '@/services/user';
+import useUrlState from '@ahooksjs/use-url-state';
+import { Button, Layout, Modal, Space, Typography, message } from 'antd';
+import { useEffect } from 'react';
+import { history } from 'umi';
 const { Header, Content } = Layout;
 const { Link } = Typography;
 
@@ -14,6 +18,22 @@ function info() {
 }
 
 const LoginPage = () => {
+  const [urlState, setUrlState] = useUrlState({ code: null });
+  const jAccountUri = `https://jaccount.sjtu.edu.cn/oauth2/authorize?client_id=${config.JACCOUNT_CLIENT_ID}&redirect_uri=${config.JACCOUNT_LOGIN_RETURI}&response_type=code&scope=basic`;
+  useEffect(() => {
+    if (urlState.code) {
+      auth(urlState.code)
+        .then((data) => {
+          localStorage.setItem('account', data.account);
+          history.push('/');
+        })
+        .catch(() => {
+          message.error('参数错误！');
+          setUrlState({ code: undefined });
+        });
+    }
+  }, [urlState]);
+
   return (
     <Layout style={{ height: '100vh' }}>
       <Header
@@ -32,7 +52,7 @@ const LoginPage = () => {
         }}
       >
         <Space direction="vertical" align="center" size="large">
-          <Button size="large" type="primary" href="oauth/jaccount/login/">
+          <Button size="large" type="primary" href={jAccountUri}>
             使用 jAccount 登录
           </Button>
           <span>

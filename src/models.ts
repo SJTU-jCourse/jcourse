@@ -112,7 +112,7 @@ export interface User {
   id: number;
   username: string;
   is_staff: boolean;
-  account?: string;
+  account: string | null;
 }
 
 export interface UserPointDetailItem {
