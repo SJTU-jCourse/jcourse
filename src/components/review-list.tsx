@@ -1,5 +1,5 @@
 import ReviewActionButton from '@/components/review-action-button';
-import { Pagination, PaginationApiResult, Review } from '@/models';
+import { Pagination, Review } from '@/models';
 import { doReviewAction } from '@/services/review';
 import { Alert, List, Space, Tooltip } from 'antd';
 import { Link, useModel } from 'umi';

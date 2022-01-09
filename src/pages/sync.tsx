@@ -1,5 +1,4 @@
 import CourseList from '@/components/course-list';
-import config from '@/config';
 import { CourseListItem } from '@/models';
 import { authSync, getLessons, loginSync, syncLessons } from '@/services/sync';
 import useUrlState from '@ahooksjs/use-url-state';

@@ -10,7 +10,7 @@ import {
 import { getCourseList, getFilters } from '@/services/course';
 import useUrlState from '@ahooksjs/use-url-state';
 import { useRequest } from 'ahooks';
-import { Card, Col, PageHeader, Radio, Row, Spin } from 'antd';
+import { Card, Col, PageHeader, Radio, Row } from 'antd';
 
 enum OrderBy {
   Avg = 'avg',

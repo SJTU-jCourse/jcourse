@@ -1,5 +1,5 @@
 import { CourseDetail } from '@/models';
-import { Card, Col, List, Space, Spin, Typography } from 'antd';
+import { Card, Col, List, Space, Typography } from 'antd';
 import { PropsWithChildren } from 'react';
 import { Link } from 'umi';
 const { Text } = Typography;
