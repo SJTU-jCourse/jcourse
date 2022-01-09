@@ -2,7 +2,7 @@ import AboutContent from '@/components/about-card';
 import config from '@/config';
 import { auth } from '@/services/user';
 import useUrlState from '@ahooksjs/use-url-state';
-import { Button, Layout, Modal, Space, Typography, message } from 'antd';
+import { Button, Layout, Modal, Space, Spin, Typography, message } from 'antd';
 import { useEffect } from 'react';
 import { history } from 'umi';
 const { Header, Content } = Layout;
@@ -52,6 +52,7 @@ const LoginPage = () => {
         }}
       >
         <Space direction="vertical" align="center" size="large">
+          <Spin spinning={urlState.code} />
           <Button size="large" type="primary" href={jAccountUri}>
             使用 jAccount 登录
           </Button>

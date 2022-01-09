@@ -1,6 +1,5 @@
 import config from '@/config';
-import { UserPoint } from '@/models';
-import { getUserPoint } from '@/services/user';
+import { logout, toAdmin } from '@/services/user';
 import {
   DollarOutlined,
   EditOutlined,
@@ -10,17 +9,7 @@ import {
   SyncOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import {
-  Button,
-  Col,
-  Descriptions,
-  Dropdown,
-  Grid,
-  Menu,
-  Modal,
-  Row,
-} from 'antd';
-import { useEffect } from 'react';
+import { Button, Col, Dropdown, Grid, Menu, Row } from 'antd';
 import { Link, useHistory, useModel } from 'umi';
 
 const navMenuItems = [
@@ -33,11 +22,7 @@ const NavBar = (props: { pathname: string }) => {
   const screens = useBreakpoint();
   const history = useHistory();
   const { pathname } = props;
-  const { user, getProfile, logout, toAdmin } = useModel('useAuthModel');
-  useEffect(() => {
-    getProfile();
-  }, []);
-
+  const { initialState } = useModel('@@initialState');
   const handleMenuClick = (e: { key: string }) => {
     if (e.key == 'activity') {
       history.push('/activity');
@@ -45,7 +30,7 @@ const NavBar = (props: { pathname: string }) => {
       history.push('/sync');
     } else if (e.key == 'logout') {
       logout();
-    } else if (e.key == 'account' && user?.is_staff) {
+    } else if (e.key == 'account' && initialState!.user.is_staff) {
       toAdmin();
     } else if (e.key == 'point') {
       history.push('/point');
@@ -53,9 +38,9 @@ const NavBar = (props: { pathname: string }) => {
   };
   const menu = (
     <Menu onClick={handleMenuClick}>
-      {user && user.account != '' && (
+      {initialState?.user?.account && (
         <Menu.Item key="account" icon={<UserOutlined />}>
-          {user.account}
+          {initialState.user.account}
         </Menu.Item>
       )}
       <Menu.Item key="point" icon={<DollarOutlined />}>
