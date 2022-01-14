@@ -116,7 +116,6 @@ const ReviewPage = () => {
     }
     setEnrollSemester(0);
   };
-
   return (
     <PageHeader title="写点评" onBack={() => history.goBack()}>
       <Card>
@@ -227,7 +226,9 @@ const ReviewPage = () => {
               },
             ]}
           >
-            <Rate />
+            <Rate
+              tooltips={['非常不推荐', '不推荐', '中立', '推荐', '非常推荐']}
+            />
           </Form.Item>
           <Form.Item name="score" label="成绩" rules={[{ required: false }]}>
             <Input placeholder="分数或等级，中期退课填W" maxLength={10} />
