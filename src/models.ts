@@ -90,7 +90,7 @@ export interface ReviewAction {
 export interface Review {
   id: number;
   course?: CourseInReview;
-  semester: number | null;
+  semester: string | Semester;
   rating: number;
   comment: string;
   created: string;

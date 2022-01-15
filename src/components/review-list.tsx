@@ -2,7 +2,7 @@ import ReviewActionButton from '@/components/review-action-button';
 import { Pagination, Review } from '@/models';
 import { doReviewAction } from '@/services/review';
 import { Alert, List, Space, Tooltip } from 'antd';
-import { Link, useModel } from 'umi';
+import { Link } from 'umi';
 const ReviewList = ({
   loading,
   count,
@@ -16,7 +16,6 @@ const ReviewList = ({
   onPageChange?: Function;
   pagination?: Pagination;
 }) => {
-  const { initialState } = useModel('@@initialState');
   return (
     <List
       loading={loading}
@@ -74,7 +73,7 @@ const ReviewList = ({
               {item.semester && (
                 <span>
                   <strong>学期：</strong>
-                  {initialState?.semesterMap.get(item.semester)}
+                  {item.semester}
                 </span>
               )}
               {item.score && (

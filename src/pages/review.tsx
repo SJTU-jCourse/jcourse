@@ -1,5 +1,5 @@
 import config from '@/config';
-import { CourseInReview, Review, ReviewDraft } from '@/models';
+import { CourseInReview, Review, ReviewDraft, Semester } from '@/models';
 import { getCourseInReview, searchCourseInReview } from '@/services/course';
 import { getReview, modifyReview, writeReview } from '@/services/review';
 import { useDebounceFn } from 'ahooks';
@@ -80,11 +80,12 @@ const ReviewPage = () => {
           return;
         }
         const course: CourseInReview = review.course!;
+        const semester = review.semester as Semester;
         setCourses([course]);
         setEnrollSemester(course.semester ? course.semester : 0);
         form.setFieldsValue({
           course: course.id,
-          semester: review.semester,
+          semester: semester.id,
           comment: review.comment,
           rating: review.rating,
           score: review.score,
