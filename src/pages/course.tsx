@@ -2,9 +2,15 @@ import CourseDetailCard from '@/components/course-detail-card';
 import RelatedCard from '@/components/related-card';
 import ReviewList from '@/components/review-list';
 import config from '@/config';
-import { CourseDetail, Review } from '@/models';
+import {
+  CourseDetail,
+  Pagination,
+  PaginationApiResult,
+  Review,
+} from '@/models';
 import { getCourseDetail } from '@/services/course';
 import { getReviewsOfCourse } from '@/services/review';
+import useUrlState from '@ahooksjs/use-url-state';
 import { EditOutlined } from '@ant-design/icons';
 import { useRequest } from 'ahooks';
 import { Button, Card, Col, Grid, PageHeader, Row, Space, Spin } from 'antd';
@@ -12,6 +18,17 @@ import { Helmet, Link, useParams } from 'umi';
 const { useBreakpoint } = Grid;
 
 const CoursePage = () => {
+  const [urlState, setUrlState] = useUrlState({
+    page: 1,
+    size: config.PAGE_SIZE,
+  });
+  const pagination: Pagination = {
+    page: parseInt(urlState.page),
+    pageSize: parseInt(urlState.size),
+  };
+  const onPageChange = (page: number, pageSize: number) => {
+    setUrlState({ page: page, size: pageSize });
+  };
   const screens = useBreakpoint();
   const { id } = useParams<{ id: string }>();
   const { data: course, loading: courseLoading } = useRequest<CourseDetail, []>(
@@ -19,10 +36,10 @@ const CoursePage = () => {
     { refreshDeps: [id] },
   );
 
-  const { data: reviews, loading: reviewLoading } = useRequest<Review[], []>(
-    () => getReviewsOfCourse(id),
-    { refreshDeps: [id] },
-  );
+  const { data: reviews, loading: reviewLoading } = useRequest<
+    PaginationApiResult<Review>,
+    []
+  >(() => getReviewsOfCourse(id, pagination), { refreshDeps: [id, urlState] });
 
   return (
     <PageHeader
@@ -60,7 +77,7 @@ const CoursePage = () => {
         </Col>
         <Col xs={24} md={16}>
           <Card
-            title={`点评（${reviews ? reviews.length : 0}条）`}
+            title={`点评（${reviews ? reviews.count : 0}条）`}
             extra={
               <Space>
                 <Link
@@ -79,8 +96,10 @@ const CoursePage = () => {
           >
             <ReviewList
               loading={reviewLoading}
-              count={reviews?.length}
-              reviews={reviews}
+              count={reviews?.count}
+              reviews={reviews?.results}
+              onPageChange={onPageChange}
+              pagination={pagination}
             ></ReviewList>
           </Card>
         </Col>

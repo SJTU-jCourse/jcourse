@@ -20,8 +20,13 @@ export async function getMyReivews(): Promise<Review[]> {
   return resp.data;
 }
 
-export async function getReviewsOfCourse(id: string): Promise<Review[]> {
-  const resp = await request(`/api/course/${id}/review/`);
+export async function getReviewsOfCourse(
+  id: string,
+  pagination: Pagination,
+): Promise<PaginationApiResult<Review>> {
+  const resp = await request(
+    `/api/course/${id}/review/?page=${pagination.page}&size=${pagination.pageSize}`,
+  );
   return resp.data;
 }
 
