@@ -242,7 +242,7 @@ const ReviewPage = () => {
               </Text>
             }
           >
-            <TextArea autoSize={{ minRows: 8 }} maxLength={817} />
+            <TextArea autoSize maxLength={1926} />
           </Form.Item>
           <Form.Item
             name="rating"
