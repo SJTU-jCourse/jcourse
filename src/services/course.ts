@@ -39,8 +39,14 @@ export async function getCourseDetail(id: string): Promise<CourseDetail> {
 }
 
 export async function searchCourseInReview(
-  keyword: string,
-): Promise<CourseInReview[]> {
+  keyword: string | null,
+  next: string | null,
+): Promise<PaginationApiResult<CourseInReview>> {
+  if (next) {
+    const params = next.split('?').pop();
+    const resp = await request(`/api/course-in-review/?${params}`);
+    return resp.data;
+  }
   const resp = await request(`/api/course-in-review/?q=${keyword}`);
   return resp.data;
 }

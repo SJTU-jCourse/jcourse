@@ -30,6 +30,8 @@ const ReviewPage = () => {
   const [enrollSemester, setEnrollSemester] = useState<number>(0);
   const [fetching, setFetching] = useState(false);
   const [courses, setCourses] = useState<CourseInReview[]>([]);
+  const [nextPage, setNextPage] = useState<string | null>(null);
+  const [loadingMore, setLoadingMore] = useState(false);
 
   const handleSubmit = (review: ReviewDraft) => {
     if (review_id) {
@@ -97,8 +99,9 @@ const ReviewPage = () => {
   const { run: debounceFetcher } = useDebounceFn(
     (value: string) => {
       setFetching(true);
-      searchCourseInReview(value).then((courses) => {
-        setCourses(courses);
+      searchCourseInReview(value, null).then((courses) => {
+        setNextPage(courses.next);
+        setCourses(courses.results);
         setFetching(false);
       });
     },
@@ -106,6 +109,16 @@ const ReviewPage = () => {
       wait: 800,
     },
   );
+
+  const loadMore = () => {
+    if (nextPage == null) return;
+    setLoadingMore(true);
+    searchCourseInReview(null, nextPage).then((new_courses) => {
+      setNextPage(new_courses.next);
+      setCourses(courses.concat(new_courses.results));
+      setLoadingMore(false);
+    });
+  };
 
   const onCourseSelectChange = (selected_course: number) => {
     for (const course of courses) {
@@ -117,6 +130,14 @@ const ReviewPage = () => {
     }
     setEnrollSemester(0);
   };
+
+  const onPopupScroll = (e: { target?: any }) => {
+    const { target } = e;
+    if (target.scrollTop + target.offsetHeight >= target.scrollHeight) {
+      loadMore();
+    }
+  };
+
   return (
     <PageHeader title="写点评" onBack={() => history.goBack()}>
       <Card>
@@ -143,6 +164,17 @@ const ReviewPage = () => {
               onSearch={debounceFetcher}
               notFoundContent={fetching ? <Spin size="small" /> : null}
               onChange={onCourseSelectChange}
+              onPopupScroll={onPopupScroll}
+              dropdownRender={(menu) => (
+                <>
+                  {menu}
+                  {loadingMore ? (
+                    <div style={{ textAlign: 'center' }}>
+                      <Spin size="small" />
+                    </div>
+                  ) : null}
+                </>
+              )}
             >
               {courses.map((course) => (
                 <Select.Option key={course.id} value={course.id}>
