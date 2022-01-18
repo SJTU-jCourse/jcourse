@@ -8,16 +8,16 @@ export default defineConfig({
   },
   routes: [
     {
-      exact: true,
-      path: '/login',
-      component: '@/pages/login',
-      title: '登录 - SJTU选课社区',
-    },
-    {
       exact: false,
       path: '/',
       component: '@/layouts/index',
       routes: [
+        {
+          exact: true,
+          path: '/login',
+          component: '@/pages/login',
+          title: '登录 - SJTU选课社区',
+        },
         {
           exact: true,
           path: '/',

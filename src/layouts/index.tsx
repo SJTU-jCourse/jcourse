@@ -1,12 +1,18 @@
+import './dark.css';
+import './custom.ant.css';
+import './custom.dark.css';
+
 import NavBar from '@/components/navbar';
 import NoticeList from '@/components/notice-list';
 import config from '@/config';
 import { Notice } from '@/models';
 import { getNotices } from '@/services/notice';
-import { Alert, ConfigProvider, Layout, List, Space } from 'antd';
+import { ConfigProvider, Layout, Space } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
 import { ReactNode, useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { Link, useLocation } from 'umi';
+
 const { Header, Content, Footer } = Layout;
 
 function ScrollToTop() {
@@ -70,11 +76,41 @@ const BasicLayout = (props: {
   );
 };
 
+const LoginLayout = (props: { children: ReactNode }) => (
+  <Layout style={{ height: '100vh' }}>
+    <Header
+      style={{
+        padding: `0 ${config.LAYOUT_MARGIN}px`,
+        fontSize: 20,
+      }}
+    >
+      <div className="title">SJTU选课社区</div>
+    </Header>
+    <Content
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column',
+      }}
+    >
+      {props.children}
+    </Content>
+  </Layout>
+);
 export default (props: {
   location: { pathname: string };
   children: ReactNode;
-}) => (
-  <ConfigProvider locale={zhCN}>
-    <BasicLayout {...props} />
-  </ConfigProvider>
-);
+}) => {
+  const isDark = useMediaQuery({
+    query: '(prefers-color-scheme: dark)',
+  });
+  return (
+    <ConfigProvider locale={zhCN} prefixCls={isDark ? 'dark' : 'ant'}>
+      {props.location.pathname == '/login' ? (
+        <LoginLayout {...props} />
+      ) : (
+        <BasicLayout {...props} />
+      )}
+    </ConfigProvider>
+  );
+};
