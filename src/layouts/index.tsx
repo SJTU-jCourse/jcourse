@@ -104,6 +104,11 @@ export default (props: {
   const isDark = useMediaQuery({
     query: '(prefers-color-scheme: dark)',
   });
+  useEffect(() => {
+    ConfigProvider.config({
+      prefixCls: isDark ? 'dark' : 'ant',
+    });
+  }, []);
   return (
     <ConfigProvider locale={zhCN} prefixCls={isDark ? 'dark' : 'ant'}>
       {props.location.pathname == '/login' ? (
