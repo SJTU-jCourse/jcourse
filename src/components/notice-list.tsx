@@ -1,4 +1,3 @@
-import config from '@/config';
 import { Notice } from '@/models';
 import { Alert, List } from 'antd';
 import ReactMarkdown from 'react-markdown';
@@ -6,16 +5,15 @@ import remarkGfm from 'remark-gfm';
 const NoticeList = ({ notices }: { notices: Notice[] }) => {
   return (
     <List
+      className="notice-list"
       dataSource={notices}
       split={false}
       itemLayout="vertical"
       renderItem={(notice: Notice) => {
         return (
-          <List.Item
-            key={notice.created}
-            style={{ padding: 0, marginTop: config.LAYOUT_MARGIN }}
-          >
+          <List.Item key={notice.created} className="notice-item">
             <Alert
+              className="notice"
               description={
                 <ReactMarkdown
                   children={notice.message}
@@ -25,12 +23,6 @@ const NoticeList = ({ notices }: { notices: Notice[] }) => {
               banner
               showIcon={false}
               type="info"
-              style={{
-                alignContent: 'center',
-                marginLeft: config.LAYOUT_MARGIN,
-                marginRight: config.LAYOUT_MARGIN,
-                maxWidth: config.LAYOUT_WIDTH - 2 * config.LAYOUT_MARGIN,
-              }}
             />
           </List.Item>
         );

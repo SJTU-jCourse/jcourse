@@ -4,7 +4,6 @@ import './custom.dark.css';
 
 import NavBar from '@/components/navbar';
 import NoticeList from '@/components/notice-list';
-import config from '@/config';
 import { Notice } from '@/models';
 import { getNotices } from '@/services/notice';
 import { ConfigProvider, Layout, Space } from 'antd';
@@ -42,29 +41,17 @@ const BasicLayout = (props: {
     });
   }, []);
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Header
-        style={{
-          paddingInline: config.LAYOUT_MARGIN,
-        }}
-      >
+    <Layout className="basic-layout">
+      <Header className="header">
         <NavBar pathname={pathname} />
       </Header>
 
-      <Content
-        style={{
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          alignContent: 'center',
-          width: '100%',
-          maxWidth: config.LAYOUT_WIDTH,
-        }}
-      >
+      <Content className="content">
         {notices && notices.length > 0 && <NoticeList notices={notices} />}
         {children}
         <ScrollToTop />
       </Content>
-      <Footer style={{ textAlign: 'center' }}>
+      <Footer className="footer">
         <Space>
           <Link to="/about">关于</Link>
           <Link to="/faq">常见问题</Link>
@@ -77,24 +64,11 @@ const BasicLayout = (props: {
 };
 
 const LoginLayout = (props: { children: ReactNode }) => (
-  <Layout style={{ height: '100vh' }}>
-    <Header
-      style={{
-        padding: `0 ${config.LAYOUT_MARGIN}px`,
-        fontSize: 20,
-      }}
-    >
+  <Layout className="login-layout">
+    <Header className="header">
       <div className="title">SJTU选课社区</div>
     </Header>
-    <Content
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        flexDirection: 'column',
-      }}
-    >
-      {props.children}
-    </Content>
+    <Content className="content">{props.children}</Content>
   </Layout>
 );
 export default (props: {

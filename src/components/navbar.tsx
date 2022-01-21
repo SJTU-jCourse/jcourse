@@ -1,4 +1,3 @@
-import config from '@/config';
 import { logout, toAdmin } from '@/services/user';
 import {
   DollarOutlined,
@@ -60,32 +59,15 @@ const NavBar = (props: { pathname: string }) => {
   );
 
   return (
-    <Row
-      style={{
-        alignContent: 'center',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        maxWidth: config.LAYOUT_WIDTH - 2 * config.LAYOUT_MARGIN,
-      }}
-    >
+    <Row className="navbar">
       <Col>
-        <Link
-          className="title"
-          to="/"
-          style={{
-            fontSize: screens.xs ? 14 : 18,
-          }}
-        >
+        <Link className="title" to="/">
           SJTU选课社区
         </Link>
       </Col>
 
-      <Col style={{ marginLeft: 'auto', marginRight: 'auto' }} flex="auto">
-        <Menu
-          selectedKeys={[pathname]}
-          style={{ height: 64, border: 0 }}
-          mode="horizontal"
-        >
+      <Col className="col-menu" flex="auto">
+        <Menu selectedKeys={[pathname]} className="menu" mode="horizontal">
           {navMenuItems.map((item) => (
             <Menu.Item key={item.key}>
               <Link to={item.linkTo}>{item.text}</Link>
@@ -107,7 +89,7 @@ const NavBar = (props: { pathname: string }) => {
           <Button
             shape="circle"
             icon={<SearchOutlined />}
-            style={{ margin: 8 }}
+            className="search-button"
           />
         </Link>
       </Col>

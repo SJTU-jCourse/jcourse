@@ -1,3 +1,8 @@
+:root {
+  --layout-width: 1200px;
+  --layout-margin: 16px;
+}
+
 .title {
   font-weight: 600;
   overflow: hidden;
@@ -6,8 +11,137 @@
   color: black;
 }
 
-@media screen and (prefers-color-scheme: dark) {
+.basic-layout {
+  min-height: 100vh;
+
+  .header {
+    padding-inline: var(--layout-margin);
+  }
+
+  .content {
+    margin-left: auto;
+    margin-right: auto;
+    align-content: center;
+    width: 100%;
+    max-width: var(--layout-width);
+  }
+  .footer {
+    text-align: center;
+  }
+}
+
+.login-layout {
+  min-height: 100vh;
+  .title {
+    font-size: 20px;
+  }
+  .header {
+    padding: 0px var(--layout-margin);
+  }
+  .content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+
+.header {
+  background: white;
+}
+
+@media (prefers-color-scheme: dark) {
   .title {
     color: white;
   }
+  .header {
+    background: #141414;
+  }
+}
+
+.navbar {
+  align-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: calc(var(--layout-width) - 2 * var(--layout-margin));
+
+  .title {
+    font-size: 18px;
+  }
+
+  @media (max-width: 576px) {
+    .title {
+      font-size: 14px;
+    }
+  }
+  .col-menu {
+    margin-left: auto;
+    margin-right: auto;
+    .menu {
+      height: 64px;
+      border: 0;
+      background-color: transparent;
+    }
+  }
+
+  .search-button {
+    margin: 8px;
+  }
+}
+
+.notice-list {
+  .notice-item {
+    padding: 0;
+    margin-top: var(--layout-margin);
+
+    .notice {
+      align-content: center;
+      margin-left: var(--layout-margin);
+      margin-right: var(--layout-margin);
+      max-width: calc(var(--layout-width) - 2 * var(--layout-margin));
+    }
+  }
+}
+
+.card-title {
+  white-space: normal;
+}
+
+.review-body {
+  width: 100%;
+}
+
+.comment {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.courses-radio-group {
+  padding: 0;
+}
+
+.total-point {
+  font-weight: bold;
+}
+
+.review-course-spinning {
+  text-align: center;
+}
+
+.search-input {
+  margin-bottom: var(--layout-margin);
+}
+
+.statistic {
+  .slogan-title {
+    margin-top: calc(var(--layout-margin) * 2);
+    text-align: center;
+  }
+  .info-row {
+    text-align: center;
+    margin: calc(var(--layout-margin) * 4);
+  }
+}
+
+.sync-select {
+  width: 100%;
 }

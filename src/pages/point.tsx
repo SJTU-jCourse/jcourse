@@ -51,10 +51,7 @@ const PointPage = () => {
                 <Descriptions.Item label="额外积分">
                   {points.addition}
                 </Descriptions.Item>
-                <Descriptions.Item
-                  label="总积分"
-                  style={{ fontWeight: 'bold' }}
-                >
+                <Descriptions.Item label="总积分" className="total-point">
                   {points.points}
                 </Descriptions.Item>
               </Descriptions>

@@ -13,11 +13,7 @@ export const RelatedTeacher = ({
 }>) => {
   const { related_teachers } = course;
   return (
-    <Card
-      title={
-        <div style={{ whiteSpace: 'normal' }}>其他老师的{course.name}</div>
-      }
-    >
+    <Card title={<div className="card-title">其他老师的{course.name}</div>}>
       <List
         loading={loading}
         split={false}
@@ -49,11 +45,7 @@ export const RelatedCourse = ({
   const { main_teacher, related_courses } = course;
 
   return (
-    <Card
-      title={
-        <div style={{ whiteSpace: 'normal' }}>{main_teacher.name}的其他课</div>
-      }
-    >
+    <Card title={<div className="card-title">{main_teacher.name}的其他课</div>}>
       <List
         loading={loading}
         split={false}

@@ -75,7 +75,7 @@ const CoursesPage = () => {
   };
   return (
     <PageHeader title="所有课程" backIcon={false}>
-      <Row gutter={[config.LAYOUT_MARGIN, config.LAYOUT_MARGIN]}>
+      <Row gutter={[16, 16]}>
         <Col xs={24} md={8}>
           <FilterCard
             filters={filters}
@@ -94,7 +94,7 @@ const CoursesPage = () => {
                 <Radio.Group
                   value={urlState.onlyhasreviews}
                   onChange={onOrderByClick}
-                  style={{ padding: 0 }}
+                  className="course-radio-group"
                 >
                   <Radio.Button value={OrderBy.Avg}>最高均分</Radio.Button>
                   <Radio.Button value={OrderBy.Count}>最多点评</Radio.Button>

@@ -46,7 +46,7 @@ const CoursePage = () => {
       title={
         <Spin spinning={courseLoading}>
           {course && (
-            <span style={{ whiteSpace: 'normal' }}>
+            <span className="card-title">
               {course.name}（{course.main_teacher.name}）
             </span>
           )}
@@ -64,9 +64,9 @@ const CoursePage = () => {
             : '加载中'}
         </title>
       </Helmet>
-      <Row gutter={[config.LAYOUT_MARGIN, config.LAYOUT_MARGIN]}>
+      <Row gutter={[16, 16]}>
         <Col xs={24} md={8}>
-          <Row gutter={[config.LAYOUT_MARGIN, config.LAYOUT_MARGIN]}>
+          <Row gutter={[16, 16]}>
             <Col xs={24} md={24}>
               <CourseDetailCard loading={courseLoading} course={course} />
             </Col>

@@ -1,4 +1,3 @@
-import config from '@/config';
 import { StatisticInfo } from '@/models';
 import { getStatistic } from '@/services/statistic';
 import { useRequest } from 'ahooks';
@@ -13,15 +12,12 @@ const StatisticPage = () => {
   );
 
   return (
-    <>
-      <Title
-        style={{ marginTop: config.LAYOUT_MARGIN * 2, textAlign: 'center' }}
-        level={2}
-      >
+    <div className="statistic">
+      <Title className="slogan-title" level={2}>
         分享一点选课的经验
       </Title>
       <Row
-        style={{ textAlign: 'center', marginBlock: config.LAYOUT_MARGIN * 4 }}
+        className="info-row"
         gutter={16}
         justify="space-between"
         align="middle"
@@ -52,7 +48,7 @@ const StatisticPage = () => {
           </Spin>
         </Col>
       </Row>
-    </>
+    </div>
   );
 };
 

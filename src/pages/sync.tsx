@@ -89,7 +89,7 @@ const SyncPage = () => {
         选择需要同步的学期
         <Select
           placeholder="学期"
-          style={{ width: '100%' }}
+          className="sync-select"
           onSelect={(key: string) => setSemester(key)}
         >
           {initialState!.semesters.map((semester) => (

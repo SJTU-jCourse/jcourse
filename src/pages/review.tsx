@@ -169,7 +169,7 @@ const ReviewPage = () => {
                 <>
                   {menu}
                   {loadingMore ? (
-                    <div style={{ textAlign: 'center' }}>
+                    <div className="review-course-spinning">
                       <Spin size="small" />
                     </div>
                   ) : null}

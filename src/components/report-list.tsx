@@ -37,7 +37,7 @@ const ReportList = ({
         <List.Item
           key={item.id}
           actions={[<div>{item.created}</div>]}
-          style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}
+          className="comment"
         >
           <p>{item.comment}</p>
           {item.reply && <Alert message={item.reply} type="info" />}

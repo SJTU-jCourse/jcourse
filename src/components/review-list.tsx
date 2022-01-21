@@ -53,7 +53,7 @@ const ReviewList = ({
             />,
           ]}
         >
-          <Space direction="vertical" style={{ width: '100%' }}>
+          <Space direction="vertical" className="review-body">
             {item.moderator_remark && (
               <Alert message={item.moderator_remark} type="warning" showIcon />
             )}
@@ -83,9 +83,7 @@ const ReviewList = ({
                 </span>
               )}
             </Space>
-            <div style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
-              {item.comment}
-            </div>
+            <div className="comment">{item.comment}</div>
             {item.is_mine && <Link to={`/review/${item.id}/`}>修改点评</Link>}
           </Space>
         </List.Item>
