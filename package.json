@@ -6,7 +6,8 @@
     "postinstall": "umi generate tmp",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
     "test": "umi-test",
-    "test:coverage": "umi-test --coverage"
+    "test:coverage": "umi-test --coverage",
+    "builddark": "lessc --js --modify-var=\"ant-prefix=dark\" --modify-var=\"primary-color=#1DA57A\" ./node_modules/antd/dist/antd.dark.less ./src/layouts/dark.css"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
