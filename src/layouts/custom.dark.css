@@ -5,12 +5,12 @@
 
 @media (max-width: 576px) {
   .dark-menu-horizontal:not(.dark-menu-dark) > .dark-menu-item {
-    padding: 0 10px;
+    padding: 0 8px !important;
   }
 
   .dark-menu-horizontal > .dark-menu-item::after,
   .dark-menu-horizontal > .dark-menu-submenu::after {
-    left: 10px;
-    right: 10px;
+    left: 8px !important;
+    right: 8px !important;
   }
 }
