@@ -60,7 +60,8 @@ const PointPage = () => {
 
           <Title level={5}>说明</Title>
           <Paragraph>
-            总积分 = 点评数 + 获赞数 + 额外积分。其中课程的首次点评为双倍积分。
+            总积分 = 点评数 + 获赞数 + 额外积分。
+            其中课程的首次点评为双倍积分，获踩数大于 2 倍获赞数的点评视作无效。
           </Paragraph>
           <Paragraph>
             您可以前往

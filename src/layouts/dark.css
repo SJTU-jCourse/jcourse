@@ -7319,7 +7319,6 @@ _:-ms-fullscreen .dark-picker-range-wrapper .dark-picker-year-panel .dark-picker
   font-weight: normal;
   font-size: 14px;
   line-height: 22px;
-  white-space: nowrap;
   cursor: pointer;
   transition: all 0.3s;
 }
