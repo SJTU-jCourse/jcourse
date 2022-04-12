@@ -27,27 +27,27 @@
     }
   },
   "dependencies": {
-    "@ahooksjs/use-url-state": "^3.1.13",
+    "@ahooksjs/use-url-state": "^3.3.0",
     "@umijs/preset-react": "2.x",
-    "ahooks": "^3.1.13",
-    "antd": "^4.19.2",
+    "ahooks": "^3.3.0",
+    "antd": "^4.19.5",
     "axios": "^0.26.1",
-    "react-markdown": "^8.0.1",
+    "react-markdown": "^8.0.2",
     "react-responsive": "^9.0.0-beta.6",
     "remark-gfm": "^3.0.1",
-    "umi": "^3.5.21"
+    "umi": "^3.5.22"
   },
   "devDependencies": {
     "@types/react": "^17.0.41",
     "@types/react-dom": "^17.0.14",
-    "@umijs/test": "^3.5.21",
+    "@umijs/test": "^3.5.22",
     "import-sort-style-module": "^6.0.0",
     "lint-staged": "^12.3.7",
-    "prettier": "^2.6.0",
+    "prettier": "^2.6.2",
     "prettier-plugin-import-sort": "^0.0.7",
-    "react": "17.x",
-    "react-dom": "17.x",
-    "typescript": "^4.6.2",
+    "react": "^17.x",
+    "react-dom": "^17.x",
+    "typescript": "^4.6.3",
     "yorkie": "^2.0.0"
   }
 }

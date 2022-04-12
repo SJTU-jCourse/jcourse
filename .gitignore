@@ -19,3 +19,5 @@
 /src/.umi-test
 /.env.local
 /.umirc.local.ts
+
+/deploy.sh
