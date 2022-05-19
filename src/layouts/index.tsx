@@ -8,7 +8,7 @@ import { Notice } from '@/models';
 import { getNotices } from '@/services/notice';
 import { ConfigProvider, Layout, Space } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
-import { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Link, useLocation } from 'umi';
 
@@ -84,12 +84,14 @@ export default (props: {
     });
   }, []);
   return (
-    <ConfigProvider locale={zhCN} prefixCls={isDark ? 'dark' : 'ant'}>
-      {props.location.pathname == '/login' ? (
-        <LoginLayout {...props} />
-      ) : (
-        <BasicLayout {...props} />
-      )}
-    </ConfigProvider>
+    <React.StrictMode>
+      <ConfigProvider locale={zhCN} prefixCls={isDark ? 'dark' : 'ant'}>
+        {props.location.pathname == '/login' ? (
+          <LoginLayout {...props} />
+        ) : (
+          <BasicLayout {...props} />
+        )}
+      </ConfigProvider>
+    </React.StrictMode>
   );
 };

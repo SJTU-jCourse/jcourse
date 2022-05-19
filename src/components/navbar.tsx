@@ -11,10 +11,6 @@ import {
 import { Button, Col, Dropdown, Grid, Menu, Row } from 'antd';
 import { Link, useHistory, useModel } from 'umi';
 
-const navMenuItems = [
-  { key: '/latest', text: '最新', linkTo: '/latest' },
-  { key: '/courses', text: '课程库', linkTo: '/courses' },
-];
 const { useBreakpoint } = Grid;
 
 const NavBar = (props: { pathname: string }) => {
@@ -35,29 +31,23 @@ const NavBar = (props: { pathname: string }) => {
       history.push('/point');
     }
   };
-  const menu = (
-    <Menu onClick={handleMenuClick}>
-      {initialState?.user?.account && (
-        <Menu.Item key="account" icon={<UserOutlined />}>
-          {initialState.user.account}
-        </Menu.Item>
-      )}
-      <Menu.Item key="point" icon={<DollarOutlined />}>
-        社区积分
-      </Menu.Item>
-      <Menu.Item key="activity" icon={<ProfileOutlined />}>
-        我的点评
-      </Menu.Item>
-      <Menu.Item key="sync" icon={<SyncOutlined />}>
-        同步课表
-      </Menu.Item>
-      <Menu.Divider />
-      <Menu.Item danger key="logout" icon={<LogoutOutlined />}>
-        登出
-      </Menu.Item>
-    </Menu>
-  );
+  const dropMenuItems = [
+    {
+      key: 'account',
+      label: initialState?.user?.account,
+      icon: <UserOutlined />,
+    },
+    { key: 'point', label: '社区积分', icon: <DollarOutlined /> },
+    { key: 'activity', label: '我的点评', icon: <ProfileOutlined /> },
+    { key: 'sync', label: '同步课表', icon: <SyncOutlined /> },
+    { type: 'divider', key: 'divider' },
+    { key: 'logout', label: '登出', icon: <LogoutOutlined />, danger: true },
+  ];
 
+  const navMenuItems = [
+    { key: '/latest', label: <Link to="/latest">最新</Link> },
+    { key: '/courses', label: <Link to="/courses">课程库</Link> },
+  ];
   return (
     <Row className="navbar">
       <Col>
@@ -67,13 +57,12 @@ const NavBar = (props: { pathname: string }) => {
       </Col>
 
       <Col className="col-menu" flex="auto">
-        <Menu selectedKeys={[pathname]} className="menu" mode="horizontal">
-          {navMenuItems.map((item) => (
-            <Menu.Item key={item.key}>
-              <Link to={item.linkTo}>{item.text}</Link>
-            </Menu.Item>
-          ))}
-        </Menu>
+        <Menu
+          selectedKeys={[pathname]}
+          className="menu"
+          mode="horizontal"
+          items={navMenuItems}
+        ></Menu>
       </Col>
       <Col>
         <Link to="/review">
@@ -95,7 +84,12 @@ const NavBar = (props: { pathname: string }) => {
       </Col>
 
       <Col>
-        <Dropdown overlay={menu} placement="bottomCenter">
+        <Dropdown
+          overlay={
+            <Menu onClick={handleMenuClick} items={dropMenuItems}></Menu>
+          }
+          placement="bottom"
+        >
           <Button shape="circle" icon={<UserOutlined />}></Button>
         </Dropdown>
       </Col>
