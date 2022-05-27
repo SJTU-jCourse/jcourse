@@ -3,6 +3,10 @@
   padding: 0 !important;
 }
 
+.review-item .ant-list-item-action > li{
+  padding: 0 4px;
+}
+
 @media (max-width: 576px) {
   .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item {
     padding: 0 8px !important;

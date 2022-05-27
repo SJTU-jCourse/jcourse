@@ -3,6 +3,10 @@
   padding: 0 !important;
 }
 
+.review-item .dark-list-item-action > li{
+  padding: 0 4px;
+}
+
 @media (max-width: 576px) {
   .dark-menu-horizontal:not(.dark-menu-dark) > .dark-menu-item {
     padding: 0 8px !important;

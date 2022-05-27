@@ -38,6 +38,7 @@ const ReviewList = ({
       renderItem={(item) => (
         <List.Item
           key={item.id}
+          className={'review-item'}
           actions={[
             <Tooltip
               title={item.modified ? '编辑于' + item.modified : undefined}
@@ -51,6 +52,7 @@ const ReviewList = ({
                 ...item.actions,
               }}
             />,
+            <>{'#' + item.id}</>,
           ]}
         >
           <Space direction="vertical" className="review-body">
@@ -72,8 +74,10 @@ const ReviewList = ({
               </span>
               {item.semester && (
                 <span>
-                  <strong>学期：</strong>
-                  {item.semester}
+                  <>
+                    <strong>学期：</strong>
+                    {item.semester}
+                  </>
                 </span>
               )}
               {item.score && (

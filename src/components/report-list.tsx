@@ -36,7 +36,7 @@ const ReportList = ({
       renderItem={(item) => (
         <List.Item
           key={item.id}
-          actions={[<div>{item.created}</div>]}
+          actions={[<div>{item.created}</div>, <>{'#' + item.id}</>]}
           className="comment"
         >
           <p>{item.comment}</p>
