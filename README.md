@@ -1,5 +1,5 @@
 # jCourse：SJTU选课社区
-#本项目需要与jCourse前端配合使用
+##本项目需要与jCourse前端配合使用
 ## 开始使用
 
 使用 [UmiJS](https://github.com/umijs/umi) 框架, UI 库选用 [Ant Design](https://github.com/ant-design/ant-design/)。
