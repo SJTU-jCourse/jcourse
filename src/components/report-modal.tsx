@@ -1,6 +1,7 @@
-import { writeReport } from '@/services/report';
-import { Button, Form, Input, Modal, Typography, message } from 'antd';
-import { Link } from 'umi';
+import { writeReport } from "@/services/report";
+import { Button, Form, Input, Modal, Typography, message } from "antd";
+import Link from "next/link";
+
 const { TextArea } = Input;
 const { Text } = Typography;
 const ReportModal = ({
@@ -21,7 +22,7 @@ const ReportModal = ({
   const handleSubmit = (value: { comment: string }) => {
     writeReport(value.comment).then((resp) => {
       if (resp.status == 201) {
-        message.success('提交成功，请等候管理员回复！');
+        message.success("提交成功，请等候管理员回复！");
         if (onOk) onOk();
       }
     });
@@ -29,7 +30,7 @@ const ReportModal = ({
 
   return (
     <Modal
-      title={title || '期待收到你的建议！'}
+      title={title || "期待收到你的建议！"}
       visible={visible}
       onOk={onOk}
       onCancel={onCancel}
@@ -47,10 +48,10 @@ const ReportModal = ({
           rules={[
             {
               required: true,
-              message: '请填写反馈内容',
+              message: "请填写反馈内容",
               validator: (_, value: string) => {
                 const trimed = value.trim();
-                return trimed != '' && trimed != defaultComment
+                return trimed != "" && trimed != defaultComment
                   ? Promise.resolve()
                   : Promise.reject();
               },
@@ -60,7 +61,7 @@ const ReportModal = ({
           help={
             <Text type="secondary">
               您可以在页面底部
-              <Link target="_blank" to="/report">
+              <Link target="_blank" href="/report">
                 反馈
               </Link>
               查看反馈记录和管理员回复。

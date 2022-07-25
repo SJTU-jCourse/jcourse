@@ -1,7 +1,5 @@
-import { Notice } from '@/models';
-import { Alert, List } from 'antd';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import { Notice } from "@/lib/models";
+import { Alert, List } from "antd";
 const NoticeList = ({ notices }: { notices: Notice[] }) => {
   return (
     <List
@@ -15,10 +13,10 @@ const NoticeList = ({ notices }: { notices: Notice[] }) => {
             <Alert
               className="notice"
               description={
-                <ReactMarkdown
-                  children={notice.message}
-                  remarkPlugins={[remarkGfm]}
-                />
+                <>
+                  <div>{notice.message}</div>
+                  {notice.url && <a href={notice.url}>相关链接</a>}
+                </>
               }
               banner
               showIcon={false}

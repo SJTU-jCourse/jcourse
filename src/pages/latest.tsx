@@ -1,27 +1,23 @@
-import ReviewList from '@/components/review-list';
-import config from '@/config';
-import { Pagination, PaginationApiResult, Review } from '@/models';
-import { getReviews } from '@/services/review';
-import useUrlState from '@ahooksjs/use-url-state';
-import { useRequest } from 'ahooks';
-import { Card, PageHeader } from 'antd';
+import ReviewList from "@/components/review-list";
+import { Pagination } from "@/lib/models";
+import { useReviews } from "@/services/review";
+import { Card, PageHeader } from "antd";
+import { useRouter } from "next/router";
+import Config from "@/config/config";
+import Head from "next/head";
 const LatestPage = () => {
-  const [urlState, setUrlState] = useUrlState({
-    page: 1,
-    size: config.PAGE_SIZE,
-  });
+  const router = useRouter();
+  const { page, size } = router.query;
+
   const pagination: Pagination = {
-    page: parseInt(urlState.page),
-    pageSize: parseInt(urlState.size),
+    page: page ? parseInt(page as string) : 1,
+    pageSize: size ? parseInt(size as string) : Config.PAGE_SIZE,
   };
 
-  const { data: reviews, loading } = useRequest<
-    PaginationApiResult<Review>,
-    []
-  >(() => getReviews(pagination), { refreshDeps: [urlState] });
+  const { reviews, loading } = useReviews(pagination);
 
   const onPageChange = (page: number, pageSize: number) => {
-    setUrlState({ page: page, size: pageSize });
+    router.push({ query: { page: page, size: pageSize } });
   };
 
   return (
@@ -30,6 +26,9 @@ const LatestPage = () => {
       backIcon={false}
       subTitle={`共有${reviews ? reviews.count : 0}个点评`}
     >
+      <Head>
+        <title>最新点评 - SJTU选课社区</title>
+      </Head>
       <Card>
         <ReviewList
           loading={loading}

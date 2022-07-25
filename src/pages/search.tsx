@@ -1,77 +1,60 @@
-import CourseList from '@/components/course-list';
-import config from '@/config';
-import { CourseListItem, Pagination, PaginationApiResult } from '@/models';
-import { searchCourse } from '@/services/course';
-import useUrlState from '@ahooksjs/use-url-state';
-import { useRequest } from 'ahooks';
-import { Card, Input, PageHeader, message } from 'antd';
-import { useEffect, useRef, useState } from 'react';
-import { Helmet, history } from 'umi';
-
+import CourseList from "@/components/course-list";
+import Config from "@/config/config";
+import { Pagination } from "@/lib/models";
+import { useSearchCourse } from "@/services/course";
+import { Card, Input, message, PageHeader } from "antd";
+import { useEffect, useRef } from "react";
+import { useRouter } from "next/router";
+import Head from "next/head";
 const { Search } = Input;
 
 const SearchPage = () => {
-  const [urlState, setUrlState] = useUrlState({
-    page: 1,
-    size: config.PAGE_SIZE,
-    q: '',
-  });
-  const [keyword, setKeyword] = useState<string>(urlState.q);
+  const router = useRouter();
+  const { page, size, q } = router.query;
+  const show_q = q ? (q as string) : "";
 
   const pagination: Pagination = {
-    page: parseInt(urlState.page),
-    pageSize: parseInt(urlState.size),
+    page: page ? parseInt(page as string) : 1,
+    pageSize: size ? parseInt(size as string) : Config.PAGE_SIZE,
   };
   const inputRef = useRef<any>(null);
 
-  const fetchCourses = () => {
-    if (keyword == '') return;
-    run();
-  };
+  const { courses, loading, mutate } = useSearchCourse(q as string, pagination);
 
   useEffect(() => {
-    inputRef.current?.focus({ cursor: 'end' });
-    fetchCourses();
-  }, [urlState]);
-
-  const {
-    data: courses,
-    loading: courseLoading,
-    run,
-  } = useRequest<PaginationApiResult<CourseListItem>, []>(
-    () => searchCourse(keyword, pagination),
-    { manual: true },
-  );
+    inputRef.current?.focus({ cursor: "end" });
+    if (show_q == "") return;
+    mutate();
+  }, []);
 
   const onSearch = (value: string) => {
-    if (value.trim() == '') {
-      message.info('请输入搜索内容');
+    if (value.trim() == "") {
+      message.info("请输入搜索内容");
       return;
     }
-    setUrlState({ q: keyword });
+    router.push({ query: { q: value } });
   };
 
   const onPageChange = (page: number, pageSize: number) => {
-    setUrlState({ q: keyword, page: page, size: pageSize });
+    router.push({ query: { q, page, size: pageSize } });
   };
 
   return (
-    <PageHeader title={'搜索'} onBack={() => history.goBack()}>
-      <Helmet>
-        <title>{'搜索 ' + urlState.q + ' - SJTU选课社区'}</title>
-      </Helmet>
+    <PageHeader title={"搜索"} onBack={() => history.back()}>
+      <Head>
+        <title>{"搜索 " + show_q + " - SJTU选课社区"}</title>
+      </Head>
       <Search
         size="large"
-        defaultValue={keyword}
+        defaultValue={show_q}
         placeholder="搜索课程名/课号/教师姓名/教师姓名拼音"
         onSearch={onSearch}
         ref={inputRef}
-        onChange={(e) => setKeyword(e.target.value)}
         className="search-input"
       />
       <Card title={`共有${courses ? courses.count : 0}门课`}>
         <CourseList
-          loading={courseLoading}
+          loading={loading}
           pagination={pagination}
           count={courses?.count}
           courses={courses?.results}

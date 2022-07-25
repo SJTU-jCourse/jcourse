@@ -1,7 +1,7 @@
-import config from '@/config';
-import { CourseListItem, Pagination } from '@/models';
-import { List, Space, Tag, Typography } from 'antd';
-import { Link } from 'umi';
+import Config from "@/config/config";
+import { CourseListItem, Pagination } from "@/lib/models";
+import { List, Space, Tag, Typography } from "antd";
+import Link from "next/link";
 const { Text } = Typography;
 const CourseList = ({
   loading,
@@ -55,24 +55,26 @@ const CourseList = ({
             <List.Item.Meta
               title={
                 <Space align="center">
-                  <Link to={'/course/' + course.id}>
-                    {course.code + ' '}
-                    {course.name}（{course.teacher}）
+                  <Link href={"/course/" + course.id}>
+                    <a>
+                      {course.code + " "}
+                      {course.name}（{course.teacher}）
+                    </a>
                   </Link>
                 </Space>
               }
               description={
                 <Space wrap size={0}>
                   {showEnroll && course.semester && (
-                    <Tag color={config.TAG_COLOR_ENROLL}>学过</Tag>
+                    <Tag color={Config.TAG_COLOR_ENROLL}>学过</Tag>
                   )}
                   {course.category && (
-                    <Tag color={config.TAG_COLOR_CATEGORY}>
+                    <Tag color={Config.TAG_COLOR_CATEGORY}>
                       {course.category}
                     </Tag>
                   )}
                   {course.is_reviewed && (
-                    <Tag color={config.TAG_COLOR_REVIEW}>已点评</Tag>
+                    <Tag color={Config.TAG_COLOR_REVIEW}>已点评</Tag>
                   )}
                   <div>
                     {course.credit}学分 {course.department}

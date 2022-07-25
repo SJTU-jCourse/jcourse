@@ -1,7 +1,13 @@
-import { StatisticInfo } from '@/models';
-import { request } from '@/services/request';
+import useSWR from "swr";
+import { StatisticInfo } from "@/lib/models";
+import { fetcher } from "@/services/request";
 
-export async function getStatistic(): Promise<StatisticInfo> {
-  const resp = await request('/api/statistic/');
-  return resp.data;
+
+export function useStatistic() {
+  const { data, error } = useSWR<StatisticInfo>("/api/statistic/", fetcher);
+  return {
+    indexState: data,
+    loading: !error && !data,
+    error: error,
+  };
 }

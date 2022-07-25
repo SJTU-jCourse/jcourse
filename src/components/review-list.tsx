@@ -1,8 +1,6 @@
-import ReviewActionButton from '@/components/review-action-button';
-import { Pagination, Review } from '@/models';
-import { doReviewAction } from '@/services/review';
-import { Alert, List, Space, Tooltip } from 'antd';
-import { Link } from 'umi';
+import { Pagination, Review } from "@/lib/models";
+import { List } from "antd";
+import ReviewItem from "./review-item";
 const ReviewList = ({
   loading,
   count,
@@ -35,63 +33,7 @@ const ReviewList = ({
           : false
       }
       dataSource={reviews}
-      renderItem={(item) => (
-        <List.Item
-          key={item.id}
-          className={'review-item'}
-          actions={[
-            <Tooltip
-              title={item.modified ? '编辑于' + item.modified : undefined}
-            >
-              <div>{item.created}</div>
-            </Tooltip>,
-            <ReviewActionButton
-              onAction={doReviewAction}
-              actionProps={{
-                id: item.id,
-                ...item.actions,
-              }}
-            />,
-            <>{'#' + item.id}</>,
-          ]}
-        >
-          <Space direction="vertical" className="review-body">
-            {item.moderator_remark && (
-              <Alert message={item.moderator_remark} type="warning" showIcon />
-            )}
-
-            {item.course && (
-              <Space wrap>
-                <Link to={'/course/' + item.course.id}>
-                  {item.course.code} {item.course.name}（{item.course.teacher}）
-                </Link>
-              </Space>
-            )}
-            <Space wrap>
-              <span>
-                <strong>推荐指数：</strong>
-                {item.rating}
-              </span>
-              {item.semester && (
-                <span>
-                  <>
-                    <strong>学期：</strong>
-                    {item.semester}
-                  </>
-                </span>
-              )}
-              {item.score && (
-                <span>
-                  <strong>成绩：</strong>
-                  {item.score}
-                </span>
-              )}
-            </Space>
-            <div className="comment">{item.comment}</div>
-            {item.is_mine && <Link to={`/review/${item.id}/`}>修改点评</Link>}
-          </Space>
-        </List.Item>
-      )}
+      renderItem={(item) => <ReviewItem review={item} />}
     />
   );
 };

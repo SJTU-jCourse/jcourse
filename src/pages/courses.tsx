@@ -1,87 +1,79 @@
-import CourseList from '@/components/course-list';
-import FilterCard from '@/components/filter-card';
-import config from '@/config';
-import {
-  CourseListItem,
-  Filters,
-  Pagination,
-  PaginationApiResult,
-} from '@/models';
-import { getCourseList, getFilters } from '@/services/course';
-import useUrlState from '@ahooksjs/use-url-state';
-import { useRequest } from 'ahooks';
-import { Card, Col, PageHeader, Radio, Row } from 'antd';
+import CourseList from "@/components/course-list";
+import FilterCard from "@/components/filter-card";
+import Config from "@/config/config";
+import { CoursesFilterParams, Pagination } from "@/lib/models";
+import { useCourseList, useFilters } from "@/services/course";
+import { Card, Col, PageHeader, Radio, Row } from "antd";
+import { useRouter } from "next/router";
+import Head from "next/head";
 
 enum OrderBy {
-  Avg = 'avg',
-  Count = 'count',
+  Avg = "avg",
+  Count = "count",
 }
 
-const CoursesPage = () => {
-  const [urlState, setUrlState] = useUrlState({
-    page: 1,
-    size: config.PAGE_SIZE,
-    categories: null,
-    departments: null,
-    onlyhasreviews: null,
-  });
-  const pagination: Pagination = {
-    page: parseInt(urlState.page),
-    pageSize: parseInt(urlState.size),
-  };
-  const { data: courses, loading: courseLoading } = useRequest<
-    PaginationApiResult<CourseListItem>,
-    []
-  >(
-    () => {
-      let params: string = '';
-      if (urlState.categories) params += `&category=${urlState.categories}`;
-      if (urlState.departments) params += `&department=${urlState.departments}`;
-      if (urlState.onlyhasreviews)
-        params += `&onlyhasreviews=${urlState.onlyhasreviews}`;
-      return getCourseList(params, pagination);
-    },
-    { refreshDeps: [urlState] },
-  );
+type CoursesParams = {
+  page?: string;
+  size?: string;
+} & CoursesFilterParams;
 
-  const { data: filters, loading: filterLoading } = useRequest<Filters, []>(
-    getFilters,
-  );
+const CoursesPage = () => {
+  const router = useRouter();
+  const params: CoursesParams = router.query;
+  const { page, size, categories, departments, onlyhasreviews } = params;
+  const pagination: Pagination = {
+    page: page ? parseInt(page) : 1,
+    pageSize: size ? parseInt(size) : Config.PAGE_SIZE,
+  };
+
+  const { courses, loading: courseLoading } = useCourseList(params, pagination);
+  const { filters, loading: filterLoading } = useFilters();
 
   const onFilterButtonClick = (
     onlyHasReviews: boolean,
     categories: number[],
-    departments: number[],
+    departments: number[]
   ) => {
-    setUrlState({
-      categories: categories.length > 0 ? categories.join(',') : undefined,
-      departments: departments.length > 0 ? departments.join(',') : undefined,
-      page: 1,
-      size: config.PAGE_SIZE,
-      onlyhasreviews: onlyHasReviews ? OrderBy.Avg : undefined,
+    const new_params: CoursesParams = {
+      page: (1).toString(),
+      size: Config.PAGE_SIZE.toString(),
+    };
+    if (categories.length > 0) new_params.categories = categories.join(",");
+    if (departments.length > 0) new_params.departments = departments.join(",");
+    if (onlyHasReviews) new_params.onlyhasreviews = OrderBy.Avg;
+    router.push({
+      query: new_params,
     });
   };
 
   const onPageChange = (page: number, pageSize: number) => {
-    setUrlState({ page: page, size: pageSize });
+    router.push({
+      query: { ...params, page: page, size: pageSize },
+    });
   };
 
   const onOrderByClick = (e: any) => {
-    setUrlState({
-      page: 1,
-      size: config.PAGE_SIZE,
-      onlyhasreviews: e.target.value,
+    router.push({
+      query: {
+        ...params,
+        page: 1,
+        size: Config.PAGE_SIZE,
+        onlyhasreviews: e.target.value,
+      },
     });
   };
   return (
     <PageHeader title="所有课程" backIcon={false}>
+      <Head>
+        <title>课程库 - SJTU选课社区</title>
+      </Head>
       <Row gutter={[16, 16]}>
         <Col xs={24} md={8}>
           <FilterCard
             filters={filters}
-            selectedCategories={urlState.categories}
-            selectedDepartments={urlState.departments}
-            defaultOnlyHasReviews={urlState.onlyhasreviews != undefined}
+            selectedCategories={categories as string}
+            selectedDepartments={departments as string}
+            defaultOnlyHasReviews={onlyhasreviews != undefined}
             onClick={onFilterButtonClick}
             loading={filterLoading}
           />
@@ -90,9 +82,9 @@ const CoursesPage = () => {
           <Card
             title={`共有${courses ? courses.count : 0}门课`}
             extra={
-              urlState.onlyhasreviews && (
+              onlyhasreviews && (
                 <Radio.Group
-                  value={urlState.onlyhasreviews}
+                  value={onlyhasreviews}
                   onChange={onOrderByClick}
                   className="course-radio-group"
                 >

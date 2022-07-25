@@ -1,8 +1,6 @@
-import './filter-card.css';
-
-import { Filter, Filters } from '@/models';
-import { Button, Card, Checkbox, Collapse, Grid, Tag } from 'antd';
-import { useState } from 'react';
+import { Filter, Filters } from "@/lib/models";
+import { Button, Card, Checkbox, Collapse, Grid, Tag } from "antd";
+import { useState } from "react";
 
 const FilterCard = ({
   filters,
@@ -19,19 +17,19 @@ const FilterCard = ({
   onClick: (
     onlyHasReviews: boolean,
     checkedCategories: number[],
-    checkedDepartments: number[],
+    checkedDepartments: number[]
   ) => void;
   loading: boolean;
 }) => {
   const [checkedCategories, setCheckedCategories] = useState<number[]>(
     selectedCategories
-      ? selectedCategories.split(',').map((item) => parseInt(item))
-      : [],
+      ? selectedCategories.split(",").map((item) => parseInt(item))
+      : []
   );
   const [checkedDepartments, setCheckedDepartments] = useState<number[]>(
     selectedDepartments
-      ? selectedDepartments.split(',').map((item) => parseInt(item))
-      : [],
+      ? selectedDepartments.split(",").map((item) => parseInt(item))
+      : []
   );
   const [onlyHasReviews, setOnlyHasReviews] = useState<boolean>(false);
   const screens = Grid.useBreakpoint();
@@ -47,13 +45,13 @@ const FilterCard = ({
           确认
         </Button>
       }
-      className={filters && 'filter-card'}
+      className={filters && "filter-card"}
       loading={loading}
     >
       {filters && (
         <Collapse
           defaultActiveKey={
-            screens.md ? ['reviews', 'categories', 'departments'] : ['reviews']
+            screens.md ? ["reviews", "categories", "departments"] : ["reviews"]
           }
           ghost
         >

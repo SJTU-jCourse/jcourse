@@ -1,19 +1,20 @@
-import ReportList from '@/components/report-list';
-import ReportModal from '@/components/report-modal';
-import { Report } from '@/models';
-import { getReports } from '@/services/report';
-import { useRequest } from 'ahooks';
-import { Button, Card, PageHeader } from 'antd';
-import { useState } from 'react';
-import { history } from 'umi';
+import ReportList from "@/components/report-list";
+import ReportModal from "@/components/report-modal";
+import { useReports } from "@/services/report";
+import { Button, Card, PageHeader } from "antd";
+import { useState } from "react";
+import Head from "next/head";
 
 const ReportPage = () => {
-  const { data: reports, loading, run } = useRequest<Report[], []>(getReports);
+  const { reports, loading, mutate } = useReports();
 
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   return (
-    <PageHeader title="我的反馈" onBack={() => history.goBack()}>
+    <PageHeader title="我的反馈" onBack={() => history.back()}>
+      <Head>
+        <title>反馈 - SJTU选课社区</title>
+      </Head>
       <Card
         title={`共有${reports ? reports.length : 0}条反馈`}
         extra={
@@ -32,7 +33,7 @@ const ReportPage = () => {
         visible={isModalVisible}
         onOk={() => {
           setIsModalVisible(false);
-          run();
+          mutate();
         }}
         onCancel={() => setIsModalVisible(false)}
       />

@@ -1,11 +1,10 @@
-import ReviewList from '@/components/review-list';
-import { Review } from '@/models';
-import { getMyReivews } from '@/services/review';
-import { useRequest } from 'ahooks';
-import { Card, PageHeader } from 'antd';
+import ReviewList from "@/components/review-list";
+import { useMyReviews } from "@/services/review";
+import { Card, PageHeader } from "antd";
+import Head from "next/head";
 
 const ActivityPage = () => {
-  const { data: reviews, loading } = useRequest<Review[], []>(getMyReivews);
+  const {  reviews, loading } = useMyReviews();
 
   return (
     <PageHeader
@@ -13,6 +12,9 @@ const ActivityPage = () => {
       backIcon={false}
       subTitle={`共有${reviews ? reviews.length : 0}条点评`}
     >
+      <Head>
+        <title>我的点评 - SJTU选课社区</title>
+      </Head>
       <Card>
         <ReviewList
           loading={loading}

@@ -1,5 +1,5 @@
-import { Pagination, Report } from '@/models';
-import { Alert, List } from 'antd';
+import { Pagination, Report } from "@/lib/models";
+import { Alert, List } from "antd";
 
 const ReportList = ({
   loading,
@@ -36,7 +36,10 @@ const ReportList = ({
       renderItem={(item) => (
         <List.Item
           key={item.id}
-          actions={[<div>{item.created}</div>, <>{'#' + item.id}</>]}
+          actions={[
+            <div key="time">{item.created}</div>,
+            <div key="id">{"#" + item.id}</div>,
+          ]}
           className="comment"
         >
           <p>{item.comment}</p>

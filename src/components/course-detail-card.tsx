@@ -1,9 +1,9 @@
-import { CourseDetail, Teacher } from '@/models';
-import { Card, Descriptions, Typography } from 'antd';
-import { PropsWithChildren, useState } from 'react';
-import { useModel } from 'umi';
+import { CourseDetail, Teacher } from "@/lib/models";
+import { Card, Descriptions, Typography } from "antd";
+import { PropsWithChildren, useState } from "react";
 
-import ReportModal from './report-modal';
+import ReportModal from "@/components/report-modal";
+import { useSemesters } from "@/services/semester";
 
 const { Text, Link } = Typography;
 
@@ -14,8 +14,8 @@ const CourseDetailCard = ({
   course: CourseDetail | undefined;
   loading: boolean;
 }>) => {
+  const { semesterMap } = useSemesters();
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-  const { initialState } = useModel('@@initialState');
   return (
     <Card title="课程信息" loading={loading}>
       {course && (
@@ -24,7 +24,7 @@ const CourseDetailCard = ({
             <Descriptions.Item label="课号">{course.code}</Descriptions.Item>
             {course.former_codes.length > 0 && (
               <Descriptions.Item label="曾用课号">
-                {course.former_codes.join('，')}
+                {course.former_codes.join("，")}
               </Descriptions.Item>
             )}
             <Descriptions.Item label="课程学分">
@@ -39,7 +39,7 @@ const CourseDetailCard = ({
                   .map((item: Teacher) => {
                     return item.name;
                   })
-                  .join('，')}
+                  .join("，")}
               </Descriptions.Item>
             )}
             {course.category && (
@@ -52,9 +52,9 @@ const CourseDetailCard = ({
                 {course.moderator_remark}
               </Descriptions.Item>
             )}
-            {course.semester && (
+            {course.semester && semesterMap && (
               <Descriptions.Item label="学过学期">
-                {initialState?.semesterMap.get(course.semester)}
+                {semesterMap.get(course.semester)}
               </Descriptions.Item>
             )}
             {course.rating.count > 0 && (
@@ -67,7 +67,7 @@ const CourseDetailCard = ({
           <Link onClick={() => setIsModalVisible(true)}>信息有误？</Link>
           <ReportModal
             visible={isModalVisible}
-            title={'课程信息反馈'}
+            title={"课程信息反馈"}
             defaultComment={`课程：${course.code} ${course.name} ${course.main_teacher.name}\n内部编号：${course.id}\n更改意见：`}
             onOk={() => setIsModalVisible(false)}
             onCancel={() => setIsModalVisible(false)}

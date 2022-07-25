@@ -1,14 +1,18 @@
-import { Card, Divider, PageHeader, Typography } from 'antd';
-import { Link, history } from 'umi';
+import { Card, Divider, PageHeader, Typography } from "antd";
+import Head from "next/head";
+import Link from "next/link";
+
 const { Title, Paragraph } = Typography;
 const FaqPage = () => {
   return (
-    <PageHeader title="常见问题" onBack={() => history.goBack()}>
+    <PageHeader title="常见问题" onBack={() => history.back()}>
+      <Head>
+        <title>常见问题 - SJTU选课社区</title>
+      </Head>
       <Card>
         <Title level={4}>我该点评哪些课程？写什么？</Title>
         <Paragraph>
-          所有的课程。但如果你想帮忙，最好的是那些 还没有点评的课程和老师
-          。请不要吝啬你的好评，也不要害怕说坏话。
+          所有的课程。但如果你想帮忙，最好的是那些还没有点评的课程和老师。请不要吝啬你的好评，也不要害怕说坏话。
           <br />
           即使是没有什么亮点的课程也值得你来写一条点评，因为“这门课很正常”也是很重要的信息。寥寥几字可以拯救无数人的迷茫。
           <br />
@@ -18,11 +22,15 @@ const FaqPage = () => {
           <ul>
             <li>
               <strong>饱含事实。</strong>
-              “某课很无聊”不是个好的点评，“某课的老师只会读PPT”还可以。
+              “某课很无聊”不是个好的点评，“某课的老师只会读PPT”还可以。你应该只点评自己上过的课程，而不是道听途说的评价。我们鼓励列举事实，不鼓励情绪宣泄。
             </li>
             <li>
               <strong>全面。</strong>
               课堂、考核、课下，以及特别的体验。这些维度和故事都涉及会很棒。
+            </li>
+            <li>
+              <strong>清晰。</strong>
+              点评不应滥用缩写、绰号、梗，或者对缺乏背景的读者难以理解的其他用语或者描述方式。
             </li>
           </ul>
         </Paragraph>
@@ -49,7 +57,7 @@ const FaqPage = () => {
           ，从而不一定真实、准确或者有任何参考意义。
           <br />
           课程评价的分数就更加主观了，请参见上一个问题的答案。
-          因此，我们再次着重强调，数据会骗人。 内容才是这个网站存在的核心。
+          因此，我们再次着重强调，数据会骗人。内容才是这个网站存在的核心。
         </Paragraph>
         <Divider></Divider>
         <Title level={4}>选课社区由谁来管理？</Title>
@@ -78,8 +86,9 @@ const FaqPage = () => {
           ，但以下内容本社区不予接受：
           <ul>
             <li>非课程点评信息。例如广告、对社区的攻击等。</li>
+            <li>刷点评。在多门课程中发表相似而无帮助的内容，特别在我们认定用户未真实上过这些课的情况下。</li>
             <li>
-              侵害他人利益的内容。例如暴露没有必要的个人隐私、与课程内容无关的诽谤和人身攻击等。
+              侵害他人利益。例如暴露没有必要的个人隐私、与课程内容无关的诽谤和人身攻击等。
             </li>
             <li>违反用户所在地区法律的其他内容。</li>
           </ul>
@@ -101,12 +110,12 @@ const FaqPage = () => {
         </Paragraph>
         <Title level={4}>选课社区收集我的多少信息？</Title>
         <Paragraph>
-          请参考<Link to="/about">关于</Link>中“隐私”一节。
+          请参考<Link href="/about">关于</Link>中“隐私”一节。
         </Paragraph>
         <Divider></Divider>
         <Title level={4}>如何联系你们？</Title>
         <Paragraph>
-          请通过<Link to="/report">反馈</Link>或者邮件
+          请通过<Link href="/report">反馈</Link>或者邮件
           <a href="mailto:course@sjtu.plus">course@sjtu.plus</a>
           向社区提出意见和建议。
         </Paragraph>
@@ -115,15 +124,11 @@ const FaqPage = () => {
           <ul>
             <li>
               <strong>我希望回复某一个关于我的点评。</strong>
-              感谢您的重视，我们随时欢迎老师也参与选课社区。请通过
-              <Link to="/report">反馈</Link>
-              联系社区申诉并附上学校邮箱联系方式、希望回复的点评和您的回复。确认身份后我们可以将您的回复与点评一起呈现。
+              感谢您的重视，我们随时欢迎老师也参与选课社区。请联系社区申诉并附上学校邮箱、希望回复的点评和您的回复。确认身份后我们可以将您的回复与点评一起呈现。
               <br />
             </li>
             <li>
-              <strong>我认为课程点评中存在虚假内容。</strong>请通过
-              <Link to="/report">反馈</Link>
-              联系社区申诉并附上学校邮箱联系方式。我们希望能够协助您澄清。
+              <strong>我认为课程点评中存在虚假内容。</strong>请联系社区申诉并附上学校邮箱、相关点评和澄清内容。我们希望能够协助您澄清。
             </li>
           </ul>
         </Paragraph>

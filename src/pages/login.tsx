@@ -1,48 +1,53 @@
-import AboutContent from '@/components/about-card';
-import config from '@/config';
-import { auth } from '@/services/user';
-import useUrlState from '@ahooksjs/use-url-state';
-import { Button, Modal, Space, Spin, Typography, message } from 'antd';
-import { useEffect } from 'react';
-import { history } from 'umi';
+import AboutCard from "@/components/about-card";
+import { auth, login } from "@/services/user";
+import { Button, Modal, Space, Spin, Typography, message } from "antd";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 const { Link, Text } = Typography;
 
-function info() {
-  Modal.info({
-    title: '基本原则',
-    content: <AboutContent />,
-    okText: '确认',
-    icon: null,
-  });
-}
-
 const LoginPage = () => {
-  const [urlState, setUrlState] = useUrlState({ code: null });
-  const jAccountUri = `https://jaccount.sjtu.edu.cn/oauth2/authorize?client_id=${config.JACCOUNT_CLIENT_ID}&redirect_uri=${config.JACCOUNT_LOGIN_RETURI}&response_type=code&scope=basic`;
+  const router = useRouter();
+  const [modal, contextHolder] = Modal.useModal();
+  const { code } = router.query;
+
   useEffect(() => {
-    if (urlState.code) {
-      auth(urlState.code)
+    if (code) {
+      auth(code as string, router.basePath)
         .then((data) => {
-          localStorage.setItem('account', data.account);
-          history.push('/');
+          localStorage.setItem("account", data.account);
+          router.push("/");
         })
         .catch(() => {
-          message.error('参数错误！');
-          setUrlState({ code: undefined });
+          message.error("参数错误！");
+          router.replace("/login");
         });
     }
-  }, [urlState]);
+  }, [code]);
+
+  function info() {
+    modal.info({
+      title: "基本原则",
+      content: <AboutCard />,
+      okText: "确认",
+      icon: null,
+    });
+  }
+
   return (
     <>
       <Space direction="vertical" align="center" size="large">
-        <Spin spinning={urlState.code} />
-        <Button size="large" type="primary" href={jAccountUri}>
+        <Spin spinning={code ? true : false} />
+        <Button
+          size="large"
+          type="primary"
+          onClick={() => login(router.basePath)}
+        >
           使用 jAccount 登录
         </Button>
         <Text>
           登录即表示您已阅读并同意本站
-          <Link onClick={() => info()}>基本原则</Link>。
+          <Link onClick={() => info()}>基本原则</Link>。{contextHolder}
         </Text>
       </Space>
     </>

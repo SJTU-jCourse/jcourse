@@ -1,7 +1,7 @@
-import { CourseDetail } from '@/models';
-import { Card, Col, List, Space, Typography } from 'antd';
-import { PropsWithChildren } from 'react';
-import { Link } from 'umi';
+import { CourseDetail } from "@/lib/models";
+import { Card, Col, List, Space, Typography } from "antd";
+import { PropsWithChildren } from "react";
+import Link from "next/link";
 const { Text } = Typography;
 
 export const RelatedTeacher = ({
@@ -23,7 +23,9 @@ export const RelatedTeacher = ({
         renderItem={(item) => (
           <List.Item>
             <Space align="center" wrap>
-              <Link to={'/course/' + item.id}>{item.tname}</Link>
+              <Link href={"/course/" + item.id}>
+                <a>{item.tname}</a>
+              </Link>
               {item.count > 0 && (
                 <span>
                   <Text strong>{item.avg?.toFixed(1)}</Text>
@@ -57,8 +59,10 @@ export const RelatedCourse = ({
         renderItem={(item) => (
           <List.Item>
             <Space align="center" wrap>
-              <Link to={'/course/' + item.id}>
-                {item.code} {item.name}
+              <Link href={"/course/" + item.id}>
+                <a>
+                  {item.code} {item.name}
+                </a>
               </Link>
               {item.count > 0 && (
                 <span>

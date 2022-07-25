@@ -1,12 +1,12 @@
-import { ReviewAction } from '@/models';
+import { ReviewAction } from "@/lib/models";
 import {
   DislikeOutlined,
   DislikeTwoTone,
   LikeOutlined,
   LikeTwoTone,
-} from '@ant-design/icons';
-import { Button, Space } from 'antd';
-import { useState } from 'react';
+} from "@ant-design/icons";
+import { Button, Space } from "antd";
+import { useState } from "react";
 const ReviewActionButton = ({
   onAction,
   actionProps,
@@ -16,7 +16,7 @@ const ReviewActionButton = ({
 }) => {
   const [approves, setApproves] = useState<number>(actionProps.approves);
   const [disapproves, setDisapproves] = useState<number>(
-    actionProps.disapproves,
+    actionProps.disapproves
   );
   const [myAction, setMyAction] = useState<number>(actionProps.action || 0);
   return (
@@ -69,7 +69,7 @@ const ReviewActionButton = ({
           onAction(actionProps.id, newAction);
         }}
       >
-        {myAction == -1 ? <DislikeTwoTone /> : <DislikeOutlined />}{' '}
+        {myAction == -1 ? <DislikeTwoTone /> : <DislikeOutlined />}{" "}
         {disapproves}
       </Button>
     </Space>

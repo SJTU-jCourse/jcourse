@@ -1,7 +1,14 @@
-import { Notice } from '@/models';
-import { request } from '@/services/request';
+import useSWR from 'swr';
+import { Notice } from '@/lib/models';
+import { fetcher } from '@/services/request';
 
-export async function getNotices(): Promise<Notice[]> {
-  const resp = await request('/api/notice/');
-  return resp.data;
+
+
+export function useNotices() {
+  const { data, error } = useSWR<Notice[]>('/api/notice/', fetcher)
+  return {
+    notices: data,
+    loading: !error && !data,
+    isError: error,
+  }
 }

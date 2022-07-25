@@ -1,16 +1,16 @@
-export interface PaginationApiResult<Type> {
+export type PaginationApiResult<Type> = {
   count: number;
   next: string | null;
   previous: string | null;
   results: Type[];
-}
+};
 
-export interface Teacher {
+export type Teacher = {
   tid: string | null;
   name: string;
-}
+};
 
-export interface CourseListItem {
+export type CourseListItem = {
   id: number;
   code: string;
   category: string | null;
@@ -21,9 +21,9 @@ export interface CourseListItem {
   rating: { avg: number; count: number };
   is_reviewed: number | null;
   semester: number | null;
-}
+};
 
-export interface CourseDetail {
+export type CourseDetail = {
   id: number;
   code: string;
   category: string | null;
@@ -50,44 +50,46 @@ export interface CourseDetail {
   }[];
   semester: number | null;
   is_reviewed: number | null;
-}
+};
 
-export interface Filter {
+export type Filter = {
   id: number;
   name: string;
   count: number;
-}
+};
 
-export interface Filters {
+export type Filters = {
   categories: Filter[];
   departments: Filter[];
-}
-export interface Notice {
+};
+export type Notice = {
   title: string;
   message: string;
   created: string;
-}
+  url: string | null;
+};
 
-export interface Semester {
+export type Semester = {
   id: number;
   name: string;
-}
+  available: boolean;
+};
 
-export interface CourseInReview {
+export type CourseInReview = {
   id: number;
   code: string;
   name: string;
   teacher: string;
   semester: number | null;
-}
+};
 
-export interface ReviewAction {
+export type ReviewAction = {
   id: number;
   action?: number;
   approves: number;
   disapproves: number;
-}
-export interface Review {
+};
+export type Review = {
   id: number;
   course?: CourseInReview;
   semester: string | Semester;
@@ -99,28 +101,28 @@ export interface Review {
   score: number | string;
   moderator_remark: string | null;
   is_mine: boolean;
-}
+};
 
-export interface ReviewDraft {
+export type ReviewDraft = {
   comment: string;
   rating: number;
   semester: number;
   course: number;
   score: string;
-}
-export interface User {
+};
+export type User = {
   id: number;
   username: string;
   is_staff: boolean;
   account: string | null;
-}
+};
 
-export interface UserPointDetailItem {
+export type UserPointDetailItem = {
   value: number;
   description: string | null;
   time: string;
-}
-export interface UserPoint {
+};
+export type UserPoint = {
   points: number;
   reviews: number;
   first_reviews: number;
@@ -128,34 +130,41 @@ export interface UserPoint {
   first_reviews_approves: number;
   addition: number;
   details: UserPointDetailItem[];
-}
-export interface Action {
+};
+export type Action = {
   review: number;
   action: number;
   approves: number;
   disapproves: number;
-}
+};
 
-export interface Pagination {
+export type Pagination = {
   page: number;
   pageSize: number;
-}
+};
 
-export interface StatisticInfo {
+export type StatisticInfo = {
   courses: number;
   reviews: number;
   users: number;
-}
+  courses_with_review: number;
+};
 
-export interface SelectValue {
+export type SelectValue = {
   key?: string;
   label: string;
   value: number;
-}
+};
 
-export interface Report {
+export type Report = {
   id: number;
   created: string;
   comment: string;
   reply: string | null;
-}
+};
+
+export type CoursesFilterParams = {
+  categories?: string;
+  departments?: string;
+  onlyhasreviews?: string;
+};

@@ -1,69 +1,71 @@
-import CourseList from '@/components/course-list';
-import { CourseListItem } from '@/models';
-import { authSync, getLessons, loginSync, syncLessons } from '@/services/sync';
-import useUrlState from '@ahooksjs/use-url-state';
-import { useRequest } from 'ahooks';
-import { Button, Card, Modal, PageHeader, Select, message } from 'antd';
-import { useEffect, useState } from 'react';
-import { useModel } from 'umi';
+import CourseList from "@/components/course-list";
+import { authSync, useLessons, loginSync, syncLessons } from "@/services/sync";
+import { Button, Card, Modal, PageHeader, Select, message } from "antd";
+import { useEffect, useState } from "react";
+import { useSemesters } from "@/services/semester";
+import { useRouter } from "next/router";
+import Head from "next/head";
 
 const SyncPage = () => {
-  const {
-    data: courses,
-    loading: courseLoading,
-    run,
-  } = useRequest<CourseListItem[], []>(getLessons);
-  const [urlState, setUrlState] = useUrlState({ code: null });
+  const { avaiableSemesters } = useSemesters();
+  const { courses, loading: courseLoading, mutate } = useLessons();
+  const router = useRouter();
+  const { code } = router.query;
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-  const { initialState } = useModel('@@initialState');
-  const [semester, setSemester] = useState<string>('');
+  const [semester, setSemester] = useState<string>("");
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    if (urlState.code) {
-      authSync(urlState.code)
+    if (code && code != "") {
+      authSync(code as string, router.basePath)
         .then(() => {
-          message.info('已刷新 jAccount 登录状态，请继续同步！');
-          setUrlState({ code: undefined });
+          message.info("已刷新 jAccount 登录状态，请继续同步！");
+          router.replace({ pathname: "/sync" });
         })
         .catch(() => {
-          message.error('参数错误！');
-          setUrlState({ code: undefined });
+          message.error("参数错误！");
+          router.replace({ pathname: "/sync" });
         });
     }
-  }, [urlState]);
+  }, [code]);
 
   const handleClick = () => {
     setIsModalVisible(true);
   };
 
   const handleOk = () => {
-    if (semester == '') {
-      message.error('请选择需要同步的学期！');
+    if (semester == "") {
+      message.error("请选择需要同步的学期！");
       return;
     }
     setConfirmLoading(true);
 
     syncLessons(semester)
       .then(() => {
-        run();
+        mutate();
         setIsModalVisible(false);
         setConfirmLoading(false);
       })
       .catch((err) => {
         if (err.response?.status == 401) {
           message.warning(
-            '即将重新登录jAccount，请在本页面刷新后继续同步',
+            "即将重新登录jAccount，请在本页面刷新后继续同步",
             () => {
-              loginSync();
-            },
+              loginSync(router.basePath);
+            }
           );
+        } else if (err.response?.status == 403) {
+          message.error("CSRF Failed: Origin checking failed");
+          setConfirmLoading(false);
         }
       });
   };
 
   return (
     <PageHeader title="学过的课" backIcon={false}>
+      <Head>
+        <title>同步课表 - SJTU选课社区</title>
+      </Head>
       <Card
         title={`共有${courses ? courses.length : 0}门课`}
         extra={
@@ -92,7 +94,7 @@ const SyncPage = () => {
           className="sync-select"
           onSelect={(key: string) => setSemester(key)}
         >
-          {initialState!.semesters.map((semester) => (
+          {avaiableSemesters?.map((semester) => (
             <Select.Option
               key={semester.name}
               value={semester.name}

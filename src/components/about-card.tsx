@@ -1,7 +1,7 @@
-import { Typography } from 'antd';
+import { Typography } from "antd";
 const { Paragraph, Title } = Typography;
 
-const AboutContent = () => {
+const AboutCard = () => {
   return (
     <Typography>
       <Title level={4}>简介</Title>
@@ -34,8 +34,14 @@ const AboutContent = () => {
         选课社区部分功能可能需要使用 jAccount
         接口获取并存储选课等信息，我们将在您使用此类功能前予以提示。
       </Paragraph>
+      <Title level={4}>联系方式</Title>
+      <Paragraph>
+        您可以用过邮件
+        <a href="mailto:course@sjtu.plus"> course@sjtu.plus </a>
+        联系我们。
+      </Paragraph>
     </Typography>
   );
 };
 
-export default AboutContent;
+export default AboutCard;
