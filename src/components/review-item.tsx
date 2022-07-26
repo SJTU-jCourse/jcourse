@@ -2,6 +2,7 @@ import { Review } from "@/lib/models";
 import { doReviewAction } from "@/services/review";
 import { Alert, List, Space, Tooltip } from "antd";
 import Link from "next/link";
+import MDPreview from "./md-preview";
 import ReviewActionButton from "./review-action-button";
 
 const ReviewItem = ({
@@ -68,7 +69,7 @@ const ReviewItem = ({
             </span>
           )}
         </Space>
-        <div className="comment">{review.comment}</div>
+        <MDPreview className="comment" src={review.comment} />
         {review.is_mine && (
           <Link href={`/review?review_id=${review.id}`}>
             <a>修改点评</a>

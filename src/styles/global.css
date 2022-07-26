@@ -101,9 +101,8 @@
 .review-body {
   width: 100%;
 }
-.comment {
-  white-space: pre-wrap;
-  word-break: break-word;
+.comment p{
+  margin: 0 !important;
 }
 .courses-radio-group {
   padding: 0;

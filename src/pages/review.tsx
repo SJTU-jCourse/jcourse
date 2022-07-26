@@ -22,8 +22,8 @@ import { getReview, modifyReview, writeReview } from "@/services/review";
 import { useSemesters } from "@/services/semester";
 import Head from "next/head";
 import { useUser } from "@/services/user";
+import MDEditor from "@/components/md-editor";
 
-const { TextArea } = Input;
 const { Text } = Typography;
 
 const ReviewPage = () => {
@@ -253,7 +253,7 @@ const ReviewPage = () => {
               </Text>
             }
           >
-            <TextArea autoSize maxLength={1926} />
+            <MDEditor />
           </Form.Item>
           <Form.Item
             name="rating"
