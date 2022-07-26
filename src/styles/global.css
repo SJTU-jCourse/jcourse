@@ -75,6 +75,9 @@
   .navbar .search-button {
     margin: 4px;
   }
+  .review-item .ant-list-item-action > li {
+    padding: 0 4px !important;
+  }
 }
 .navbar .col-menu {
   margin-left: auto;
@@ -137,10 +140,6 @@
 
 .sync-select {
   width: 100%;
-}
-
-.review-item .ant-list-item-action > li {
-  padding: 0 4px;
 }
 
 .filter-card .ant-card-body {
