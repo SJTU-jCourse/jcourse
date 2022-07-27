@@ -104,7 +104,7 @@
 .review-body {
   width: 100%;
 }
-.comment p{
+.comment p {
   margin: 0 !important;
 }
 .courses-radio-group {
@@ -144,4 +144,8 @@
 
 .filter-card .ant-card-body {
   padding: 8px;
+}
+
+.markdown-preview img {
+  max-width: 100%;
 }

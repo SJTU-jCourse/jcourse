@@ -5,13 +5,15 @@ import remarkGfm from "remark-gfm";
 
 const MDPreview = ({ src, ...props }: any) => {
   return (
-    <ReactMarkdown
-      rehypePlugins={[rehypeSanitize]}
-      remarkPlugins={[remarkBreaks, remarkGfm]}
-      {...props}
-    >
-      {src}
-    </ReactMarkdown>
+    <div className="markdown-preview">
+      <ReactMarkdown
+        rehypePlugins={[rehypeSanitize]}
+        remarkPlugins={[remarkBreaks, remarkGfm]}
+        {...props}
+      >
+        {src}
+      </ReactMarkdown>
+    </div>
   );
 };
 
