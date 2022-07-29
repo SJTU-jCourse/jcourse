@@ -18,6 +18,8 @@
 }
 .basic-layout .header {
   padding-inline: var(--layout-margin);
+  padding-left: var(--layout-margin);
+  padding-right: var(--layout-margin);
 }
 .basic-layout .content {
   margin-left: auto;
