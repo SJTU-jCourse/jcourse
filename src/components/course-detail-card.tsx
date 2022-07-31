@@ -42,9 +42,9 @@ const CourseDetailCard = ({
                   .join("，")}
               </Descriptions.Item>
             )}
-            {course.category && (
+            {course.categories?.length > 0 && (
               <Descriptions.Item label="课程类别">
-                {course.category}
+                {course.categories.join("，")}
               </Descriptions.Item>
             )}
             {course.moderator_remark && (

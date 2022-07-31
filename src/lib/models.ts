@@ -13,7 +13,7 @@ export type Teacher = {
 export type CourseListItem = {
   id: number;
   code: string;
-  category: string | null;
+  categories: string[];
   department: string;
   name: string;
   credit: number;
@@ -26,7 +26,7 @@ export type CourseListItem = {
 export type CourseDetail = {
   id: number;
   code: string;
-  category: string | null;
+  categories: string[];
   department: string | null;
   name: string;
   credit: number;
