@@ -34,7 +34,7 @@ export function useCourseList(
   pagination: Pagination
 ) {
   let query_params: string = "";
-  if (params.categories) query_params += `&category=${params.categories}`;
+  if (params.categories) query_params += `&categories=${params.categories}`;
   if (params.departments) query_params += `&department=${params.departments}`;
   if (params.onlyhasreviews)
     query_params += `&onlyhasreviews=${params.onlyhasreviews}`;
