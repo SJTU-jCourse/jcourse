@@ -68,11 +68,12 @@ const CourseList = ({
                   {showEnroll && course.semester && (
                     <Tag color={Config.TAG_COLOR_ENROLL}>学过</Tag>
                   )}
-                  {course.category && (
-                    <Tag color={Config.TAG_COLOR_CATEGORY}>
-                      {course.category}
-                    </Tag>
-                  )}
+                  {course.categories &&
+                    course.categories.map((tag: string) => (
+                      <Tag key={tag} color={Config.TAG_COLOR_CATEGORY}>
+                        {tag}
+                      </Tag>
+                    ))}
                   {course.is_reviewed && (
                     <Tag color={Config.TAG_COLOR_REVIEW}>已点评</Tag>
                   )}
