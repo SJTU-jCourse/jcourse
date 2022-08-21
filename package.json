@@ -10,10 +10,10 @@
     "buildcss": "lessc --js --modify-var=\"primary-color=#1DA57A\" ./node_modules/antd/dist/antd.less ./src/styles/antd.css && lessc --js --modify-var=\"primary-color=#1DA57A\" ./node_modules/antd/dist/antd.dark.less ./public/antd-dark.css"
   },
   "dependencies": {
-    "ahooks": "^3.6.2",
-    "antd": "^4.22.2",
+    "ahooks": "^3.7.0",
+    "antd": "^4.22.6",
     "axios": "^0.27.2",
-    "next": "^12.2.3",
+    "next": "^12.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^8.0.3",
@@ -24,11 +24,11 @@
     "swr": "^1.3.0"
   },
   "devDependencies": {
-    "@types/node": "^18.6.3",
-    "@types/react": "^18.0.15",
+    "@types/node": "^18.7.8",
+    "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
-    "eslint": "^8.20.0",
-    "eslint-config-next": "^12.2.3",
+    "eslint": "^8.22.0",
+    "eslint-config-next": "^12.2.5",
     "less": "^4.1.3",
     "typescript": "^4.7.4"
   }
