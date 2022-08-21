@@ -4,12 +4,13 @@ import { User, UserPoint } from "@/lib/models";
 import { fetcher, request } from "@/services/request";
 import { useRouter } from "next/router";
 
-export async function auth(code: string, basePath: string) {
+export async function auth(code: string, state: string, basePath: string) {
   const redirect_uri =
     window.location.origin + basePath + Config.JACCOUNT_LOGIN_RETURI;
-  const resp = await request("/oauth/jaccount/auth/", {
+  const resp = await request("/oauth/jaccount/auth", {
     params: {
       code,
+      state,
       redirect_uri,
     },
   });
@@ -19,7 +20,7 @@ export async function auth(code: string, basePath: string) {
 export async function login(basePath: string) {
   const rediretUrl =
     window.location.origin + basePath + Config.JACCOUNT_LOGIN_RETURI;
-  window.location.href = `https://jaccount.sjtu.edu.cn/oauth2/authorize?client_id=${Config.JACCOUNT_CLIENT_ID}&redirect_uri=${rediretUrl}&response_type=code&scope=basic`;
+  window.location.href = `/oauth/jaccount/login?redirect_uri=${rediretUrl}`;
 }
 
 export async function logout(basePath: string) {

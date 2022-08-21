@@ -10,14 +10,14 @@ const SyncPage = () => {
   const { avaiableSemesters } = useSemesters();
   const { courses, loading: courseLoading, mutate } = useLessons();
   const router = useRouter();
-  const { code } = router.query;
+  const { code, state } = router.query;
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [semester, setSemester] = useState<string>("");
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (code && code != "") {
-      authSync(code as string, router.basePath)
+      authSync(code as string, state as string, router.basePath)
         .then(() => {
           message.info("已刷新 jAccount 登录状态，请继续同步！");
           router.replace({ pathname: "/sync" });
@@ -27,7 +27,7 @@ const SyncPage = () => {
           router.replace({ pathname: "/sync" });
         });
     }
-  }, [code]);
+  }, [router.query]);
 
   const handleClick = () => {
     setIsModalVisible(true);

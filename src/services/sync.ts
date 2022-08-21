@@ -7,15 +7,16 @@ import { fetcher, request } from "@/services/request";
 export function loginSync(basePath: string) {
   const rediretUrl =
     window.location.origin + basePath + Config.JACCOUNT_SYNC_RETURI;
-  window.location.href = `https://jaccount.sjtu.edu.cn/oauth2/authorize?client_id=${Config.JACCOUNT_CLIENT_ID}&redirect_uri=${rediretUrl}&response_type=code&scope=openid lessons`;
+  window.location.href = `/oauth/sync-lessons/login?redirect_uri=${rediretUrl}`;
 }
 
-export async function authSync(code: string, basePath: string) {
+export async function authSync(code: string, state: string, basePath: string) {
   const rediretUrl =
     window.location.origin + basePath + Config.JACCOUNT_SYNC_RETURI;
   const resp = await request("/oauth/sync-lessons/auth/", {
     params: {
-      code: code,
+      code,
+      state,
       redirect_uri: rediretUrl,
     },
   });

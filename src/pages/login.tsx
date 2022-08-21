@@ -9,11 +9,11 @@ const { Link, Text } = Typography;
 const LoginPage = () => {
   const router = useRouter();
   const [modal, contextHolder] = Modal.useModal();
-  const { code } = router.query;
+  const { code, state } = router.query;
 
   useEffect(() => {
     if (code) {
-      auth(code as string, router.basePath)
+      auth(code as string, state as string, router.basePath)
         .then((data) => {
           localStorage.setItem("account", data.account);
           router.push("/");
@@ -23,7 +23,7 @@ const LoginPage = () => {
           router.replace("/login");
         });
     }
-  }, [code]);
+  }, [router.query]);
 
   function info() {
     modal.info({
