@@ -108,6 +108,7 @@
 }
 .comment p {
   margin: 0 !important;
+  overflow-wrap: break-word;
 }
 .courses-radio-group {
   padding: 0;
