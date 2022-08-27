@@ -20,7 +20,7 @@ const CoursePage = () => {
     pageSize: size ? parseInt(size as string) : Config.PAGE_SIZE,
   };
   const onPageChange = (page: number, pageSize: number) => {
-    router.push({ query: { page: page, size: pageSize } });
+    router.push({ query: { id, page, size: pageSize } });
   };
   const screens = useBreakpoint();
 
