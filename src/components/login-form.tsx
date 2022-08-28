@@ -1,44 +1,72 @@
-import { Button, Form, Input, Space } from "antd";
+import { Button, Form, Input } from "antd";
+import { useEffect, useRef, useState } from "react";
 
-const Loginform = () => {
+const LoginForm = () => {
+  const [form] = Form.useForm();
+  const [time, setTime] = useState<number>(0);
+  const timeRef = useRef();
+  const inCounter = time != 0;
+  useEffect(() => {
+    if (inCounter) {
+      timeRef.current = setTimeout(() => {
+        setTime(time - 1);
+      }, 1000);
+    }
+    return () => {
+      clearTimeout(timeRef.current);
+    };
+  }, [time]);
   return (
-    <>
-      <Form labelCol={{ flex: "100px" }}>
-        <Form.Item
-          label="邮箱地址"
-          name="mailaddress"
-          rules={[
-            {
-              max: 50,
-              pattern: /^([a-zA-Z0-9]+[-_\.]?)+@sjtu.edu.cn$/,
-              required: true,
-              message: "请正确输入邮箱地址",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Space>
-          <Form.Item
-            label="验证码"
-            name="code"
-            rules={[{ required: true, message: "请输入验证码" }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item>
-            <Button>发送验证码</Button>
-          </Form.Item>
-        </Space>
+    <Form
+      form={form}
+      onFinish={(value) => {
+        console.log(value);
+      }}
+      layout="horizontal"
+      requiredMark="optional"
+      size="large"
+    >
+      <Form.Item
+        name="email"
+        rules={[
+          {
+            max: 50,
+            pattern: /^([a-zA-Z0-9]+[-_\.?])+@sjtu.edu.cn$/,
+            required: true,
+            message: "请正确输入邮箱地址",
+          },
+        ]}
+      >
+        <Input placeholder="@sjtu.edu.cn 邮箱" />
+      </Form.Item>
 
-        <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
-          <Button type="primary" htmlType="submit">
-            登录
-          </Button>
-        </Form.Item>
-      </Form>
-    </>
+      <Form.Item
+        name="code"
+        rules={[{ required: true, message: "请输入验证码" }]}
+      >
+        <Input.Search
+          placeholder="输入验证码"
+          enterButton={
+            <Button onClick={() => setTime(60)} disabled={inCounter}>
+              {inCounter ? `${time}秒后` : "获取验证码"}
+            </Button>
+          }
+          size="large"
+        />
+      </Form.Item>
+
+      <Form.Item>
+        <Button
+          type="primary"
+          htmlType="submit"
+          style={{ width: "100%" }}
+          size="large"
+        >
+          使用邮箱登录
+        </Button>
+      </Form.Item>
+    </Form>
   );
 };
 
-export default Loginform;
+export default LoginForm;
