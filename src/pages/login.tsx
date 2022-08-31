@@ -1,18 +1,16 @@
 import AboutCard from "@/components/about-card";
 import { auth, login } from "@/services/user";
-import { Button, Modal, Spin, Typography, message, Grid, Divider } from "antd";
+import { Button, Modal, Typography, message, Tabs } from "antd";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import LoginForm from "@/components/login-form";
 
 const { Link, Text } = Typography;
-const { useBreakpoint } = Grid;
 
 const LoginPage = () => {
   const router = useRouter();
   const [modal, contextHolder] = Modal.useModal();
   const { code, state } = router.query;
-  const screens = useBreakpoint();
   useEffect(() => {
     if (code) {
       auth(code as string, state as string, router.basePath)
@@ -38,17 +36,29 @@ const LoginPage = () => {
 
   return (
     <div style={{ minWidth: "324px", marginInline: "auto" }}>
-      <Spin spinning={code ? true : false} />
-      <Button
-        style={{ width: "100%" }}
-        size="large"
-        type="primary"
-        onClick={() => login(router.basePath)}
-      >
-        使用 jAccount 登录
-      </Button>
-      <Divider plain>或</Divider>
-      <LoginForm />
+      <Tabs defaultActiveKey="jaccount" centered>
+        <Tabs.TabPane tab="快速登录" key="jaccount">
+          <div style={{ height: "168px", display: "flex" }}>
+            <Button
+              style={{
+                width: "100%",
+                alignSelf: "center",
+              }}
+              size="large"
+              type="primary"
+              loading={code ? true : false}
+              onClick={() => login(router.basePath)}
+            >
+              使用 jAccount 登录
+            </Button>
+          </div>
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="邮箱登录" key="email">
+          <div style={{ height: "168px" }}>
+            <LoginForm />
+          </div>
+        </Tabs.TabPane>
+      </Tabs>
 
       <div style={{ textAlign: "center", marginTop: 16 }}>
         <Text>
