@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 const LoginForm = () => {
   const [form] = Form.useForm();
   const [time, setTime] = useState<number>(0);
-  const timeRef = useRef();
+  const timeRef = useRef<any>();
   const inCounter = time != 0;
   const router = useRouter();
 
