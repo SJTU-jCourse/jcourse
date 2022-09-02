@@ -10,7 +10,7 @@ const { Link, Text } = Typography;
 const LoginPage = () => {
   const router = useRouter();
   const [modal, contextHolder] = Modal.useModal();
-  const { code, email, state } = router.query;
+  const { code, state } = router.query;
   useEffect(() => {
     if (code) {
       auth(code as string, state as string, router.basePath)
@@ -20,20 +20,6 @@ const LoginPage = () => {
         })
         .catch(() => {
           message.error("参数错误！");
-          router.replace("/login");
-        });
-    }
-  }, [router.query]);
-
-  useEffect(() => {
-    if (code) {
-      verifyCode(email as string, code as string)
-        .then((data) => {
-          localStorage.setItem("account", data.account);
-          router.push("/");
-        })
-        .catch(() => {
-          message.error("验证码错误！");
           router.replace("/login");
         });
     }

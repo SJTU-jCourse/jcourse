@@ -1,5 +1,6 @@
 import { sendCode, verifyCode } from "@/services/user";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
+import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 
 const LoginForm = () => {
@@ -7,6 +8,30 @@ const LoginForm = () => {
   const [time, setTime] = useState<number>(0);
   const timeRef = useRef();
   const inCounter = time != 0;
+  const router = useRouter();
+
+  const onFinish = () => {
+    verifyCode(form.getFieldValue("email"), form.getFieldValue("code"))
+      .then((data) => {
+        localStorage.setItem("account", data.account);
+        router.push("/");
+      })
+      .catch(() => {
+        message.error("验证码错误！");
+      });
+  };
+
+  const onClick = () => {
+    setTime(60);
+    sendCode(form.getFieldValue("email")).then((resp) => {
+      if (resp.status === 200) {
+        message.success("发送成功！");
+      } else {
+        message.error("发送失败！");
+      }
+    });
+  };
+
   useEffect(() => {
     if (inCounter) {
       timeRef.current = setTimeout(() => {
@@ -20,9 +45,7 @@ const LoginForm = () => {
   return (
     <Form
       form={form}
-      onFinish={(value) => {
-        console.log(value);
-      }}
+      onFinish={onFinish}
       layout="horizontal"
       requiredMark="optional"
       size="large"
@@ -48,13 +71,7 @@ const LoginForm = () => {
         <Input.Search
           placeholder="输入验证码"
           enterButton={
-            <Button
-              onClick={() => {
-                setTime(60);
-                sendCode(form.getFieldValue("email"));
-              }}
-              disabled={inCounter}
-            >
+            <Button onClick={onClick} disabled={inCounter}>
               {inCounter ? `${time}秒后` : "获取验证码"}
             </Button>
           }
@@ -68,9 +85,6 @@ const LoginForm = () => {
           htmlType="submit"
           style={{ width: "100%" }}
           size="large"
-          onClick={() =>
-            verifyCode(form.getFieldValue("email"), form.getFieldValue("code"))
-          }
         >
           使用邮箱登录
         </Button>
