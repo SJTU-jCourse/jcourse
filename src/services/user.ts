@@ -28,7 +28,7 @@ export async function jAccountLogin(basePath: string) {
 }
 
 export async function logout(basePath: string) {
-  await request("/oauth/logout");
+  await request("/oauth/logout/");
   const rediretUrl =
     window.location.origin + basePath + Config.JACCOUNT_LOGIN_RETURI;
   window.location.href = `https://jaccount.sjtu.edu.cn/oauth2/logout?client_id=${Config.JACCOUNT_CLIENT_ID}&post_logout_redirect_uri=${rediretUrl}`;
