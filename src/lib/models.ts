@@ -168,3 +168,8 @@ export type CoursesFilterParams = {
   departments?: string;
   onlyhasreviews?: string;
 };
+
+export type EmailLoginRequest = {
+  email: string;
+  code: string;
+};

@@ -30,6 +30,22 @@ export async function logout(basePath: string) {
   window.location.href = `https://jaccount.sjtu.edu.cn/oauth2/logout?client_id=${Config.JACCOUNT_CLIENT_ID}&post_logout_redirect_uri=${rediretUrl}`;
 }
 
+export async function sendCode(email: string) {
+  const resp = await request("/oauth/email/send-code", {
+    method: "post",
+    data: { email },
+  });
+  return resp;
+}
+
+export async function verifyCode(email: string, code: string) {
+  const resp = await request("/oauth/email/verify", {
+    method: "post",
+    data: { email, code },
+  });
+  return resp.data;
+}
+
 export function useUser() {
   const { data, error } = useSWR<User>("/api/me/", fetcher);
   const router = useRouter();
