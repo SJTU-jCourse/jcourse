@@ -1,3 +1,5 @@
+import { type } from "os";
+
 export type PaginationApiResult<Type> = {
   count: number;
   next: string | null;
@@ -167,4 +169,9 @@ export type CoursesFilterParams = {
   categories?: string;
   departments?: string;
   onlyhasreviews?: string;
+};
+
+export type EmailLoginRequest = {
+  email: string;
+  code: string;
 };

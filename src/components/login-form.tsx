@@ -1,3 +1,4 @@
+import { EmailLoginRequest } from "@/lib/models";
 import { sendCode, verifyCode } from "@/services/user";
 import { Button, Form, Input, message } from "antd";
 import { useRouter } from "next/router";
@@ -10,24 +11,24 @@ const LoginForm = () => {
   const inCounter = time != 0;
   const router = useRouter();
 
-  const onFinish = () => {
-    verifyCode(form.getFieldValue("email"), form.getFieldValue("code"))
-      .then((data) => {
-        localStorage.setItem("account", data.account);
+  const onFinish = (request: EmailLoginRequest) => {
+    verifyCode(request.email, request.code)
+      .then((resp) => {
+        localStorage.setItem("account", resp.data.account);
         router.push("/");
       })
-      .catch(() => {
-        message.error("验证码错误！");
+      .catch((error) => {
+        message.error(error.response.data.details);
       });
   };
 
   const onClick = () => {
-    setTime(60);
     sendCode(form.getFieldValue("email")).then((resp) => {
+      setTime(60);
       if (resp.status === 200) {
-        message.success("发送成功！");
+        message.success(resp.data.details);
       } else {
-        message.error("发送失败！");
+        message.error(resp.data.details);
       }
     });
   };
