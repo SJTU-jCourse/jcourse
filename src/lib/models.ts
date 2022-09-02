@@ -1,5 +1,3 @@
-import { type } from "os";
-
 export type PaginationApiResult<Type> = {
   count: number;
   next: string | null;
