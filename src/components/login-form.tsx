@@ -1,3 +1,4 @@
+import { sendCode, verifyCode } from "@/services/user";
 import { Button, Form, Input } from "antd";
 import { useEffect, useRef, useState } from "react";
 
@@ -31,7 +32,7 @@ const LoginForm = () => {
         rules={[
           {
             max: 50,
-            pattern: /^([a-zA-Z0-9]+[-_\.?])+@sjtu.edu.cn$/,
+            pattern: /^([a-zA-Z0-9]+[-_\.]?)+@+(sjtu.edu.cn)+$/,
             required: true,
             message: "请正确输入邮箱地址",
           },
@@ -47,7 +48,13 @@ const LoginForm = () => {
         <Input.Search
           placeholder="输入验证码"
           enterButton={
-            <Button onClick={() => setTime(60)} disabled={inCounter}>
+            <Button
+              onClick={() => {
+                setTime(60);
+                sendCode(form.getFieldValue("email"));
+              }}
+              disabled={inCounter}
+            >
               {inCounter ? `${time}秒后` : "获取验证码"}
             </Button>
           }
@@ -61,6 +68,9 @@ const LoginForm = () => {
           htmlType="submit"
           style={{ width: "100%" }}
           size="large"
+          onClick={() =>
+            verifyCode(form.getFieldValue("email"), form.getFieldValue("code"))
+          }
         >
           使用邮箱登录
         </Button>
