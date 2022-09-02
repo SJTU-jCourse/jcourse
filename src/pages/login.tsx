@@ -1,5 +1,5 @@
 import AboutCard from "@/components/about-card";
-import { auth, login, verifyCode } from "@/services/user";
+import { jAccountAuth, jAccountLogin } from "@/services/user";
 import { Button, Modal, Typography, message, Tabs } from "antd";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
@@ -13,7 +13,7 @@ const LoginPage = () => {
   const { code, state } = router.query;
   useEffect(() => {
     if (code) {
-      auth(code as string, state as string, router.basePath)
+      jAccountAuth(code as string, state as string, router.basePath)
         .then((data) => {
           localStorage.setItem("account", data.account);
           router.push("/");
@@ -47,7 +47,7 @@ const LoginPage = () => {
               size="large"
               type="primary"
               loading={code ? true : false}
-              onClick={() => login(router.basePath)}
+              onClick={() => jAccountLogin(router.basePath)}
             >
               使用 jAccount 登录
             </Button>

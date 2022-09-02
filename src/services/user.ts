@@ -4,7 +4,7 @@ import { User, UserPoint } from "@/lib/models";
 import { fetcher, request } from "@/services/request";
 import { useRouter } from "next/router";
 
-export async function auth(code: string, state: string, basePath: string) {
+export async function jAccountAuth(code: string, state: string, basePath: string) {
   const redirect_uri =
     window.location.origin + basePath + Config.JACCOUNT_LOGIN_RETURI;
   const resp = await request("/oauth/jaccount/auth", {
@@ -17,7 +17,7 @@ export async function auth(code: string, state: string, basePath: string) {
   return resp.data;
 }
 
-export async function login(basePath: string) {
+export async function jAccountLogin(basePath: string) {
   const rediretUrl =
     window.location.origin + basePath + Config.JACCOUNT_LOGIN_RETURI;
   window.location.href = `/oauth/jaccount/login?redirect_uri=${rediretUrl}`;
