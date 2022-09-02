@@ -4,7 +4,11 @@ import { User, UserPoint } from "@/lib/models";
 import { fetcher, request } from "@/services/request";
 import { useRouter } from "next/router";
 
-export async function jAccountAuth(code: string, state: string, basePath: string) {
+export async function jAccountAuth(
+  code: string,
+  state: string,
+  basePath: string
+) {
   const redirect_uri =
     window.location.origin + basePath + Config.JACCOUNT_LOGIN_RETURI;
   const resp = await request("/oauth/jaccount/auth/", {
@@ -35,7 +39,7 @@ export async function sendCode(email: string) {
     method: "post",
     data: { email },
   });
-  return resp;
+  return resp.data;
 }
 
 export async function verifyCode(email: string, code: string) {

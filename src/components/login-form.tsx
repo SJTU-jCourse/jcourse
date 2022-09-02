@@ -13,8 +13,8 @@ const LoginForm = () => {
 
   const onFinish = (request: EmailLoginRequest) => {
     verifyCode(request.email, request.code)
-      .then((resp) => {
-        localStorage.setItem("account", resp.data.account);
+      .then((data) => {
+        localStorage.setItem("account", data.account);
         router.push("/");
       })
       .catch((error) => {
@@ -23,14 +23,14 @@ const LoginForm = () => {
   };
 
   const onClick = () => {
-    sendCode(form.getFieldValue("email")).then((resp) => {
-      setTime(60);
-      if (resp.status === 200) {
-        message.success(resp.data.details);
-      } else {
-        message.error(resp.data.details);
-      }
-    });
+    sendCode(form.getFieldValue("email"))
+      .then((data) => {
+        setTime(60);
+        message.success(data.details);
+      })
+      .catch((error) => {
+        message.error(error.response.data.details);
+      });
   };
 
   useEffect(() => {
