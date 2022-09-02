@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 export async function jAccountAuth(code: string, state: string, basePath: string) {
   const redirect_uri =
     window.location.origin + basePath + Config.JACCOUNT_LOGIN_RETURI;
-  const resp = await request("/oauth/jaccount/auth", {
+  const resp = await request("/oauth/jaccount/auth/", {
     params: {
       code,
       state,
@@ -20,7 +20,7 @@ export async function jAccountAuth(code: string, state: string, basePath: string
 export async function jAccountLogin(basePath: string) {
   const rediretUrl =
     window.location.origin + basePath + Config.JACCOUNT_LOGIN_RETURI;
-  window.location.href = `/oauth/jaccount/login?redirect_uri=${rediretUrl}`;
+  window.location.href = `/oauth/jaccount/login/?redirect_uri=${rediretUrl}`;
 }
 
 export async function logout(basePath: string) {
@@ -31,7 +31,7 @@ export async function logout(basePath: string) {
 }
 
 export async function sendCode(email: string) {
-  const resp = await request("/oauth/email/send-code", {
+  const resp = await request("/oauth/email/send-code/", {
     method: "post",
     data: { email },
   });
@@ -39,7 +39,7 @@ export async function sendCode(email: string) {
 }
 
 export async function verifyCode(email: string, code: string) {
-  const resp = await request("/oauth/email/verify", {
+  const resp = await request("/oauth/email/verify/", {
     method: "post",
     data: { email, code },
   });
