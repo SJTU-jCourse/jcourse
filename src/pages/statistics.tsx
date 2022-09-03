@@ -3,6 +3,7 @@ import { Col, Grid, Input, Row, Statistic, Typography } from "antd";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
+import { Line } from "@ant-design/plots";
 
 const { Title } = Typography;
 const { useBreakpoint } = Grid;
@@ -22,8 +23,8 @@ const StatisticPage = () => {
   }, []);
 
   const screens = useBreakpoint();
-  const colSpan = screens.sm ? 6 : 12;
-
+  const numberColSpan = screens.sm ? 6 : 12;
+  const figureColSpan = screens.xs ? 12 : 24;
   return (
     <div className="statistic">
       <Head>
@@ -45,33 +46,55 @@ const StatisticPage = () => {
         justify="space-between"
         align="middle"
       >
-        <Col span={colSpan}>
+        <Col span={numberColSpan}>
           <Statistic
             title="用户数"
             loading={loading}
             value={indexState?.users}
           />
         </Col>
-        <Col span={colSpan}>
+        <Col span={numberColSpan}>
           <Statistic
             title="点评数"
             loading={loading}
             value={indexState?.reviews}
           />
         </Col>
-        <Col span={colSpan}>
+        <Col span={numberColSpan}>
           <Statistic
             title="课程总数"
             loading={loading}
             value={indexState?.courses}
           />
         </Col>
-        <Col span={colSpan}>
+        <Col span={numberColSpan}>
           <Statistic
             title="已点评课程数"
             loading={loading}
             value={indexState?.courses_with_review}
           />
+        </Col>
+      </Row>
+      <Row>
+        <Col span={figureColSpan}>
+          <div style={{ textAlign: "center" }}>新增用户</div>
+          <Line
+            data={indexState?.user_join || []}
+            xField="date"
+            yField="count"
+            slider={{ start: 0, end: 1 }}
+            smooth={true}
+          ></Line>
+        </Col>
+        <Col span={figureColSpan}>
+          <div style={{ textAlign: "center" }}>新增点评</div>
+          <Line
+            data={indexState?.review_create || []}
+            xField="date"
+            yField="count"
+            slider={{ start: 0, end: 1 }}
+            smooth={true}
+          ></Line>
         </Col>
       </Row>
     </div>

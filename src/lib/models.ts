@@ -143,11 +143,18 @@ export type Pagination = {
   pageSize: number;
 };
 
+export type StatisticDateCount = {
+  date: string;
+  count: number;
+};
+
 export type StatisticInfo = {
   courses: number;
   reviews: number;
   users: number;
   courses_with_review: number;
+  user_join: StatisticDateCount[];
+  review_create: StatisticDateCount[];
 };
 
 export type SelectValue = {

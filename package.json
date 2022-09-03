@@ -10,6 +10,7 @@
     "buildcss": "lessc --js --modify-var=\"primary-color=#1DA57A\" ./node_modules/antd/dist/antd.less ./src/styles/antd.css && lessc --js --modify-var=\"primary-color=#1DA57A\" ./node_modules/antd/dist/antd.dark.less ./public/antd-dark.css"
   },
   "dependencies": {
+    "@ant-design/charts": "^1.4.2",
     "ahooks": "^3.7.0",
     "antd": "^4.22.8",
     "axios": "^0.27.2",
