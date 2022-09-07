@@ -15,7 +15,7 @@ const CourseDetailCard = ({
   loading: boolean;
 }>) => {
   const { semesterMap } = useSemesters();
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   return (
     <Card title="课程信息" loading={loading}>
       {course && (
@@ -64,13 +64,13 @@ const CourseDetailCard = ({
               </Descriptions.Item>
             )}
           </Descriptions>
-          <Link onClick={() => setIsModalVisible(true)}>信息有误？</Link>
+          <Link onClick={() => setIsModalOpen(true)}>信息有误？</Link>
           <ReportModal
-            visible={isModalVisible}
+            open={isModalOpen}
             title={"课程信息反馈"}
             defaultComment={`课程：${course.code} ${course.name} ${course.main_teacher.name}\n内部编号：${course.id}\n更改意见：`}
-            onOk={() => setIsModalVisible(false)}
-            onCancel={() => setIsModalVisible(false)}
+            onOk={() => setIsModalOpen(false)}
+            onCancel={() => setIsModalOpen(false)}
           />
         </>
       )}

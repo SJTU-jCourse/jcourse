@@ -11,7 +11,7 @@ const SyncPage = () => {
   const { courses, loading: courseLoading, mutate } = useLessons();
   const router = useRouter();
   const { code, state } = router.query;
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [semester, setSemester] = useState<string>("");
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
 
@@ -30,7 +30,7 @@ const SyncPage = () => {
   }, [router.query]);
 
   const handleClick = () => {
-    setIsModalVisible(true);
+    setIsModalOpen(true);
   };
 
   const handleOk = () => {
@@ -43,7 +43,7 @@ const SyncPage = () => {
     syncLessons(semester)
       .then(() => {
         mutate();
-        setIsModalVisible(false);
+        setIsModalOpen(false);
         setConfirmLoading(false);
       })
       .catch((err) => {
@@ -83,10 +83,10 @@ const SyncPage = () => {
       </Card>
       <Modal
         title="同步说明"
-        visible={isModalVisible}
+        open={isModalOpen}
         onOk={handleOk}
         confirmLoading={confirmLoading}
-        onCancel={() => setIsModalVisible(false)}
+        onCancel={() => setIsModalOpen(false)}
       >
         选择需要同步的学期
         <Select

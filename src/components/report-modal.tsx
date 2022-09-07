@@ -5,13 +5,13 @@ import Link from "next/link";
 const { TextArea } = Input;
 const { Text } = Typography;
 const ReportModal = ({
-  visible,
+  open,
   defaultComment,
   title,
   onOk,
   onCancel,
 }: {
-  visible: boolean;
+  open: boolean;
   defaultComment?: string;
   title?: string;
   onOk?: () => void;
@@ -31,7 +31,7 @@ const ReportModal = ({
   return (
     <Modal
       title={title || "期待收到你的建议！"}
-      visible={visible}
+      open={open}
       onOk={onOk}
       onCancel={onCancel}
       footer={null}

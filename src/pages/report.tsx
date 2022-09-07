@@ -8,7 +8,7 @@ import Head from "next/head";
 const ReportPage = () => {
   const { reports, loading, mutate } = useReports();
 
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   return (
     <PageHeader title="我的反馈" onBack={() => history.back()}>
@@ -18,7 +18,7 @@ const ReportPage = () => {
       <Card
         title={`共有${reports ? reports.length : 0}条反馈`}
         extra={
-          <Button type="primary" onClick={() => setIsModalVisible(true)}>
+          <Button type="primary" onClick={() => setIsModalOpen(true)}>
             提交反馈
           </Button>
         }
@@ -30,12 +30,12 @@ const ReportPage = () => {
         ></ReportList>
       </Card>
       <ReportModal
-        visible={isModalVisible}
+        open={isModalOpen}
         onOk={() => {
-          setIsModalVisible(false);
+          setIsModalOpen(false);
           mutate();
         }}
-        onCancel={() => setIsModalVisible(false)}
+        onCancel={() => setIsModalOpen(false)}
       />
     </PageHeader>
   );

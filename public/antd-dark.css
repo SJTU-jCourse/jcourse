@@ -15406,6 +15406,10 @@ textarea.ant-input-number {
 .ant-input-number-borderless .ant-input-number-handler-down {
   border-top-width: 0;
 }
+.ant-input-number:hover:not(.ant-input-number-borderless) .ant-input-number-handler-down,
+.ant-input-number-focused:not(.ant-input-number-borderless) .ant-input-number-handler-down {
+  border-top: 1px solid #434343;
+}
 .ant-input-number-handler-up-disabled,
 .ant-input-number-handler-down-disabled {
   cursor: not-allowed;
@@ -16432,8 +16436,8 @@ textarea.ant-mentions {
 .ant-menu-submenu-title.ant-menu-item-only-child > .ant-menu-item-icon {
   margin-right: 0;
 }
-.ant-menu-item:focus-visible,
-.ant-menu-submenu-title:focus-visible {
+.ant-menu-item:not(.ant-menu-item-disabled):focus-visible,
+.ant-menu-submenu-title:not(.ant-menu-item-disabled):focus-visible {
   box-shadow: 0 0 0 2px #132f27;
 }
 .ant-menu > .ant-menu-item-divider {
@@ -18643,7 +18647,7 @@ textarea.ant-pagination-options-quick-jumper input {
   margin-bottom: 4px;
   text-align: right;
 }
-.ant-popover-buttons button {
+.ant-popover-buttons button:not(:first-child) {
   margin-left: 8px;
 }
 .ant-popover-arrow {
@@ -23430,7 +23434,7 @@ tr.ant-table-expanded-row .ant-descriptions-view table {
   margin: 0 0 0 32px;
 }
 .ant-tabs-content {
-  display: flex;
+  position: relative;
   width: 100%;
 }
 .ant-tabs-content-holder {
@@ -23438,13 +23442,33 @@ tr.ant-table-expanded-row .ant-descriptions-view table {
   min-width: 0;
   min-height: 0;
 }
-.ant-tabs-content-animated {
-  transition: margin 0.3s;
+.ant-tabs-tabpane-hidden {
+  display: none;
 }
-.ant-tabs-tabpane {
-  flex: none;
-  width: 100%;
-  outline: none;
+.ant-tabs-switch-appear,
+.ant-tabs-switch-enter {
+  transition: none;
+}
+.ant-tabs-switch-appear-start,
+.ant-tabs-switch-enter-start {
+  opacity: 0;
+}
+.ant-tabs-switch-appear-active,
+.ant-tabs-switch-enter-active {
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+.ant-tabs-switch-leave {
+  position: absolute;
+  transition: none;
+  inset: 0;
+}
+.ant-tabs-switch-leave-start {
+  opacity: 1;
+}
+.ant-tabs-switch-leave-active {
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 .ant-tag {
   box-sizing: border-box;
