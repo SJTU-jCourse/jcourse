@@ -34,32 +34,41 @@ const LoginPage = () => {
     });
   }
 
+  const tabItems = [
+    {
+      label: "快速登录",
+      key: "jaccount",
+      children: (
+        <div style={{ height: "168px", display: "flex" }}>
+          <Button
+            style={{
+              width: "100%",
+              alignSelf: "center",
+            }}
+            size="large"
+            type="primary"
+            loading={code ? true : false}
+            onClick={() => jAccountLogin(router.basePath)}
+          >
+            使用 jAccount 登录
+          </Button>
+        </div>
+      ),
+    },
+    {
+      label: "邮箱登录",
+      key: "email",
+      children: (
+        <div style={{ height: "168px" }}>
+          <LoginForm />
+        </div>
+      ),
+    },
+  ];
+
   return (
     <div style={{ minWidth: "324px", marginInline: "auto" }}>
-      <Tabs defaultActiveKey="jaccount" centered>
-        <Tabs.TabPane tab="快速登录" key="jaccount">
-          <div style={{ height: "168px", display: "flex" }}>
-            <Button
-              style={{
-                width: "100%",
-                alignSelf: "center",
-              }}
-              size="large"
-              type="primary"
-              loading={code ? true : false}
-              onClick={() => jAccountLogin(router.basePath)}
-            >
-              使用 jAccount 登录
-            </Button>
-          </div>
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="邮箱登录" key="email">
-          <div style={{ height: "168px" }}>
-            <LoginForm />
-          </div>
-        </Tabs.TabPane>
-      </Tabs>
-
+      <Tabs defaultActiveKey="jaccount" centered items={tabItems}></Tabs>
       <div style={{ textAlign: "center", marginTop: 16 }}>
         <Text>
           登录即表示您已阅读并同意本站

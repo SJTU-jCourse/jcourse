@@ -21590,7 +21590,7 @@ span.ant-radio + * {
   height: 22px;
   line-height: 22px;
   vertical-align: middle;
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), linear-gradient(to right, #fff, #fff);
+  background-color: rgba(0, 0, 0, 0.25);
   border: 0;
   border-radius: 100px;
   cursor: pointer;
@@ -21608,7 +21608,7 @@ span.ant-radio + * {
   box-shadow: none;
 }
 .ant-switch-checked {
-  background: #1DA57A;
+  background-color: #1DA57A;
 }
 .ant-switch-loading,
 .ant-switch-disabled {
