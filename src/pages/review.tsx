@@ -25,6 +25,8 @@ import { useUser } from "@/services/user";
 import MDEditor from "@/components/md-editor";
 
 const { Text } = Typography;
+const ReviewTemplate: string =
+  "课程内容：\n\n上课自由度：\n\n考核标准：\n\n授课质量：";
 
 const ReviewPage = () => {
   const { user } = useUser();
@@ -234,14 +236,13 @@ const ReviewPage = () => {
                 required: true,
                 validator: (_, value: string) => {
                   const trimed = value.trim();
-                  return trimed != "" &&
-                    trimed != "课程内容：\n上课自由度：\n考核标准：\n讲课质量："
+                  return trimed != "" && trimed != ReviewTemplate
                     ? Promise.resolve()
                     : Promise.reject();
                 },
               },
             ]}
-            initialValue={"课程内容：\n上课自由度：\n考核标准：\n讲课质量：\n"}
+            initialValue={ReviewTemplate}
             help={
               <Text type="secondary">
                 欢迎畅所欲言。点评模板可以按需修改或删除。编辑框支持 Markdown 语法。

@@ -19,7 +19,8 @@ const MDEditor = ({
     <Row gutter={16}>
       <Col span={span}>
         <Input.TextArea
-          autoSize
+          autoSize={{ minRows: 10 }}
+          showCount
           maxLength={1926}
           onChange={onTextChange}
           value={value}
