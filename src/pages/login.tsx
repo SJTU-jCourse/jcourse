@@ -1,5 +1,5 @@
 import AboutCard from "@/components/about-card";
-import { jAccountAuth, jAccountLogin } from "@/services/user";
+import { jAccountAuth, jAccountLogin, postLogin } from "@/services/user";
 import { Button, Modal, Typography, message, Tabs } from "antd";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
@@ -10,13 +10,17 @@ const { Link, Text } = Typography;
 const LoginPage = () => {
   const router = useRouter();
   const [modal, contextHolder] = Modal.useModal();
-  const { code, state } = router.query;
+  const { code, state, next } = router.query;
   useEffect(() => {
     if (code) {
-      jAccountAuth(code as string, state as string, router.basePath)
+      jAccountAuth(
+        code as string,
+        state as string,
+        router.basePath,
+        next as string
+      )
         .then((data) => {
-          localStorage.setItem("account", data.account);
-          router.push("/");
+          postLogin(data, router);
         })
         .catch(() => {
           message.error("参数错误！");
@@ -48,7 +52,7 @@ const LoginPage = () => {
             size="large"
             type="primary"
             loading={code ? true : false}
-            onClick={() => jAccountLogin(router.basePath)}
+            onClick={() => jAccountLogin(router.basePath, next as string)}
           >
             使用 jAccount 登录
           </Button>

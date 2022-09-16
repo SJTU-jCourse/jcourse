@@ -1,5 +1,5 @@
 import { EmailLoginRequest } from "@/lib/models";
-import { sendCode, verifyCode } from "@/services/user";
+import { postLogin, sendCode, verifyCode } from "@/services/user";
 import { Button, Form, Input, message } from "antd";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
@@ -14,8 +14,7 @@ const LoginForm = () => {
   const onFinish = (request: EmailLoginRequest) => {
     verifyCode(request.email, request.code)
       .then((data) => {
-        localStorage.setItem("account", data.account);
-        router.push("/");
+        postLogin(data, router);
       })
       .catch((error) => {
         message.error(error.response.data.details);

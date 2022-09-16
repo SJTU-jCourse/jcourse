@@ -180,3 +180,7 @@ export type EmailLoginRequest = {
   email: string;
   code: string;
 };
+
+export type LoginResponse = {
+  account: string;
+};

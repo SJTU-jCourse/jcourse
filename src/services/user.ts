@@ -1,16 +1,20 @@
 import useSWR from "swr";
 import Config from "@/config/config";
-import { User, UserPoint } from "@/lib/models";
+import { LoginResponse, User, UserPoint } from "@/lib/models";
 import { fetcher, request } from "@/services/request";
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 
 export async function jAccountAuth(
   code: string,
   state: string,
-  basePath: string
-) {
-  const redirect_uri =
+  basePath: string,
+  next: string
+): Promise<LoginResponse> {
+  let redirect_uri =
     window.location.origin + basePath + Config.JACCOUNT_LOGIN_RETURI;
+  if (next) {
+    redirect_uri += "?next=" + next;
+  }
   const resp = await request("/oauth/jaccount/auth/", {
     params: {
       code,
@@ -21,10 +25,13 @@ export async function jAccountAuth(
   return resp.data;
 }
 
-export async function jAccountLogin(basePath: string) {
-  const rediretUrl =
+export async function jAccountLogin(basePath: string, next: string) {
+  let redirect_uri =
     window.location.origin + basePath + Config.JACCOUNT_LOGIN_RETURI;
-  window.location.href = `/oauth/jaccount/login/?redirect_uri=${rediretUrl}`;
+  if (next) {
+    redirect_uri += "?next=" + next;
+  }
+  window.location.href = `/oauth/jaccount/login/?redirect_uri=${redirect_uri}`;
 }
 
 export async function logout(basePath: string) {
@@ -42,7 +49,10 @@ export async function sendCode(email: string) {
   return resp.data;
 }
 
-export async function verifyCode(email: string, code: string) {
+export async function verifyCode(
+  email: string,
+  code: string
+): Promise<LoginResponse> {
   const resp = await request("/oauth/email/verify/", {
     method: "post",
     data: { email, code },
@@ -54,7 +64,8 @@ export function useUser() {
   const { data, error } = useSWR<User>("/api/me/", fetcher);
   const router = useRouter();
   if (error?.response?.status == 403) {
-    router.push({ pathname: "/login" });
+    const pathname = window.location.pathname;
+    router.push({ pathname: "/login", query: { next: pathname } });
   }
   if (data) data.account = localStorage.getItem("account");
   return {
@@ -75,4 +86,13 @@ export function useUserPoint() {
 
 export function toAdmin() {
   window.location.href = "/admin/";
+}
+
+export function postLogin(data: LoginResponse, router: NextRouter) {
+  localStorage.setItem("account", data.account);
+  if (router.query.next) {
+    router.push(router.query.next as string);
+  } else {
+    router.push("/");
+  }
 }
