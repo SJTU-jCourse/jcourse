@@ -24832,6 +24832,9 @@ tr.ant-table-expanded-row .ant-descriptions-view table {
 .ant-tree-treenode:hover .ant-tree .ant-tree-treenode-draggable .ant-tree-draggable-icon {
   opacity: 0.45;
 }
+.ant-tree .ant-tree-treenode-draggable.ant-tree-treenode-disabled .ant-tree-draggable-icon {
+  visibility: hidden;
+}
 .ant-tree-indent {
   align-self: stretch;
   white-space: nowrap;
@@ -25310,6 +25313,9 @@ tr.ant-table-expanded-row .ant-descriptions-view table {
 }
 .ant-select-tree-treenode:hover .ant-select-tree .ant-select-tree-treenode-draggable .ant-select-tree-draggable-icon {
   opacity: 0.45;
+}
+.ant-select-tree .ant-select-tree-treenode-draggable.ant-select-tree-treenode-disabled .ant-select-tree-draggable-icon {
+  visibility: hidden;
 }
 .ant-select-tree-indent {
   align-self: stretch;
