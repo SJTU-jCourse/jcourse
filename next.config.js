@@ -3,7 +3,6 @@ const nextConfig = {
   output: "standalone",
   basePath: process.env.BASE_PATH || undefined,
   reactStrictMode: true,
-  swcMinify: true,
   async redirects() {
     return [
       {
