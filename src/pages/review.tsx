@@ -55,6 +55,9 @@ const ReviewPage = () => {
           if (error.response.status == 400 && error.response.data) {
             message.error(error.response.data.error);
           }
+          if (error.response.status == 403 && error.response.data.detail) {
+            message.error(error.response.data.detail);
+          }
         });
     } else {
       writeReview(review)
@@ -68,6 +71,9 @@ const ReviewPage = () => {
         .catch((error) => {
           if (error.response.status == 400 && error.response.data) {
             message.error(error.response.data.error);
+          }
+          if (error.response.status == 403 && error.response.data.detail) {
+            message.error(error.response.data.detail);
           }
         });
     }
@@ -245,7 +251,8 @@ const ReviewPage = () => {
             initialValue={ReviewTemplate}
             help={
               <Text type="secondary">
-                欢迎畅所欲言。点评模板可以按需修改或删除。编辑框支持 Markdown 语法。
+                欢迎畅所欲言。点评模板可以按需修改或删除。编辑框支持 Markdown
+                语法。
                 <br />
                 理想的点评应当富有事实且对课程有全面的描述。比如课讲得好但是考核很严格，或者作业奇葩但给分很高。
                 二者都说出来更有利于同学们做出全面的选择和判断。
