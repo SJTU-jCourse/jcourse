@@ -1,13 +1,17 @@
-import { Notice } from "@/lib/models";
+import { Announcement } from "@/lib/models";
 import { Alert, List } from "antd";
-const NoticeList = ({ notices }: { notices: Notice[] }) => {
+const AnnouncementList = ({
+  announcements,
+}: {
+  announcements: Announcement[];
+}) => {
   return (
     <List
       className="notice-list"
-      dataSource={notices}
+      dataSource={announcements}
       split={false}
       itemLayout="vertical"
-      renderItem={(notice: Notice) => {
+      renderItem={(notice: Announcement) => {
         return (
           <List.Item key={notice.created} className="notice-item">
             <Alert
@@ -28,4 +32,4 @@ const NoticeList = ({ notices }: { notices: Notice[] }) => {
     />
   );
 };
-export default NoticeList;
+export default AnnouncementList;

@@ -1,5 +1,5 @@
-import NoticeList from "@/components/notice-list";
-import { useNotices } from "@/services/notice";
+import AnnouncementList from "@/components/announcement-list";
+import { useAnnouncements } from "@/services/announcement";
 import { Layout, Space } from "antd";
 
 import React from "react";
@@ -9,7 +9,7 @@ import NavBar from "@/components/navbar";
 const { Header, Content, Footer } = Layout;
 
 export const BasicLayout = ({ children }: React.PropsWithChildren<{}>) => {
-  const { notices } = useNotices();
+  const { announcements } = useAnnouncements();
 
   return (
     <Layout className="basic-layout">
@@ -18,7 +18,9 @@ export const BasicLayout = ({ children }: React.PropsWithChildren<{}>) => {
       </Header>
 
       <Content className="content">
-        {notices && notices.length > 0 && <NoticeList notices={notices} />}
+        {announcements && announcements.length > 0 && (
+          <AnnouncementList announcements={announcements} />
+        )}
         {children}
       </Content>
       <Footer className="footer">

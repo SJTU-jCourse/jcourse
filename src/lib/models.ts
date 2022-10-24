@@ -62,7 +62,7 @@ export type Filters = {
   categories: Filter[];
   departments: Filter[];
 };
-export type Notice = {
+export type Announcement = {
   title: string;
   message: string;
   created: string;
