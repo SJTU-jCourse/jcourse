@@ -32,7 +32,7 @@ const SearchPage = () => {
       message.info("请输入搜索内容");
       return;
     }
-    router.push({ query: { q: value } });
+    router.push({ query: { q: value.trim() } });
   };
 
   const onPageChange = (page: number, pageSize: number) => {
