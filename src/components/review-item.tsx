@@ -42,10 +42,8 @@ const ReviewItem = ({
         {review.course && (
           <Space wrap>
             <Link href={"/course/" + review.course.id}>
-              <a>
-                {review.course.code} {review.course.name}（
-                {review.course.teacher}）
-              </a>
+              {review.course.code} {review.course.name}（{review.course.teacher}
+              ）
             </Link>
           </Space>
         )}
@@ -71,9 +69,7 @@ const ReviewItem = ({
         </Space>
         <MDPreview className="comment" src={review.comment} />
         {review.is_mine && (
-          <Link href={`/review?review_id=${review.id}`}>
-            <a>修改点评</a>
-          </Link>
+          <Link href={`/review?review_id=${review.id}`}>修改点评</Link>
         )}
       </Space>
     </List.Item>

@@ -52,8 +52,8 @@ const NavBar = () => {
   return (
     <Row className="navbar">
       <Col>
-        <Link href="/">
-          <a className="title">SJTU选课社区</a>
+        <Link href="/" className="title">
+          SJTU选课社区
         </Link>
       </Col>
 

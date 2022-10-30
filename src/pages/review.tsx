@@ -290,7 +290,7 @@ const ReviewPage = () => {
               <Text type="secondary">
                 提交点评表示您同意授权本网站使用点评的内容，并且了解本站的
                 <Link target="_blank" href="/faq">
-                  <a>相关立场</a>
+                  相关立场
                 </Link>
                 。
               </Text>

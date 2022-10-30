@@ -56,10 +56,8 @@ const CourseList = ({
               title={
                 <Space align="center">
                   <Link href={"/course/" + course.id}>
-                    <a>
-                      {course.code + " "}
-                      {course.name}（{course.teacher}）
-                    </a>
+                    {course.code + " "}
+                    {course.name}（{course.teacher}）
                   </Link>
                 </Space>
               }

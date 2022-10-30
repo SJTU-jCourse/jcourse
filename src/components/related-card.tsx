@@ -23,9 +23,7 @@ export const RelatedTeacher = ({
         renderItem={(item) => (
           <List.Item>
             <Space align="center" wrap>
-              <Link href={"/course/" + item.id}>
-                <a>{item.tname}</a>
-              </Link>
+              <Link href={"/course/" + item.id}>{item.tname}</Link>
               {item.count > 0 && (
                 <span>
                   <Text strong>{item.avg?.toFixed(1)}</Text>

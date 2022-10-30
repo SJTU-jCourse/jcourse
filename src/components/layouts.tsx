@@ -25,15 +25,9 @@ export const BasicLayout = ({ children }: React.PropsWithChildren<{}>) => {
       </Content>
       <Footer className="footer">
         <Space>
-          <Link href="/about">
-            <a>关于</a>
-          </Link>
-          <Link href="/faq">
-            <a>常见问题</a>
-          </Link>
-          <Link href="/report">
-            <a>反馈</a>
-          </Link>
+          <Link href="/about">关于</Link>
+          <Link href="/faq">常见问题</Link>
+          <Link href="/report">反馈</Link>
         </Space>
         <div>©2022 SJTU选课社区</div>
       </Footer>
