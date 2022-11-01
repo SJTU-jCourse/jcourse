@@ -72,10 +72,10 @@ export async function modifyReview(review_id: string, draft: ReviewDraft) {
   return resp;
 }
 
-export async function doReviewAction(id: number, action: number) {
+export async function doReviewReaction(id: number, reaction: number) {
   const resp = await request(`/api/review/${id}/reaction/`, {
     method: "post",
-    data: { action },
+    data: { reaction },
   });
   return resp.data;
 }

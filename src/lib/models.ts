@@ -83,9 +83,9 @@ export type CourseInReview = {
   semester: number | null;
 };
 
-export type ReviewAction = {
+export type ReviewReaction = {
   id: number;
-  action?: number;
+  reaction?: number;
   approves: number;
   disapproves: number;
 };
@@ -97,7 +97,7 @@ export type Review = {
   comment: string;
   created: string;
   modified: string | null;
-  actions: { approves: number; disapproves: number; action: number };
+  reactions: { approves: number; disapproves: number; reaction: number };
   score: number | string;
   moderator_remark: string | null;
   is_mine: boolean;
@@ -130,12 +130,6 @@ export type UserPoint = {
   first_reviews_approves: number;
   addition: number;
   details: UserPointDetailItem[];
-};
-export type Action = {
-  review: number;
-  action: number;
-  approves: number;
-  disapproves: number;
 };
 
 export type Pagination = {

@@ -1,9 +1,9 @@
 import { Review } from "@/lib/models";
-import { doReviewAction } from "@/services/review";
+import { doReviewReaction } from "@/services/review";
 import { Alert, List, Space, Tooltip } from "antd";
 import Link from "next/link";
 import MDPreview from "./md-preview";
-import ReviewActionButton from "./review-action-button";
+import ReviewReactionButton from "./review-reaction-button";
 
 const ReviewItem = ({
   review,
@@ -23,12 +23,12 @@ const ReviewItem = ({
         >
           <div>{review.modified}</div>
         </Tooltip>,
-        <ReviewActionButton
-          key="action"
-          onAction={doReviewAction}
-          actionProps={{
+        <ReviewReactionButton
+          key="reaction"
+          onReaction={doReviewReaction}
+          reactionProps={{
             id: review.id,
-            ...review.actions,
+            ...review.reactions,
           }}
         />,
         <div key="id">{"#" + review.id}</div>,
