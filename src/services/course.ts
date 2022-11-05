@@ -5,6 +5,7 @@ import {
   CourseListItem,
   CoursesFilterParams,
   Filters,
+  NotificationLevel,
   Pagination,
   PaginationApiResult,
 } from "@/lib/models";
@@ -82,6 +83,34 @@ export function useCourseDetail(id: string) {
   );
   return {
     course: data,
+    loading: !error && !data,
+    error: error,
+  };
+}
+
+export async function changeCourseNotificationLevel(
+  course_id: number,
+  level: NotificationLevel
+) {
+  const resp = await request.post(
+    `/api/course/${course_id}/notification_level`,
+    {
+      level,
+    }
+  );
+  return resp.data;
+}
+
+export function useFollowingCourseList(
+  level: NotificationLevel,
+  pagination: Pagination
+) {
+  const { data, error } = useSWR<PaginationApiResult<CourseListItem>>(
+    `/api/course/?notification_level=${level}&page=${pagination.page}&size=${pagination.pageSize}`,
+    fetcher
+  );
+  return {
+    courses: data,
     loading: !error && !data,
     error: error,
   };

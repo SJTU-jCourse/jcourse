@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import {
+  NotificationLevel,
   Pagination,
   PaginationApiResult,
   Review,
@@ -11,6 +12,18 @@ import { fetcher, request } from "@/services/request";
 export function useReviews(pagination: Pagination) {
   const { data, error } = useSWR<PaginationApiResult<Review>>(
     `/api/review/?page=${pagination.page}&size=${pagination.pageSize}`,
+    fetcher
+  );
+  return {
+    reviews: data,
+    loading: !error && !data,
+    error: error,
+  };
+}
+
+export function useFollowedReviews(pagination: Pagination) {
+  const { data, error } = useSWR<PaginationApiResult<Review>>(
+    `/api/review/?page=${pagination.page}&size=${pagination.pageSize}&notification_level=${NotificationLevel.FOLLOW}`,
     fetcher
   );
   return {

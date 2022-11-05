@@ -50,6 +50,7 @@ export type CourseDetail = {
   }[];
   semester: number | null;
   is_reviewed: number | null;
+  notification_level: NotificationLevel | null;
 };
 
 export type Filter = {
@@ -188,3 +189,9 @@ export type ReviewRevision = {
   score: string | null;
   course: CourseInReview;
 };
+
+export enum NotificationLevel {
+  NORMAL = 0,
+  FOLLOW = 1,
+  IGNORE = 2,
+}
