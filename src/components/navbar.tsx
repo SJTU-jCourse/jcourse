@@ -9,6 +9,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Button, Col, Dropdown, Grid, Menu, Row } from "antd";
+import type { MenuProps } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -32,7 +33,7 @@ const NavBar = () => {
       router.push("/point");
     }
   };
-  const dropMenuItems = [
+  const dropMenuItems: MenuProps["items"] = [
     {
       key: "account",
       label: user?.account,
@@ -86,9 +87,7 @@ const NavBar = () => {
 
       <Col>
         <Dropdown
-          overlay={
-            <Menu onClick={handleMenuClick} items={dropMenuItems}></Menu>
-          }
+          menu={{ onClick: handleMenuClick, items: dropMenuItems }}
           placement="bottom"
         >
           <Button shape="circle" icon={<UserOutlined />}></Button>
