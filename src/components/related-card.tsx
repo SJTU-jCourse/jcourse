@@ -58,9 +58,7 @@ export const RelatedCourse = ({
           <List.Item>
             <Space align="center" wrap>
               <Link href={"/course/" + item.id}>
-                <a>
-                  {item.code} {item.name}
-                </a>
+                {item.code} {item.name}
               </Link>
               {item.count > 0 && (
                 <span>
