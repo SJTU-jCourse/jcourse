@@ -13,91 +13,96 @@ const ReviewItem = ({
 }: React.PropsWithChildren<{ review: Review }>) => {
   const [revisionModalOpen, setRevisionModalOpen] = useState<boolean>(false);
   return (
-    <List.Item
-      key={review.id}
-      className={"review-item"}
-      actions={[
-        <Tooltip
-          key="time"
-          title={
-            review.modified != review.created
-              ? "首发于" + review.created
-              : undefined
-          }
-        >
-          <div
-            onClick={() => {
-              setRevisionModalOpen(true);
-            }}
+    <UserContext.Consumer>
+      {(user) => {
+        return (
+          <List.Item
+            key={review.id}
+            className={"review-item"}
+            actions={[
+              <Tooltip
+                key="time"
+                title={
+                  review.modified != review.created
+                    ? "首发于" + review.created
+                    : undefined
+                }
+              >
+                <div
+                  onClick={() => {
+                    if (user?.is_staff) {
+                      setRevisionModalOpen(true);
+                    }
+                  }}
+                >
+                  {review.modified}
+                </div>
+              </Tooltip>,
+              <ReviewReactionButton
+                key="reaction"
+                onReaction={doReviewReaction}
+                reactionProps={{
+                  id: review.id,
+                  ...review.reactions,
+                }}
+              />,
+              <div key="id">{"#" + review.id}</div>,
+            ]}
           >
-            {review.modified}
-          </div>
-        </Tooltip>,
-        <ReviewReactionButton
-          key="reaction"
-          onReaction={doReviewReaction}
-          reactionProps={{
-            id: review.id,
-            ...review.reactions,
-          }}
-        />,
-        <div key="id">{"#" + review.id}</div>,
-      ]}
-    >
-      {revisionModalOpen && (
-        <ReviewRevisionViewModal
-          review={review}
-          open={revisionModalOpen}
-          onCancel={() => {
-            setRevisionModalOpen(false);
-          }}
-        ></ReviewRevisionViewModal>
-      )}
-      <Space direction="vertical" className="review-body">
-        {review.moderator_remark && (
-          <Alert message={review.moderator_remark} type="warning" showIcon />
-        )}
-
-        {review.course && (
-          <Space wrap>
-            <Link href={"/course/" + review.course.id}>
-              {review.course.code} {review.course.name}（{review.course.teacher}
-              ）
-            </Link>
-          </Space>
-        )}
-        <Space wrap>
-          <span>
-            <strong>推荐指数：</strong>
-            {review.rating}
-          </span>
-          {review.semester && (
-            <span>
-              <>
-                <strong>学期：</strong>
-                {review.semester}
-              </>
-            </span>
-          )}
-          {review.score && (
-            <span>
-              <strong>成绩：</strong>
-              {review.score}
-            </span>
-          )}
-        </Space>
-        <MDPreview className="comment" src={review.comment} />
-        <UserContext.Consumer>
-          {(user) => {
-            return (
-              (review.is_mine || user?.is_staff) && (
+            {user?.is_staff && revisionModalOpen && (
+              <ReviewRevisionViewModal
+                review={review}
+                open={revisionModalOpen}
+                onCancel={() => {
+                  setRevisionModalOpen(false);
+                }}
+              ></ReviewRevisionViewModal>
+            )}
+            <Space direction="vertical" className="review-body">
+              {review.moderator_remark && (
+                <Alert
+                  message={review.moderator_remark}
+                  type="warning"
+                  showIcon
+                />
+              )}
+              {review.course && (
+                <Space wrap>
+                  <Link href={"/course/" + review.course.id}>
+                    {review.course.code} {review.course.name}（
+                    {review.course.teacher}）
+                  </Link>
+                </Space>
+              )}
+              <Space wrap>
+                <span>
+                  <strong>推荐指数：</strong>
+                  {review.rating}
+                </span>
+                {review.semester && (
+                  <span>
+                    <>
+                      <strong>学期：</strong>
+                      {review.semester}
+                    </>
+                  </span>
+                )}
+                {review.score && (
+                  <span>
+                    <strong>成绩：</strong>
+                    {review.score}
+                  </span>
+                )}
+              </Space>
+              <MDPreview className="comment" src={review.comment} />
+              {(review.is_mine || user?.is_staff) && (
                 <Link href={`/review?review_id=${review.id}`}>修改点评</Link>
-              )
-            );
-          }}
-        </UserContext.Consumer>
-      </Space>
-    </List.Item>
+              )}
+            </Space>
+          </List.Item>
+        );
+      }}
+    </UserContext.Consumer>
   );
 };
 
