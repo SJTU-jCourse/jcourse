@@ -24,7 +24,7 @@ const StatisticPage = () => {
 
   const screens = useBreakpoint();
   const numberColSpan = screens.sm ? 6 : 12;
-  const figureColSpan = screens.xs ? 12 : 24;
+  const figureColSpan = screens.xs ? 24 : 12;
   return (
     <div className="statistic">
       <Head>
