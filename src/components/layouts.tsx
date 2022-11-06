@@ -5,23 +5,26 @@ import { Layout, Space } from "antd";
 import React from "react";
 import Link from "next/link";
 import NavBar from "@/components/navbar";
+import { useUser } from "@/services/user";
+import { UserContext } from "@/lib/context";
 
 const { Header, Content, Footer } = Layout;
 
 export const BasicLayout = ({ children }: React.PropsWithChildren<{}>) => {
   const { announcements } = useAnnouncements();
+  const { user } = useUser();
 
   return (
     <Layout className="basic-layout">
       <Header className="header">
-        <NavBar />
+        <NavBar user={user} />
       </Header>
 
       <Content className="content">
         {announcements && announcements.length > 0 && (
           <AnnouncementList announcements={announcements} />
         )}
-        {children}
+        <UserContext.Provider value={user}>{children}</UserContext.Provider>
       </Content>
       <Footer className="footer">
         <Space>

@@ -12,12 +12,12 @@ import { Button, Col, Dropdown, Grid, Menu, Row } from "antd";
 import type { MenuProps } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { User } from "@/lib/models";
 
 const { useBreakpoint } = Grid;
 
-const NavBar = () => {
+const NavBar = ({ user }: { user?: User }) => {
   const router = useRouter();
-  const { user } = useUser();
 
   const screens = useBreakpoint();
   const handleMenuClick = (e: { key: string }) => {

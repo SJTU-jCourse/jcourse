@@ -1,3 +1,4 @@
+import { UserContext } from "@/lib/context";
 import { Review } from "@/lib/models";
 import { doReviewReaction } from "@/services/review";
 import { Alert, List, Space, Tooltip } from "antd";
@@ -68,9 +69,15 @@ const ReviewItem = ({
           )}
         </Space>
         <MDPreview className="comment" src={review.comment} />
-        {review.is_mine && (
-          <Link href={`/review?review_id=${review.id}`}>修改点评</Link>
-        )}
+        <UserContext.Consumer>
+          {(user) => {
+            return (
+              (review.is_mine || user?.is_staff) && (
+                <Link href={`/review?review_id=${review.id}`}>修改点评</Link>
+              )
+            );
+          }}
+        </UserContext.Consumer>
       </Space>
     </List.Item>
   );
