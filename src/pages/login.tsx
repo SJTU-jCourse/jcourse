@@ -1,6 +1,6 @@
 import AboutCard from "@/components/about-card";
 import { jAccountAuth, jAccountLogin, postLogin } from "@/services/user";
-import { Button, Modal, Typography, message, Tabs } from "antd";
+import { Button, Modal, Typography, message, Tabs, Grid } from "antd";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import LoginForm from "@/components/login-form";
@@ -11,6 +11,7 @@ const LoginPage = () => {
   const router = useRouter();
   const [modal, contextHolder] = Modal.useModal();
   const { code, state, next } = router.query;
+  const screens = Grid.useBreakpoint();
   useEffect(() => {
     if (code) {
       jAccountAuth(
@@ -35,6 +36,7 @@ const LoginPage = () => {
       content: <AboutCard />,
       okText: "确认",
       icon: null,
+      width: screens.md ? "80%" : 520,
     });
   }
 
