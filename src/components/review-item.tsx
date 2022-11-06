@@ -3,12 +3,15 @@ import { Review } from "@/lib/models";
 import { doReviewReaction } from "@/services/review";
 import { Alert, List, Space, Tooltip } from "antd";
 import Link from "next/link";
+import { useState } from "react";
 import MDPreview from "./md-preview";
 import ReviewReactionButton from "./review-reaction-button";
+import ReviewRevisionViewModal from "./review-revision-modal";
 
 const ReviewItem = ({
   review,
 }: React.PropsWithChildren<{ review: Review }>) => {
+  const [revisionModalOpen, setRevisionModalOpen] = useState<boolean>(false);
   return (
     <List.Item
       key={review.id}
@@ -22,7 +25,13 @@ const ReviewItem = ({
               : undefined
           }
         >
-          <div>{review.modified}</div>
+          <div
+            onClick={() => {
+              setRevisionModalOpen(true);
+            }}
+          >
+            {review.modified}
+          </div>
         </Tooltip>,
         <ReviewReactionButton
           key="reaction"
@@ -35,6 +44,15 @@ const ReviewItem = ({
         <div key="id">{"#" + review.id}</div>,
       ]}
     >
+      {revisionModalOpen && (
+        <ReviewRevisionViewModal
+          review={review}
+          open={revisionModalOpen}
+          onCancel={() => {
+            setRevisionModalOpen(false);
+          }}
+        ></ReviewRevisionViewModal>
+      )}
       <Space direction="vertical" className="review-body">
         {review.moderator_remark && (
           <Alert message={review.moderator_remark} type="warning" showIcon />

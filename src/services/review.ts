@@ -4,6 +4,7 @@ import {
   PaginationApiResult,
   Review,
   ReviewDraft,
+  ReviewRevision,
 } from "@/lib/models";
 import { fetcher, request } from "@/services/request";
 
@@ -78,4 +79,16 @@ export async function doReviewReaction(id: number, reaction: number) {
     data: { reaction },
   });
   return resp.data;
+}
+
+export function useReviewRevisions(id: number) {
+  const { data, error } = useSWR<PaginationApiResult<ReviewRevision>>(
+    id ? `/api/review/${id}/revision/` : null,
+    fetcher
+  );
+  return {
+    revisions: data,
+    loading: !error && !data,
+    error: error,
+  };
 }

@@ -178,3 +178,13 @@ export type EmailLoginRequest = {
 export type LoginResponse = {
   account: string;
 };
+
+export type ReviewRevision = {
+  id: number;
+  semester: string;
+  rating: number;
+  comment: string;
+  created: string;
+  score: string | null;
+  course: CourseInReview;
+};
