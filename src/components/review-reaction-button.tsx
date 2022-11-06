@@ -11,14 +11,16 @@ const ReviewReactionButton = ({
   onReaction,
   reactionProps,
 }: {
-  onReaction: Function;
+  onReaction: (reaction_id: number, reaction: number) => void;
   reactionProps: ReviewReaction;
 }) => {
   const [approves, setApproves] = useState<number>(reactionProps.approves);
   const [disapproves, setDisapproves] = useState<number>(
     reactionProps.disapproves
   );
-  const [myReaction, setMyReaction] = useState<number>(reactionProps.reaction || 0);
+  const [myReaction, setMyReaction] = useState<number>(
+    reactionProps.reaction || 0
+  );
   return (
     <Space>
       <Button
