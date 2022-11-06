@@ -30,7 +30,7 @@ const ReviewItem = ({
               >
                 <div
                   onClick={() => {
-                    if (user?.is_staff) {
+                    if (user?.is_staff && review.modified != review.created) {
                       setRevisionModalOpen(true);
                     }
                   }}
