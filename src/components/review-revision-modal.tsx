@@ -62,9 +62,14 @@ const ReviewRevisionViewModal = ({
   };
   return (
     <Modal
-      title={
+      title="修订记录"
+      open={open}
+      footer={null}
+      onCancel={onCancel}
+      width={screens.md ? "80%" : 520}
+    >
+      <Space direction="vertical">
         <Space>
-          修订记录
           <Pagination
             simple
             onChange={onChange}
@@ -74,17 +79,12 @@ const ReviewRevisionViewModal = ({
           ></Pagination>
           {revisions?.results[index].created}
         </Space>
-      }
-      open={open}
-      footer={null}
-      onCancel={onCancel}
-      width={screens.md ? "80%" : 520}
-    >
-      <Skeleton loading={loading}>
-        <ReviewRevisionView
-          revision={revisions?.results[index]}
-        ></ReviewRevisionView>
-      </Skeleton>
+        <Skeleton loading={loading}>
+          <ReviewRevisionView
+            revision={revisions?.results[index]}
+          ></ReviewRevisionView>
+        </Skeleton>
+      </Space>
     </Modal>
   );
 };

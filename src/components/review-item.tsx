@@ -2,6 +2,7 @@ import { UserContext } from "@/lib/context";
 import { Review } from "@/lib/models";
 import { doReviewReaction } from "@/services/review";
 import { Alert, List, Space, Tooltip } from "antd";
+import { EditOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { useState } from "react";
 import MDPreview from "./md-preview";
@@ -12,6 +13,7 @@ const ReviewItem = ({
   review,
 }: React.PropsWithChildren<{ review: Review }>) => {
   const [revisionModalOpen, setRevisionModalOpen] = useState<boolean>(false);
+  const edited = review.modified != review.created;
   return (
     <UserContext.Consumer>
       {(user) => {
@@ -20,24 +22,26 @@ const ReviewItem = ({
             key={review.id}
             className={"review-item"}
             actions={[
-              <Tooltip
-                key="time"
-                title={
-                  review.modified != review.created
-                    ? "首发于" + review.created
-                    : undefined
-                }
-              >
-                <div
-                  onClick={() => {
-                    if (user?.is_staff && review.modified != review.created) {
-                      setRevisionModalOpen(true);
-                    }
-                  }}
+              edited ? (
+                <Tooltip
+                  key="time"
+                  title={"首发于" + review.created}
+                  zIndex={1}
                 >
-                  {review.modified}
-                </div>
-              </Tooltip>,
+                  <div
+                    onClick={() => {
+                      if (user?.is_staff) {
+                        setRevisionModalOpen(true);
+                      }
+                    }}
+                  >
+                    {review.modified}
+                    <EditOutlined />
+                  </div>
+                </Tooltip>
+              ) : (
+                <div>{review.modified}</div>
+              ),
               <ReviewReactionButton
                 key="reaction"
                 onReaction={doReviewReaction}
