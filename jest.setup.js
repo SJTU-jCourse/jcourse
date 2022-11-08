@@ -1,8 +1,8 @@
-const React = require('react');
+// const React = require('react');
 const util = require('util');
 
 // eslint-disable-next-line no-console
-console.log('Current React Version:', React.version);
+// console.log('Current React Version:', React.version);
 
 /* eslint-disable global-require */
 if (typeof window !== 'undefined') {

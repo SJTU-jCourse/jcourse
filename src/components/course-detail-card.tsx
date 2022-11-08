@@ -3,18 +3,18 @@ import { Card, Descriptions, Typography } from "antd";
 import { PropsWithChildren, useState } from "react";
 
 import ReportModal from "@/components/report-modal";
-import { useSemesters } from "@/services/semester";
 
 const { Text, Link } = Typography;
 
 const CourseDetailCard = ({
   course,
   loading,
+  semesterMap,
 }: PropsWithChildren<{
-  course: CourseDetail | undefined;
-  loading: boolean;
+  course?: CourseDetail;
+  loading?: boolean;
+  semesterMap?: Map<number, string>;
 }>) => {
-  const { semesterMap } = useSemesters();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   return (
     <Card title="课程信息" loading={loading}>

@@ -10,6 +10,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Config from "@/config/config";
 import Head from "next/head";
+import { useSemesters } from "@/services/semester";
 const { useBreakpoint } = Grid;
 
 const CoursePage = () => {
@@ -25,7 +26,7 @@ const CoursePage = () => {
   const screens = useBreakpoint();
 
   const { course, loading: courseLoading } = useCourseDetail(id as string);
-
+  const { semesterMap } = useSemesters();
   const { reviews, loading: reviewLoading } = useReviewsOfCourse(
     id as string,
     pagination
@@ -58,7 +59,11 @@ const CoursePage = () => {
         <Col xs={24} md={8}>
           <Row gutter={[16, 16]}>
             <Col xs={24} md={24}>
-              <CourseDetailCard loading={courseLoading} course={course} />
+              <CourseDetailCard
+                loading={courseLoading}
+                course={course}
+                semesterMap={semesterMap}
+              />
             </Col>
             {screens.md && (
               <RelatedCard course={course} loading={courseLoading} />
