@@ -30,7 +30,7 @@ const ReviewTemplate: string =
 
 const ReviewPage = () => {
   const { user } = useUser();
-  const { avaiableSemesters } = useSemesters();
+  const { availableSemesters } = useSemesters();
   const router = useRouter();
   const { course_id, review_id } = router.query;
   const [form] = Form.useForm();
@@ -218,7 +218,7 @@ const ReviewPage = () => {
             }
           >
             <Select placeholder="选择学期">
-              {avaiableSemesters?.map((semester) => (
+              {availableSemesters?.map((semester) => (
                 <Select.Option
                   key={semester.id}
                   value={semester.id}

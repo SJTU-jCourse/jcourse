@@ -9,11 +9,11 @@ export function useSemesters() {
     semesterMap = new Map(data.map((item: Semester) => [item.id, item.name]));
   }
 
-  const avaiableSemesters = data?.filter((item) => item.available);
+  const availableSemesters = data?.filter((item) => item.available);
 
   return {
     semesters: data,
-    avaiableSemesters,
+    availableSemesters,
     semesterMap,
     loading: !error && !data,
     error: error,

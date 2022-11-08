@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 
 const SyncPage = () => {
-  const { avaiableSemesters } = useSemesters();
+  const { availableSemesters } = useSemesters();
   const { courses, loading: courseLoading, mutate } = useLessons();
   const router = useRouter();
   const { code, state } = router.query;
@@ -94,7 +94,7 @@ const SyncPage = () => {
           className="sync-select"
           onSelect={(key: string) => setSemester(key)}
         >
-          {avaiableSemesters?.map((semester) => (
+          {availableSemesters?.map((semester) => (
             <Select.Option
               key={semester.name}
               value={semester.name}
