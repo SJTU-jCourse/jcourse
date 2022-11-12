@@ -1,25 +1,17 @@
 import { EmailLoginRequest } from "@/lib/models";
-import { postLogin, sendCode, verifyCode } from "@/services/user";
+import { sendCode } from "@/services/user";
 import { Button, Form, Input, message } from "antd";
-import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 
-const LoginForm = () => {
+const EmailLoginForm = ({
+  onFinish,
+}: {
+  onFinish: (request: EmailLoginRequest) => void;
+}) => {
   const [form] = Form.useForm();
   const [time, setTime] = useState<number>(0);
   const timeRef = useRef<any>();
   const inCounter = time != 0;
-  const router = useRouter();
-
-  const onFinish = (request: EmailLoginRequest) => {
-    verifyCode(request.email, request.code)
-      .then((data) => {
-        postLogin(data, router);
-      })
-      .catch((error) => {
-        message.error(error.response.data.details);
-      });
-  };
 
   const onClick = () => {
     sendCode(form.getFieldValue("email"))
@@ -28,7 +20,7 @@ const LoginForm = () => {
         message.success(data.details);
       })
       .catch((error) => {
-        message.error(error.response.data.details);
+        message.error(error.response.data.detail);
       });
   };
 
@@ -93,4 +85,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default EmailLoginForm;

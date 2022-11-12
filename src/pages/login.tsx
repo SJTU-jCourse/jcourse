@@ -1,9 +1,15 @@
 import AboutCard from "@/components/about-card";
-import { jAccountAuth, jAccountLogin, postLogin } from "@/services/user";
+import {
+  jAccountAuth,
+  jAccountLogin,
+  postLogin,
+  verifyCode,
+} from "@/services/user";
 import { Button, Modal, Typography, message, Tabs, Grid } from "antd";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import LoginForm from "@/components/login-form";
+import EmailLoginForm from "@/components/email-login-form";
+import { EmailLoginRequest } from "@/lib/models";
 
 const { Link, Text } = Typography;
 
@@ -29,6 +35,16 @@ const LoginPage = () => {
         });
     }
   }, [router.query]);
+
+  const onEmailLoginFinish = (request: EmailLoginRequest) => {
+    verifyCode(request.email, request.code)
+      .then((data) => {
+        postLogin(data, router);
+      })
+      .catch((error) => {
+        message.error(error.response.data.detail);
+      });
+  };
 
   function info() {
     modal.info({
@@ -66,7 +82,7 @@ const LoginPage = () => {
       key: "email",
       children: (
         <div style={{ height: "168px" }}>
-          <LoginForm />
+          <EmailLoginForm onFinish={onEmailLoginFinish} />
         </div>
       ),
     },
