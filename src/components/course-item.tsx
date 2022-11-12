@@ -16,8 +16,10 @@ const CourseItem = ({
       key={course.id}
       extra={
         course.rating.count > 0 ? (
-          <Space size="small" direction="vertical" align="end">
-            <Text strong>{course.rating.avg.toFixed(1)}</Text>
+          <Space size={0} direction="vertical" align="end">
+            <Text strong style={{ fontSize: 16 }}>
+              {course.rating.avg.toFixed(1)}
+            </Text>
             <Text type="secondary">{course.rating.count}人评价</Text>
           </Space>
         ) : (
