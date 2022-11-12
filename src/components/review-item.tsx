@@ -1,8 +1,7 @@
 import { UserContext } from "@/lib/context";
 import { Review } from "@/lib/models";
 import { doReviewReaction } from "@/services/review";
-import { Alert, List, Space, Tooltip } from "antd";
-import { EditOutlined } from "@ant-design/icons";
+import { Alert, List, Space, Tooltip, Typography } from "antd";
 import Link from "next/link";
 import { useState } from "react";
 import MDPreview from "./md-preview";
@@ -22,26 +21,7 @@ const ReviewItem = ({
             key={review.id}
             className={"review-item"}
             actions={[
-              edited ? (
-                <Tooltip
-                  key="time"
-                  title={"首发于" + review.created}
-                  zIndex={1}
-                >
-                  <div
-                    onClick={() => {
-                      if (user?.is_staff) {
-                        setRevisionModalOpen(true);
-                      }
-                    }}
-                  >
-                    {review.modified}
-                    <EditOutlined />
-                  </div>
-                </Tooltip>
-              ) : (
-                <div>{review.modified}</div>
-              ),
+              <div key="id">{"#" + review.id}</div>,
               <ReviewReactionButton
                 key="reaction"
                 onReaction={doReviewReaction}
@@ -50,7 +30,6 @@ const ReviewItem = ({
                   ...review.reactions,
                 }}
               />,
-              <div key="id">{"#" + review.id}</div>,
             ]}
           >
             {user?.is_staff && revisionModalOpen && (
@@ -99,9 +78,33 @@ const ReviewItem = ({
                 )}
               </Space>
               <MDPreview className="comment" src={review.comment} />
-              {(review.is_mine || user?.is_staff) && (
-                <Link href={`/review?review_id=${review.id}`}>修改点评</Link>
-              )}
+              <Space>
+                {edited ? (
+                  <Tooltip
+                    key="time"
+                    title={"首发于" + review.created}
+                    zIndex={1}
+                  >
+                    <Typography.Text
+                      type="secondary"
+                      onClick={() => {
+                        if (user?.is_staff) {
+                          setRevisionModalOpen(true);
+                        }
+                      }}
+                    >
+                      编辑于 {review.modified}
+                    </Typography.Text>
+                  </Tooltip>
+                ) : (
+                  <Typography.Text type="secondary">
+                    发表于 {review.modified}
+                  </Typography.Text>
+                )}
+                {(review.is_mine || user?.is_staff) && (
+                  <Link href={`/review?review_id=${review.id}`}>修改点评</Link>
+                )}
+              </Space>
             </Space>
           </List.Item>
         );
