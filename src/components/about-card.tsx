@@ -36,7 +36,7 @@ const AboutCard = () => {
       </Paragraph>
       <Title level={4}>联系方式</Title>
       <Paragraph>
-        您可以用过邮件
+        您可以通过邮件
         <a href="mailto:course@sjtu.plus"> course@sjtu.plus </a>
         联系我们。
       </Paragraph>
