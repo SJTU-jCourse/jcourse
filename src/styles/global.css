@@ -149,3 +149,7 @@
 .markdown-preview img {
   max-width: 100%;
 }
+
+.review-item .ant-list-item-action {
+  margin-top: 10px;
+}
