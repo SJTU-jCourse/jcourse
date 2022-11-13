@@ -93,7 +93,7 @@ export async function changeCourseNotificationLevel(
   level: NotificationLevel
 ) {
   const resp = await request.post(
-    `/api/course/${course_id}/notification_level`,
+    `/api/course/${course_id}/notification_level/`,
     {
       level,
     }
