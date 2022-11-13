@@ -55,7 +55,7 @@ const NavBar = ({ user }: { user?: User }) => {
     <Row className="navbar">
       <Col>
         <Link href="/" className="title">
-          {(screens.sm ? "SJTU" : "") + "选课社区"}
+          SJTU选课社区
         </Link>
       </Col>
 
