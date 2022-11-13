@@ -55,11 +55,14 @@ const CourseDetailCard = ({
       title="课程信息"
       loading={loading}
       actions={[
-        <Button type="link" onClick={() => setIsModalOpen(true)}>
+        <Button key="button" type="link" onClick={() => setIsModalOpen(true)}>
           信息有误？
         </Button>,
         course && (
-          <NotificationLevelSelect course={course}></NotificationLevelSelect>
+          <NotificationLevelSelect
+            key="select"
+            course={course}
+          ></NotificationLevelSelect>
         ),
       ]}
     >
