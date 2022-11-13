@@ -15,9 +15,8 @@ import { changeCourseNotificationLevel } from "@/services/course";
 
 const { Text } = Typography;
 
-const NotificationLevelSelect = ({ course }: { course?: CourseDetail }) => {
+const NotificationLevelSelect = ({ course }: { course: CourseDetail }) => {
   const onNotificationLevelChange = (value: NotificationLevel) => {
-    if (!course) return;
     changeCourseNotificationLevel(course.id, value).catch((error) => {
       message.error(error.response?.data);
     });
@@ -32,7 +31,7 @@ const NotificationLevelSelect = ({ course }: { course?: CourseDetail }) => {
     <Space>
       通知级别
       <Select
-        defaultValue={course?.notification_level || NotificationLevel.NORMAL}
+        defaultValue={course.notification_level || NotificationLevel.NORMAL}
         options={options}
         bordered={false}
         onChange={onNotificationLevelChange}
@@ -55,15 +54,17 @@ const CourseDetailCard = ({
     <Card
       title="课程信息"
       loading={loading}
-      actions={[
-        <Button key="button" type="link" onClick={() => setIsModalOpen(true)}>
-          信息有误？
-        </Button>,
-        <NotificationLevelSelect
-          key="select"
-          course={course}
-        ></NotificationLevelSelect>,
-      ]}
+      actions={
+        course && [
+          <Button key="button" type="link" onClick={() => setIsModalOpen(true)}>
+            信息有误？
+          </Button>,
+          <NotificationLevelSelect
+            key="select"
+            course={course}
+          ></NotificationLevelSelect>,
+        ]
+      }
     >
       {course && (
         <>
