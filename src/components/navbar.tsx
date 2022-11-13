@@ -1,4 +1,4 @@
-import { logout, toAdmin, useUser } from "@/services/user";
+import { logout, toAdmin } from "@/services/user";
 import {
   DollarOutlined,
   EditOutlined,
@@ -48,13 +48,14 @@ const NavBar = ({ user }: { user?: User }) => {
 
   const navMenuItems = [
     { key: "/latest", label: <Link href="/latest">最新</Link> },
+    { key: "/follow-review", label: <Link href="/follow-review">关注</Link> },
     { key: "/courses", label: <Link href="/courses">课程库</Link> },
   ];
   return (
     <Row className="navbar">
       <Col>
         <Link href="/" className="title">
-          SJTU选课社区
+          {(screens.sm ? "SJTU" : "") + "选课社区"}
         </Link>
       </Col>
 

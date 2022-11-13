@@ -1,10 +1,44 @@
-import { CourseDetail, Teacher } from "@/lib/models";
-import { Card, Descriptions, Typography } from "antd";
+import { CourseDetail, NotificationLevel, Teacher } from "@/lib/models";
+import {
+  Card,
+  Descriptions,
+  Typography,
+  Select,
+  Space,
+  Button,
+  message,
+} from "antd";
 import { PropsWithChildren, useState } from "react";
 
 import ReportModal from "@/components/report-modal";
+import { changeCourseNotificationLevel } from "@/services/course";
 
-const { Text, Link } = Typography;
+const { Text } = Typography;
+
+const NotificationLevelSelect = ({ course }: { course: CourseDetail }) => {
+  const onNotificationLevelChange = (value: NotificationLevel) => {
+    changeCourseNotificationLevel(course.id, value).catch((error) => {
+      message.error(error.response?.data);
+    });
+  };
+
+  const options = [
+    { value: NotificationLevel.NORMAL, label: "正常" },
+    { value: NotificationLevel.FOLLOW, label: "关注" },
+    { value: NotificationLevel.IGNORE, label: "忽略" },
+  ];
+  return (
+    <Space>
+      通知级别
+      <Select
+        defaultValue={course.notification_level || NotificationLevel.NORMAL}
+        options={options}
+        bordered={false}
+        onChange={onNotificationLevelChange}
+      ></Select>
+    </Space>
+  );
+};
 
 const CourseDetailCard = ({
   course,
@@ -17,7 +51,18 @@ const CourseDetailCard = ({
 }>) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   return (
-    <Card title="课程信息" loading={loading}>
+    <Card
+      title="课程信息"
+      loading={loading}
+      actions={[
+        <Button type="link" onClick={() => setIsModalOpen(true)}>
+          信息有误？
+        </Button>,
+        course && (
+          <NotificationLevelSelect course={course}></NotificationLevelSelect>
+        ),
+      ]}
+    >
       {course && (
         <>
           <Descriptions column={1}>
@@ -64,7 +109,6 @@ const CourseDetailCard = ({
               </Descriptions.Item>
             )}
           </Descriptions>
-          <Link onClick={() => setIsModalOpen(true)}>信息有误？</Link>
           <ReportModal
             open={isModalOpen}
             title={"课程信息反馈"}

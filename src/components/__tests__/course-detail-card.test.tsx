@@ -31,6 +31,7 @@ describe("course detail card", () => {
       related_courses: [],
       semester: null,
       is_reviewed: null,
+      notification_level: null,
     };
   });
 
@@ -41,7 +42,7 @@ describe("course detail card", () => {
 
   it("shows loading", () => {
     render(<CourseDetailCard loading={true} />);
-    expect(screen.getByRole("list")).toBeInTheDocument();
+    expect(screen.queryByText("课号")).not.toBeInTheDocument();
   });
 
   it("shows course necessary fields", () => {
@@ -53,6 +54,8 @@ describe("course detail card", () => {
     expect(screen.queryByText("合上教师")).not.toBeInTheDocument();
     expect(screen.getByText("信息有误？")).toBeInTheDocument();
     expect(screen.queryByText("推荐指数")).not.toBeInTheDocument();
+    expect(screen.queryByText("通知级别")).toBeInTheDocument();
+    expect(screen.queryByText("正常")).toBeInTheDocument();
   });
 
   it("shows all fields", () => {
@@ -71,6 +74,7 @@ describe("course detail card", () => {
     course.moderator_remark = "remark";
     course.rating = { avg: 1.567, count: 20 };
     course.categories = ["通识", "通选"];
+    course.notification_level = 1;
     const semesterMap = new Map<number, string>();
     semesterMap.set(1, "2020-2021-1");
     render(
@@ -94,6 +98,7 @@ describe("course detail card", () => {
     expect(screen.queryByText("remark")).toBeInTheDocument();
     expect(screen.queryByText("学过学期")).toBeInTheDocument();
     expect(screen.queryByText("2020-2021-1")).toBeInTheDocument();
+    expect(screen.queryByText("关注")).toBeInTheDocument();
   });
 
   it("shows modal when clicks button", async () => {
