@@ -1,4 +1,5 @@
 import { Typography } from "antd";
+
 const { Paragraph, Title } = Typography;
 
 const AboutCard = () => {

@@ -1,5 +1,5 @@
-import { Space } from 'antd';
-import { FC, createElement } from 'react';
+import { Space } from "antd";
+import { FC, createElement } from "react";
 
 export const LeftIconText = ({
   icon,

@@ -1,15 +1,16 @@
+import { Button, Grid, Modal, Tabs, Typography, message } from "antd";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+
 import AboutCard from "@/components/about-card";
+import EmailLoginForm from "@/components/email-login-form";
+import { EmailLoginRequest } from "@/lib/models";
 import {
   jAccountAuth,
   jAccountLogin,
   postLogin,
   verifyCode,
 } from "@/services/user";
-import { Button, Modal, Typography, message, Tabs, Grid } from "antd";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
-import EmailLoginForm from "@/components/email-login-form";
-import { EmailLoginRequest } from "@/lib/models";
 
 const { Link, Text } = Typography;
 

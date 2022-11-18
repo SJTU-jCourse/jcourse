@@ -1,9 +1,10 @@
-import { Review, ReviewRevision } from "@/lib/models";
-import { useReviewRevisions } from "@/services/review";
 import { Grid, Modal, Pagination, Skeleton, Space } from "antd";
 import Link from "next/link";
 import { useState } from "react";
-import MDPreview from "./md-preview";
+
+import MDPreview from "@/components/md-preview";
+import { Review, ReviewRevision } from "@/lib/models";
+import { useReviewRevisions } from "@/services/review";
 
 const ReviewRevisionView = ({ revision }: { revision?: ReviewRevision }) => {
   if (!revision) return <></>;

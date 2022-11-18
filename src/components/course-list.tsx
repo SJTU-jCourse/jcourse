@@ -1,6 +1,7 @@
-import { CourseListItem, Pagination } from "@/lib/models";
 import { List } from "antd";
-import CourseItem from "./course-item";
+
+import CourseItem from "@/components/course-item";
+import { CourseListItem, Pagination } from "@/lib/models";
 
 const CourseList = ({
   loading,

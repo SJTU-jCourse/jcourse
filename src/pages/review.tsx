@@ -4,25 +4,26 @@ import {
   Card,
   Form,
   Input,
-  message,
   PageHeader,
   Rate,
   Select,
   Spin,
   Tag,
   Typography,
+  message,
 } from "antd";
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+
+import MDEditor from "@/components/md-editor";
 import Config from "@/config/config";
 import { CourseInReview, Review, ReviewDraft, Semester } from "@/lib/models";
 import { getCourseInReview, searchCourseInReview } from "@/services/course";
 import { getReview, modifyReview, writeReview } from "@/services/review";
 import { useSemesters } from "@/services/semester";
-import Head from "next/head";
 import { useUser } from "@/services/user";
-import MDEditor from "@/components/md-editor";
 
 const { Text } = Typography;
 const ReviewTemplate: string =

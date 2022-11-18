@@ -1,12 +1,13 @@
-import { UserContext } from "@/lib/context";
-import { Review } from "@/lib/models";
-import { doReviewReaction } from "@/services/review";
 import { Alert, List, Space, Tooltip, Typography } from "antd";
 import Link from "next/link";
 import { useState } from "react";
-import MDPreview from "./md-preview";
-import ReviewReactionButton from "./review-reaction-button";
-import ReviewRevisionViewModal from "./review-revision-modal";
+
+import MDPreview from "@/components/md-preview";
+import ReviewReactionButton from "@/components/review-reaction-button";
+import ReviewRevisionViewModal from "@/components/review-revision-modal";
+import { UserContext } from "@/lib/context";
+import { Review } from "@/lib/models";
+import { doReviewReaction } from "@/services/review";
 
 const ReviewItem = ({
   review,

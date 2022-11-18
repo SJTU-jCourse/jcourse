@@ -1,11 +1,13 @@
+import { Card, Input, PageHeader, message } from "antd";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { useEffect, useRef } from "react";
+
 import CourseList from "@/components/course-list";
 import Config from "@/config/config";
 import { Pagination } from "@/lib/models";
 import { useSearchCourse } from "@/services/course";
-import { Card, Input, message, PageHeader } from "antd";
-import { useEffect, useRef } from "react";
-import { useRouter } from "next/router";
-import Head from "next/head";
+
 const { Search } = Input;
 
 const SearchPage = () => {

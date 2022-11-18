@@ -1,6 +1,8 @@
-import AboutCard from "@/components/about-card";
 import { Card, PageHeader } from "antd";
 import Head from "next/head";
+
+import AboutCard from "@/components/about-card";
+
 const AboutPage = () => {
   return (
     <PageHeader title="关于" onBack={() => history.back()}>

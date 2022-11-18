@@ -1,4 +1,5 @@
 import useSWR from "swr";
+
 import { Semester } from "@/lib/models";
 import { fetcher } from "@/services/request";
 

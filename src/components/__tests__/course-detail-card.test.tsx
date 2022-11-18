@@ -1,8 +1,9 @@
-import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import CourseDetailCard from "../course-detail-card";
-import { CourseDetail } from "@/lib/models";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+
+import CourseDetailCard from "@/components/course-detail-card";
+import { CourseDetail } from "@/lib/models";
 
 describe("course detail card", () => {
   let course: CourseDetail;

@@ -1,7 +1,9 @@
-import { CourseDetail } from "@/lib/models";
 import { Card, Col, List, Space, Typography } from "antd";
-import { PropsWithChildren } from "react";
 import Link from "next/link";
+import { PropsWithChildren } from "react";
+
+import { CourseDetail } from "@/lib/models";
+
 const { Text } = Typography;
 
 export const RelatedTeacher = ({

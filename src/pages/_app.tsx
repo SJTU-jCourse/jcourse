@@ -1,13 +1,12 @@
-import "@/styles/global.css";
-import type { AppProps } from "next/app";
-
 import { ConfigProvider } from "antd";
-import { BasicLayout, LoginLayout } from "@/components/layouts";
-
 import zhCN from "antd/lib/locale/zh_CN";
-import { SWRConfig } from "swr";
-import { useMediaQuery } from "react-responsive";
+import type { AppProps } from "next/app";
 import { useEffect } from "react";
+import { useMediaQuery } from "react-responsive";
+import { SWRConfig } from "swr";
+
+import { BasicLayout, LoginLayout } from "@/components/layouts";
+import "@/styles/global.css";
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   const isDark = useMediaQuery({

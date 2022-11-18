@@ -1,4 +1,3 @@
-import { ReviewReaction } from "@/lib/models";
 import {
   DislikeOutlined,
   DislikeTwoTone,
@@ -7,6 +6,9 @@ import {
 } from "@ant-design/icons";
 import { Button, Space } from "antd";
 import { useState } from "react";
+
+import { ReviewReaction } from "@/lib/models";
+
 const ReviewReactionButton = ({
   onReaction,
   reactionProps,

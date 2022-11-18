@@ -1,7 +1,8 @@
+import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import ReviewReactionButton from "../review-reaction-button";
-import "@testing-library/jest-dom";
+
+import ReviewReactionButton from "@/components/review-reaction-button";
 import { ReviewReaction } from "@/lib/models";
 
 describe("review reaction button", () => {

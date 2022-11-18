@@ -1,6 +1,8 @@
-import { Pagination, Review } from "@/lib/models";
 import { List } from "antd";
-import ReviewItem from "./review-item";
+
+import ReviewItem from "@/components/review-item";
+import { Pagination, Review } from "@/lib/models";
+
 const ReviewList = ({
   loading,
   count,

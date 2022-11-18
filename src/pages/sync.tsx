@@ -1,10 +1,11 @@
-import CourseList from "@/components/course-list";
-import { authSync, useLessons, loginSync, syncLessons } from "@/services/sync";
 import { Button, Card, Modal, PageHeader, Select, message } from "antd";
-import { useEffect, useState } from "react";
-import { useSemesters } from "@/services/semester";
-import { useRouter } from "next/router";
 import Head from "next/head";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+
+import CourseList from "@/components/course-list";
+import { useSemesters } from "@/services/semester";
+import { authSync, loginSync, syncLessons, useLessons } from "@/services/sync";
 
 const SyncPage = () => {
   const { availableSemesters } = useSemesters();

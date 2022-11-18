@@ -1,8 +1,9 @@
+import { NextRouter, useRouter } from "next/router";
 import useSWR from "swr";
+
 import Config from "@/config/config";
 import { LoginResponse, User, UserPoint } from "@/lib/models";
 import { fetcher, request } from "@/services/request";
-import { NextRouter, useRouter } from "next/router";
 
 export async function jAccountAuth(
   code: string,

@@ -1,5 +1,6 @@
-import { Pagination, Report } from "@/lib/models";
 import { Alert, List } from "antd";
+
+import { Pagination, Report } from "@/lib/models";
 
 const ReportList = ({
   loading,

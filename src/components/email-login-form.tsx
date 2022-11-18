@@ -1,7 +1,8 @@
-import { EmailLoginRequest } from "@/lib/models";
-import { sendCode } from "@/services/user";
 import { Button, Form, Input, message } from "antd";
 import { useEffect, useRef, useState } from "react";
+
+import { EmailLoginRequest } from "@/lib/models";
+import { sendCode } from "@/services/user";
 
 const EmailLoginForm = ({
   onFinish,

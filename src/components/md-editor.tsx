@@ -1,6 +1,7 @@
 import { Col, Grid, Input, Row, Space, Switch } from "antd";
 import { useState } from "react";
-import MDPreview from "./md-preview";
+
+import MDPreview from "@/components/md-preview";
 
 const MDEditor = ({
   value,

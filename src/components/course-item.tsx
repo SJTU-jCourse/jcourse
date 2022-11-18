@@ -1,7 +1,9 @@
-import Config from "@/config/config";
-import { CourseListItem } from "@/lib/models";
 import { List, Space, Tag, Typography } from "antd";
 import Link from "next/link";
+
+import Config from "@/config/config";
+import { CourseListItem } from "@/lib/models";
+
 const { Text } = Typography;
 
 const CourseItem = ({

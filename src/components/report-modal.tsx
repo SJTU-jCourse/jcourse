@@ -1,6 +1,7 @@
-import { writeReport } from "@/services/report";
 import { Button, Form, Input, Modal, Typography, message } from "antd";
 import Link from "next/link";
+
+import { writeReport } from "@/services/report";
 
 const { TextArea } = Input;
 const { Text } = Typography;

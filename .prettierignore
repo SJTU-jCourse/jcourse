@@ -1,0 +1,6 @@
+# Ignore artifacts:
+build
+coverage
+.next
+.swc
+styles

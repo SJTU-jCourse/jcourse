@@ -1,9 +1,10 @@
+import { Button, Card, PageHeader } from "antd";
+import Head from "next/head";
+import { useState } from "react";
+
 import ReportList from "@/components/report-list";
 import ReportModal from "@/components/report-modal";
 import { useReports } from "@/services/report";
-import { Button, Card, PageHeader } from "antd";
-import { useState } from "react";
-import Head from "next/head";
 
 const ReportPage = () => {
   const { reports, loading, mutate } = useReports();

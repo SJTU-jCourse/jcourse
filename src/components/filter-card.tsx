@@ -1,6 +1,7 @@
-import { Filter, Filters } from "@/lib/models";
 import { Button, Card, Checkbox, Collapse, Grid, Tag } from "antd";
 import { useState } from "react";
+
+import { Filter, Filters } from "@/lib/models";
 
 const FilterCard = ({
   filters,

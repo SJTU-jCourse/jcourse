@@ -1,4 +1,3 @@
-import { useUserPoint } from "@/services/user";
 import {
   Card,
   Descriptions,
@@ -9,6 +8,8 @@ import {
   Typography,
 } from "antd";
 import Head from "next/head";
+
+import { useUserPoint } from "@/services/user";
 
 const { Title, Paragraph } = Typography;
 
@@ -59,7 +60,7 @@ const PointPage = () => {
                 </Descriptions.Item>
               </Descriptions>
             ) : (
-              <Empty image={Empty.PRESENTED_IMAGE_SIMPLE}/>
+              <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
             )}
           </Skeleton>
 

@@ -1,12 +1,12 @@
-import AnnouncementList from "@/components/announcement-list";
-import { useAnnouncements } from "@/services/announcement";
 import { Layout, Space } from "antd";
-
-import React from "react";
 import Link from "next/link";
+import React from "react";
+
+import AnnouncementList from "@/components/announcement-list";
 import NavBar from "@/components/navbar";
-import { useUser } from "@/services/user";
 import { UserContext } from "@/lib/context";
+import { useAnnouncements } from "@/services/announcement";
+import { useUser } from "@/services/user";
 
 const { Header, Content, Footer } = Layout;
 

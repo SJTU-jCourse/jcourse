@@ -1,10 +1,12 @@
-import { NotificationLevel, Pagination } from "@/lib/models";
 import { Card, PageHeader } from "antd";
-import { useRouter } from "next/router";
-import Config from "@/config/config";
 import Head from "next/head";
-import { useFollowingCourseList } from "@/services/course";
+import { useRouter } from "next/router";
+
 import CourseList from "@/components/course-list";
+import Config from "@/config/config";
+import { NotificationLevel, Pagination } from "@/lib/models";
+import { useFollowingCourseList } from "@/services/course";
+
 const FollowCoursePage = () => {
   const router = useRouter();
   const { page, size } = router.query;

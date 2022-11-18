@@ -1,16 +1,18 @@
+import { EditOutlined } from "@ant-design/icons";
+import { Button, Card, Col, Grid, PageHeader, Row, Space, Spin } from "antd";
+import Head from "next/head";
+import Link from "next/link";
+import { useRouter } from "next/router";
+
 import CourseDetailCard from "@/components/course-detail-card";
 import RelatedCard from "@/components/related-card";
 import ReviewList from "@/components/review-list";
+import Config from "@/config/config";
 import { Pagination } from "@/lib/models";
 import { useCourseDetail } from "@/services/course";
 import { useReviewsOfCourse } from "@/services/review";
-import { EditOutlined } from "@ant-design/icons";
-import { Button, Card, Col, Grid, PageHeader, Row, Space, Spin } from "antd";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import Config from "@/config/config";
-import Head from "next/head";
 import { useSemesters } from "@/services/semester";
+
 const { useBreakpoint } = Grid;
 
 const CoursePage = () => {

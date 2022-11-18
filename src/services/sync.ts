@@ -1,7 +1,7 @@
 import useSWR from "swr";
+
 import Config from "@/config/config";
 import { CourseListItem } from "@/lib/models";
-
 import { fetcher, request } from "@/services/request";
 
 export function loginSync(basePath: string) {

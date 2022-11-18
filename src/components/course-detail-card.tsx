@@ -1,16 +1,16 @@
-import { CourseDetail, NotificationLevel, Teacher } from "@/lib/models";
 import {
+  Button,
   Card,
   Descriptions,
-  Typography,
   Select,
   Space,
-  Button,
+  Typography,
   message,
 } from "antd";
 import { PropsWithChildren, useState } from "react";
 
 import ReportModal from "@/components/report-modal";
+import { CourseDetail, NotificationLevel, Teacher } from "@/lib/models";
 import { changeCourseNotificationLevel } from "@/services/course";
 
 const { Text } = Typography;

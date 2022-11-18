@@ -1,4 +1,3 @@
-import { logout, toAdmin } from "@/services/user";
 import {
   DollarOutlined,
   EditOutlined,
@@ -12,7 +11,9 @@ import { Button, Col, Dropdown, Grid, Menu, Row } from "antd";
 import type { MenuProps } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/router";
+
 import { User } from "@/lib/models";
+import { logout, toAdmin } from "@/services/user";
 
 const { useBreakpoint } = Grid;
 

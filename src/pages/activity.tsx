@@ -1,10 +1,11 @@
-import ReviewList from "@/components/review-list";
-import { useMyReviews } from "@/services/review";
 import { Card, PageHeader } from "antd";
 import Head from "next/head";
 
+import ReviewList from "@/components/review-list";
+import { useMyReviews } from "@/services/review";
+
 const ActivityPage = () => {
-  const {  reviews, loading } = useMyReviews();
+  const { reviews, loading } = useMyReviews();
 
   return (
     <PageHeader

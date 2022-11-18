@@ -1,9 +1,10 @@
-import { useStatistic } from "@/services/statistic";
+import { Line } from "@ant-design/plots";
 import { Col, Grid, Input, Row, Statistic, Typography } from "antd";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
-import { Line } from "@ant-design/plots";
+
+import { useStatistic } from "@/services/statistic";
 
 const { Title } = Typography;
 const { useBreakpoint } = Grid;

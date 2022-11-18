@@ -1,7 +1,8 @@
-import { Announcement } from "@/lib/models";
-import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import AnnouncementList from "../announcement-list";
+import { render, screen } from "@testing-library/react";
+
+import AnnouncementList from "@/components/announcement-list";
+import { Announcement } from "@/lib/models";
 
 describe("announcement list", () => {
   it("shows nothing to a empty list", () => {

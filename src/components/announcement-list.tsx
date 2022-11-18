@@ -1,5 +1,7 @@
-import { Announcement } from "@/lib/models";
 import { Alert, List } from "antd";
+
+import { Announcement } from "@/lib/models";
+
 const AnnouncementList = ({
   announcements,
 }: {

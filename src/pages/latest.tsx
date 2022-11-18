@@ -1,10 +1,12 @@
+import { Card, PageHeader } from "antd";
+import Head from "next/head";
+import { useRouter } from "next/router";
+
 import ReviewList from "@/components/review-list";
+import Config from "@/config/config";
 import { Pagination } from "@/lib/models";
 import { useReviews } from "@/services/review";
-import { Card, PageHeader } from "antd";
-import { useRouter } from "next/router";
-import Config from "@/config/config";
-import Head from "next/head";
+
 const LatestPage = () => {
   const router = useRouter();
   const { page, size } = router.query;
