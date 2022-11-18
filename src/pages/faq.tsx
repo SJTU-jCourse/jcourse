@@ -1,16 +1,21 @@
-import { Card, Divider, PageHeader, Typography } from "antd";
+import { Card, Divider, Typography } from "antd";
 import Head from "next/head";
 import Link from "next/link";
+
+import PageHeader from "@/components/page-header";
 
 const { Title, Paragraph } = Typography;
 const FaqPage = () => {
   return (
-    <PageHeader title="常见问题" onBack={() => history.back()}>
+    <>
+      <PageHeader title="常见问题" onBack={() => history.back()} />
       <Head>
         <title>常见问题 - SJTU选课社区</title>
       </Head>
       <Card>
-        <Title level={4}>我该点评哪些课程？写什么？</Title>
+        <Title level={4} style={{ marginTop: 0 }}>
+          我该点评哪些课程？写什么？
+        </Title>
         <Paragraph>
           所有的课程。但如果你想帮忙，最好的是那些还没有点评的课程和老师。请不要吝啬你的好评，也不要害怕说坏话。
           <br />
@@ -34,7 +39,7 @@ const FaqPage = () => {
             </li>
           </ul>
         </Paragraph>
-        <Title level={4}>
+        <Title level={4} style={{ marginTop: 0 }}>
           选课社区是用来找到“水课”的吗？这是否会伤害教学质量？
         </Title>
         <Paragraph>
@@ -42,7 +47,9 @@ const FaqPage = () => {
           <br />
           我们相信来自广大同学的监督和信息的交换可以带来更大的教学质量提升。这就是为什么我们弱化1-5星的“推荐”“不推荐”评分而是主张文字内容。
         </Paragraph>
-        <Title level={4}>我喜欢看1-5星评分的数据，不喜欢看字。</Title>
+        <Title level={4} style={{ marginTop: 0 }}>
+          我喜欢看1-5星评分的数据，不喜欢看字。
+        </Title>
         <Paragraph>
           数据本身是个伪命题。每个同学对于一门课是否推荐，工作量是否大的判断标准不一样，用数字衡量看似很客观，实际上主观得很。
           <br />
@@ -50,7 +57,9 @@ const FaqPage = () => {
           <br />
           当然数据会让信息更好索引和浏览，因此在统计上合理的条件下，我们会提供一些统计数据。我们在努力达到平衡。
         </Paragraph>
-        <Title level={4}>请特别注意，“数据”会给人错误的信心</Title>
+        <Title level={4} style={{ marginTop: 0 }}>
+          请特别注意，“数据”会给人错误的信心
+        </Title>
         <Paragraph>
           我们通常喜欢相信数字。但请注意，社区上的数字是完全人造的。
           点评中填写的成绩是自由填写的
@@ -60,12 +69,16 @@ const FaqPage = () => {
           因此，我们再次着重强调，数据会骗人。内容才是这个网站存在的核心。
         </Paragraph>
         <Divider></Divider>
-        <Title level={4}>选课社区由谁来管理？</Title>
+        <Title level={4} style={{ marginTop: 0 }}>
+          选课社区由谁来管理？
+        </Title>
         <Paragraph>
           上海交通大学在校（或/与曾经在校）生，包括创始者和一些其他合作人。
           我们会确保此站的管理员中至少有一人为目前的在校生。
         </Paragraph>
-        <Title level={4}>我会因为在这里发表点评而被约谈吗？</Title>
+        <Title level={4} style={{ marginTop: 0 }}>
+          我会因为在这里发表点评而被约谈吗？
+        </Title>
         <Paragraph>
           尽管我们使用 jAccount
           注册和登录（用于避免刷赞），但数据库里只存放了其哈希值。
@@ -77,7 +90,9 @@ const FaqPage = () => {
           <br />
           当然我们相信开明的上海交通大学行政机构和教职工不会因为对本科生课程的评价就试图约谈学生。
         </Paragraph>
-        <Title level={4}>网站上的内容是否受管理？</Title>
+        <Title level={4} style={{ marginTop: 0 }}>
+          网站上的内容是否受管理？
+        </Title>
         <Paragraph>
           秉承着完全信息原则，我们不修改网站上的课程点评
           ，也不评价内容的真实性。
@@ -100,7 +115,9 @@ const FaqPage = () => {
           <br />
           社区管理员可能会对存在不确定真实内容的点评做出标注，以提醒用户注意辨别真实性。
         </Paragraph>
-        <Title level={4}>如何界定社区内容的版权问题？</Title>
+        <Title level={4} style={{ marginTop: 0 }}>
+          如何界定社区内容的版权问题？
+        </Title>
         <Paragraph>
           向选课社区提交点评时，您同意向社区提供对您提交的点评内容的永久、不可撤回、非独占、
           全球有效无限制的许可。您依然享有您提交的内容的全部版权。
@@ -110,18 +127,24 @@ const FaqPage = () => {
           <br />
           您在提交点评时，授权社区以一切法律、技术途径代理保护您所提交的内容的版权，包括但不限于向任何未经许可的转载媒介进行起诉和发送DMCA请求。
         </Paragraph>
-        <Title level={4}>选课社区收集我的多少信息？</Title>
+        <Title level={4} style={{ marginTop: 0 }}>
+          选课社区收集我的多少信息？
+        </Title>
         <Paragraph>
           请参考<Link href="/about">关于</Link>中“隐私”一节。
         </Paragraph>
         <Divider></Divider>
-        <Title level={4}>如何联系你们？</Title>
+        <Title level={4} style={{ marginTop: 0 }}>
+          如何联系你们？
+        </Title>
         <Paragraph>
           请通过<Link href="/report">反馈</Link>或者邮件
           <a href="mailto:course@sjtu.plus">course@sjtu.plus</a>
           向社区提出意见和建议。
         </Paragraph>
-        <Title level={4}>我是课程老师……</Title>
+        <Title level={4} style={{ marginTop: 0 }}>
+          我是课程老师……
+        </Title>
         <Paragraph>
           <ul>
             <li>
@@ -136,7 +159,7 @@ const FaqPage = () => {
           </ul>
         </Paragraph>
       </Card>
-    </PageHeader>
+    </>
   );
 };
 export default FaqPage;

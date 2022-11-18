@@ -5,11 +5,15 @@ const { Paragraph, Title } = Typography;
 const AboutCard = () => {
   return (
     <Typography>
-      <Title level={4}>简介</Title>
+      <Title level={4} style={{ marginTop: 0 }}>
+        简介
+      </Title>
       <Paragraph>
         SJTU选课社区为非官方网站。选课社区目的在于让同学们了解课程的更多情况，不想也不能代替教务处的课程评教。
       </Paragraph>
-      <Title level={4}>机制</Title>
+      <Title level={4} style={{ marginTop: 0 }}>
+        机制
+      </Title>
       <Title level={5}>匿名身份</Title>
       <Paragraph>
         选课社区采用 jAccount 登录并作为身份标识。本站不明文存储您的 jAccount
@@ -26,7 +30,9 @@ const AboutCard = () => {
         选课社区管理员的责任仅限于维护系统的稳定，删除非课程点评内容和重复发帖，并维护课程和教师信息格式，
         方便进行数据的批量处理。
       </Paragraph>
-      <Title level={4}>隐私</Title>
+      <Title level={4} style={{ marginTop: 0 }}>
+        隐私
+      </Title>
       <Paragraph>
         当您访问选课社区时，我们使用百度统计收集您的访问信息，便于统计用户使用情况。
         <br />
@@ -35,7 +41,9 @@ const AboutCard = () => {
         选课社区部分功能可能需要使用 jAccount
         接口获取并存储选课等信息，我们将在您使用此类功能前予以提示。
       </Paragraph>
-      <Title level={4}>联系方式</Title>
+      <Title level={4} style={{ marginTop: 0 }}>
+        联系方式
+      </Title>
       <Paragraph>
         您可以通过邮件
         <a href="mailto:course@sjtu.plus"> course@sjtu.plus </a>

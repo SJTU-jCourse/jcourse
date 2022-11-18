@@ -1,10 +1,11 @@
 import { EditOutlined } from "@ant-design/icons";
-import { Button, Card, Col, Grid, PageHeader, Row, Space, Spin } from "antd";
+import { Button, Card, Col, Grid, Row, Space, Spin } from "antd";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
 import CourseDetailCard from "@/components/course-detail-card";
+import PageHeader from "@/components/page-header";
 import RelatedCard from "@/components/related-card";
 import ReviewList from "@/components/review-list";
 import Config from "@/config/config";
@@ -35,18 +36,16 @@ const CoursePage = () => {
   );
 
   return (
-    <PageHeader
-      title={
-        <Spin spinning={courseLoading}>
-          {course && (
-            <span className="card-title">
-              {course.name}（{course.main_teacher.name}）
-            </span>
-          )}
-        </Spin>
-      }
-      backIcon={false}
-    >
+    <>
+      <PageHeader
+        title={
+          course ? (
+            course.name + "（" + course.main_teacher.name + "）"
+          ) : (
+            <Spin spinning={courseLoading}></Spin>
+          )
+        }
+      />
       <Head>
         <title>
           {course
@@ -102,7 +101,7 @@ const CoursePage = () => {
         </Col>
         {!screens.md && <RelatedCard course={course} loading={courseLoading} />}
       </Row>
-    </PageHeader>
+    </>
   );
 };
 

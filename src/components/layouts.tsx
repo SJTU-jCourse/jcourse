@@ -20,7 +20,10 @@ export const BasicLayout = ({ children }: React.PropsWithChildren<{}>) => {
         <NavBar user={user} />
       </Header>
 
-      <Content className="content">
+      <Content
+        className="content"
+        style={{ paddingInline: 16, paddingLeft: 16, paddingRight: 16 }}
+      >
         {announcements && announcements.length > 0 && (
           <AnnouncementList announcements={announcements} />
         )}

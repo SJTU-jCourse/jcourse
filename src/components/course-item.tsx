@@ -28,15 +28,14 @@ const CourseItem = ({
           <Text type="secondary">暂无点评</Text>
         )
       }
+      style={{ paddingTop: 0 }}
     >
       <List.Item.Meta
         title={
-          <Space align="center">
-            <Link href={"/course/" + course.id}>
-              {course.code + " "}
-              {course.name}（{course.teacher}）
-            </Link>
-          </Space>
+          <Link href={"/course/" + course.id}>
+            {course.code + " "}
+            {course.name}（{course.teacher}）
+          </Link>
         }
         description={
           <Space wrap size={0}>

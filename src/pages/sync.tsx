@@ -1,9 +1,10 @@
-import { Button, Card, Modal, PageHeader, Select, message } from "antd";
+import { Button, Card, Modal, Select, message } from "antd";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 import CourseList from "@/components/course-list";
+import PageHeader from "@/components/page-header";
 import { useSemesters } from "@/services/semester";
 import { authSync, loginSync, syncLessons, useLessons } from "@/services/sync";
 
@@ -63,7 +64,8 @@ const SyncPage = () => {
   };
 
   return (
-    <PageHeader title="学过的课" backIcon={false}>
+    <>
+      <PageHeader title="学过的课"></PageHeader>
       <Head>
         <title>同步课表 - SJTU选课社区</title>
       </Head>
@@ -117,7 +119,7 @@ const SyncPage = () => {
           部分课程不在选课社区数据库中，包括培养计划更改后取消的课程或者被替代的同名课程。这些课程将被忽略。
         </p>
       </Modal>
-    </PageHeader>
+    </>
   );
 };
 

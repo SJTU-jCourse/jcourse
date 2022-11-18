@@ -1,4 +1,4 @@
-import { Card, Col, PageHeader, Radio, Row } from "antd";
+import { Card, Col, Radio, Row } from "antd";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
@@ -7,6 +7,7 @@ import CourseFilterCard from "@/components/course-filter-card";
 import Config from "@/config/config";
 import { CoursesFilterParams, Pagination } from "@/lib/models";
 import { useCourseList, useCourseFilters } from "@/services/course";
+import PageHeader from "@/components/page-header";
 
 enum OrderBy {
   Avg = "avg",
@@ -64,7 +65,8 @@ const CoursesPage = () => {
     });
   };
   return (
-    <PageHeader title="所有课程" backIcon={false}>
+    <>
+      <PageHeader title="所有课程"></PageHeader>
       <Head>
         <title>课程库 - SJTU选课社区</title>
       </Head>
@@ -106,7 +108,7 @@ const CoursesPage = () => {
           </Card>
         </Col>
       </Row>
-    </PageHeader>
+    </>
   );
 };
 export default CoursesPage;

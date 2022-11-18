@@ -1,9 +1,10 @@
-import { Card, Input, PageHeader, message } from "antd";
+import { Card, Input, message } from "antd";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 
 import CourseList from "@/components/course-list";
+import PageHeader from "@/components/page-header";
 import Config from "@/config/config";
 import { Pagination } from "@/lib/models";
 import { useSearchCourse } from "@/services/course";
@@ -42,7 +43,8 @@ const SearchPage = () => {
   };
 
   return (
-    <PageHeader title={"搜索"} onBack={() => history.back()}>
+    <>
+      <PageHeader title="搜索" onBack={() => history.back()}></PageHeader>
       <Head>
         <title>{"搜索 " + show_q + " - SJTU选课社区"}</title>
       </Head>
@@ -64,7 +66,7 @@ const SearchPage = () => {
           showEnroll={true}
         />
       </Card>
-    </PageHeader>
+    </>
   );
 };
 

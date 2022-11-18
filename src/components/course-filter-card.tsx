@@ -1,4 +1,4 @@
-import { Button, Card, Checkbox, Collapse, Grid, Tag } from "antd";
+import { Button, Card, Checkbox, Col, Collapse, Grid, Row, Tag } from "antd";
 import { useState } from "react";
 
 import { CourseFilterItem, CourseFilters } from "@/lib/models";
