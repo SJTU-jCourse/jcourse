@@ -71,12 +71,14 @@ const CourseFilterCard = ({
                 setCheckedCategories(e as number[]);
               }}
             >
-              {filters.categories.map((item: CourseFilterItem) => (
-                <div key={item.id}>
-                  <Checkbox value={item.id}>{item.name}</Checkbox>
-                  <Tag>{item.count}</Tag>
-                </div>
-              ))}
+              <Row>
+                {filters.categories.map((item: CourseFilterItem) => (
+                  <Col span={24} key={item.id}>
+                    <Checkbox value={item.id}>{item.name}</Checkbox>
+                    <Tag>{item.count}</Tag>
+                  </Col>
+                ))}
+              </Row>
             </Checkbox.Group>
           </Collapse.Panel>
           <Collapse.Panel header="开课单位" key="departments">
@@ -86,12 +88,14 @@ const CourseFilterCard = ({
                 setCheckedDepartments(e as number[]);
               }}
             >
-              {filters.departments.map((item: CourseFilterItem) => (
-                <div key={item.id}>
-                  <Checkbox value={item.id}>{item.name}</Checkbox>
-                  <Tag>{item.count}</Tag>
-                </div>
-              ))}
+              <Row>
+                {filters.departments.map((item: CourseFilterItem) => (
+                  <Col span={24} key={item.id}>
+                    <Checkbox value={item.id}>{item.name}</Checkbox>
+                    <Tag>{item.count}</Tag>
+                  </Col>
+                ))}
+              </Row>
             </Checkbox.Group>
           </Collapse.Panel>
         </Collapse>
