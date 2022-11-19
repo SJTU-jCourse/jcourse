@@ -1,5 +1,6 @@
-import { Card, PageHeader } from "antd";
+import { Button, Card, PageHeader } from "antd";
 import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 import ReviewList from "@/components/review-list";
@@ -27,6 +28,11 @@ const LatestPage = () => {
       title="最新点评"
       backIcon={false}
       subTitle={`共有${reviews ? reviews.count : 0}个点评`}
+      extra={
+        <Link href="/review">
+          <Button type="primary">写点评</Button>
+        </Link>
+      }
     >
       <Head>
         <title>最新点评 - SJTU选课社区</title>

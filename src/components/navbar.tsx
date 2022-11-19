@@ -55,7 +55,7 @@ const NavBar = ({ user }: { user?: User }) => {
   return (
     <Row className="navbar">
       <Col>
-        <Link href="/" className="title">
+        <Link href="/latest" className="title">
           SJTU选课社区
         </Link>
       </Col>
@@ -68,15 +68,7 @@ const NavBar = ({ user }: { user?: User }) => {
           items={navMenuItems}
         ></Menu>
       </Col>
-      <Col>
-        <Link href="/review">
-          {screens.xs ? (
-            <Button type="primary" shape="circle" icon={<EditOutlined />} />
-          ) : (
-            <Button type="primary">写点评</Button>
-          )}
-        </Link>
-      </Col>
+
       <Col>
         <Link href="/search">
           <Button
