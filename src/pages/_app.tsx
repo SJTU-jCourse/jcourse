@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null;
+  if (!mounted) return <></>;
 
   return (
     <SWRConfig value={{ shouldRetryOnError: false, revalidateOnFocus: false }}>
