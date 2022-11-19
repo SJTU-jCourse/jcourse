@@ -14,7 +14,6 @@ const ReportPage = () => {
 
   return (
     <>
-      {" "}
       <PageHeader title="我的反馈" onBack={() => history.back()} />
       <Head>
         <title>反馈 - SJTU选课社区</title>
