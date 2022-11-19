@@ -1,9 +1,9 @@
 import { Button, Card, Checkbox, Collapse, Grid, Tag } from "antd";
 import { useState } from "react";
 
-import { Filter, Filters } from "@/lib/models";
+import { CourseFilterItem, CourseFilters } from "@/lib/models";
 
-const FilterCard = ({
+const CourseFilterCard = ({
   filters,
   selectedCategories,
   selectedDepartments,
@@ -11,7 +11,7 @@ const FilterCard = ({
   onClick,
   loading,
 }: {
-  filters: Filters | undefined;
+  filters: CourseFilters | undefined;
   selectedCategories?: string;
   selectedDepartments?: string;
   defaultOnlyHasReviews?: boolean;
@@ -71,7 +71,7 @@ const FilterCard = ({
                 setCheckedCategories(e as number[]);
               }}
             >
-              {filters.categories.map((item: Filter) => (
+              {filters.categories.map((item: CourseFilterItem) => (
                 <div key={item.id}>
                   <Checkbox value={item.id}>{item.name}</Checkbox>
                   <Tag>{item.count}</Tag>
@@ -86,7 +86,7 @@ const FilterCard = ({
                 setCheckedDepartments(e as number[]);
               }}
             >
-              {filters.departments.map((item: Filter) => (
+              {filters.departments.map((item: CourseFilterItem) => (
                 <div key={item.id}>
                   <Checkbox value={item.id}>{item.name}</Checkbox>
                   <Tag>{item.count}</Tag>
@@ -100,4 +100,4 @@ const FilterCard = ({
   );
 };
 
-export default FilterCard;
+export default CourseFilterCard;

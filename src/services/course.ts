@@ -5,15 +5,15 @@ import {
   CourseInReview,
   CourseListItem,
   CoursesFilterParams,
-  Filters,
+  CourseFilters,
   NotificationLevel,
   Pagination,
   PaginationApiResult,
 } from "@/lib/models";
 import { fetcher, request } from "@/services/request";
 
-export function useFilters() {
-  const { data, error } = useSWR<Filters>("/api/filter/", fetcher);
+export function useCourseFilters() {
+  const { data, error } = useSWR<CourseFilters>("/api/course-filter/", fetcher);
   return {
     filters: data,
     loading: !error && !data,

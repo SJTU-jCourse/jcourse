@@ -53,15 +53,15 @@ export type CourseDetail = {
   notification_level: NotificationLevel | null;
 };
 
-export type Filter = {
+export type CourseFilterItem = {
   id: number;
   name: string;
   count: number;
 };
 
-export type Filters = {
-  categories: Filter[];
-  departments: Filter[];
+export type CourseFilters = {
+  categories: CourseFilterItem[];
+  departments: CourseFilterItem[];
 };
 export type Announcement = {
   title: string;

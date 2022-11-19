@@ -3,10 +3,10 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 
 import CourseList from "@/components/course-list";
-import FilterCard from "@/components/filter-card";
+import CourseFilterCard from "@/components/course-filter-card";
 import Config from "@/config/config";
 import { CoursesFilterParams, Pagination } from "@/lib/models";
-import { useCourseList, useFilters } from "@/services/course";
+import { useCourseList, useCourseFilters } from "@/services/course";
 
 enum OrderBy {
   Avg = "avg",
@@ -28,7 +28,7 @@ const CoursesPage = () => {
   };
 
   const { courses, loading: courseLoading } = useCourseList(params, pagination);
-  const { filters, loading: filterLoading } = useFilters();
+  const { filters, loading: filterLoading } = useCourseFilters();
 
   const onFilterButtonClick = (
     onlyHasReviews: boolean,
@@ -70,7 +70,7 @@ const CoursesPage = () => {
       </Head>
       <Row gutter={[16, 16]}>
         <Col xs={24} md={8}>
-          <FilterCard
+          <CourseFilterCard
             filters={filters}
             selectedCategories={categories as string}
             selectedDepartments={departments as string}
