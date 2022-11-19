@@ -1,7 +1,8 @@
-import { Button, Card, PageHeader } from "antd";
+import { Button, Card } from "antd";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
+import PageHeader from "@/components/page-header";
 import ReviewList from "@/components/review-list";
 import Config from "@/config/config";
 import { Pagination } from "@/lib/models";
@@ -23,21 +24,21 @@ const FollowReviewPage = () => {
   };
 
   return (
-    <PageHeader
-      title="关注的点评"
-      backIcon={false}
-      subTitle={`共有${reviews ? reviews.count : 0}个点评`}
-      extra={
-        <Button
-          type="link"
-          onClick={() => {
-            router.push("/follow-course");
-          }}
-        >
-          关注的课程
-        </Button>
-      }
-    >
+    <>
+      <PageHeader
+        title="关注的点评"
+        subTitle={`共有${reviews ? reviews.count : 0}个点评`}
+        extra={
+          <Button
+            type="link"
+            onClick={() => {
+              router.push("/follow-course");
+            }}
+          >
+            关注的课程
+          </Button>
+        }
+      ></PageHeader>
       <Head>
         <title>关注 - SJTU选课社区</title>
       </Head>
@@ -50,7 +51,7 @@ const FollowReviewPage = () => {
           pagination={pagination}
         />
       </Card>
-    </PageHeader>
+    </>
   );
 };
 

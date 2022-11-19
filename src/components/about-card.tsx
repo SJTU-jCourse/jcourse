@@ -5,7 +5,9 @@ const { Paragraph, Title } = Typography;
 const AboutCard = () => {
   return (
     <Typography>
-      <Title level={4}>简介</Title>
+      <Title level={4} style={{ marginTop: 0 }}>
+        简介
+      </Title>
       <Paragraph>
         SJTU选课社区为非官方网站。选课社区目的在于让同学们了解课程的更多情况，不想也不能代替教务处的课程评教。
       </Paragraph>

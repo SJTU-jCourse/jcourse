@@ -1,16 +1,17 @@
-.ant-page-header {
-  margin: 16px !important;
-  padding: 0 !important;
-}
-
 @media (max-width: 576px) {
   .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item {
-    padding: 0 8px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
   }
 
   .ant-menu-horizontal > .ant-menu-item::after,
   .ant-menu-horizontal > .ant-menu-submenu::after {
-    left: 8px !important;
-    right: 8px !important;
+    left: 0px !important;
+    right: 0px !important;
   }
+}
+
+.ant-list-item {
+  padding-left: 4px !important;
+  padding-right: 4px !important;
 }

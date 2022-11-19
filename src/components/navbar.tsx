@@ -7,7 +7,7 @@ import {
   SyncOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Button, Col, Dropdown, Grid, Menu, Row } from "antd";
+import { Button, Col, Dropdown, Grid, Menu, Row, Typography } from "antd";
 import type { MenuProps } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -19,7 +19,6 @@ const { useBreakpoint } = Grid;
 
 const NavBar = ({ user }: { user?: User }) => {
   const router = useRouter();
-
   const screens = useBreakpoint();
   const handleMenuClick = (e: { key: string }) => {
     if (e.key == "activity") {
@@ -47,15 +46,23 @@ const NavBar = ({ user }: { user?: User }) => {
     { key: "logout", label: "登出", icon: <LogoutOutlined />, danger: true },
   ];
 
-  const navMenuItems = [
-    { key: "/latest", label: <Link href="/latest">最新</Link> },
-    { key: "/follow-review", label: <Link href="/follow-review">关注</Link> },
-    { key: "/courses", label: <Link href="/courses">课程</Link> },
+  const navItems = [
+    { label: "最新", value: "/latest" },
+    { label: "关注", value: "/follow-review" },
+    { label: "课程", value: "/courses" },
   ];
+
+  const navMenuItems = navItems.map((item) => {
+    return {
+      key: item.value,
+      label: <Link href={item.value}>{item.label}</Link>,
+    };
+  });
+
   return (
     <Row className="navbar">
       <Col>
-        <Link href="/" className="title">
+        <Link href="/latest" className="title">
           SJTU选课社区
         </Link>
       </Col>
@@ -78,13 +85,14 @@ const NavBar = ({ user }: { user?: User }) => {
         </Link>
       </Col>
       <Col>
-        <Link href="/search">
-          <Button
-            shape="circle"
-            icon={<SearchOutlined />}
-            className="search-button"
-          />
-        </Link>
+        <Button
+          shape="circle"
+          icon={<SearchOutlined />}
+          className="search-button"
+          onClick={() => {
+            router.push("/search");
+          }}
+        />
       </Col>
 
       <Col>

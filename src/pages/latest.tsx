@@ -1,7 +1,8 @@
-import { Card, PageHeader } from "antd";
+import { Card } from "antd";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
+import PageHeader from "@/components/page-header";
 import ReviewList from "@/components/review-list";
 import Config from "@/config/config";
 import { Pagination } from "@/lib/models";
@@ -23,11 +24,11 @@ const LatestPage = () => {
   };
 
   return (
-    <PageHeader
-      title="最新点评"
-      backIcon={false}
-      subTitle={`共有${reviews ? reviews.count : 0}个点评`}
-    >
+    <>
+      <PageHeader
+        title="最新点评"
+        subTitle={`共有${reviews ? reviews.count : 0}个点评`}
+      />
       <Head>
         <title>最新点评 - SJTU选课社区</title>
       </Head>
@@ -40,7 +41,7 @@ const LatestPage = () => {
           pagination={pagination}
         />
       </Card>
-    </PageHeader>
+    </>
   );
 };
 

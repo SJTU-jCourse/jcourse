@@ -1,14 +1,7 @@
-import {
-  Card,
-  Descriptions,
-  Empty,
-  PageHeader,
-  Skeleton,
-  Table,
-  Typography,
-} from "antd";
+import { Card, Descriptions, Empty, Skeleton, Table, Typography } from "antd";
 import Head from "next/head";
 
+import PageHeader from "@/components/page-header";
 import { useUserPoint } from "@/services/user";
 
 const { Title, Paragraph } = Typography;
@@ -30,7 +23,8 @@ const PointPage = () => {
     { title: "描述", dataIndex: "description", key: "description" },
   ];
   return (
-    <PageHeader title="社区积分">
+    <>
+      <PageHeader title="社区积分"></PageHeader>
       <Head>
         <title>社区积分 - SJTU选课社区</title>
       </Head>
@@ -91,7 +85,7 @@ const PointPage = () => {
           </Skeleton>
         </Typography>
       </Card>
-    </PageHeader>
+    </>
   );
 };
 export default PointPage;

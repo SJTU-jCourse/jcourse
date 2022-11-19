@@ -4,7 +4,6 @@ import {
   Card,
   Form,
   Input,
-  PageHeader,
   Rate,
   Select,
   Spin,
@@ -18,6 +17,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 import MDEditor from "@/components/md-editor";
+import PageHeader from "@/components/page-header";
 import Config from "@/config/config";
 import { CourseInReview, Review, ReviewDraft, Semester } from "@/lib/models";
 import { getCourseInReview, searchCourseInReview } from "@/services/course";
@@ -154,7 +154,8 @@ const ReviewPage = () => {
   };
 
   return (
-    <PageHeader title="写点评" onBack={() => history.back()}>
+    <>
+      <PageHeader title="写点评" onBack={() => history.back()}></PageHeader>
       <Head>
         <title>写点评 - SJTU选课社区</title>
       </Head>
@@ -303,7 +304,7 @@ const ReviewPage = () => {
           </Form.Item>
         </Form>
       </Card>
-    </PageHeader>
+    </>
   );
 };
 export default ReviewPage;

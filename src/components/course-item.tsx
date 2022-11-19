@@ -29,35 +29,29 @@ const CourseItem = ({
         )
       }
     >
-      <List.Item.Meta
-        title={
-          <Space align="center">
-            <Link href={"/course/" + course.id}>
-              {course.code + " "}
-              {course.name}（{course.teacher}）
-            </Link>
-          </Space>
-        }
-        description={
-          <Space wrap size={0}>
-            {showEnroll && course.semester && (
-              <Tag color={Config.TAG_COLOR_ENROLL}>学过</Tag>
-            )}
-            {course.categories &&
-              course.categories.map((tag: string) => (
-                <Tag key={tag} color={Config.TAG_COLOR_CATEGORY}>
-                  {tag}
-                </Tag>
-              ))}
-            {course.is_reviewed && (
-              <Tag color={Config.TAG_COLOR_REVIEW}>已点评</Tag>
-            )}
-            <div>
-              {course.credit}学分 {course.department}
-            </div>
-          </Space>
-        }
-      />
+      <Space direction="vertical">
+        <Link href={"/course/" + course.id}>
+          {course.code + " "}
+          {course.name}（{course.teacher}）
+        </Link>
+        <Space wrap size={0}>
+          {showEnroll && course.semester && (
+            <Tag color={Config.TAG_COLOR_ENROLL}>学过</Tag>
+          )}
+          {course.categories &&
+            course.categories.map((tag: string) => (
+              <Tag key={tag} color={Config.TAG_COLOR_CATEGORY}>
+                {tag}
+              </Tag>
+            ))}
+          {course.is_reviewed && (
+            <Tag color={Config.TAG_COLOR_REVIEW}>已点评</Tag>
+          )}
+          <Typography.Text type="secondary">
+            {course.credit}学分 {course.department}
+          </Typography.Text>
+        </Space>
+      </Space>
     </List.Item>
   );
 };

@@ -1,7 +1,8 @@
-import { Button, Card, PageHeader } from "antd";
+import { Button, Card } from "antd";
 import Head from "next/head";
 import { useState } from "react";
 
+import PageHeader from "@/components/page-header";
 import ReportList from "@/components/report-list";
 import ReportModal from "@/components/report-modal";
 import { useReports } from "@/services/report";
@@ -12,7 +13,8 @@ const ReportPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   return (
-    <PageHeader title="我的反馈" onBack={() => history.back()}>
+    <>
+      <PageHeader title="我的反馈" onBack={() => history.back()} />
       <Head>
         <title>反馈 - SJTU选课社区</title>
       </Head>
@@ -38,7 +40,7 @@ const ReportPage = () => {
         }}
         onCancel={() => setIsModalOpen(false)}
       />
-    </PageHeader>
+    </>
   );
 };
 export default ReportPage;

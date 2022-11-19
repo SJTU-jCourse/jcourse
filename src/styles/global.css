@@ -1,17 +1,19 @@
-@import "@/styles/antd.css";
 @import "@/styles/custom.ant.css";
 
 :root {
-  --ant-primary-color: #1da57a;
+  --primary-color: #1DA57A;
   --layout-width: 1200px;
   --layout-margin: 16px;
+}
+body {
+  margin: 0 !important;
 }
 .title {
   font-weight: 600;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: black;
+  color: black !important;
 }
 .basic-layout {
   min-height: 100vh !important;
@@ -46,14 +48,14 @@
   flex-direction: column;
 }
 .header {
-  background: white;
+  background: white !important;
 }
 @media (prefers-color-scheme: dark) {
   .title {
-    color: white;
+    color: white !important;
   }
   .header {
-    background: #141414;
+    background: #141414 !important;
   }
 }
 .navbar {

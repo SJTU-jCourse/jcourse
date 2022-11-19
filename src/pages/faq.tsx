@@ -1,16 +1,21 @@
-import { Card, Divider, PageHeader, Typography } from "antd";
+import { Card, Divider, Typography } from "antd";
 import Head from "next/head";
 import Link from "next/link";
+
+import PageHeader from "@/components/page-header";
 
 const { Title, Paragraph } = Typography;
 const FaqPage = () => {
   return (
-    <PageHeader title="常见问题" onBack={() => history.back()}>
+    <>
+      <PageHeader title="常见问题" onBack={() => history.back()} />
       <Head>
         <title>常见问题 - SJTU选课社区</title>
       </Head>
       <Card>
-        <Title level={4}>我该点评哪些课程？写什么？</Title>
+        <Title level={4} style={{ marginTop: 0 }}>
+          我该点评哪些课程？写什么？
+        </Title>
         <Paragraph>
           所有的课程。但如果你想帮忙，最好的是那些还没有点评的课程和老师。请不要吝啬你的好评，也不要害怕说坏话。
           <br />
@@ -136,7 +141,7 @@ const FaqPage = () => {
           </ul>
         </Paragraph>
       </Card>
-    </PageHeader>
+    </>
   );
 };
 export default FaqPage;

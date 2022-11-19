@@ -1,8 +1,9 @@
-import { Card, PageHeader } from "antd";
+import { Card } from "antd";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
 import CourseList from "@/components/course-list";
+import PageHeader from "@/components/page-header";
 import Config from "@/config/config";
 import { NotificationLevel, Pagination } from "@/lib/models";
 import { useFollowingCourseList } from "@/services/course";
@@ -26,7 +27,8 @@ const FollowCoursePage = () => {
   };
 
   return (
-    <PageHeader title="关注的课程" backIcon={false}>
+    <>
+      <PageHeader title="关注的课程"></PageHeader>
       <Head>
         <title>关注的课程 - SJTU选课社区</title>
       </Head>
@@ -39,7 +41,7 @@ const FollowCoursePage = () => {
           pagination={pagination}
         />
       </Card>
-    </PageHeader>
+    </>
   );
 };
 
