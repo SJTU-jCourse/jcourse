@@ -5,12 +5,6 @@
   --layout-width: 1200px;
   --layout-margin: 16px;
 }
-a {
-  text-decoration: none;
-}
-a:visited {
-  color: var(--primary-color);
-}
 body {
   margin: 0 !important;
 }
