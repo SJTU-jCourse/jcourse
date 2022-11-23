@@ -1,5 +1,5 @@
 import { EditOutlined } from "@ant-design/icons";
-import { Button, Card, Col, Grid, Row, Space, Spin } from "antd";
+import { Button, Card, Col, Divider, Grid, Row, Space, Spin } from "antd";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -7,24 +7,42 @@ import { useRouter } from "next/router";
 import CourseDetailCard from "@/components/course-detail-card";
 import PageHeader from "@/components/page-header";
 import RelatedCard from "@/components/related-card";
+import ReviewFilter from "@/components/review-filter";
 import ReviewList from "@/components/review-list";
 import Config from "@/config/config";
-import { Pagination } from "@/lib/models";
+import { Pagination, ReviewFilterValue } from "@/lib/models";
 import { useCourseDetail } from "@/services/course";
-import { useReviewsOfCourse } from "@/services/review";
+import { useReviewFilters, useReviewsOfCourse } from "@/services/review";
 import { useSemesters } from "@/services/semester";
 
 const { useBreakpoint } = Grid;
 
+type CourseDetailParams = {
+  id?: string;
+  page?: string;
+  size?: string;
+  order?: string;
+  semester?: string;
+  rating?: string;
+};
+
 const CoursePage = () => {
   const router = useRouter();
-  const { page, size, id } = router.query;
+  const params: CourseDetailParams = router.query;
+  const { page, size, id, order, semester, rating } = params;
   const pagination: Pagination = {
     page: page ? parseInt(page as string) : 1,
     pageSize: size ? parseInt(size as string) : Config.PAGE_SIZE,
   };
+
+  const filterValue: ReviewFilterValue = {
+    order: order ? parseInt(order as string) : 0,
+    semester: semester ? parseInt(semester as string) : 0,
+    rating: rating ? parseInt(rating as string) : 0,
+  };
+
   const onPageChange = (page: number, pageSize: number) => {
-    router.push({ query: { id, page, size: pageSize } });
+    router.push({ query: { ...params, id, page, size: pageSize } });
   };
   const screens = useBreakpoint();
 
@@ -32,8 +50,23 @@ const CoursePage = () => {
   const { semesterMap } = useSemesters();
   const { reviews, loading: reviewLoading } = useReviewsOfCourse(
     id as string,
-    pagination
+    pagination,
+    filterValue
   );
+  const { filters } = useReviewFilters(id as string);
+
+  const onFilterClick = (value: ReviewFilterValue) => {
+    const newParams: CourseDetailParams = {
+      id,
+      page: (1).toString(),
+      size: Config.PAGE_SIZE.toString(),
+    };
+    if (value.order) newParams.order = value.order.toString();
+    if (value.semester) newParams.semester = value.semester.toString();
+    if (value.rating) newParams.rating = value.rating.toString();
+    console.log(newParams);
+    router.push({ query: newParams });
+  };
 
   return (
     <>
@@ -90,6 +123,12 @@ const CoursePage = () => {
               </Space>
             }
           >
+            <ReviewFilter
+              filters={filters}
+              defaultValue={filterValue}
+              onClick={onFilterClick}
+            ></ReviewFilter>
+            <Divider></Divider>
             <ReviewList
               loading={reviewLoading}
               count={reviews?.count}

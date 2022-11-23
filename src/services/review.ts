@@ -6,6 +6,8 @@ import {
   PaginationApiResult,
   Review,
   ReviewDraft,
+  ReviewFilterProps,
+  ReviewFilterValue,
   ReviewRevision,
 } from "@/lib/models";
 import { fetcher, request } from "@/services/request";
@@ -60,10 +62,18 @@ export function useMyReviews() {
   };
 }
 
-export function useReviewsOfCourse(id: string, pagination: Pagination) {
+export function useReviewsOfCourse(
+  id: string,
+  pagination: Pagination,
+  filters: ReviewFilterValue
+) {
+  let filterParams: string = "";
+  if (filters.order) filterParams += `&order=${filters.order}`;
+  if (filters.semester) filterParams += `&semester=${filters.semester}`;
+  if (filters.rating) filterParams += `&rating=${filters.rating}`;
   const { data, error } = useSWR<PaginationApiResult<Review>>(
     id
-      ? `/api/course/${id}/review/?page=${pagination.page}&size=${pagination.pageSize}`
+      ? `/api/course/${id}/review/?${filterParams}&page=${pagination.page}&size=${pagination.pageSize}`
       : null,
     fetcher
   );
@@ -102,6 +112,18 @@ export function useReviewRevisions(id: number) {
   );
   return {
     revisions: data,
+    loading: !error && !data,
+    error: error,
+  };
+}
+
+export function useReviewFilters(course_id: string) {
+  const { data, error } = useSWR<ReviewFilterProps>(
+    `/api/review-filter/?course_id=${course_id}`,
+    fetcher
+  );
+  return {
+    filters: data,
     loading: !error && !data,
     error: error,
   };

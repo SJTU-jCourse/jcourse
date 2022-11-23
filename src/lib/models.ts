@@ -195,3 +195,25 @@ export enum NotificationLevel {
   FOLLOW = 1,
   IGNORE = 2,
 }
+
+export type ReviewFilterSemesterItem = {
+  id: number;
+  name: string;
+  count: number;
+};
+
+export type ReviewFilterRatingItem = {
+  rating: number;
+  count: number;
+};
+
+export type ReviewFilterProps = {
+  semesters: ReviewFilterSemesterItem[];
+  ratings: ReviewFilterRatingItem[];
+};
+
+export type ReviewFilterValue = {
+  order: number;
+  semester: number;
+  rating: number;
+};
