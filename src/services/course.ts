@@ -2,10 +2,10 @@ import useSWR from "swr";
 
 import {
   CourseDetail,
+  CourseFilters,
   CourseInReview,
   CourseListItem,
   CoursesFilterParams,
-  CourseFilters,
   NotificationLevel,
   Pagination,
   PaginationApiResult,

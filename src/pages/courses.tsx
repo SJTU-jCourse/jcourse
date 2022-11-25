@@ -2,12 +2,12 @@ import { Card, Col, Radio, Row } from "antd";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import CourseList from "@/components/course-list";
 import CourseFilterCard from "@/components/course-filter-card";
+import CourseList from "@/components/course-list";
+import PageHeader from "@/components/page-header";
 import Config from "@/config/config";
 import { CoursesFilterParams, Pagination } from "@/lib/models";
-import { useCourseList, useCourseFilters } from "@/services/course";
-import PageHeader from "@/components/page-header";
+import { useCourseFilters, useCourseList } from "@/services/course";
 
 enum OrderBy {
   Avg = "avg",
