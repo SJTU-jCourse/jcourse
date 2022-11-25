@@ -119,7 +119,7 @@ export function useReviewRevisions(id: number) {
 
 export function useReviewFilters(course_id: string) {
   const { data, error } = useSWR<ReviewFilterProps>(
-    `/api/review-filter/?course_id=${course_id}`,
+    course_id ? `/api/review-filter/?course_id=${course_id}` : null,
     fetcher
   );
   return {

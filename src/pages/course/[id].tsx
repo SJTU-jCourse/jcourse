@@ -30,7 +30,7 @@ const CoursePage = () => {
   const router = useRouter();
   const params: CourseDetailParams = router.query;
   const { page, size, id, order, semester, rating } = params;
-  if (!id) return <></>;
+
   const pagination: Pagination = {
     page: page ? parseInt(page as string) : 1,
     pageSize: size ? parseInt(size as string) : Config.PAGE_SIZE,
