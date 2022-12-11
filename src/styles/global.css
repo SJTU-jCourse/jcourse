@@ -109,6 +109,9 @@ body {
   margin: 0 !important;
   overflow-wrap: break-word;
 }
+.comment code {
+  white-space: normal;
+}
 .courses-radio-group {
   padding: 0;
 }
