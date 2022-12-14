@@ -1,5 +1,16 @@
 import { EditOutlined } from "@ant-design/icons";
-import { Button, Card, Col, Divider, Grid, Row, Space, Spin } from "antd";
+import {
+  Button,
+  Card,
+  Col,
+  ConfigProvider,
+  Divider,
+  Empty,
+  Grid,
+  Row,
+  Space,
+  Spin,
+} from "antd";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -130,13 +141,24 @@ const CoursePage = () => {
               onClick={onFilterClick}
             ></ReviewFilter>
             <Divider></Divider>
-            <ReviewList
-              loading={reviewLoading}
-              count={reviews?.count}
-              reviews={reviews?.results}
-              onPageChange={onPageChange}
-              pagination={pagination}
-            ></ReviewList>
+            <ConfigProvider
+              renderEmpty={() => (
+                <Empty
+                  description={
+                    "暂无点评。如存在新旧课号或任课教师不同的同名课程，您可适当参考相关点评。"
+                  }
+                  image={Empty.PRESENTED_IMAGE_SIMPLE}
+                />
+              )}
+            >
+              <ReviewList
+                loading={reviewLoading}
+                count={reviews?.count}
+                reviews={reviews?.results}
+                onPageChange={onPageChange}
+                pagination={pagination}
+              ></ReviewList>
+            </ConfigProvider>
           </Card>
         </Col>
         {!screens.md && <RelatedCard course={course} loading={courseLoading} />}
