@@ -1,13 +1,13 @@
 @media (max-width: 576px) {
   .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item {
-    padding-left: 0px !important;
-    padding-right: 0px !important;
+    padding-left: 4px !important;
+    padding-right: 4px !important;
   }
 
   .ant-menu-horizontal > .ant-menu-item::after,
   .ant-menu-horizontal > .ant-menu-submenu::after {
-    left: 0px !important;
-    right: 0px !important;
+    left: 4px !important;
+    right: 4px !important;
   }
 }
 
