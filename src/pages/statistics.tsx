@@ -1,8 +1,16 @@
-import { Line } from "@ant-design/plots";
 import { Col, Grid, Input, Row, Statistic, Typography } from "antd";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
+import {
+  Brush,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 import { useStatistic } from "@/services/statistic";
 
@@ -79,23 +87,28 @@ const StatisticPage = () => {
       <Row>
         <Col span={figureColSpan}>
           <div style={{ textAlign: "center" }}>新增用户</div>
-          <Line
-            data={indexState?.user_join || []}
-            xField="date"
-            yField="count"
-            slider={{ start: 0, end: 1 }}
-            smooth={true}
-          ></Line>
+          <ResponsiveContainer height={300}>
+            <LineChart data={indexState?.user_join || []}>
+              <Line type="monotone" dataKey="count" dot={false} />
+              <XAxis dataKey="date" />
+              <YAxis />
+              <Tooltip />
+              <Brush />
+            </LineChart>
+          </ResponsiveContainer>
         </Col>
         <Col span={figureColSpan}>
           <div style={{ textAlign: "center" }}>新增点评</div>
-          <Line
-            data={indexState?.review_create || []}
-            xField="date"
-            yField="count"
-            slider={{ start: 0, end: 1 }}
-            smooth={true}
-          ></Line>
+
+          <ResponsiveContainer height={300}>
+            <LineChart data={indexState?.review_create || []}>
+              <Line type="monotone" dataKey="count" dot={false} />
+              <XAxis dataKey="date" />
+              <YAxis />
+              <Tooltip />
+              <Brush />
+            </LineChart>
+          </ResponsiveContainer>
         </Col>
       </Row>
     </div>
