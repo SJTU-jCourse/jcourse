@@ -200,6 +200,7 @@ export type ReviewFilterSemesterItem = {
   id: number;
   name: string;
   count: number;
+  avg: number;
 };
 
 export type ReviewFilterRatingItem = {

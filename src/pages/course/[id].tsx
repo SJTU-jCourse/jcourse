@@ -7,6 +7,7 @@ import {
   Divider,
   Empty,
   Grid,
+  Modal,
   Row,
   Space,
   Spin,
@@ -20,6 +21,7 @@ import PageHeader from "@/components/page-header";
 import RelatedCard from "@/components/related-card";
 import ReviewFilter from "@/components/review-filter";
 import ReviewList from "@/components/review-list";
+import ReviewRatingTrend from "@/components/review-rating-trend";
 import Config from "@/config/config";
 import { Pagination, ReviewFilterValue } from "@/lib/models";
 import { useCourseDetail } from "@/services/course";
@@ -80,6 +82,8 @@ const CoursePage = () => {
     router.push({ query: newParams });
   };
 
+  const [modal, contextHolder] = Modal.useModal();
+
   return (
     <>
       <PageHeader
@@ -121,6 +125,25 @@ const CoursePage = () => {
             title={`点评（${reviews ? reviews.count : 0}条）`}
             extra={
               <Space>
+                <Button
+                  onClick={() => {
+                    modal.info({
+                      title: course
+                        ? course.name +
+                          "（" +
+                          course.main_teacher.name +
+                          "）的点评趋势"
+                        : "点评趋势",
+                      content: <ReviewRatingTrend data={filters?.semesters} />,
+                      icon: null,
+                      footer: null,
+                      closable: true,
+                      width: screens.md ? "80%" : 520,
+                    });
+                  }}
+                >
+                  趋势
+                </Button>
                 <Link
                   href={
                     course?.is_reviewed
@@ -141,6 +164,7 @@ const CoursePage = () => {
               onClick={onFilterClick}
             ></ReviewFilter>
             <Divider></Divider>
+            {contextHolder}
             <ConfigProvider
               renderEmpty={() => (
                 <Empty
