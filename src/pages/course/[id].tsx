@@ -146,8 +146,8 @@ const CoursePage = () => {
                 <Link
                   href={
                     course?.is_reviewed
-                      ? `/review?review_id=${course.is_reviewed}`
-                      : `/review?course_id=${id}`
+                      ? `/write-review?review_id=${course.is_reviewed}`
+                      : `/write-review?course_id=${id}`
                   }
                 >
                   <Button type="primary" icon={<EditOutlined />}>

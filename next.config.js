@@ -9,17 +9,7 @@ const nextConfig = {
         source: "/",
         destination: "/latest",
         permanent: true,
-      },
-      {
-        source: "/review/:id",
-        destination: "/review?review_id=:id",
-        permanent: true,
-      },
-      {
-        source: "/course/:id/review",
-        destination: "/review?course_id=:id",
-        permanent: true,
-      },
+      }
     ];
   },
   async rewrites() {

@@ -67,7 +67,9 @@ const ReviewItem = ({
                   <span>
                     <>
                       <strong>学期：</strong>
-                      {review.semester}
+                      {typeof review.semester == "string"
+                        ? review.semester
+                        : review.semester.name}
                     </>
                   </span>
                 )}
@@ -103,7 +105,9 @@ const ReviewItem = ({
                   </Typography.Text>
                 )}
                 {(review.is_mine || user?.is_staff) && (
-                  <Link href={`/review?review_id=${review.id}`}>修改点评</Link>
+                  <Link href={`/write-review?review_id=${review.id}`}>
+                    修改点评
+                  </Link>
                 )}
               </Space>
             </Space>

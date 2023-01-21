@@ -29,7 +29,7 @@ const { Text } = Typography;
 const ReviewTemplate: string =
   "课程内容：\n\n上课自由度：\n\n考核标准：\n\n授课质量：";
 
-const ReviewPage = () => {
+const WriteReviewPage = () => {
   const { user } = useUser();
   const { availableSemesters } = useSemesters();
   const router = useRouter();
@@ -307,4 +307,4 @@ const ReviewPage = () => {
     </>
   );
 };
-export default ReviewPage;
+export default WriteReviewPage;
