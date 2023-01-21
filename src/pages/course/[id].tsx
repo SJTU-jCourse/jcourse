@@ -78,7 +78,6 @@ const CoursePage = () => {
     if (value.order) newParams.order = value.order.toString();
     if (value.semester) newParams.semester = value.semester.toString();
     if (value.rating) newParams.rating = value.rating.toString();
-    console.log(newParams);
     router.push({ query: newParams });
   };
 
