@@ -1,3 +1,7 @@
+import {
+  StyleProvider,
+  legacyLogicalPropertiesTransformer,
+} from "@ant-design/cssinjs";
 import { ConfigProvider, theme } from "antd";
 import zhCN from "antd/locale/zh_CN";
 import type { AppProps } from "next/app";
@@ -22,25 +26,32 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   if (!mounted) return <></>;
 
   return (
-    <SWRConfig value={{ shouldRetryOnError: false, revalidateOnFocus: false }}>
-      <ConfigProvider
-        locale={zhCN}
-        theme={{
-          algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
-          token: { colorPrimary: "#1DA57A", colorInfo: "#1DA57A" },
-        }}
+    <StyleProvider
+      hashPriority="high"
+      transformers={[legacyLogicalPropertiesTransformer]}
+    >
+      <SWRConfig
+        value={{ shouldRetryOnError: false, revalidateOnFocus: false }}
       >
-        {router.pathname == "/login" ? (
-          <LoginLayout>
-            <Component {...pageProps} />
-          </LoginLayout>
-        ) : (
-          <BasicLayout {...pageProps}>
-            <Component {...pageProps} />
-          </BasicLayout>
-        )}
-      </ConfigProvider>
-    </SWRConfig>
+        <ConfigProvider
+          locale={zhCN}
+          theme={{
+            algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
+            token: { colorPrimary: "#1DA57A", colorInfo: "#1DA57A" },
+          }}
+        >
+          {router.pathname == "/login" ? (
+            <LoginLayout>
+              <Component {...pageProps} />
+            </LoginLayout>
+          ) : (
+            <BasicLayout {...pageProps}>
+              <Component {...pageProps} />
+            </BasicLayout>
+          )}
+        </ConfigProvider>
+      </SWRConfig>
+    </StyleProvider>
   );
 }
 
