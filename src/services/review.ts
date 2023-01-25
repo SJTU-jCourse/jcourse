@@ -8,6 +8,7 @@ import {
   ReviewDraft,
   ReviewFilterProps,
   ReviewFilterValue,
+  ReviewLocation,
   ReviewRevision,
 } from "@/lib/models";
 import { fetcher, request } from "@/services/request";
@@ -57,6 +58,18 @@ export function useMyReviews() {
   const { data, error } = useSWR<Review[]>("/api/review/mine/", fetcher);
   return {
     reviews: data,
+    loading: !error && !data,
+    error: error,
+  };
+}
+
+export function useReviewLocationInCourse(review_id: string) {
+  const { data, error } = useSWR<ReviewLocation>(
+    review_id ? `/api/review/${review_id}/location` : null,
+    fetcher
+  );
+  return {
+    data,
     loading: !error && !data,
     error: error,
   };

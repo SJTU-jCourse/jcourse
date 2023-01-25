@@ -90,6 +90,12 @@ export type ReviewReaction = {
   approves: number;
   disapproves: number;
 };
+
+export type ReviewLocation = {
+  location: number;
+  course: number;
+};
+
 export type Review = {
   id: number;
   course?: CourseInReview;

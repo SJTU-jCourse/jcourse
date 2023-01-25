@@ -15,6 +15,7 @@ import {
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 import CourseDetailCard from "@/components/course-detail-card";
 import PageHeader from "@/components/page-header";
@@ -67,6 +68,14 @@ const CoursePage = () => {
     pagination,
     filterValue
   );
+
+  useEffect(() => {
+    if (window.location.hash) {
+      const target = document.querySelector(window.location.hash);
+      if (target) target.scrollIntoView();
+    }
+  }, [reviews]);
+
   const { filters } = useReviewFilters(id as string);
 
   const onFilterClick = (value: ReviewFilterValue) => {

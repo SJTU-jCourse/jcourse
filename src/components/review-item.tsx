@@ -1,4 +1,4 @@
-import { Alert, List, Space, Tooltip, Typography } from "antd";
+import { Alert, List, Space, Tooltip, Typography, message } from "antd";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -12,17 +12,37 @@ import { doReviewReaction } from "@/services/review";
 const ReviewItem = ({
   review,
 }: React.PropsWithChildren<{ review: Review }>) => {
+  const [messageApi, contextHolder] = message.useMessage();
   const [revisionModalOpen, setRevisionModalOpen] = useState<boolean>(false);
   const edited = review.modified != review.created;
+
+  const copyReviewUrlToClipboard = async () => {
+    const url = window.location.origin + "/review/" + review.id;
+    try {
+      await navigator.clipboard.writeText(url);
+      messageApi.open({
+        type: "success",
+        content: "已复制点评链接到剪贴板",
+      });
+    } catch (err) {
+      messageApi.open({
+        type: "error",
+        content: "复制点评链接失败",
+      });
+    }
+  };
   return (
     <UserContext.Consumer>
       {(user) => {
         return (
           <List.Item
+            id={`review-${review.id}`}
             key={review.id}
             className={"review-item"}
             actions={[
-              <div key="id">{"#" + review.id}</div>,
+              <div key="id" onClick={copyReviewUrlToClipboard}>
+                {"#" + review.id}
+              </div>,
               <ReviewReactionButton
                 key="reaction"
                 onReaction={doReviewReaction}
@@ -33,6 +53,7 @@ const ReviewItem = ({
               />,
             ]}
           >
+            {contextHolder}
             {user?.is_staff && revisionModalOpen && (
               <ReviewRevisionViewModal
                 review={review}
