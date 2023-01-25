@@ -1,4 +1,5 @@
-import { Alert, List, Space, Tooltip, Typography, message } from "antd";
+import { ShareAltOutlined } from "@ant-design/icons";
+import { Alert, Button, List, Space, Tooltip, Typography, message } from "antd";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -40,9 +41,7 @@ const ReviewItem = ({
             key={review.id}
             className={"review-item"}
             actions={[
-              <div key="id" onClick={copyReviewUrlToClipboard}>
-                {"#" + review.id}
-              </div>,
+              <div key="id">{"#" + review.id}</div>,
               <ReviewReactionButton
                 key="reaction"
                 onReaction={doReviewReaction}
@@ -51,6 +50,14 @@ const ReviewItem = ({
                   ...review.reactions,
                 }}
               />,
+              <Button
+                key="share-button"
+                onClick={copyReviewUrlToClipboard}
+                size="small"
+                type="text"
+              >
+                <ShareAltOutlined />
+              </Button>,
             ]}
           >
             {contextHolder}
