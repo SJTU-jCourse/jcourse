@@ -1,11 +1,21 @@
 import { ShareAltOutlined } from "@ant-design/icons";
-import { Alert, Button, List, Space, Tooltip, Typography, message } from "antd";
+import {
+  Alert,
+  Button,
+  List,
+  Space,
+  Tag,
+  Tooltip,
+  Typography,
+  message,
+} from "antd";
 import Link from "next/link";
 import { useState } from "react";
 
 import MDPreview from "@/components/md-preview";
 import ReviewReactionButton from "@/components/review-reaction-button";
 import ReviewRevisionViewModal from "@/components/review-revision-modal";
+import Config from "@/config/config";
 import { UserContext } from "@/lib/context";
 import { Review } from "@/lib/models";
 import { doReviewReaction } from "@/services/review";
@@ -108,6 +118,11 @@ const ReviewItem = ({
                   </span>
                 )}
               </Space>
+              {review.enrolled && (
+                <Tooltip title="该用户在社区中同步过本课选课记录">
+                  <Tag color={Config.TAG_COLOR_ENROLL}>已选课</Tag>
+                </Tooltip>
+              )}
               <MDPreview className="comment" src={review.comment} />
               <Space>
                 {edited ? (

@@ -108,6 +108,7 @@ export type Review = {
   score: number | string;
   moderator_remark: string | null;
   is_mine: boolean;
+  enrolled: boolean;
 };
 
 export type ReviewDraft = {
