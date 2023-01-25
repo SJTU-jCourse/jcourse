@@ -14,7 +14,7 @@ const ReviewLocationPage = () => {
 
   useEffect(() => {
     if (data)
-      router.push(
+      router.replace(
         `/course/${data.course}?page=${
           Math.floor(data.location / Config.PAGE_SIZE) + 1
         }#review-${id}`
