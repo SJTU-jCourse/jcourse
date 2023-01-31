@@ -15,7 +15,7 @@ const ReviewItem = ({
 }: React.PropsWithChildren<{ review: Review }>) => {
   const [messageApi, contextHolder] = message.useMessage();
   const [revisionModalOpen, setRevisionModalOpen] = useState<boolean>(false);
-  const edited = review.modified != review.created;
+  const edited = review.modified_at != review.created_at;
 
   const copyReviewUrlToClipboard = async () => {
     const url = window.location.origin + "/review/" + review.id;
@@ -113,7 +113,7 @@ const ReviewItem = ({
                 {edited ? (
                   <Tooltip
                     key="time"
-                    title={"首发于" + review.created}
+                    title={"首发于" + review.created_at}
                     zIndex={1}
                   >
                     <Typography.Text
@@ -124,12 +124,12 @@ const ReviewItem = ({
                         }
                       }}
                     >
-                      编辑于 {review.modified}
+                      编辑于 {review.modified_at}
                     </Typography.Text>
                   </Tooltip>
                 ) : (
                   <Typography.Text type="secondary">
-                    发表于 {review.modified}
+                    发表于 {review.modified_at}
                   </Typography.Text>
                 )}
                 {(review.is_mine || user?.is_staff) && (

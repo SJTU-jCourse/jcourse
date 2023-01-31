@@ -78,7 +78,7 @@ const ReviewRevisionViewModal = ({
             total={count}
             pageSize={1}
           ></Pagination>
-          {revisions?.results[index].created}
+          {revisions?.results[index].created_at}
         </Space>
         <Skeleton loading={loading}>
           <ReviewRevisionView

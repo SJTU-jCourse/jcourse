@@ -38,7 +38,7 @@ const ReportList = ({
         <List.Item
           key={item.id}
           actions={[
-            <div key="time">{item.created}</div>,
+            <div key="time">{item.created_at}</div>,
             <div key="id">{"#" + item.id}</div>,
           ]}
           className="comment"

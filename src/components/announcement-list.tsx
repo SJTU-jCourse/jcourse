@@ -15,7 +15,7 @@ const AnnouncementList = ({
       itemLayout="vertical"
       renderItem={(notice: Announcement) => {
         return (
-          <List.Item key={notice.created} className="notice-item">
+          <List.Item key={notice.created_at} className="notice-item">
             <Alert
               className="notice"
               description={

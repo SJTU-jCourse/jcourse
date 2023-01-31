@@ -66,7 +66,7 @@ export type CourseFilters = {
 export type Announcement = {
   title: string;
   message: string;
-  created: string;
+  created_at: string;
   url: string | null;
 };
 
@@ -102,8 +102,8 @@ export type Review = {
   semester: string | Semester;
   rating: number;
   comment: string;
-  created: string;
-  modified: string | null;
+  created_at: string;
+  modified_at: string;
   reactions: { approves: number; disapproves: number; reaction: number };
   score: number | string;
   moderator_remark: string | null;
@@ -166,7 +166,7 @@ export type SelectValue = {
 
 export type Report = {
   id: number;
-  created: string;
+  created_at: string;
   comment: string;
   reply: string | null;
 };
@@ -191,7 +191,7 @@ export type ReviewRevision = {
   semester: string;
   rating: number;
   comment: string;
-  created: string;
+  created_at: string;
   score: string | null;
   course: CourseInReview;
 };
