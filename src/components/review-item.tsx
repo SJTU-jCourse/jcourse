@@ -12,7 +12,8 @@ import { doReviewReaction } from "@/services/review";
 
 const ReviewItem = ({
   review,
-}: React.PropsWithChildren<{ review: Review }>) => {
+  forceLocked,
+}: React.PropsWithChildren<{ review: Review; forceLocked?: boolean }>) => {
   const [messageApi, contextHolder] = message.useMessage();
   const [revisionModalOpen, setRevisionModalOpen] = useState<boolean>(false);
   const edited = review.modified_at != review.created_at;
@@ -132,11 +133,12 @@ const ReviewItem = ({
                     发表于 {review.modified_at}
                   </Typography.Text>
                 )}
-                {(review.is_mine || user?.is_staff) && (
-                  <Link href={`/write-review?review_id=${review.id}`}>
-                    修改点评
-                  </Link>
-                )}
+                {(review.is_mine || user?.is_staff) &&
+                  !(forceLocked || review.course?.locked) && (
+                    <Link href={`/write-review?review_id=${review.id}`}>
+                      修改点评
+                    </Link>
+                  )}
               </Space>
             </Space>
           </List.Item>

@@ -29,6 +29,17 @@ const { Text } = Typography;
 const ReviewTemplate: string =
   "课程内容：\n\n上课自由度：\n\n考核标准：\n\n授课质量：";
 
+const handleSubmitError = (error: any) => {
+  if (error.response.status == 400) {
+    if (error.response.data?.error) message.error(error.response.data.error);
+    else if (error.response.data?.course)
+      message.error(error.response.data.course[0]);
+  }
+  if (error.response.status == 403 && error.response.data.detail) {
+    message.error(error.response.data.detail);
+  }
+};
+
 const WriteReviewPage = () => {
   const { user } = useUser();
   const { availableSemesters } = useSemesters();
@@ -52,14 +63,7 @@ const WriteReviewPage = () => {
             );
           }
         })
-        .catch((error) => {
-          if (error.response.status == 400 && error.response.data) {
-            message.error(error.response.data.error);
-          }
-          if (error.response.status == 403 && error.response.data.detail) {
-            message.error(error.response.data.detail);
-          }
-        });
+        .catch(handleSubmitError);
     } else {
       writeReview(review)
         .then((resp) => {
@@ -69,14 +73,7 @@ const WriteReviewPage = () => {
             );
           }
         })
-        .catch((error) => {
-          if (error.response.status == 400 && error.response.data) {
-            message.error(error.response.data.error);
-          }
-          if (error.response.status == 403 && error.response.data.detail) {
-            message.error(error.response.data.detail);
-          }
-        });
+        .catch(handleSubmitError);
     }
   };
 
@@ -197,6 +194,7 @@ const WriteReviewPage = () => {
             >
               {courses.map((course) => (
                 <Select.Option key={course.id} value={course.id}>
+                  {course.locked && <Tag color="warning">锁定</Tag>}
                   {course.semester && (
                     <Tag color={Config.TAG_COLOR_ENROLL}>学过</Tag>
                   )}

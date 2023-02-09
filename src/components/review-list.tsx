@@ -9,12 +9,14 @@ const ReviewList = ({
   reviews,
   onPageChange,
   pagination,
+  forceLockAll,
 }: {
   loading: boolean;
   count: number | undefined;
   reviews: Review[] | undefined;
   onPageChange?: Function;
   pagination?: Pagination;
+  forceLockAll?: boolean;
 }) => {
   return (
     <List
@@ -35,7 +37,9 @@ const ReviewList = ({
           : false
       }
       dataSource={reviews}
-      renderItem={(item) => <ReviewItem review={item} />}
+      renderItem={(item) => (
+        <ReviewItem review={item} forceLocked={forceLockAll} />
+      )}
     />
   );
 };

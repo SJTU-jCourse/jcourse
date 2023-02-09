@@ -1,5 +1,6 @@
 import { EditOutlined } from "@ant-design/icons";
 import {
+  Alert,
   Button,
   Card,
   Col,
@@ -129,69 +130,81 @@ const CoursePage = () => {
           </Row>
         </Col>
         <Col xs={24} md={16}>
-          <Card
-            title={`点评（${reviews ? reviews.count : 0}条）`}
-            extra={
-              <Space>
-                <Button
-                  onClick={() => {
-                    modal.info({
-                      title: course
-                        ? course.name +
-                          "（" +
-                          course.main_teacher.name +
-                          "）的点评趋势"
-                        : "点评趋势",
-                      content: <ReviewRatingTrend data={filters?.semesters} />,
-                      icon: null,
-                      footer: null,
-                      closable: true,
-                      width: screens.md ? "60%" : 520,
-                    });
-                  }}
-                >
-                  趋势
-                </Button>
-                <Link
-                  href={
-                    course?.is_reviewed
-                      ? `/write-review?review_id=${course.is_reviewed}`
-                      : `/write-review?course_id=${id}`
-                  }
-                >
-                  <Button type="primary" icon={<EditOutlined />}>
-                    {course?.is_reviewed ? "修改点评" : "新点评"}
+          <Space direction="vertical" size={16}>
+            {course?.locked && (
+              <Alert message="本课程不再接收新点评" type="warning" showIcon />
+            )}
+            <Card
+              title={`点评（${reviews ? reviews.count : 0}条）`}
+              extra={
+                <Space>
+                  <Button
+                    onClick={() => {
+                      modal.info({
+                        title: course
+                          ? course.name +
+                            "（" +
+                            course.main_teacher.name +
+                            "）的点评趋势"
+                          : "点评趋势",
+                        content: (
+                          <ReviewRatingTrend data={filters?.semesters} />
+                        ),
+                        icon: null,
+                        footer: null,
+                        closable: true,
+                        width: screens.md ? "60%" : 520,
+                      });
+                    }}
+                  >
+                    趋势
                   </Button>
-                </Link>
-              </Space>
-            }
-          >
-            <ReviewFilter
-              filters={filters}
-              defaultValue={filterValue}
-              onClick={onFilterClick}
-            ></ReviewFilter>
-            <Divider></Divider>
-            {contextHolder}
-            <ConfigProvider
-              renderEmpty={() => (
-                <Empty
-                  description={
-                    "暂无点评。如存在新旧课号或任课教师不同的同名课程，您可适当参考相关点评。"
-                  }
-                  image={Empty.PRESENTED_IMAGE_SIMPLE}
-                />
-              )}
+
+                  {!course?.locked && (
+                    <Link
+                      href={
+                        course?.is_reviewed
+                          ? `/write-review?review_id=${course.is_reviewed}`
+                          : `/write-review?course_id=${id}`
+                      }
+                    >
+                      <Button type="primary" icon={<EditOutlined />}>
+                        {course?.is_reviewed ? "修改点评" : "新点评"}
+                      </Button>
+                    </Link>
+                  )}
+                </Space>
+              }
             >
-              <ReviewList
-                loading={reviewLoading}
-                count={reviews?.count}
-                reviews={reviews?.results}
-                onPageChange={onPageChange}
-                pagination={pagination}
-              ></ReviewList>
-            </ConfigProvider>
-          </Card>
+              <ReviewFilter
+                filters={filters}
+                defaultValue={filterValue}
+                onClick={onFilterClick}
+              ></ReviewFilter>
+              <Divider></Divider>
+
+              {contextHolder}
+              <ConfigProvider
+                renderEmpty={() => (
+                  <Empty
+                    description={
+                      "暂无点评。如存在新旧课号或任课教师不同的同名课程，您可适当参考相关点评。"
+                    }
+                    image={Empty.PRESENTED_IMAGE_SIMPLE}
+                  />
+                )}
+              >
+                <ReviewList
+                  loading={reviewLoading}
+                  count={reviews?.count}
+                  reviews={reviews?.results}
+                  onPageChange={onPageChange}
+                  pagination={pagination}
+                  forceLockAll={course?.locked}
+                ></ReviewList>
+              </ConfigProvider>
+            </Card>
+          </Space>
         </Col>
         {!screens.md && <RelatedCard course={course} loading={courseLoading} />}
       </Row>

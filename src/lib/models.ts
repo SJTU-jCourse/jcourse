@@ -51,6 +51,7 @@ export type CourseDetail = {
   semester: number | null;
   is_reviewed: number | null;
   notification_level: NotificationLevel | null;
+  locked: boolean;
 };
 
 export type CourseFilterItem = {
@@ -82,6 +83,7 @@ export type CourseInReview = {
   name: string;
   teacher: string;
   semester: number | null;
+  locked: boolean;
 };
 
 export type ReviewReaction = {
