@@ -21,7 +21,7 @@ const EmailLoginForm = ({
         message.success(data.details);
       })
       .catch((error) => {
-        message.error(error.response.data.detail);
+        message.error(error.response.data.details);
       });
   };
 
