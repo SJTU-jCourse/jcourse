@@ -35,6 +35,14 @@ export async function jAccountLogin(basePath: string, next: string) {
   window.location.href = `/oauth/jaccount/login/?redirect_uri=${redirect_uri}`;
 }
 
+export async function login(username: string, password: string) {
+  const resp = await request("/oauth/login/", {
+    method: "post",
+    data: { username, password },
+  });
+  return resp.data;
+}
+
 export async function logout(basePath: string) {
   await request("/oauth/logout/");
   const rediretUrl =

@@ -182,6 +182,11 @@ export type EmailLoginRequest = {
   code: string;
 };
 
+export type AccountLoginRequest = {
+  username: string;
+  password: string;
+};
+
 export type LoginResponse = {
   account: string;
 };

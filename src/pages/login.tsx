@@ -3,11 +3,13 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 import AboutCard from "@/components/about-card";
+import AccountLoginForm from "@/components/account-login-form";
 import EmailLoginForm from "@/components/email-login-form";
-import { EmailLoginRequest } from "@/lib/models";
+import { AccountLoginRequest, EmailLoginRequest } from "@/lib/models";
 import {
   jAccountAuth,
   jAccountLogin,
+  login,
   postLogin,
   verifyCode,
 } from "@/services/user";
@@ -39,6 +41,16 @@ const LoginPage = () => {
 
   const onEmailLoginFinish = (request: EmailLoginRequest) => {
     verifyCode(request.email, request.code)
+      .then((data) => {
+        postLogin(data, router);
+      })
+      .catch((error) => {
+        message.error(error.response.data.detail);
+      });
+  };
+
+  const onAccountLoginFinish = (request: AccountLoginRequest) => {
+    login(request.username, request.password)
       .then((data) => {
         postLogin(data, router);
       })
@@ -84,6 +96,15 @@ const LoginPage = () => {
       children: (
         <div style={{ height: "168px" }}>
           <EmailLoginForm onFinish={onEmailLoginFinish} />
+        </div>
+      ),
+    },
+    {
+      label: "账号登录",
+      key: "account",
+      children: (
+        <div style={{ height: "168px" }}>
+          <AccountLoginForm onFinish={onAccountLoginFinish} />
         </div>
       ),
     },
