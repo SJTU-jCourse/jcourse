@@ -1,7 +1,9 @@
 import {
+  Bar,
+  ComposedChart,
+  LabelList,
   Legend,
   Line,
-  LineChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -13,22 +15,20 @@ import { ReviewFilterSemesterItem } from "@/lib/models";
 const ReviewRatingTrend = ({ data }: { data?: ReviewFilterSemesterItem[] }) => {
   return (
     <ResponsiveContainer height={400}>
-      <LineChart data={data} margin={{ top: 0, left: 0, right: 0, bottom: 0 }}>
-        <Line
-          name="点评数量"
-          yAxisId="left"
-          type="monotone"
-          dataKey="count"
-          stroke="#8884d8"
-          strokeWidth={2}
-        />
+      <ComposedChart
+        data={data}
+        margin={{ top: 0, left: 0, right: 0, bottom: 0 }}
+      >
+        <Bar name="点评数量" yAxisId="left" dataKey="count" fill="#adc6ff">
+          <LabelList dataKey="count" position="top" />
+        </Bar>
         <Line
           name="平均评分"
           yAxisId="right"
           type="monotone"
           dataKey="avg"
           stroke="#82ca9d"
-          strokeWidth={2}
+          strokeWidth={3}
         />
         <XAxis name="学期" reversed={true} dataKey="name" />
         <YAxis yAxisId="left" />
@@ -40,7 +40,7 @@ const ReviewRatingTrend = ({ data }: { data?: ReviewFilterSemesterItem[] }) => {
         />
         <Legend></Legend>
         <Tooltip />
-      </LineChart>
+      </ComposedChart>
     </ResponsiveContainer>
   );
 };

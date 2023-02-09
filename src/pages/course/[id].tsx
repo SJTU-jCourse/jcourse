@@ -146,7 +146,7 @@ const CoursePage = () => {
                       icon: null,
                       footer: null,
                       closable: true,
-                      width: screens.md ? "80%" : 520,
+                      width: screens.md ? "60%" : 520,
                     });
                   }}
                 >
