@@ -76,15 +76,6 @@ const NavBar = ({ user }: { user?: User }) => {
         ></Menu>
       </Col>
       <Col>
-        <Link href="/write-review">
-          {screens.xs ? (
-            <Button type="primary" shape="circle" icon={<EditOutlined />} />
-          ) : (
-            <Button type="primary">写点评</Button>
-          )}
-        </Link>
-      </Col>
-      <Col>
         <Button
           shape="circle"
           icon={<SearchOutlined />}
