@@ -17,7 +17,7 @@ const ReviewRatingTrend = ({ data }: { data?: ReviewFilterSemesterItem[] }) => {
     <ResponsiveContainer height={400}>
       <ComposedChart
         data={data}
-        margin={{ top: 0, left: 0, right: 0, bottom: 0 }}
+        margin={{ left: 0, right: 0, top: 5, bottom: 0 }}
       >
         <Bar name="点评数量" yAxisId="left" dataKey="count" fill="#adc6ff">
           <LabelList dataKey="count" position="top" />
