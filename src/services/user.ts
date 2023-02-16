@@ -73,11 +73,6 @@ export async function verifyCode(
 
 export function useUser() {
   const { data, error } = useSWR<User>("/api/me/", fetcher);
-  const router = useRouter();
-  if (error?.response?.status == 403) {
-    const pathname = window.location.pathname;
-    router.push({ pathname: "/login", query: { next: pathname } });
-  }
   if (data) data.account = localStorage.getItem("account");
   return {
     user: data,
@@ -102,8 +97,8 @@ export function toAdmin() {
 export function postLogin(data: LoginResponse, router: NextRouter) {
   localStorage.setItem("account", data.account);
   if (router.query.next) {
-    router.push(router.query.next as string);
+    router.replace(router.query.next as string);
   } else {
-    router.push("/");
+    router.replace("/");
   }
 }

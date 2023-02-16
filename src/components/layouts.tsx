@@ -1,6 +1,7 @@
 import { Layout, Space } from "antd";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 
 import AnnouncementList from "@/components/announcement-list";
 import NavBar from "@/components/navbar";
@@ -11,8 +12,22 @@ import { useUser } from "@/services/user";
 const { Header, Content, Footer } = Layout;
 
 export const BasicLayout = ({ children }: React.PropsWithChildren<{}>) => {
+  const [mounted, setMounted] = useState<boolean>(false);
   const { announcements } = useAnnouncements();
-  const { user } = useUser();
+  const { user, error } = useUser();
+  const router = useRouter();
+  useEffect(() => {
+    if (error?.response?.status == 403 && mounted) {
+      const pathname = window.location.pathname;
+      router.replace({ pathname: "/login", query: { next: pathname } });
+    }
+  }, [error]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return <></>;
 
   return (
     <Layout className="basic-layout">
