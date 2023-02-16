@@ -87,6 +87,14 @@ const SyncPage = () => {
       <Modal
         title="同步说明"
         open={isModalOpen}
+        footer={null}
+        onCancel={() => setIsModalOpen(false)}
+      >
+        <p>很遗憾地通知大家，目前选课社区暂无法使用 jAccount 相关接口，对您带来的不便表示抱歉。</p>
+      </Modal>
+      <Modal
+        title="同步说明"
+        //open={isModalOpen}
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={() => setIsModalOpen(false)}

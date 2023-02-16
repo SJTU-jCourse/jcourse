@@ -1,4 +1,4 @@
-import { Button, Grid, Modal, Tabs, Typography, message } from "antd";
+import { Grid, Modal, Tabs, Typography, message } from "antd";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
@@ -8,7 +8,6 @@ import EmailLoginForm from "@/components/email-login-form";
 import { AccountLoginRequest, EmailLoginRequest } from "@/lib/models";
 import {
   jAccountAuth,
-  jAccountLogin,
   login,
   postLogin,
   verifyCode,
@@ -70,7 +69,7 @@ const LoginPage = () => {
   }
 
   const tabItems = [
-    {
+    /*{
       label: "快速登录",
       key: "jaccount",
       children: (
@@ -89,7 +88,7 @@ const LoginPage = () => {
           </Button>
         </div>
       ),
-    },
+    },*/
     {
       label: "邮箱登录",
       key: "email",

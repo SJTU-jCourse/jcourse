@@ -26,7 +26,7 @@ const NavBar = ({ user }: { user?: User }) => {
     } else if (e.key == "sync") {
       router.push("/sync");
     } else if (e.key == "logout") {
-      logout(router.basePath);
+      logout(router.basePath, router);
     } else if (e.key == "account" && user?.is_staff) {
       toAdmin();
     } else if (e.key == "point") {

@@ -14,7 +14,7 @@ const AboutCard = () => {
       <Title level={4}>机制</Title>
       <Title level={5}>匿名身份</Title>
       <Paragraph>
-        选课社区采用 jAccount 登录并作为身份标识。本站不明文存储您的 jAccount
+        选课社区采用 jAccount 或者邮箱登录并作为身份标识。本站不明文存储您的 jAccount
         用户名，仅在数据库中存放其哈希值。
         <br />
         选课社区前台不显示每条点评的用户名，也不显示不同点评之间的用户关联。

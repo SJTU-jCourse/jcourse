@@ -43,11 +43,13 @@ export async function login(username: string, password: string) {
   return resp.data;
 }
 
-export async function logout(basePath: string) {
+export async function logout(basePath: string, router: NextRouter) {
   await request("/oauth/logout/");
+  localStorage.removeItem("account");
   const rediretUrl =
     window.location.origin + basePath + Config.JACCOUNT_LOGIN_RETURI;
-  window.location.href = `https://jaccount.sjtu.edu.cn/oauth2/logout?client_id=${Config.JACCOUNT_CLIENT_ID}&post_logout_redirect_uri=${rediretUrl}`;
+  router.push(rediretUrl);
+  //window.location.href = `https://jaccount.sjtu.edu.cn/oauth2/logout?client_id=${Config.JACCOUNT_CLIENT_ID}&post_logout_redirect_uri=${rediretUrl}`;
 }
 
 export async function sendCode(email: string) {
