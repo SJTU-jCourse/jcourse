@@ -1,13 +1,12 @@
 import {
   DollarOutlined,
-  EditOutlined,
   LogoutOutlined,
   ProfileOutlined,
   SearchOutlined,
   SyncOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Button, Col, Dropdown, Grid, Menu, Row, Typography } from "antd";
+import { Button, Col, Dropdown, Menu, Row } from "antd";
 import type { MenuProps } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -15,11 +14,9 @@ import { useRouter } from "next/router";
 import { User } from "@/lib/models";
 import { logout, toAdmin } from "@/services/user";
 
-const { useBreakpoint } = Grid;
-
 const NavBar = ({ user }: { user?: User }) => {
   const router = useRouter();
-  const screens = useBreakpoint();
+
   const handleMenuClick = (e: { key: string }) => {
     if (e.key == "activity") {
       router.push("/activity");
