@@ -18,10 +18,10 @@ const EmailLoginForm = ({
     sendCode(form.getFieldValue("email"))
       .then((data) => {
         setTime(60);
-        message.success(data.details);
+        message.success(data.detail);
       })
       .catch((error) => {
-        message.error(error.response.data.details);
+        message.error(error.response.data.detail);
       });
   };
 

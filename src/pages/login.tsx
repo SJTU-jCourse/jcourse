@@ -44,7 +44,7 @@ const LoginPage = () => {
         postLogin(data, router);
       })
       .catch((error) => {
-        message.error(error.response.data.details);
+        message.error(error.response.data.detail);
       });
   };
 
@@ -54,7 +54,7 @@ const LoginPage = () => {
         postLogin(data, router);
       })
       .catch((error) => {
-        message.error(error.response.data.details);
+        message.error(error.response.data.detail);
       });
   };
 
