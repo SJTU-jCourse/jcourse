@@ -13,6 +13,7 @@ import {
   YAxis,
 } from "recharts";
 
+import PageHeader from "@/components/page-header";
 import { useStatistic } from "@/services/statistic";
 
 const { useBreakpoint } = Grid;
@@ -36,10 +37,11 @@ const StatisticPage = () => {
   const numberColSpan = screens.sm ? 6 : 12;
   const figureColSpan = screens.xs ? 24 : 12;
   return (
-    <div className="statistic">
+    <>
       <Head>
         <title>统计 - SJTU选课社区</title>
       </Head>
+      <PageHeader title="统计" />
       <Card title="基本统计">
         <Row
           className="info-row"
@@ -81,8 +83,11 @@ const StatisticPage = () => {
       <Row>
         <Col span={figureColSpan}>
           <Card title="点评推荐指数分布">
-            <ResponsiveContainer height={300}>
-              <BarChart data={indexState?.review_rating_dist || []}>
+            <ResponsiveContainer height={200}>
+              <BarChart
+                data={indexState?.review_rating_dist || []}
+                margin={{ left: 0, right: 0, top: 5, bottom: 5 }}
+              >
                 <XAxis dataKey="value">
                   <Label value="推荐指数" offset={0} position="insideBottom" />
                 </XAxis>
@@ -95,8 +100,11 @@ const StatisticPage = () => {
         </Col>
         <Col span={figureColSpan}>
           <Card title="课程推荐指数分布">
-            <ResponsiveContainer height={300}>
-              <BarChart data={indexState?.course_review_avg_dist || []}>
+            <ResponsiveContainer height={200}>
+              <BarChart
+                data={indexState?.course_review_avg_dist || []}
+                margin={{ left: 0, right: 0, top: 5, bottom: 5 }}
+              >
                 <XAxis dataKey="value" tick={IntervalAxisTick}>
                   <Label value="推荐指数" offset={0} position="insideBottom" />
                 </XAxis>
@@ -111,8 +119,11 @@ const StatisticPage = () => {
       <Row>
         <Col span={24}>
           <Card title="课程点评数量分布">
-            <ResponsiveContainer height={300}>
-              <BarChart data={indexState?.course_review_count_dist || []}>
+            <ResponsiveContainer height={200}>
+              <BarChart
+                data={indexState?.course_review_count_dist || []}
+                margin={{ left: 0, right: 0, top: 5, bottom: 5 }}
+              >
                 <XAxis dataKey="value">
                   <Label value="点评数量" offset={0} position="insideBottom" />
                 </XAxis>
@@ -127,8 +138,11 @@ const StatisticPage = () => {
       <Row>
         <Col span={figureColSpan}>
           <Card title="新增用户">
-            <ResponsiveContainer height={300}>
-              <LineChart data={indexState?.user_join_time || []}>
+            <ResponsiveContainer height={200}>
+              <LineChart
+                data={indexState?.user_join_time || []}
+                margin={{ left: 0, right: 0, top: 5, bottom: 5 }}
+              >
                 <XAxis dataKey="date" />
                 <YAxis />
                 <Tooltip />
@@ -140,8 +154,11 @@ const StatisticPage = () => {
         </Col>
         <Col span={figureColSpan}>
           <Card title="新增点评">
-            <ResponsiveContainer height={300}>
-              <LineChart data={indexState?.review_create_time || []}>
+            <ResponsiveContainer height={200}>
+              <LineChart
+                data={indexState?.review_create_time || []}
+                margin={{ left: 0, right: 0, top: 5, bottom: 5 }}
+              >
                 <XAxis dataKey="date" />
                 <YAxis />
                 <Tooltip />
@@ -152,7 +169,7 @@ const StatisticPage = () => {
           </Card>
         </Col>
       </Row>
-    </div>
+    </>
   );
 };
 
