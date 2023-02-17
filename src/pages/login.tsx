@@ -12,6 +12,7 @@ import {
   postLogin,
   verifyCode,
 } from "@/services/user";
+import Head from "next/head";
 
 const { Link, Text } = Typography;
 
@@ -111,6 +112,9 @@ const LoginPage = () => {
 
   return (
     <div style={{ minWidth: "324px", marginInline: "auto" }}>
+      <Head>
+        <title>登录 - SJTU选课社区</title>
+      </Head>
       <Tabs defaultActiveKey="jaccount" centered items={tabItems}></Tabs>
       <div style={{ textAlign: "center", marginTop: 16 }}>
         <Text>
