@@ -149,13 +149,21 @@ export type StatisticDateCount = {
   count: number;
 };
 
+export type StatisticValueCount = {
+  value: string;
+  count: number;
+};
+
 export type StatisticInfo = {
-  courses: number;
-  reviews: number;
-  users: number;
-  courses_with_review: number;
-  user_join: StatisticDateCount[];
-  review_create: StatisticDateCount[];
+  course_count: number;
+  review_count: number;
+  user_count: number;
+  course_with_review_count: number;
+  user_join_time: StatisticDateCount[];
+  review_create_time: StatisticDateCount[];
+  course_review_count_dist: StatisticValueCount[];
+  course_review_avg_dist: StatisticValueCount[];
+  review_rating_dist: StatisticValueCount[];
 };
 
 export type SelectValue = {
