@@ -83,12 +83,12 @@ const StatisticPage = () => {
           <Card title="点评推荐指数分布">
             <ResponsiveContainer height={300}>
               <BarChart data={indexState?.review_rating_dist || []}>
-                <Bar name="点评数量" dataKey="count" fill="#adc6ff"></Bar>
                 <XAxis dataKey="value">
                   <Label value="推荐指数" offset={0} position="insideBottom" />
                 </XAxis>
                 <YAxis />
                 <Tooltip />
+                <Bar name="点评数量" dataKey="count" fill="#adc6ff"></Bar>
               </BarChart>
             </ResponsiveContainer>
           </Card>
@@ -97,12 +97,12 @@ const StatisticPage = () => {
           <Card title="课程推荐指数分布">
             <ResponsiveContainer height={300}>
               <BarChart data={indexState?.course_review_avg_dist || []}>
-                <Bar name="课程数量" dataKey="count" fill="#adc6ff" />
                 <XAxis dataKey="value" tick={IntervalAxisTick}>
                   <Label value="推荐指数" offset={0} position="insideBottom" />
                 </XAxis>
                 <YAxis />
                 <Tooltip />
+                <Bar name="课程数量" dataKey="count" fill="#adc6ff" />
               </BarChart>
             </ResponsiveContainer>
           </Card>
@@ -113,12 +113,12 @@ const StatisticPage = () => {
           <Card title="课程点评数量分布">
             <ResponsiveContainer height={300}>
               <BarChart data={indexState?.course_review_count_dist || []}>
-                <Bar name="点评数量" dataKey="count" fill="#adc6ff"></Bar>
                 <XAxis dataKey="value">
                   <Label value="点评数量" offset={0} position="insideBottom" />
                 </XAxis>
                 <YAxis />
                 <Tooltip />
+                <Bar name="点评数量" dataKey="count" fill="#adc6ff"></Bar>
               </BarChart>
             </ResponsiveContainer>
           </Card>
@@ -129,10 +129,10 @@ const StatisticPage = () => {
           <Card title="新增用户">
             <ResponsiveContainer height={300}>
               <LineChart data={indexState?.user_join_time || []}>
-                <Line type="monotone" dataKey="count" dot={false} />
                 <XAxis dataKey="date" />
                 <YAxis />
                 <Tooltip />
+                <Line type="monotone" dataKey="count" dot={false} />
                 <Brush />
               </LineChart>
             </ResponsiveContainer>
@@ -142,10 +142,10 @@ const StatisticPage = () => {
           <Card title="新增点评">
             <ResponsiveContainer height={300}>
               <LineChart data={indexState?.review_create_time || []}>
-                <Line type="monotone" dataKey="count" dot={false} />
                 <XAxis dataKey="date" />
                 <YAxis />
                 <Tooltip />
+                <Line type="monotone" dataKey="count" dot={false} />
                 <Brush />
               </LineChart>
             </ResponsiveContainer>

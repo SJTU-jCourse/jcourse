@@ -19,6 +19,16 @@ const ReviewRatingTrend = ({ data }: { data?: ReviewFilterSemesterItem[] }) => {
         data={data}
         margin={{ left: 0, right: 0, top: 5, bottom: 0 }}
       >
+        <XAxis name="学期" reversed={true} dataKey="name" />
+        <YAxis yAxisId="left" />
+        <YAxis
+          yAxisId="right"
+          orientation="right"
+          domain={[0, 6]}
+          ticks={[1, 2, 3, 4, 5]}
+        />
+        <Legend></Legend>
+        <Tooltip />
         <Bar name="点评数量" yAxisId="left" dataKey="count" fill="#adc6ff">
           <LabelList dataKey="count" position="top" />
         </Bar>
@@ -30,16 +40,6 @@ const ReviewRatingTrend = ({ data }: { data?: ReviewFilterSemesterItem[] }) => {
           stroke="#82ca9d"
           strokeWidth={3}
         />
-        <XAxis name="学期" reversed={true} dataKey="name" />
-        <YAxis yAxisId="left" />
-        <YAxis
-          yAxisId="right"
-          orientation="right"
-          domain={[0, 6]}
-          ticks={[1, 2, 3, 4, 5]}
-        />
-        <Legend></Legend>
-        <Tooltip />
       </ComposedChart>
     </ResponsiveContainer>
   );
