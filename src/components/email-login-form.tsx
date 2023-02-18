@@ -48,7 +48,7 @@ const EmailLoginForm = ({
         rules={[
           {
             max: 50,
-            pattern: /^([a-zA-Z0-9]+[-_\.]?)+@+(sjtu.edu.cn)+$/,
+            pattern: /^([a-zA-Z0-9-_\.]+)+@+(sjtu.edu.cn)+$/,
             required: true,
             message: "请正确输入邮箱地址",
           },
