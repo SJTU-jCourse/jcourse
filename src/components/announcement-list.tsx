@@ -9,19 +9,22 @@ const AnnouncementList = ({
 }) => {
   return (
     <List
-      className="notice-list"
+      className="announcement-list"
       dataSource={announcements}
       split={false}
       itemLayout="vertical"
-      renderItem={(notice: Announcement) => {
+      renderItem={(announcement: Announcement) => {
         return (
-          <List.Item key={notice.created_at} className="notice-item">
+          <List.Item
+            key={announcement.created_at}
+            className="announcement-item"
+          >
             <Alert
-              className="notice"
+              className="announcement"
               description={
                 <>
-                  <div>{notice.message}</div>
-                  {notice.url && <a href={notice.url}>相关链接</a>}
+                  <div>{announcement.message}</div>
+                  {announcement.url && <a href={announcement.url}>相关链接</a>}
                 </>
               }
               banner
