@@ -26,7 +26,7 @@ const FollowReviewPage = () => {
   return (
     <>
       <PageHeader
-        title="关注的点评"
+        title="关注课程的点评"
         subTitle={`共有${reviews ? reviews.count : 0}个点评`}
         extra={
           <Button
