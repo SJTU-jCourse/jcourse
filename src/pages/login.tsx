@@ -1,18 +1,24 @@
 import { Grid, Modal, Tabs, Typography, message } from "antd";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 import AboutCard from "@/components/about-card";
 import AccountLoginForm from "@/components/account-login-form";
 import EmailLoginForm from "@/components/email-login-form";
-import { AccountLoginRequest, EmailLoginRequest } from "@/lib/models";
+import EmailPasswordLoginForm from "@/components/email-password-login-form";
 import {
+  AccountLoginRequest,
+  EmailLoginRequest,
+  EmailPasswordLoginRequest,
+} from "@/lib/models";
+import {
+  emailPasswordLogin,
   jAccountAuth,
   login,
   postLogin,
   verifyCode,
 } from "@/services/user";
-import Head from "next/head";
 
 const { Link, Text } = Typography;
 
@@ -59,6 +65,16 @@ const LoginPage = () => {
       });
   };
 
+  const onEmailPasswordLoginFinish = (request: EmailPasswordLoginRequest) => {
+    emailPasswordLogin(request.email, request.password)
+      .then((data) => {
+        postLogin(data, router);
+      })
+      .catch((error) => {
+        message.error(error.response.data.detail);
+      });
+  };
+
   function info() {
     modal.info({
       title: "基本原则",
@@ -91,11 +107,20 @@ const LoginPage = () => {
       ),
     },*/
     {
-      label: "邮箱登录",
+      label: "邮箱验证登录",
       key: "email",
       children: (
         <div style={{ height: "168px" }}>
           <EmailLoginForm onFinish={onEmailLoginFinish} />
+        </div>
+      ),
+    },
+    {
+      label: "邮箱密码登录",
+      key: "email-password",
+      children: (
+        <div style={{ height: "168px" }}>
+          <EmailPasswordLoginForm onFinish={onEmailPasswordLoginFinish} />
         </div>
       ),
     },

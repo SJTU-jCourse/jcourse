@@ -195,6 +195,11 @@ export type AccountLoginRequest = {
   password: string;
 };
 
+export type EmailPasswordLoginRequest = {
+  email: string;
+  password: string;
+};
+
 export type LoginResponse = {
   account: string;
 };

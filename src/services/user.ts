@@ -1,4 +1,4 @@
-import { NextRouter, useRouter } from "next/router";
+import { NextRouter } from "next/router";
 import useSWR from "swr";
 
 import Config from "@/config/config";
@@ -39,6 +39,14 @@ export async function login(username: string, password: string) {
   const resp = await request("/oauth/login/", {
     method: "post",
     data: { username, password },
+  });
+  return resp.data;
+}
+
+export async function emailPasswordLogin(email: string, password: string) {
+  const resp = await request("/oauth/email/login/", {
+    method: "post",
+    data: { email, password },
   });
   return resp.data;
 }

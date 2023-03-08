@@ -79,7 +79,7 @@ const EmailLoginForm = ({
           style={{ width: "100%" }}
           size="large"
         >
-          使用邮箱登录
+          使用验证码登录
         </Button>
       </Form.Item>
     </Form>
