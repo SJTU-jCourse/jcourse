@@ -26,14 +26,14 @@ const AccountLoginForm = ({
           },
         ]}
       >
-        <Input placeholder="用户名" />
+        <Input placeholder="选课社区用户名" />
       </Form.Item>
 
       <Form.Item
         name="password"
         rules={[{ required: true, message: "请输入选课社区密码" }]}
       >
-        <Input placeholder="密码" type="password" size="large" />
+        <Input placeholder="选课社区密码" type="password" size="large" />
       </Form.Item>
 
       <Form.Item>
