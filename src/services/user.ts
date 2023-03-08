@@ -43,10 +43,10 @@ export async function login(username: string, password: string) {
   return resp.data;
 }
 
-export async function emailPasswordLogin(email: string, password: string) {
+export async function emailPasswordLogin(account: string, password: string) {
   const resp = await request("/oauth/email/login/", {
     method: "post",
-    data: { email, password },
+    data: { account, password },
   });
   return resp.data;
 }
@@ -60,21 +60,21 @@ export async function logout(basePath: string, router: NextRouter) {
   //window.location.href = `https://jaccount.sjtu.edu.cn/oauth2/logout?client_id=${Config.JACCOUNT_CLIENT_ID}&post_logout_redirect_uri=${rediretUrl}`;
 }
 
-export async function sendCode(email: string) {
+export async function sendCode(account: string) {
   const resp = await request("/oauth/email/send-code/", {
     method: "post",
-    data: { email },
+    data: { account },
   });
   return resp.data;
 }
 
 export async function verifyCode(
-  email: string,
+  account: string,
   code: string
 ): Promise<LoginResponse> {
   const resp = await request("/oauth/email/verify/", {
     method: "post",
-    data: { email, code },
+    data: { account, code },
   });
   return resp.data;
 }

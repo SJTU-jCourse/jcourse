@@ -186,7 +186,7 @@ export type CoursesFilterParams = {
 };
 
 export type EmailLoginRequest = {
-  email: string;
+  account: string;
   code: string;
 };
 
@@ -196,7 +196,7 @@ export type AccountLoginRequest = {
 };
 
 export type EmailPasswordLoginRequest = {
-  email: string;
+  account: string;
   password: string;
 };
 

@@ -44,17 +44,16 @@ const EmailLoginForm = ({
       size="large"
     >
       <Form.Item
-        name="email"
+        name="account"
         rules={[
           {
             max: 50,
-            pattern: /^([a-zA-Z0-9-_\.]+)+@+(sjtu.edu.cn)+$/,
             required: true,
-            message: "请正确输入邮箱地址",
+            message: "请正确输入 jAccount 用户名",
           },
         ]}
       >
-        <Input placeholder="@sjtu.edu.cn 邮箱" />
+        <Input suffix="@sjtu.edu.cn" placeholder="jAccount 用户名" />
       </Form.Item>
 
       <Form.Item

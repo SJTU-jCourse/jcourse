@@ -46,7 +46,7 @@ const LoginPage = () => {
   }, [router.query]);
 
   const onEmailLoginFinish = (request: EmailLoginRequest) => {
-    verifyCode(request.email, request.code)
+    verifyCode(request.account, request.code)
       .then((data) => {
         postLogin(data, router);
       })
@@ -66,7 +66,7 @@ const LoginPage = () => {
   };
 
   const onEmailPasswordLoginFinish = (request: EmailPasswordLoginRequest) => {
-    emailPasswordLogin(request.email, request.password)
+    emailPasswordLogin(request.account, request.password)
       .then((data) => {
         postLogin(data, router);
       })
