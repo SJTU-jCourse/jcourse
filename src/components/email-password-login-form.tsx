@@ -34,7 +34,7 @@ const EmailPasswordLoginForm = ({
         name="password"
         rules={[{ required: true, message: "请输入选课社区密码" }]}
       >
-        <Input placeholder="选课社区密码" type="password" size="large" />
+        <Input.Password placeholder="选课社区密码" size="large" />
       </Form.Item>
 
       <Form.Item>
