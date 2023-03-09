@@ -13,14 +13,16 @@ import {
   EmailPasswordLoginRequest,
 } from "@/lib/models";
 import {
+  authEmailVerifyCode,
   emailPasswordLogin,
   jAccountAuth,
   login,
   postLogin,
-  authEmailVerifyCode,
 } from "@/services/user";
 
 const { Link, Text } = Typography;
+
+const LOGIN_FORM_HEIGHT = "184px";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -110,7 +112,7 @@ const LoginPage = () => {
       label: "邮箱验证登录",
       key: "email",
       children: (
-        <div style={{ height: "168px" }}>
+        <div style={{ height: LOGIN_FORM_HEIGHT }}>
           <EmailLoginForm onFinish={onEmailLoginFinish} />
         </div>
       ),
@@ -119,7 +121,7 @@ const LoginPage = () => {
       label: "邮箱密码登录",
       key: "email-password",
       children: (
-        <div style={{ height: "168px" }}>
+        <div style={{ height: LOGIN_FORM_HEIGHT }}>
           <EmailPasswordLoginForm onFinish={onEmailPasswordLoginFinish} />
         </div>
       ),
@@ -128,7 +130,7 @@ const LoginPage = () => {
       label: "账号登录",
       key: "account",
       children: (
-        <div style={{ height: "168px" }}>
+        <div style={{ height: LOGIN_FORM_HEIGHT }}>
           <AccountLoginForm onFinish={onAccountLoginFinish} />
         </div>
       ),

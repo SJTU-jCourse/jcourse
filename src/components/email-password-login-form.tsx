@@ -1,4 +1,5 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Typography } from "antd";
+import Link from "next/link";
 
 import { EmailPasswordLoginRequest } from "@/lib/models";
 import { AccountRule } from "@/lib/utils";
@@ -29,7 +30,14 @@ const EmailPasswordLoginForm = ({
         <Input.Password placeholder="选课社区密码" size="large" />
       </Form.Item>
 
-      <Form.Item>
+      <Form.Item
+        extra={
+          <Typography.Text type="secondary">
+            在<Link href="/preference">偏好设置</Link>
+            中设定密码后可使用密码登录
+          </Typography.Text>
+        }
+      >
         <Button
           type="primary"
           htmlType="submit"
