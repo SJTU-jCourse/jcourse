@@ -36,7 +36,7 @@ const AccountLoginForm = ({
         <Input.Password placeholder="选课社区密码" size="large" />
       </Form.Item>
 
-      <Form.Item>
+      <Form.Item extra="非特殊情况下，请使用邮箱验证码或者密码登录">
         <Button
           type="primary"
           htmlType="submit"
