@@ -19,7 +19,12 @@ const ResetPasswordForm = ({
   const router = useRouter();
 
   const onClick = () => {
-    resetEmailSendCode(form.getFieldValue("account"))
+    const account: string = form.getFieldValue("account");
+    if (account == undefined || !AccountRule.pattern.test(account)) {
+      message.error("请输入正确的 jAccount 用户名。");
+      return;
+    }
+    resetEmailSendCode(account)
       .then((data) => {
         setTime(60);
         message.success(data.detail);

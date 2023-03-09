@@ -16,7 +16,12 @@ const EmailLoginForm = ({
   const inCounter = time != 0;
 
   const onClick = () => {
-    authEmailSendCode(form.getFieldValue("account"))
+    const account: string = form.getFieldValue("account");
+    if (account == undefined || !AccountRule.pattern.test(account)) {
+      message.error("请输入正确的 jAccount 用户名。");
+      return;
+    }
+    authEmailSendCode(account)
       .then((data) => {
         setTime(60);
         message.success(data.detail);
