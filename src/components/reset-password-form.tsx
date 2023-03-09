@@ -2,6 +2,7 @@ import { Button, Form, Input, message } from "antd";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 
+import { UserContext } from "@/lib/context";
 import { ResetPasswordRequest } from "@/lib/models";
 import { AccountRule, CodeRule } from "@/lib/utils";
 import { resetEmailSendCode, resetPassword } from "@/services/user";
@@ -59,10 +60,17 @@ const ResetPasswordForm = ({
       requiredMark="optional"
       size="large"
     >
-      <Form.Item name="account" rules={[AccountRule]}>
-        <Input suffix="@sjtu.edu.cn" placeholder="jAccount 用户名" />
-      </Form.Item>
-
+      <UserContext.Consumer>
+        {(user) => (
+          <Form.Item
+            name="account"
+            rules={[AccountRule]}
+            initialValue={user?.account}
+          >
+            <Input suffix="@sjtu.edu.cn" placeholder="jAccount 用户名" />
+          </Form.Item>
+        )}
+      </UserContext.Consumer>
       <Form.Item name="code" rules={[CodeRule]}>
         <Input.Search
           placeholder="输入验证码"
