@@ -1,6 +1,7 @@
 import { Button, Form, Input } from "antd";
 
 import { EmailPasswordLoginRequest } from "@/lib/models";
+import { AccountRule } from "@/lib/utils";
 
 const EmailPasswordLoginForm = ({
   onFinish,
@@ -17,16 +18,7 @@ const EmailPasswordLoginForm = ({
       requiredMark="optional"
       size="large"
     >
-      <Form.Item
-        name="account"
-        rules={[
-          {
-            max: 50,
-            required: true,
-            message: "请正确输入 jAccount 用户名",
-          },
-        ]}
-      >
+      <Form.Item name="account" rules={[AccountRule]}>
         <Input suffix="@sjtu.edu.cn" placeholder="jAccount 用户名" />
       </Form.Item>
 

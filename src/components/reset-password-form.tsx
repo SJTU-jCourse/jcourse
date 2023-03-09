@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 
 import { ResetPasswordRequest } from "@/lib/models";
+import { AccountRule, CodeRule } from "@/lib/utils";
 import { resetEmailSendCode, resetPassword } from "@/services/user";
 
 const ResetPasswordForm = ({
@@ -58,23 +59,11 @@ const ResetPasswordForm = ({
       requiredMark="optional"
       size="large"
     >
-      <Form.Item
-        name="account"
-        rules={[
-          {
-            max: 50,
-            required: true,
-            message: "请正确输入 jAccount 用户名",
-          },
-        ]}
-      >
+      <Form.Item name="account" rules={[AccountRule]}>
         <Input suffix="@sjtu.edu.cn" placeholder="jAccount 用户名" />
       </Form.Item>
 
-      <Form.Item
-        name="code"
-        rules={[{ required: true, message: "请输入验证码" }]}
-      >
+      <Form.Item name="code" rules={[CodeRule]}>
         <Input.Search
           placeholder="输入验证码"
           enterButton={
@@ -88,7 +77,14 @@ const ResetPasswordForm = ({
 
       <Form.Item
         name="password"
-        rules={[{ required: true, message: "请输入选课社区密码" }]}
+        rules={[
+          {
+            required: true,
+            min: 9,
+            pattern: /^.*(?=.*\d)(?=.*[a-zA-Z]{1,}).*$/,
+            message: "请输入满足规则的密码（至少9位，并包含数字和字母）",
+          },
+        ]}
       >
         <Input.Password placeholder="输入新密码" size="large" />
       </Form.Item>

@@ -2,6 +2,7 @@ import { Button, Form, Input, message } from "antd";
 import { useEffect, useRef, useState } from "react";
 
 import { EmailLoginRequest } from "@/lib/models";
+import { AccountRule, CodeRule } from "@/lib/utils";
 import { authEmailSendCode } from "@/services/user";
 
 const EmailLoginForm = ({
@@ -43,23 +44,11 @@ const EmailLoginForm = ({
       requiredMark="optional"
       size="large"
     >
-      <Form.Item
-        name="account"
-        rules={[
-          {
-            max: 50,
-            required: true,
-            message: "请正确输入 jAccount 用户名",
-          },
-        ]}
-      >
+      <Form.Item name="account" rules={[AccountRule]}>
         <Input suffix="@sjtu.edu.cn" placeholder="jAccount 用户名" />
       </Form.Item>
 
-      <Form.Item
-        name="code"
-        rules={[{ required: true, message: "请输入验证码" }]}
-      >
+      <Form.Item name="code" rules={[CodeRule]}>
         <Input.Search
           placeholder="输入验证码"
           enterButton={
