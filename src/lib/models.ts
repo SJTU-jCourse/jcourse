@@ -200,6 +200,12 @@ export type EmailPasswordLoginRequest = {
   password: string;
 };
 
+export type ResetPasswordRequest = {
+  account: string;
+  code: string;
+  password: string;
+};
+
 export type LoginResponse = {
   account: string;
 };

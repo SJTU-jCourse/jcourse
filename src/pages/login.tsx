@@ -17,7 +17,7 @@ import {
   jAccountAuth,
   login,
   postLogin,
-  verifyCode,
+  authEmailVerifyCode,
 } from "@/services/user";
 
 const { Link, Text } = Typography;
@@ -46,7 +46,7 @@ const LoginPage = () => {
   }, [router.query]);
 
   const onEmailLoginFinish = (request: EmailLoginRequest) => {
-    verifyCode(request.account, request.code)
+    authEmailVerifyCode(request.account, request.code)
       .then((data) => {
         postLogin(data, router);
       })

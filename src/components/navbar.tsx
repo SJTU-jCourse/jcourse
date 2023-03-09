@@ -3,6 +3,7 @@ import {
   LogoutOutlined,
   ProfileOutlined,
   SearchOutlined,
+  SettingOutlined,
   SyncOutlined,
   UserOutlined,
 } from "@ant-design/icons";
@@ -18,16 +19,12 @@ const NavBar = ({ user }: { user?: User }) => {
   const router = useRouter();
 
   const handleMenuClick = (e: { key: string }) => {
-    if (e.key == "activity") {
-      router.push("/activity");
-    } else if (e.key == "sync") {
-      router.push("/sync");
-    } else if (e.key == "logout") {
+    if (e.key == "logout") {
       logout(router.basePath, router);
     } else if (e.key == "account" && user?.is_staff) {
       toAdmin();
-    } else if (e.key == "point") {
-      router.push("/point");
+    } else {
+      router.push(e.key);
     }
   };
   const dropMenuItems: MenuProps["items"] = [
@@ -39,6 +36,7 @@ const NavBar = ({ user }: { user?: User }) => {
     { key: "point", label: "社区积分", icon: <DollarOutlined /> },
     { key: "activity", label: "我的点评", icon: <ProfileOutlined /> },
     { key: "sync", label: "同步课表", icon: <SyncOutlined /> },
+    { key: "preference", label: "偏好设置", icon: <SettingOutlined /> },
     { type: "divider", key: "divider" },
     { key: "logout", label: "登出", icon: <LogoutOutlined />, danger: true },
   ];
