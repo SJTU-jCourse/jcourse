@@ -20,14 +20,22 @@ const EmailPasswordLoginForm = ({
       size="large"
     >
       <Form.Item name="account" rules={[AccountRule]}>
-        <Input suffix="@sjtu.edu.cn" placeholder="jAccount 用户名" />
+        <Input
+          id="email-password-account"
+          suffix="@sjtu.edu.cn"
+          placeholder="jAccount 用户名"
+        />
       </Form.Item>
 
       <Form.Item
         name="password"
         rules={[{ required: true, message: "请输入选课社区密码" }]}
       >
-        <Input.Password placeholder="选课社区密码" size="large" />
+        <Input.Password
+          id="email-password"
+          placeholder="选课社区密码"
+          size="large"
+        />
       </Form.Item>
 
       <Form.Item

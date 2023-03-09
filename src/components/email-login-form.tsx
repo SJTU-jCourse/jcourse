@@ -50,11 +50,16 @@ const EmailLoginForm = ({
       size="large"
     >
       <Form.Item name="account" rules={[AccountRule]}>
-        <Input suffix="@sjtu.edu.cn" placeholder="jAccount 用户名" />
+        <Input
+          id="email-code-account"
+          suffix="@sjtu.edu.cn"
+          placeholder="jAccount 用户名"
+        />
       </Form.Item>
 
       <Form.Item name="code" rules={[CodeRule]}>
         <Input.Search
+          id="email-code"
           placeholder="输入验证码"
           enterButton={
             <Button onClick={onClick} disabled={inCounter}>
