@@ -82,10 +82,7 @@ const NavBar = ({ user }: { user?: User }) => {
       </Col>
 
       <Col>
-        <Dropdown
-          menu={{ onClick: handleMenuClick, items: dropMenuItems }}
-          placement="bottom"
-        >
+        <Dropdown menu={{ onClick: handleMenuClick, items: dropMenuItems }}>
           <Button shape="circle" icon={<UserOutlined />}></Button>
         </Dropdown>
       </Col>
