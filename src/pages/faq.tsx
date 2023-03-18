@@ -2,6 +2,7 @@ import { Card, Divider, Typography } from "antd";
 import Head from "next/head";
 import Link from "next/link";
 
+import ContactEmail from "@/components/contact-email";
 import PageHeader from "@/components/page-header";
 
 const { Title, Paragraph } = Typography;
@@ -123,7 +124,7 @@ const FaqPage = () => {
         <Title level={4}>如何联系你们？</Title>
         <Paragraph>
           请通过<Link href="/report">反馈</Link>或者邮件
-          <a href="mailto:course@sjtu.plus">course@sjtu.plus</a>
+          <ContactEmail />
           向社区提出意见和建议。
         </Paragraph>
         <Title level={4}>我是课程老师……</Title>
@@ -131,12 +132,16 @@ const FaqPage = () => {
           <ul>
             <li>
               <strong>我希望回复某一个关于我的点评。</strong>
-              感谢您的重视，我们随时欢迎老师也参与选课社区。请联系社区申诉并附上学校邮箱、希望回复的点评和您的回复。确认身份后我们可以将您的回复与点评一起呈现。
+              感谢您的重视，我们随时欢迎老师也参与选课社区。请使用学校邮箱发信到
+              <ContactEmail />
+              ，并提供希望回复的点评和您的回复。确认身份后我们可以将您的回复与点评一起呈现。
               <br />
             </li>
             <li>
               <strong>我认为课程点评中存在虚假内容。</strong>
-              请联系社区申诉并附上学校邮箱、相关点评和澄清内容。我们希望能够协助您澄清。
+              请使用学校邮箱发信到
+              <ContactEmail />
+              ，并提供相关点评和澄清内容。我们希望能够协助您澄清。
             </li>
           </ul>
         </Paragraph>

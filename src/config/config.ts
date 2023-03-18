@@ -7,6 +7,7 @@ const Config = {
   JACCOUNT_LOGIN_RETURI: "/login",
   JACCOUNT_SYNC_RETURI: "/sync",
   BAIDU_TONGJI_CODE: "bffe2d130d940fce5a0876ee2dc36b92",
+  CONTACT_EMAIL: "course@sjtu.plus",
 };
 
 export default Config;
