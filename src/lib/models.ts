@@ -248,3 +248,10 @@ export type ReviewFilterValue = {
   semester: number;
   rating: number;
 };
+
+export type SyncCourseItem = {
+  code: string;
+  name: string;
+  teachers: string;
+  semester: string;
+};

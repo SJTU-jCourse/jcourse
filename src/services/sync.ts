@@ -1,7 +1,7 @@
 import useSWR from "swr";
 
 import Config from "@/config/config";
-import { CourseListItem } from "@/lib/models";
+import { CourseListItem, SyncCourseItem } from "@/lib/models";
 import { fetcher, request } from "@/services/request";
 
 export function loginSync(basePath: string) {
@@ -23,9 +23,10 @@ export async function authSync(code: string, state: string, basePath: string) {
   return resp.data;
 }
 
-export async function syncLessons(semester: string): Promise<CourseListItem[]> {
-  const resp = await request(`/api/sync-lessons/${semester}/`, {
+export async function syncLessons(courses: SyncCourseItem[]) {
+  const resp = await request(`/api/sync-lessons-v2/`, {
     method: "POST",
+    data: courses,
   });
   return resp.data;
 }

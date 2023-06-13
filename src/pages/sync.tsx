@@ -1,68 +1,105 @@
-import { Button, Card, Modal, Select, message } from "antd";
+import {
+  Button,
+  Card,
+  Col,
+  Collapse,
+  Grid,
+  Input,
+  Modal,
+  Row,
+  Table,
+  message,
+} from "antd";
+import type { CollapseProps } from "antd";
+import type { ColumnsType } from "antd/es/table";
 import Head from "next/head";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import CourseList from "@/components/course-list";
 import PageHeader from "@/components/page-header";
-import { useSemesters } from "@/services/semester";
-import { authSync, loginSync, syncLessons, useLessons } from "@/services/sync";
+import { SyncCourseItem } from "@/lib/models";
+import { syncLessons, useLessons } from "@/services/sync";
+
+const SyncCourseTableColumns: ColumnsType<SyncCourseItem> = [
+  { title: "课号", dataIndex: "code" },
+  { title: "课名", dataIndex: "name" },
+  { title: "教师", dataIndex: "teachers" },
+  { title: "学期", dataIndex: "semester" },
+];
+
+const CollapseItems: CollapseProps["items"] = [
+  {
+    key: "1",
+    label: "同步课表教程",
+    children: (
+      <>
+        <p>
+          1. 登录教学信息服务网{" "}
+          <a target="_blank" href="https://i.sjtu.edu.cn/">
+            https://i.sjtu.edu.cn/
+          </a>
+        </p>
+        <p>
+          2. 进入 <b>信息查询 - 学生课表查询</b>
+          ，选择需要同步的学期，切换显示样式为 <b>列表</b>
+        </p>
+        <p>
+          3. 点击 <b>查询</b>，复制课表，粘贴到本窗口下方编辑框中
+        </p>
+        <p>
+          4. 点击右下方 <b>同步</b> 即可
+        </p>
+      </>
+    ),
+  },
+];
+
+const parseCourses = (raw: string): SyncCourseItem[] => {
+  const courseNameReg =
+    /\n(\S+)[◇●○★▲☆]\s+周数：\S+\s+校区：\S+\s+上课地点：\S+\s+教师：(\S+)\s+教学班：\((\S+)\)\-(\S+)-\S+\s+/g;
+  const matches = raw.matchAll(courseNameReg);
+  const courses: SyncCourseItem[] = Array.from(matches, (item) => {
+    return {
+      name: item[1],
+      teachers: item[2],
+      semester: item[3],
+      code: item[4],
+    };
+  });
+
+  const map = new Map();
+
+  return courses.filter((item) => !map.has(item.code) && map.set(item.code, 1)); // 去重
+};
 
 const SyncPage = () => {
-  const { availableSemesters } = useSemesters();
+  const screens = Grid.useBreakpoint();
+
   const { courses, loading: courseLoading, mutate } = useLessons();
-  const router = useRouter();
-  const { code, state } = router.query;
+
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [semester, setSemester] = useState<string>("");
-  const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (code && code != "") {
-      authSync(code as string, state as string, router.basePath)
-        .then(() => {
-          message.info("已刷新 jAccount 登录状态，请继续同步！");
-          router.replace({ pathname: "/sync" });
-        })
-        .catch(() => {
-          message.error("参数错误！");
-          router.replace({ pathname: "/sync" });
-        });
-    }
-  }, [router.query]);
+  const [syncCourseItems, setSyncCourseItems] = useState<SyncCourseItem[]>([]);
 
-  const handleClick = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    if (semester == "") {
-      message.error("请选择需要同步的学期！");
+  const syncCourses = () => {
+    if (syncCourseItems.length == 0) {
+      message.warning("同步前请至少提交一条课表记录");
       return;
     }
-    setConfirmLoading(true);
-
-    syncLessons(semester)
+    syncLessons(syncCourseItems)
       .then(() => {
-        mutate();
+        setSyncCourseItems([]);
         setIsModalOpen(false);
-        setConfirmLoading(false);
+        mutate();
       })
-      .catch((err) => {
-        if (err.response?.status == 401) {
-          message.warning(
-            "即将重新登录jAccount，请在本页面刷新后继续同步",
-            () => {
-              loginSync(router.basePath);
-            }
-          );
-        } else if (err.response?.status == 403) {
-          message.error("CSRF Failed: Origin checking failed");
-          setConfirmLoading(false);
-        }
+      .catch((resp) => {
+        message.error(resp);
       });
   };
 
+  const onCancel = () => {
+    setIsModalOpen(false);
+  };
   return (
     <>
       <PageHeader title="学过的课"></PageHeader>
@@ -72,7 +109,7 @@ const SyncPage = () => {
       <Card
         title={`共有${courses ? courses.length : 0}门课`}
         extra={
-          <Button type="primary" onClick={() => handleClick()}>
+          <Button type="primary" onClick={() => setIsModalOpen(true)}>
             同步
           </Button>
         }
@@ -85,47 +122,34 @@ const SyncPage = () => {
         />
       </Card>
       <Modal
-        title="同步说明"
+        title="同步课表"
         open={isModalOpen}
-        footer={null}
-        onCancel={() => setIsModalOpen(false)}
+        okText="同步"
+        onOk={syncCourses}
+        onCancel={onCancel}
+        width={screens.md ? "80%" : 520}
       >
-        <p>很遗憾地通知大家，目前选课社区暂无法使用 jAccount 相关接口，对您带来的不便表示抱歉。</p>
-      </Modal>
-      <Modal
-        title="同步说明"
-        //open={isModalOpen}
-        onOk={handleOk}
-        confirmLoading={confirmLoading}
-        onCancel={() => setIsModalOpen(false)}
-      >
-        选择需要同步的学期
-        <Select
-          placeholder="学期"
-          className="sync-select"
-          onSelect={(key: string) => setSemester(key)}
-        >
-          {availableSemesters?.map((semester) => (
-            <Select.Option
-              key={semester.name}
-              value={semester.name}
-              label={semester.name}
-            >
-              {semester.name}
-            </Select.Option>
-          ))}
-        </Select>
-        <p>
-          2020-2021 代表 2020-2021 学年度（2020.9-2021.8）。
-          <br />
-          1代表秋季学期，2代表春季学期，3代表夏季学期/小学期。
-        </p>
-        <p>
-          同步课表时可能需要重新登录jAccount。点击确定即代表您授权本网站通过jAccount接口查询并存储您的选课记录。
-        </p>
-        <p>
-          部分课程不在选课社区数据库中，包括培养计划更改后取消的课程或者被替代的同名课程。这些课程将被忽略。
-        </p>
+        <Collapse size="small" ghost items={CollapseItems} />
+        <Row gutter={16}>
+          <Col span={screens.sm ? 12 : 24}>
+            <Input.TextArea
+              placeholder="在此处粘贴教学信息服务网上的课表（列表显示）"
+              onChange={(e) => {
+                setSyncCourseItems(parseCourses(e.target.value));
+              }}
+              autoSize={{ minRows: 10, maxRows: 20 }}
+            ></Input.TextArea>
+          </Col>
+          <Col span={screens.sm ? 12 : 24}>
+            <Table
+              size="small"
+              columns={SyncCourseTableColumns}
+              dataSource={syncCourseItems}
+              pagination={false}
+              rowKey="code"
+            ></Table>
+          </Col>
+        </Row>
       </Modal>
     </>
   );
