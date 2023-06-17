@@ -197,12 +197,14 @@ const WriteReviewPage = () => {
             >
               {courses.map((course) => (
                 <Select.Option key={course.id} value={course.id}>
-                  {course.semester && (
-                    <Tag color={Config.TAG_COLOR_ENROLL}>学过</Tag>
-                  )}
-                  <span>
-                    {course.code} {course.name} {course.teacher}
-                  </span>
+                  <div>
+                    {course.semester && (
+                      <Tag color={Config.TAG_COLOR_ENROLL}>学过</Tag>
+                    )}
+                    <span>
+                      {course.code} {course.name} {course.teacher}
+                    </span>
+                  </div>
                 </Select.Option>
               ))}
             </Select>
