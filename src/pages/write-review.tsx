@@ -31,7 +31,7 @@ const ReviewTemplate: string =
 
 const WriteReviewPage = () => {
   const { user } = useUser();
-  const { availableSemesters } = useSemesters();
+  const { availableSemesters, semesters } = useSemesters();
   const router = useRouter();
   const { course_id, review_id } = router.query;
   const [form] = Form.useForm();
@@ -41,6 +41,9 @@ const WriteReviewPage = () => {
   const [courses, setCourses] = useState<CourseInReview[]>([]);
   const [nextPage, setNextPage] = useState<string | null>(null);
   const [loadingMore, setLoadingMore] = useState(false);
+
+  const semestersInSeleter =
+    enrollSemester && enrollSemester != 0 ? semesters : availableSemesters;
 
   const handleSubmit = (review: ReviewDraft) => {
     if (review_id) {
@@ -222,7 +225,7 @@ const WriteReviewPage = () => {
             }
           >
             <Select placeholder="选择学期">
-              {availableSemesters?.map((semester) => (
+              {semestersInSeleter?.map((semester) => (
                 <Select.Option
                   key={semester.id}
                   value={semester.id}
