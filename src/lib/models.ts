@@ -32,7 +32,6 @@ export type CourseDetail = {
   credit: number;
   main_teacher: Teacher;
   teacher_group: Teacher[];
-  former_codes: string[];
   moderator_remark: string | null;
   rating: { avg: number | null; count: number };
   related_teachers: {

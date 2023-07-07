@@ -25,7 +25,6 @@ describe("course detail card", () => {
           name: "高女士",
         },
       ],
-      former_codes: [],
       rating: { avg: 0, count: 0 },
       moderator_remark: null,
       related_teachers: [],
@@ -70,7 +69,6 @@ describe("course detail card", () => {
         name: "梁女士",
       },
     ];
-    course.former_codes = ["TEST002", "TEST003"];
     course.semester = 1;
     course.moderator_remark = "remark";
     course.rating = { avg: 1.567, count: 20 };
