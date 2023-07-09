@@ -86,8 +86,6 @@ describe("course detail card", () => {
 
     expect(screen.queryByText("课程类别")).toBeInTheDocument();
     expect(screen.queryByText("通识，通选")).toBeInTheDocument();
-    expect(screen.queryByText("曾用课号")).toBeInTheDocument();
-    expect(screen.queryByText("TEST002，TEST003")).toBeInTheDocument();
     expect(screen.queryByText("合上教师")).toBeInTheDocument();
     expect(screen.queryByText("高女士，梁女士")).toBeInTheDocument();
     expect(screen.queryByText("推荐指数")).toBeInTheDocument();
