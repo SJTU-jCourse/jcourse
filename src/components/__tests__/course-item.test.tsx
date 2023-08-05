@@ -2,10 +2,31 @@ import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 
 import CourseItem from "@/components/course-item";
-import { CourseListItem } from "@/lib/models";
+import { CommonInfo, CourseListItem } from "@/lib/models";
+import { CommonInfoContext } from "@/lib/context";
+
+const getTestCommonInfo = () => {
+  const commonInfo = {
+    announcements: [],
+    semesters: [],
+    available_semesters: [],
+    user: {
+      id: 0,
+      username: "",
+      is_staff: false,
+      account: null,
+    },
+    semesterMap: new Map(),
+    my_reviews: new Map(),
+    enrolled_courses: new Map(),
+    reviewed_courses: new Map(),
+  };
+  return commonInfo;
+};
 
 describe("course detail card", () => {
   let course: CourseListItem;
+  let commonInfo: CommonInfo;
   beforeEach(() => {
     course = {
       id: 12345,
@@ -16,12 +37,15 @@ describe("course detail card", () => {
       credit: 2,
       teacher: "高女士",
       rating: { count: 0, avg: 0 },
-      is_reviewed: null,
-      semester: null,
     };
+    commonInfo = getTestCommonInfo();
   });
   it("shows minimal info", () => {
-    render(<CourseItem course={course} showEnroll={false}></CourseItem>);
+    render(
+      <CommonInfoContext.Provider value={commonInfo}>
+        <CourseItem course={course} showEnroll={false}></CourseItem>
+      </CommonInfoContext.Provider>
+    );
     expect(
       screen.queryByText("test001 测试课程（高女士）")
     ).toBeInTheDocument();
@@ -35,21 +59,40 @@ describe("course detail card", () => {
   });
   it("shows rating", () => {
     course.rating = { count: 10, avg: 1.666 };
-    render(<CourseItem course={course} showEnroll={false}></CourseItem>);
+    render(
+      <CommonInfoContext.Provider value={commonInfo}>
+        <CourseItem course={course} showEnroll={false}></CourseItem>
+      </CommonInfoContext.Provider>
+    );
     expect(screen.queryByText("1.7")).toBeInTheDocument();
     expect(screen.queryByText("10人评价")).toBeInTheDocument();
     expect(screen.queryByText("暂无点评")).not.toBeInTheDocument();
   });
   it("shows enroll tag", () => {
-    course.semester = 1;
-    render(<CourseItem course={course} showEnroll={false}></CourseItem>);
+    commonInfo.enrolled_courses.set(course.id, {
+      course_id: course.id,
+      semester_id: 1,
+    });
+    render(
+      <CommonInfoContext.Provider value={commonInfo}>
+        <CourseItem course={course} showEnroll={false}></CourseItem>
+      </CommonInfoContext.Provider>
+    );
     expect(screen.queryByText("学过")).not.toBeInTheDocument();
-    render(<CourseItem course={course} showEnroll={true}></CourseItem>);
+    render(
+      <CommonInfoContext.Provider value={commonInfo}>
+        <CourseItem course={course} showEnroll={true}></CourseItem>
+      </CommonInfoContext.Provider>
+    );
     expect(screen.queryByText("学过")).toBeInTheDocument();
   });
   it("shows category tags", () => {
     course.categories = ["通识", "通选"];
-    render(<CourseItem course={course} showEnroll={false}></CourseItem>);
+    render(
+      <CommonInfoContext.Provider value={commonInfo}>
+        <CourseItem course={course} showEnroll={false}></CourseItem>
+      </CommonInfoContext.Provider>
+    );
     expect(screen.queryByText("通识")).toBeInTheDocument();
     expect(screen.queryByText("通选")).toBeInTheDocument();
   });
@@ -60,8 +103,16 @@ describe("course detail card", () => {
     expect(screen.queryByText("通选")).toBeInTheDocument();
   });
   it("shows review tags", () => {
-    course.is_reviewed = 1234;
-    render(<CourseItem course={course} showEnroll={false}></CourseItem>);
+    commonInfo.reviewed_courses.set(course.id, {
+      course_id: course.id,
+      semester_id: 1,
+      id: 12345,
+    });
+    render(
+      <CommonInfoContext.Provider value={commonInfo}>
+        <CourseItem course={course} showEnroll={false}></CourseItem>
+      </CommonInfoContext.Provider>
+    );
     expect(screen.queryByText("已点评")).toBeInTheDocument();
   });
 });

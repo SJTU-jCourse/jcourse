@@ -29,8 +29,6 @@ describe("course detail card", () => {
       moderator_remark: null,
       related_teachers: [],
       related_courses: [],
-      semester: null,
-      is_reviewed: null,
       notification_level: null,
     };
   });
@@ -69,18 +67,17 @@ describe("course detail card", () => {
         name: "梁女士",
       },
     ];
-    course.semester = 1;
+
     course.moderator_remark = "remark";
     course.rating = { avg: 1.567, count: 20 };
     course.categories = ["通识", "通选"];
     course.notification_level = 1;
-    const semesterMap = new Map<number, string>();
-    semesterMap.set(1, "2020-2021-1");
+
     render(
       <CourseDetailCard
         course={course}
         loading={false}
-        semesterMap={semesterMap}
+        enroll_semester={"2020-2021-1"}
       />
     );
 
