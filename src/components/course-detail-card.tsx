@@ -43,11 +43,11 @@ const NotificationLevelSelect = ({ course }: { course: CourseDetail }) => {
 const CourseDetailCard = ({
   course,
   loading,
-  semesterMap,
+  enroll_semester,
 }: PropsWithChildren<{
   course?: CourseDetail;
   loading?: boolean;
-  semesterMap?: Map<number, string>;
+  enroll_semester?: string | null;
 }>) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   return (
@@ -95,9 +95,9 @@ const CourseDetailCard = ({
                 {course.moderator_remark}
               </Descriptions.Item>
             )}
-            {course.semester && semesterMap && (
+            {enroll_semester && (
               <Descriptions.Item label="学过学期">
-                {semesterMap.get(course.semester)}
+                {enroll_semester}
               </Descriptions.Item>
             )}
             {course.rating.count > 0 && (

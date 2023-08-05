@@ -22,8 +22,8 @@ import Config from "@/config/config";
 import { CourseInReview, Review, ReviewDraft, Semester } from "@/lib/models";
 import { getCourseInReview, searchCourseInReview } from "@/services/course";
 import { getReview, modifyReview, writeReview } from "@/services/review";
-import { useSemesters } from "@/services/semester";
 import { useUser } from "@/services/user";
+import { useCommonInfo } from "@/services/common";
 
 const { Text } = Typography;
 const ReviewTemplate: string =
@@ -31,7 +31,7 @@ const ReviewTemplate: string =
 
 const WriteReviewPage = () => {
   const { user } = useUser();
-  const { availableSemesters, semesters } = useSemesters();
+  const { commonInfo } = useCommonInfo();
   const router = useRouter();
   const { course_id, review_id } = router.query;
   const [form] = Form.useForm();
@@ -42,8 +42,8 @@ const WriteReviewPage = () => {
   const [nextPage, setNextPage] = useState<string | null>(null);
   const [loadingMore, setLoadingMore] = useState(false);
 
-  const semestersInSeleter =
-    enrollSemester && enrollSemester != 0 ? semesters : availableSemesters;
+  const semestersInSelect =
+    enrollSemester != 0 ? commonInfo.semesters : commonInfo.available_semesters;
 
   const handleSubmit = (review: ReviewDraft) => {
     if (review_id) {
@@ -86,23 +86,28 @@ const WriteReviewPage = () => {
   useEffect(() => {
     if (course_id) {
       getCourseInReview(course_id as string).then((course: CourseInReview) => {
+        const enrollSemester = commonInfo.enrolled_courses.get(
+          parseInt(course_id as string)
+        )?.semester_id;
         setCourses([course]);
         form.setFieldsValue({
           course: parseInt(course_id as string),
-          semester: course.semester,
+          semester: enrollSemester,
         });
-        setEnrollSemester(course.semester ? course.semester : 0);
+        setEnrollSemester(enrollSemester || 0);
       });
     } else if (review_id) {
       getReview(review_id as string).then((review: Review) => {
-        if (review.is_mine == false && user?.is_staff == false) {
+        if (!commonInfo.my_reviews.has(review.id) && user?.is_staff == false) {
           message.error("只能修改自己的点评！", 1, () => history.back());
           return;
         }
         const course: CourseInReview = review.course!;
         const semester = review.semester as Semester;
         setCourses([course]);
-        setEnrollSemester(course.semester ? course.semester : 0);
+        const enrollSemester = commonInfo.enrolled_courses.get(course.id)?.semester_id;
+
+        setEnrollSemester(enrollSemester || 0);
         form.setFieldsValue({
           course: course.id,
           semester: semester.id,
@@ -140,10 +145,15 @@ const WriteReviewPage = () => {
 
   const onCourseSelectChange = (selected_course: number) => {
     for (const course of courses) {
-      if (course.id == selected_course && course.semester) {
-        setEnrollSemester(course.semester);
-        form.setFieldsValue({ semester: course.semester });
-        return;
+      if (course.id == selected_course) {
+        const enrollSemester = commonInfo.enrolled_courses.get(
+          parseInt(course_id as string)
+        )?.semester_id;
+        if (enrollSemester) {
+          setEnrollSemester(enrollSemester);
+          form.setFieldsValue({ semester: enrollSemester });
+          return;
+        }
       }
     }
     setEnrollSemester(0);
@@ -201,7 +211,7 @@ const WriteReviewPage = () => {
               {courses.map((course) => (
                 <Select.Option key={course.id} value={course.id}>
                   <div>
-                    {course.semester && (
+                    {commonInfo.enrolled_courses.has(course.id) && (
                       <Tag color={Config.TAG_COLOR_ENROLL}>学过</Tag>
                     )}
                     <span>
@@ -225,7 +235,7 @@ const WriteReviewPage = () => {
             }
           >
             <Select placeholder="选择学期">
-              {semestersInSeleter?.map((semester) => (
+              {semestersInSelect?.map((semester) => (
                 <Select.Option
                   key={semester.id}
                   value={semester.id}

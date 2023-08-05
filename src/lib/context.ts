@@ -1,5 +1,7 @@
 import React from "react";
 
-import { User } from "@/lib/models";
+import { CommonInfo } from "@/lib/models";
 
-export const UserContext = React.createContext<User | undefined>(undefined);
+export const CommonInfoContext = React.createContext<CommonInfo | undefined>(
+  undefined
+);

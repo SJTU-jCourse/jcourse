@@ -6,7 +6,7 @@ import { useState } from "react";
 import MDPreview from "@/components/md-preview";
 import ReviewReactionButton from "@/components/review-reaction-button";
 import ReviewRevisionViewModal from "@/components/review-revision-modal";
-import { UserContext } from "@/lib/context";
+import { CommonInfoContext } from "@/lib/context";
 import { Review } from "@/lib/models";
 import { doReviewReaction } from "@/services/review";
 
@@ -33,8 +33,8 @@ const ReviewItem = ({
     }
   };
   return (
-    <UserContext.Consumer>
-      {(user) => {
+    <CommonInfoContext.Consumer>
+      {(commonInfo) => {
         return (
           <List.Item
             id={`review-${review.id}`}
@@ -61,7 +61,7 @@ const ReviewItem = ({
             ]}
           >
             {contextHolder}
-            {user?.is_staff && revisionModalOpen && (
+            {commonInfo?.user.is_staff && revisionModalOpen && (
               <ReviewRevisionViewModal
                 review={review}
                 open={revisionModalOpen}
@@ -119,7 +119,7 @@ const ReviewItem = ({
                     <Typography.Text
                       type="secondary"
                       onClick={() => {
-                        if (user?.is_staff) {
+                        if (commonInfo?.user.is_staff) {
                           setRevisionModalOpen(true);
                         }
                       }}
@@ -132,7 +132,8 @@ const ReviewItem = ({
                     发表于 {review.modified_at}
                   </Typography.Text>
                 )}
-                {(review.is_mine || user?.is_staff) && (
+                {(commonInfo?.my_reviews.has(review.id) ||
+                  commonInfo?.user.is_staff) && (
                   <Link href={`/write-review?review_id=${review.id}`}>
                     修改点评
                   </Link>
@@ -142,7 +143,7 @@ const ReviewItem = ({
           </List.Item>
         );
       }}
-    </UserContext.Consumer>
+    </CommonInfoContext.Consumer>
   );
 };
 

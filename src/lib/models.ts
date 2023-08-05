@@ -19,8 +19,6 @@ export type CourseListItem = {
   credit: number;
   teacher: string;
   rating: { avg: number; count: number };
-  is_reviewed: number | null;
-  semester: number | null;
 };
 
 export type CourseDetail = {
@@ -47,8 +45,6 @@ export type CourseDetail = {
     avg: number | null;
     count: number;
   }[];
-  semester: number | null;
-  is_reviewed: number | null;
   notification_level: NotificationLevel | null;
 };
 
@@ -80,7 +76,6 @@ export type CourseInReview = {
   code: string;
   name: string;
   teacher: string;
-  semester: number | null;
 };
 
 export type ReviewReaction = {
@@ -106,7 +101,6 @@ export type Review = {
   reactions: { approves: number; disapproves: number; reaction: number };
   score: number | string;
   moderator_remark: string | null;
-  is_mine: boolean;
 };
 
 export type ReviewDraft = {
@@ -253,4 +247,34 @@ export type SyncCourseItem = {
   name: string;
   teachers: string;
   semester: string;
+};
+
+export type ReviewInCommonInfo = {
+  id: number;
+  course_id: number;
+  semester_id: number;
+};
+
+export type EnrollInCommonInfo = {
+  course_id: number;
+  semester_id: number;
+};
+
+export type CommonInfoDTO = {
+  announcements: Announcement[];
+  semesters: Semester[];
+  user: User;
+  my_reviews: ReviewInCommonInfo[];
+  enrolled_courses: EnrollInCommonInfo[];
+};
+
+export type CommonInfo = {
+  announcements: Announcement[];
+  semesters: Semester[];
+  semesterMap: Map<number, string>;
+  available_semesters: Semester[];
+  user: User;
+  my_reviews: Map<number, ReviewInCommonInfo>;
+  reviewed_courses: Map<number, ReviewInCommonInfo>;
+  enrolled_courses: Map<number, EnrollInCommonInfo>;
 };

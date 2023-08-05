@@ -27,7 +27,7 @@ import Config from "@/config/config";
 import { Pagination, ReviewFilterValue } from "@/lib/models";
 import { useCourseDetail } from "@/services/course";
 import { useReviewFilters, useReviewsOfCourse } from "@/services/review";
-import { useSemesters } from "@/services/semester";
+import { CommonInfoContext } from "@/lib/context";
 
 const { useBreakpoint } = Grid;
 
@@ -62,7 +62,6 @@ const CoursePage = () => {
   const screens = useBreakpoint();
 
   const { course, loading: courseLoading } = useCourseDetail(id as string);
-  const { semesterMap } = useSemesters();
   const { reviews, loading: reviewLoading } = useReviewsOfCourse(
     id as string,
     pagination,
@@ -117,11 +116,23 @@ const CoursePage = () => {
         <Col xs={24} md={8}>
           <Row gutter={[16, 16]}>
             <Col xs={24} md={24}>
-              <CourseDetailCard
-                loading={courseLoading}
-                course={course}
-                semesterMap={semesterMap}
-              />
+              <CommonInfoContext.Consumer>
+                {(commonInfo) => {
+                  const enroll_semester_id =
+                    course &&
+                    commonInfo?.enrolled_courses.get(course?.id)?.semester_id;
+                  const enroll_semester = enroll_semester_id
+                    ? commonInfo?.semesterMap.get(enroll_semester_id)
+                    : null;
+                  return (
+                    <CourseDetailCard
+                      loading={courseLoading}
+                      course={course}
+                      enroll_semester={enroll_semester}
+                    />
+                  );
+                }}
+              </CommonInfoContext.Consumer>
             </Col>
             {screens.md && (
               <RelatedCard course={course} loading={courseLoading} />
@@ -152,17 +163,26 @@ const CoursePage = () => {
                 >
                   趋势
                 </Button>
-                <Link
-                  href={
-                    course?.is_reviewed
-                      ? `/write-review?review_id=${course.is_reviewed}`
-                      : `/write-review?course_id=${id}`
-                  }
-                >
-                  <Button type="primary" icon={<EditOutlined />}>
-                    {course?.is_reviewed ? "修改点评" : "新点评"}
-                  </Button>
-                </Link>
+                <CommonInfoContext.Consumer>
+                  {(commonInfo) => {
+                    const review_id = course
+                      ? commonInfo?.reviewed_courses.get(course.id)?.id
+                      : undefined;
+                    return (
+                      <Link
+                        href={
+                          review_id
+                            ? `/write-review?review_id=${review_id}`
+                            : `/write-review?course_id=${id}`
+                        }
+                      >
+                        <Button type="primary" icon={<EditOutlined />}>
+                          {review_id ? "修改点评" : "新点评"}
+                        </Button>
+                      </Link>
+                    );
+                  }}
+                </CommonInfoContext.Consumer>
               </Space>
             }
           >
