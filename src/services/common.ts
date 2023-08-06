@@ -19,6 +19,7 @@ export function useCommonInfo() {
     my_reviews: new Map(),
     enrolled_courses: new Map(),
     reviewed_courses: new Map(),
+    promotions: new Map(),
   };
   if (data) {
     commonInfo.user = data.user;
@@ -36,6 +37,9 @@ export function useCommonInfo() {
     });
     data.enrolled_courses.forEach((item) => {
       commonInfo.enrolled_courses.set(item.course_id, item);
+    });
+    data.promotions.forEach((item) => {
+      commonInfo.promotions.set(item.touchpoint, item);
     });
   }
   return {

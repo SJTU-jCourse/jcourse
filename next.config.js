@@ -23,6 +23,14 @@ const nextConfig = {
           source: "/oauth/:path*",
           destination: `${process.env.REMOTE_URL}/oauth/:path*/`,
         },
+        {
+          source: "/upload/:path*",
+          destination: `${process.env.REMOTE_URL}/upload/:path*/`,
+        },
+        {
+          source: "/static/:path*",
+          destination: `${process.env.REMOTE_URL}/static/:path*/`,
+        },
       ];
     } else return [];
   },

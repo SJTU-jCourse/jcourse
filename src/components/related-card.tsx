@@ -3,6 +3,9 @@ import Link from "next/link";
 import { PropsWithChildren } from "react";
 
 import { CourseDetail } from "@/lib/models";
+import { CommonInfoContext } from "@/lib/context";
+import PromotionCard from "./promotion-card";
+import Touchpoint from "@/config/touchpoint";
 
 const { Text } = Typography;
 
@@ -96,6 +99,19 @@ const RelatedCard = ({
           <RelatedCourse course={course} loading={loading} />
         </Col>
       )}
+      <CommonInfoContext.Consumer>
+        {(commonInfo) => {
+          return (
+            <Col xs={24} md={24}>
+              <PromotionCard
+                promotion={commonInfo?.promotions.get(
+                  Touchpoint.BELOW_RELATED_COURSE
+                )}
+              ></PromotionCard>
+            </Col>
+          );
+        }}
+      </CommonInfoContext.Consumer>
     </>
   );
 };

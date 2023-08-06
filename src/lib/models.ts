@@ -249,6 +249,14 @@ export type SyncCourseItem = {
   semester: string;
 };
 
+export type Promotion = {
+  id: number;
+  touchpoint: number;
+  image: string | null;
+  text: string | null;
+  jump_link: string | null;
+};
+
 export type ReviewInCommonInfo = {
   id: number;
   course_id: number;
@@ -266,6 +274,7 @@ export type CommonInfoDTO = {
   user: User;
   my_reviews: ReviewInCommonInfo[];
   enrolled_courses: EnrollInCommonInfo[];
+  promotions: Promotion[];
 };
 
 export type CommonInfo = {
@@ -277,4 +286,5 @@ export type CommonInfo = {
   my_reviews: Map<number, ReviewInCommonInfo>;
   reviewed_courses: Map<number, ReviewInCommonInfo>;
   enrolled_courses: Map<number, EnrollInCommonInfo>;
+  promotions: Map<number, Promotion>;
 };
