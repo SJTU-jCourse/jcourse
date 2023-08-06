@@ -21,8 +21,8 @@ const NavBar = ({ user }: { user?: User }) => {
   const handleMenuClick = (e: { key: string }) => {
     if (e.key == "logout") {
       logout(router.basePath, router);
-    } else if (e.key == "account" && user?.is_staff) {
-      toAdmin();
+    } else if (e.key == "account") {
+      if (user?.is_staff) toAdmin();
     } else {
       router.push(e.key);
     }
