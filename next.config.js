@@ -26,6 +26,7 @@ const nextConfig = {
       ];
     } else return [];
   },
+  transpilePackages: ['ahooks']
 };
 
 module.exports = nextConfig;
