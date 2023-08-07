@@ -129,7 +129,7 @@ const StatisticPage = () => {
                 </XAxis>
                 <YAxis />
                 <Tooltip />
-                <Bar name="点评数量" dataKey="count" fill="#adc6ff"></Bar>
+                <Bar name="课程数量" dataKey="count" fill="#adc6ff"></Bar>
               </BarChart>
             </ResponsiveContainer>
           </Card>
