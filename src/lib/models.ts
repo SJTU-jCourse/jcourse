@@ -152,6 +152,8 @@ export type StatisticInfo = {
   review_count: number;
   user_count: number;
   course_with_review_count: number;
+  daily_new_users: number;
+  daily_new_reviews: number;
   user_join_time: StatisticDateCount[];
   review_create_time: StatisticDateCount[];
   course_review_count_dist: StatisticValueCount[];
