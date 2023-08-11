@@ -6,7 +6,7 @@ import { NextRouter, useRouter } from "next/router";
 
 const convertImageSrc = (src: string | null) => {
   if (!src) return "";
-  return Touchpoint.URL_PREFIX + src;
+  return src;
 };
 
 const convertJumpLink = (
