@@ -1,5 +1,5 @@
-import Touchpoint from "@/config/touchpoint";
 import { Promotion } from "@/lib/models";
+import { clickPromotion } from "@/services/promotion";
 import { Image } from "antd";
 import Link from "next/link";
 import { NextRouter, useRouter } from "next/router";
@@ -19,8 +19,17 @@ const convertJumpLink = (
 const ImagePromotion = ({ promotion }: { promotion?: Promotion }) => {
   const router = useRouter();
   if (!promotion) return <></>;
+
+  const onClick = () => {
+    clickPromotion(promotion.id);
+  };
+
   return (
-    <Link href={convertJumpLink(promotion.jump_link, router)} target="_blank">
+    <Link
+      href={convertJumpLink(promotion.jump_link, router)}
+      target="_blank"
+      onClick={onClick}
+    >
       <Image
         src={convertImageSrc(promotion.image)}
         alt={promotion.text || ""}
