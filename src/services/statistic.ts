@@ -8,13 +8,20 @@ export function useStatistic() {
 
   if (data) {
     const currentDay = dayjs().subtract(1, "day").format("YYYY-MM-DD");
-    const lastUserCount = data.user_join_time[data.user_join_time.length - 1];
-    const lastReviewCount =
-      data.review_create_time[data.review_create_time.length - 1];
-    data.daily_new_users =
-      lastUserCount.date == currentDay ? lastUserCount.count : 0;
-    data.daily_new_reviews =
-      lastReviewCount.date == currentDay ? lastReviewCount.count : 0;
+
+    const new_user_map = new Map<string, number>();
+    const new_review_map = new Map<string, number>();
+
+    data.user_join_time.forEach((item) => {
+      new_user_map.set(item.date, item.count);
+    });
+
+    data.review_create_time.forEach((item) => {
+      new_review_map.set(item.date, item.count);
+    });
+
+    data.daily_new_users = new_user_map.get(currentDay) || 0;
+    data.daily_new_reviews = new_review_map.get(currentDay) || 0;
   }
 
   return {

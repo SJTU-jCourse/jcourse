@@ -58,18 +58,19 @@ const StatisticPage = () => {
           </Col>
           <Col span={numberColSpan}>
             <Statistic
-              title="点评总数"
-              loading={loading}
-              value={indexState?.review_count}
-            />
-          </Col>
-          <Col span={numberColSpan}>
-            <Statistic
               title="用户新增"
               loading={loading}
               value={indexState?.daily_new_users}
             />
           </Col>
+          <Col span={numberColSpan}>
+            <Statistic
+              title="点评总数"
+              loading={loading}
+              value={indexState?.review_count}
+            />
+          </Col>
+
           <Col span={numberColSpan}>
             <Statistic
               title="点评新增"
