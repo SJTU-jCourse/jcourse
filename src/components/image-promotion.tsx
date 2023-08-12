@@ -1,5 +1,6 @@
 import { Promotion } from "@/lib/models";
 import { clickPromotion } from "@/services/promotion";
+import { useDebounceFn } from "ahooks";
 import { Image } from "antd";
 import Link from "next/link";
 import { NextRouter, useRouter } from "next/router";
@@ -18,11 +19,14 @@ const convertJumpLink = (
 
 const ImagePromotion = ({ promotion }: { promotion?: Promotion }) => {
   const router = useRouter();
-  if (!promotion) return <></>;
+  const { run: onClick } = useDebounceFn(
+    () => {
+      if (promotion) clickPromotion(promotion.id);
+    },
+    { wait: 5000 }
+  );
 
-  const onClick = () => {
-    clickPromotion(promotion.id);
-  };
+  if (!promotion) return <></>;
 
   return (
     <Link
