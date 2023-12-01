@@ -124,11 +124,6 @@ export type UserPointDetailItem = {
 };
 export type UserPoint = {
   points: number;
-  reviews: number;
-  first_reviews: number;
-  approves: number;
-  first_reviews_approves: number;
-  addition: number;
   details: UserPointDetailItem[];
 };
 
