@@ -22,6 +22,7 @@ export function useCommonInfo() {
     promotions: new Map(),
   };
   if (data) {
+    commonInfo.announcements = data.announcements;
     commonInfo.user = data.user;
     commonInfo.user.account = localStorage.getItem("account");
     commonInfo.semesters = data.semesters;
