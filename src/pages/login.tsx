@@ -109,15 +109,6 @@ const LoginPage = () => {
       ),
     },*/
     {
-      label: "邮箱验证登录",
-      key: "email",
-      children: (
-        <div style={{ height: LOGIN_FORM_HEIGHT }}>
-          <EmailLoginForm onFinish={onEmailLoginFinish} />
-        </div>
-      ),
-    },
-    {
       label: "邮箱密码登录",
       key: "email-password",
       children: (
@@ -126,6 +117,16 @@ const LoginPage = () => {
         </div>
       ),
     },
+    {
+      label: "邮箱验证登录",
+      key: "email",
+      children: (
+        <div style={{ height: LOGIN_FORM_HEIGHT }}>
+          <EmailLoginForm onFinish={onEmailLoginFinish} />
+        </div>
+      ),
+    },
+
     {
       label: "账号登录",
       key: "account",
