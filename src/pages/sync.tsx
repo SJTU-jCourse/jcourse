@@ -56,7 +56,7 @@ const CollapseItems: CollapseProps["items"] = [
 
 const parseCourses = (raw: string): SyncCourseItem[] => {
   const courseNameReg =
-    /\n(\S+)[◇●○★▲☆]\s+周数：\S+\s+校区：\S+\s+上课地点：\S+\s+教师：(\S+)\s+教学班：\((\S+)\)\-(\S+)-\S+\s+/g;
+    /\n(\S+)[◇●○★▲☆]\s+周数：\S+\s+校区:\S+\s+上课地点：\S+\s+教师 ：(\S+)\s+教学班：\((\S+)\)\-(\S+)-\S+\s+/g;
   const matches = raw.matchAll(courseNameReg);
   const courses: SyncCourseItem[] = Array.from(matches, (item) => {
     return {
