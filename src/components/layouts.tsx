@@ -50,7 +50,7 @@ export const BasicLayout = ({ children }: React.PropsWithChildren<{}>) => {
             <Link href="/faq">常见问题</Link>
             <Link href="/report">反馈</Link>
           </Space>
-          <div>©2023 SJTU选课社区</div>
+          <div>©2024 SJTU选课社区</div>
         </Footer>
       </Layout>
     </CommonInfoContext.Provider>
