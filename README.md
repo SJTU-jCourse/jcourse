@@ -1,5 +1,9 @@
 # jCourse：SJTU 选课社区
 
+## 迁移
+
+本仓库已放弃维护。jCourse 前端迁移到新的仓库 [jcourse_vite](https://github.com/SJTU-jCourse/jcourse_vite)。
+
 ## 开始使用
 
 使用 [Next.js](https://nextjs.org/) 框架, UI 库选用 [Ant Design](https://github.com/ant-design/ant-design/)。
